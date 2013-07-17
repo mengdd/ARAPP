@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ARApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="no_camera">No camera on this device!</string>
+    <string name="no_activity">Activity Not Found Exception!</string>
+    <string name="map">Map</string>
+    <string name="map_on">Map On</string>
+    <string name="map_off">Map Off</string>
+    <string name="compass">Compass</string>
+    <string name="compass_on">Compass On</string>
+    <string name="compass_off">Compass Off</string>
+    <string name="goto_second">Watch Map</string>
+
+    <!-- Compass -->
+    <string name="cardinal_north">N</string>
+    <string name="cardinal_east">E</string>
+    <string name="cardinal_south">S</string>
+    <string name="cardinal_west">W</string>
+    <!-- Location -->
+    <string name="latitudeLabel">Latitude:</string>
+    <string name="longitudeLabel">Longitude:</string>
+    <string name="providerLabel">Provider:</string>
+    <string name="accuracyLabel">Accuracy:</string>
+    <string name="timeToFixLabel">Time to Fix:</string>
+    <string name="secondsUnit">second(s)</string>
+    <string name="metersUnit">meters(s)</string>
+    <string name="allProvidersLabel">All Location Providers:</string>
+    <string name="enabledProvidersLabel">Enabled Providers:</string>
+    <string name="changeLocationProviderSettingsText">Change Location Provider Settings</string>
+    <string name="provider_prompt">Select Location Provider</string>
+
+    <!-- Location Providers -->
+    <string-array name="location_providers">
+        <item>GPS</item>
+        <item>Network</item>
+        <item>Passive</item>
+        <item>Auto</item>
+    </string-array>
+
+    <!-- Dialogs -->
+    <string name="dialog_title_setting_location">"Want Provider Settings?"</string>
+    <string name="dialog_set_location_src">"Do you want to set the Location Providers?"</string>
+    <string name="dialog_provider_not_enabled">"Location Provider: “"%s"” is not enabled.\n"</string>
+    <string name="alert_confirm">确定</string>
+    <string name="alert_cancel">取消</string>
+    <string name="alert_yes">是</string>
+    <string name="alert_no">否</string>
+
+</resources>

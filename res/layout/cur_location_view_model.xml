@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/allProvidersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="4dp"
+        android:text="@string/allProvidersLabel"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/allProvidersValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/allProvidersLabel"
+        android:layout_toRightOf="@id/allProvidersLabel"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/controlPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allProvidersLabel"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/provider_prompt"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/providerSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/provider_prompt" />
+
+        <Button
+            android:id="@+id/settingsBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/changeLocationProviderSettingsText" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/latitudeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/controlPanel"
+        android:layout_marginRight="4dp"
+        android:text="@string/latitudeLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/latitudeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/latitudeLabel"
+        android:layout_toRightOf="@id/latitudeLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/longitudeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/latitudeLabel"
+        android:layout_marginRight="4dip"
+        android:text="@string/longitudeLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/longitudeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/longitudeLabel"
+        android:layout_toRightOf="@id/longitudeLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/providerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/longitudeLabel"
+        android:layout_marginRight="4dip"
+        android:text="@string/providerLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/providerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/providerLabel"
+        android:layout_toRightOf="@id/providerLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/accuracyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/providerLabel"
+        android:layout_marginRight="4dip"
+        android:text="@string/accuracyLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/accuracyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/accuracyLabel"
+        android:layout_toRightOf="@id/accuracyLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/accuracyUnits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/accuracyLabel"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@id/accuracyValue"
+        android:text="@string/metersUnit"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/timeToFixLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accuracyLabel"
+        android:layout_marginRight="4dip"
+        android:text="@string/timeToFixLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/timeToFixValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/timeToFixLabel"
+        android:layout_toRightOf="@id/timeToFixLabel"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/timeToFixUnits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/timeToFixLabel"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@id/timeToFixValue"
+        android:text="@string/secondsUnit"
+        android:textSize="14sp" />
+
+</RelativeLayout>

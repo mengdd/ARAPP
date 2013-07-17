@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="text_color">#0B0974</color>
+    <color name="compass_direction_text">#071672</color>
+    <color name="compass_sub_direction_text">#4C8070D8</color>
+    <color name="compass_marker">#0B0974</color>
+    <color name="compass_marker_shadow">#7573D9</color>
+    <color name="compass_arrow">#3F046F</color>
+    <color name="compass_arrow_shadow">#9240D5</color>
+    <color name="background_color">#F000</color>
+    <color name="marker_color">#FFFF</color>
+    <color name="shadow_color">#7AAA</color>
+    <color name="outer_border">#FF444444</color>
+    <color name="inner_border_one">#FF323232</color>
+    <color name="inner_border_two">#FF414141</color>
+    <color name="inner_border">#FFFFFFFF</color>
+    <color name="horizon_sky_from">#FFA52A2A</color>
+    <color name="horizon_sky_to">#FFFFC125</color>
+    <color name="horizon_ground_from">#FF5F9EA0</color>
+    <color name="horizon_ground_to">#FF00008B</color>
+    <color name="text_color2">#F0F0</color>
+    <color name="transparent_color">#0000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000FF</color>
+
+</resources>

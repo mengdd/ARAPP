@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:collapseColumns="2"
+    android:stretchColumns="0,1" >
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/latitudeLabel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/latitudeValue"
+            android:textSize="16sp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/longitudeLabel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/longitudeValue"
+            android:textSize="16sp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/providerLabel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/providerValue"
+            android:textSize="16sp" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="@string/accuracyLabel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/accuracyValue"
+            android:textSize="16sp" />
+
+        <TextView
+            android:text="@string/metersUnit"
+            android:textSize="16sp" />
+    </TableRow>
+
+</TableLayout>
