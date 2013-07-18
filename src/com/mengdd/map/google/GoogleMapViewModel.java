@@ -1,4 +1,4 @@
-package com.mengdd.maps.google;
+package com.mengdd.map.google;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,9 +18,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+import com.mengdd.map.BasicMapViewModel;
 
 /**
- * The ViewModel to display a Google Map MapView developer guide:
+ * The ViewModel to display a Google Map MapView.
+ * Developer guide:
  * https://developers.google.com/maps/documentation/android/
  * 
  * @author Dandan Meng <mengdandanno1@163.com>
@@ -28,21 +30,19 @@ import com.mengdd.components.ViewModel;
  * @since 2013-07-01
  * 
  */
-public class GoogleMapViewModel extends ViewModel
+public class GoogleMapViewModel extends BasicMapViewModel
 {
 
-	private ViewModel mParentViewModel = null;
-	private View mRootView = null;
 	private MapView mMapView = null;
 
 	private GoogleMap mGoogleMap = null;
 
 	private boolean isVisible = false;
 
-	public GoogleMapViewModel(Activity activity, ViewModel parentViewModel)
+	public GoogleMapViewModel(Activity activity)
 	{
 		super(activity);
-		mParentViewModel = parentViewModel;
+
 	}
 
 	@Override
@@ -110,12 +110,6 @@ public class GoogleMapViewModel extends ViewModel
 		}
 	}
 
-	@Override
-	public View getView()
-	{
-		return mRootView;
-	}
-
 	private GoogleMap getGoogleMap()
 	{
 		GoogleMap map = null;
@@ -158,14 +152,15 @@ public class GoogleMapViewModel extends ViewModel
 
 	}
 
+	@Override
 	public void changeMapCamera(double latitude, double longitude)
 	{
 		changeMapCamera(latitude, longitude, 0, 0, 12);
 	}
 
 	/**
-	 * Repositions the camera according to the params These parames are used to
-	 * defined the CameraUpdate object
+	 * Repositions the camera according to the params.
+	 * These parames are used to defined the CameraUpdate object.
 	 * 
 	 * @param latitude
 	 * @param longitude
@@ -193,7 +188,7 @@ public class GoogleMapViewModel extends ViewModel
 
 	/**
 	 * Repositions the camera according to the instructions defined in the
-	 * update
+	 * update.
 	 * 
 	 * @param cameraUpdate
 	 */
@@ -231,13 +226,16 @@ public class GoogleMapViewModel extends ViewModel
 			mGoogleMap.moveCamera(cameraUpdate);
 		}
 	}
-	
+
+	@Override
 	public void addMarker(double latitude, double longitude)
 	{
 		addMarker(new LatLng(latitude, longitude), "Your current Location");
 	}
+
 	public void addMarker(LatLng position, String title)
 	{
-		mGoogleMap.addMarker(new MarkerOptions().position(position).title(title));
+		mGoogleMap.addMarker(new MarkerOptions().position(position)
+				.title(title));
 	}
 }

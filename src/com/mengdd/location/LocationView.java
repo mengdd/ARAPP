@@ -1,4 +1,4 @@
-package com.mengdd.location.google;
+package com.mengdd.location;
 
 import android.app.Activity;
 import android.content.Intent;

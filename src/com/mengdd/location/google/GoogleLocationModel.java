@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationModel;
 
 /**
  * Location ViewModel for finding current location information.
@@ -23,32 +24,21 @@ import com.mengdd.components.ViewModel;
  * @since 2013-07-01
  * 
  */
-public class LocationModel extends ViewModel
+public class GoogleLocationModel extends LocationModel implements LocationListener
 {
 	private LocationManager mLocationManager;
 
-	
-
 	private static final int MIN_TIME = 3 * 1000;
 	private static final int MIN_DISTANCE = 10;
-	
-	private Location mCurrentLocation = null;
-	public Location getCurrentLocaitonLocation()
-	{
-		return mCurrentLocation;
-	}
 
-	public LocationModel(Activity activity)
+
+
+	public GoogleLocationModel(Activity activity)
 	{
 		super(activity);
 	}
 
 	@Override
-	public View getView()
-	{
-		return null;
-	}
-
 	public void registerLocationUpdates()
 	{
 
@@ -63,63 +53,42 @@ public class LocationModel extends ViewModel
 
 			// register 2 location providers: GPS and network
 			mLocationManager.requestLocationUpdates(
-					LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE,
-					mLocationListener);
+					LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
 
 			mLocationManager.requestLocationUpdates(
 					LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE,
-					mLocationListener);
+					this);
 
 		}
 
 	}
 
+	@Override
 	public void unregisterLocationUpdates()
 	{
 		if (null != mLocationManager)
 		{
-			mLocationManager.removeUpdates(mLocationListener);
+			mLocationManager.removeUpdates(this);
 			mLocationManager = null;
 
 		}
 
 	}
 
-	private LocationListener mLocationListener = new LocationListener()
+	@Override
+	public void onLocationChanged(Location location)
 	{
-
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras)
+		boolean isNewBetter = isBetterLocation(location, mCurrentLocation);
+		if (isNewBetter)
 		{
+			mCurrentLocation = location;
 
+			// set the location to a global class so other class can get the
+			// updated value
+			GlobalARData.setCurrentLocation(location);
 		}
 
-		@Override
-		public void onProviderEnabled(String provider)
-		{
-
-		}
-
-		@Override
-		public void onProviderDisabled(String provider)
-		{
-
-		}
-
-		@Override
-		public void onLocationChanged(Location location)
-		{
-			boolean isNewBetter = isBetterLocation(location, mCurrentLocation);
-			if (isNewBetter)
-			{
-				mCurrentLocation = location;
-				
-				//set the location to a global class so other class can get the updated value
-				GlobalARData.setCurrentLocation(location);
-			}
-
-		}
-	};
+	}
 
 	private static final int TWO_MINUTES = 1000 * 60 * 2;
 
@@ -139,9 +108,9 @@ public class LocationModel extends ViewModel
 	protected boolean isBetterLocation(Location newLocation,
 			Location currentBestLocation)
 	{
-		if(null == newLocation)
+		if (null == newLocation)
 		{
-			//a null location is not better than any one
+			// a null location is not better than any one
 			return false;
 		}
 		if (null == currentBestLocation)
@@ -206,6 +175,27 @@ public class LocationModel extends ViewModel
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

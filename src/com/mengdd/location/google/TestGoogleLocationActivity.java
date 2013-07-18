@@ -2,6 +2,7 @@ package com.mengdd.location.google;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
+import com.mengdd.location.LocationView;
 
 import android.app.Activity;
 import android.location.Location;
@@ -18,12 +19,12 @@ import android.widget.TextView;
  * @since 2013-07-01
  * 
  */
-public class TestLocationActivity extends Activity
+public class TestGoogleLocationActivity extends Activity
 {
 	
-	private CurrentLocationViewModel mLocationViewModel = null;
+	private GoogleCurrentLocation mLocationViewModel = null;
 	
-	private LocationModel mLocationModel2 = null;
+	private GoogleLocationModel mLocationModel2 = null;
 	private LocationView mLocationView = null;
 	
 	private TextView mTextView = null;
@@ -36,7 +37,7 @@ public class TestLocationActivity extends Activity
 		
 		setContentView(R.layout.test_cur_location);
 		
-		mLocationViewModel = new CurrentLocationViewModel(this);
+		mLocationViewModel = new GoogleCurrentLocation(this);
 		
 		mLocationViewModel.onCreate(null);
 		
@@ -45,7 +46,7 @@ public class TestLocationActivity extends Activity
 		frameLayout.addView(mLocationViewModel.getView(), 0);
 		
 		//the second Location View Model doesn't have UI, and use multiple source providers
-		mLocationModel2 = new LocationModel(this);
+		mLocationModel2 = new GoogleLocationModel(this);
 		
 		mTextView = (TextView)findViewById(R.id.textView);
 		

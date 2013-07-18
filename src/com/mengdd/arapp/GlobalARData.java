@@ -89,7 +89,6 @@ public abstract class GlobalARData
 		{
 			throw new IllegalArgumentException("zoomLevel == null!");
 		}
-			
 
 		synchronized (GlobalARData.zoomLevel)
 		{
@@ -265,8 +264,8 @@ public abstract class GlobalARData
 			}
 		}
 
-		
-		//keep temporary *****************************************************************
+		// keep temporary
+		// *****************************************************************
 		for (Marker ma : markerList.values())
 		{
 			ma.calcRelativePosition(location);
@@ -327,11 +326,16 @@ public abstract class GlobalARData
 	 */
 	public static void addMarkers(Collection<Marker> markers)
 	{
-		if (markers == null)
-			throw new NullPointerException();
+		if (null == markers)
+		{
+			throw new IllegalArgumentException(
+					"the Collection of markers is null!");
+		}
 
 		if (markers.size() <= 0)
+		{
 			return;
+		}
 
 		Log.d(TAG,
 				"New markers, updating markers. new markers="

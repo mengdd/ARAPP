@@ -1,7 +1,7 @@
-package com.mengdd.maps.google;
+package com.mengdd.map.google;
 
 import com.mengdd.arapp.R;
-import com.mengdd.maps.google.TestGoogleMapViewActivity;
+import com.mengdd.map.google.TestGoogleMapViewActivity;
 
 import android.os.Bundle;
 import android.app.Activity;

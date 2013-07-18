@@ -5,9 +5,9 @@ import java.util.List;
 
 
 import com.mengdd.components.ViewModel;
-import com.mengdd.location.google.LocationModel;
-import com.mengdd.location.google.LocationView;
-import com.mengdd.maps.google.GoogleMapViewModel;
+import com.mengdd.location.LocationView;
+import com.mengdd.location.google.GoogleLocationModel;
+import com.mengdd.map.google.GoogleMapViewModel;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +21,7 @@ public class MapActivity extends Activity
 {
 
 	private GoogleMapViewModel mMapViewModel = null;
-	private LocationModel mLocationModel = null;
+	private GoogleLocationModel mLocationModel = null;
 	private LocationView mLocationView = null;
 	
 	private List<ViewModel> mViewModels = null;
@@ -33,8 +33,8 @@ public class MapActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 
-		mMapViewModel = new GoogleMapViewModel(this, null);
-		mLocationModel = new LocationModel(this);
+		mMapViewModel = new GoogleMapViewModel(this);
+		mLocationModel = new GoogleLocationModel(this);
 		mLocationView = new LocationView(this);
 
 		mViewModels = new ArrayList<ViewModel>();

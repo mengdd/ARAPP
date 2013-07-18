@@ -37,7 +37,7 @@ import com.mengdd.utils.DialogUtils.OnShowLocationSetttingsListener;
  * @since 2013-07-01
  * 
  */
-public class CurrentLocationViewModel extends ViewModel
+public class GoogleCurrentLocation extends ViewModel
 {
 	private LocationManager mLocationManager;
 	private List<String> allProviders;
@@ -67,7 +67,7 @@ public class CurrentLocationViewModel extends ViewModel
 	// UI
 	private TextView allProvidersValueTextView;
 
-	public CurrentLocationViewModel(Activity activity)
+	public GoogleCurrentLocation(Activity activity)
 	{
 		super(activity);
 	}

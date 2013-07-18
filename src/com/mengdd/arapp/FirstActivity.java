@@ -6,7 +6,7 @@ import java.util.List;
 import com.mengdd.camera.CameraViewModel;
 import com.mengdd.components.ViewModel;
 import com.mengdd.components.ViewModelManager;
-import com.mengdd.maps.google.GoogleMapViewModel;
+import com.mengdd.map.google.GoogleMapViewModel;
 import com.mengdd.sensors.CompassViewModel;
 
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package com.mengdd.maps.google;
+package com.mengdd.map.google;
 
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
@@ -33,7 +33,7 @@ public class TestGoogleMapViewActivity extends Activity
 
 		mMapContentFrameLayout = (FrameLayout) findViewById(R.id.mapContent);
 
-		mMapViewModel = new GoogleMapViewModel(this, null);
+		mMapViewModel = new GoogleMapViewModel(this);
 		mMapViewModel.onCreate(null);
 
 		mMapContentFrameLayout.addView(mMapViewModel.getView());

@@ -1,6 +1,12 @@
 package com.mengdd.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -93,4 +99,72 @@ public class FileUtils
 		return mediaFile;
 	}
 
+	/**
+	 * Get an InputScrean from a url string which points to a file path
+	 * @param urlStr
+	 * @return
+	 */
+	public static InputStream getInputStream(String urlStr)
+	{
+		FileInputStream inputStream = null;
+		
+		try
+		{
+			if (urlStr.startsWith("file://"))
+			{
+				urlStr = urlStr.replace("file://", "");
+			}
+			
+			inputStream = new FileInputStream(urlStr);
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			Log.e(AppConstants.LOG_TAG, "file not found: " + urlStr);
+		}
+		return inputStream;
+		
+	}
+	/**
+	 * Get a String from a InputScream
+	 * 
+	 * @param inputStream
+	 * @return
+	 */
+	public static String getInputScreamString(InputStream inputStream)
+	{
+		if (inputStream == null)
+		{
+			throw new IllegalArgumentException("inputStream == null !");
+		}
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				inputStream), 8 * 1024);
+		StringBuilder sb = new StringBuilder();
+
+		try
+		{
+			String line;
+			while (null != (line = reader.readLine()))
+			{
+				sb.append(line + "\n");
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				inputStream.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return sb.toString();
+	}
 }

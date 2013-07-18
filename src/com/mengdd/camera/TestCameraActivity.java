@@ -1,7 +1,7 @@
 package com.mengdd.camera;
 
 import com.mengdd.arapp.R;
-import com.mengdd.maps.google.GoogleMapViewModel;
+import com.mengdd.map.google.GoogleMapViewModel;
 
 import android.app.Activity;
 import android.os.Bundle;

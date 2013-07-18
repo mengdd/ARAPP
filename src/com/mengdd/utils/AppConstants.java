@@ -18,7 +18,8 @@ public class AppConstants
 	
 	public static final String BAIDU_MAP = "Baidu Map";
 	
-	public static final String LOCALICATION = "Localization";
+	public static final String LOCALICATION_GOOGLE = "Localization_Google";
+	public static final String LOCALICATION_BAIDU = "Localization_Baidu";
 	
 	public static final String AR_CAMERA = "AR Camera";
 	

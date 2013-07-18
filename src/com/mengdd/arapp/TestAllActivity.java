@@ -1,8 +1,10 @@
 package com.mengdd.arapp;
 
 import com.mengdd.camera.TestCameraActivity;
-import com.mengdd.location.google.TestLocationActivity;
-import com.mengdd.maps.google.TestGoogleMapActivity;
+import com.mengdd.location.baidu.TestBaiduLocationActivity;
+import com.mengdd.location.google.TestGoogleLocationActivity;
+import com.mengdd.map.baidu.TestBaiduMapActivity;
+import com.mengdd.map.google.TestGoogleMapActivity;
 import com.mengdd.poi.data.TestPOIDataActivity;
 import com.mengdd.sensors.TestCompassActivity;
 import com.mengdd.utils.AppConstants;
@@ -31,7 +33,7 @@ public class TestAllActivity extends Activity
 {
 	private String[] functionsNames = new String[] { AppConstants.MAIN_APP,
 			AppConstants.GOOGLE_MAP, AppConstants.BAIDU_MAP,
-			AppConstants.LOCALICATION, AppConstants.COMPASS,
+			AppConstants.LOCALICATION_GOOGLE,AppConstants.LOCALICATION_BAIDU, AppConstants.COMPASS,
 			AppConstants.CAMERA, AppConstants.AR_CAMERA, AppConstants.POI_DATA };
 
 	private ListView mListView = null;
@@ -75,17 +77,24 @@ public class TestAllActivity extends Activity
 
 			}
 
-			// if (itemString.equals(AppConstants.BAIDU_MAP))
-			// {
-			// intent.setClass(TestAllActivity.this,
-			// MainBaiduMapActivity.class);
-			//
-			// }
+			 if (itemString.equals(AppConstants.BAIDU_MAP))
+			 {
+			 intent.setClass(TestAllActivity.this,
+			 TestBaiduMapActivity.class);
+			
+			 }
 
-			if (itemString.equals(AppConstants.LOCALICATION))
+			if (itemString.equals(AppConstants.LOCALICATION_GOOGLE))
 			{
 				intent.setClass(TestAllActivity.this,
-						TestLocationActivity.class);
+						TestGoogleLocationActivity.class);
+
+			}
+			
+			if (itemString.equals(AppConstants.LOCALICATION_BAIDU))
+			{
+				intent.setClass(TestAllActivity.this,
+						TestBaiduLocationActivity.class);
 
 			}
 
