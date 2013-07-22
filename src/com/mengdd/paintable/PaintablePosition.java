@@ -47,14 +47,18 @@ public class PaintablePosition extends PaintableObject
 	 *            Rotation of the Position.
 	 * @param scale
 	 *            Scale of the Position.
-	 * @throws NullPointerException
+	 * @throws IllegalArgumentException
 	 *             if PaintableObject is NULL.
 	 */
 	public void set(PaintableObject drawObj, float x, float y, float rotation,
 			float scale)
 	{
-		if (drawObj == null)
-			throw new NullPointerException();
+
+		if (null == drawObj)
+		{
+			throw new IllegalArgumentException("drawObj is null!");
+
+		}
 
 		this.obj = drawObj;
 		this.objX = x;
@@ -99,14 +103,15 @@ public class PaintablePosition extends PaintableObject
 		return objY;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null || obj == null)
-			throw new NullPointerException();
+
+		if (null == canvas || null == obj)
+		{
+			throw new IllegalArgumentException("canvas or object is null!");
+
+		}
 
 		paintObj(canvas, obj, objX, objY, objRotation, objScale);
 	}

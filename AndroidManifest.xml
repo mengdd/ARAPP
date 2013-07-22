@@ -87,8 +87,17 @@
             android:screenOrientation="sensor" >
         </activity>
         <activity
-            android:name="com.mengdd.arapp.MapActivity"
+            android:name=".GMapActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".BDMapActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.mengdd.arapp.AugmentedPOIActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensor" >
         </activity>
         <activity
             android:name="com.mengdd.map.google.TestGoogleMapActivity"
@@ -123,6 +132,11 @@
             android:name="com.mengdd.poi.data.TestPOIDataActivity"
             android:label="@string/app_name" >
         </activity>
+                <activity
+            android:name="com.mengdd.poi.ui.TestRadarActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
 
         <!-- Lab PC:  android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" -->
         <!-- Work PC:  android:value="AIzaSyAe3DcTEkyEF71dIdnZXOAyc9ue这里是两个杠urruo" -->

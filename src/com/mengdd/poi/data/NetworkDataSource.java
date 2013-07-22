@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mengdd.ar.ui.Marker;
+import com.mengdd.poi.ui.Marker;
 import com.mengdd.utils.FileUtils;
 import com.mengdd.utils.HttpUtils;
 

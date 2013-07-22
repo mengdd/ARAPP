@@ -44,8 +44,7 @@ public class CameraViewModel extends ViewModel
 	// The first rear facing camera
 	private int mDefaultCameraId;
 
-	
-    public static final float DEFAULT_VIEW_ANGLE = (float) Math.toRadians(45);
+
 
 	public CameraViewModel(Activity activity)
 	{
@@ -236,6 +235,12 @@ public class CameraViewModel extends ViewModel
 			// no camera on this device
 			return false;
 		}
+	}
+	
+	
+	public void setCameraOrientation(int degree)
+	{
+		mCameraPreview.setDegree(degree);
 	}
 
 }

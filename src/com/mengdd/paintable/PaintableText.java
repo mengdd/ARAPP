@@ -29,12 +29,12 @@ public class PaintableText extends PaintableObject
 
 	private String text = null;
 	private int color = 0;
-	private int size = 0;
+	private float size = 0;
 	private float width = 0;
 	private float height = 0;
 	private boolean bg = false;
 
-	public PaintableText(String text, int color, int size,
+	public PaintableText(String text, int color, float size,
 			boolean paintBackground)
 	{
 		set(text, color, size, paintBackground);
@@ -55,7 +55,7 @@ public class PaintableText extends PaintableObject
 	 * @throws NullPointerException
 	 *             if String param is NULL.
 	 */
-	public void set(String text, int color, int size, boolean paintBackground)
+	public void set(String text, int color, float size, boolean paintBackground)
 	{
 		if (text == null)
 			throw new NullPointerException();
@@ -74,8 +74,10 @@ public class PaintableText extends PaintableObject
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null || text == null)
-			throw new NullPointerException();
+		if (null == canvas || null == text)
+		{
+			throw new IllegalArgumentException("canvas or text is null!");
+		}
 
 		setColor(color);
 		setFontSize(size);

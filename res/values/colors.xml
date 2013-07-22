@@ -26,5 +26,9 @@
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>
     <color name="blue">#0000FF</color>
+    
+    <!-- Radar related color -->
+    <color name="radar_line_color">#960000DC</color>
+     <color name="radar_color">#640000C8</color>
 
 </resources>

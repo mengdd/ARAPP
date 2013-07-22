@@ -55,8 +55,10 @@ public class PaintablePoint extends PaintableObject
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null)
-			throw new NullPointerException();
+		if (null == canvas)
+		{
+			throw new IllegalArgumentException("canvas is null!");
+		}
 
 		setFill(fill);
 		setColor(color);

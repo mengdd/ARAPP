@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class MapActivity extends Activity
+public class GMapActivity extends Activity
 {
 
 	private GoogleMapViewModel mMapViewModel = null;

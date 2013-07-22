@@ -97,8 +97,10 @@ public class Vector
 	public synchronized void get(float[] array)
 	{
 		if (array == null || array.length != 3)
+		{
 			throw new IllegalArgumentException(
 					"get() array must be non-NULL and size of 3");
+		}
 
 		array[0] = this.x;
 		array[1] = this.y;
@@ -114,7 +116,9 @@ public class Vector
 	public void set(Vector v)
 	{
 		if (v == null)
+		{
 			return;
+		}
 
 		set(v.x, v.y, v.z);
 	}
@@ -130,8 +134,10 @@ public class Vector
 	public void set(float[] array)
 	{
 		if (array == null || array.length != 3)
+		{
 			throw new IllegalArgumentException(
 					"get() array must be non-NULL and size of 3");
+		}
 
 		set(array[0], array[1], array[2]);
 	}

@@ -18,6 +18,12 @@ public class BaiduLocationModel extends LocationModel
 
 	private LocationClient mLocationClient = null;
 	private BDLocationListener mLocationListener = new MyLocationListener();
+	private BDLocation mBDLocation = null;
+	public BDLocation getBDLocaiton()
+	{
+		return mBDLocation;
+	}
+	
 
 	public BaiduLocationModel(Activity activity)
 	{
@@ -77,7 +83,10 @@ public class BaiduLocationModel extends LocationModel
 				return;
 			}
 
-			mCurrentLocation = convert2AndroidLocation(location);
+			mBDLocation = location;
+			mCurrentLocation = BaiduLocationHelper.convertBD2AndroidLocation(location);
+			
+			//set to Global data class to keep
 			GlobalARData.setCurrentLocation(mCurrentLocation);
 
 			StringBuffer sb = new StringBuffer(256);
@@ -108,30 +117,7 @@ public class BaiduLocationModel extends LocationModel
 			// logMsg(sb.toString());
 		}
 
-		private Location convert2AndroidLocation(BDLocation bdLocation)
-		{
-			Location androidLocation = null;
-			if (null == bdLocation)
-			{
-				throw new IllegalArgumentException("null == bdLocation!");
-			}
-			androidLocation = new Location("network");
-			if (bdLocation.getLocType() == BDLocation.TypeGpsLocation)
-			{
-				androidLocation.setProvider(LocationManager.GPS_PROVIDER);
-			}
-			else if (bdLocation.getLocType() == BDLocation.TypeNetWorkLocation)
-			{
-				androidLocation.setProvider(LocationManager.NETWORK_PROVIDER);
-			}
-
-			androidLocation.setLatitude(bdLocation.getLatitude());
-			androidLocation.setLongitude(bdLocation.getLongitude());
-			androidLocation.setAccuracy(bdLocation.getRadius());
-			androidLocation.setSpeed(bdLocation.getSpeed());
-
-			return androidLocation;
-		}
+		
 
 		public void onReceivePoi(BDLocation poiLocation)
 		{

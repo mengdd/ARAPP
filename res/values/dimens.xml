@@ -6,5 +6,12 @@
     <dimen name="compass_text">16dp</dimen>
     <dimen name="compass_main_dir">20dp</dimen>
     <dimen name="compass_sub_dir">16dp</dimen>
+    
+    <!-- Radar related-->
+    <dimen name="radar_area">200dp</dimen>
+    <dimen name="radar_radius">80dp</dimen>
+    <dimen name="radar_paddingX">20dp</dimen>
+    <dimen name="radar_paddingY">30dp</dimen>
+    <dimen name="radar_text">14sp</dimen>
 
 </resources>

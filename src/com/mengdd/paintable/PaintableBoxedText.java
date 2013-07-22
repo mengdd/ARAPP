@@ -69,14 +69,16 @@ public class PaintableBoxedText extends PaintableObject
 	 *            Background color of the surrounding box.
 	 * @param textColor
 	 *            Color of the text.
-	 * @throws NullPointerException
+	 * @throws IllegalArgumentException
 	 *             if String param is NULL.
 	 */
 	public void set(String txtInit, float fontSizeInit, float maxWidth,
 			int borderColor, int bgColor, int textColor)
 	{
-		if (txtInit == null)
-			throw new NullPointerException();
+		if (null == txtInit)
+		{
+			throw new IllegalArgumentException("String txtInit is null!");
+		}
 
 		this.borderColor = borderColor;
 		this.backgroundColor = bgColor;
@@ -102,9 +104,10 @@ public class PaintableBoxedText extends PaintableObject
 	 */
 	public void set(String txtInit, float fontSizeInit, float maxWidth)
 	{
-		if (txtInit == null)
-			throw new NullPointerException();
-
+		if (null == txtInit)
+		{
+			throw new IllegalArgumentException("String txtInit is null!");
+		}
 		try
 		{
 			prepTxt(txtInit, fontSizeInit, maxWidth);
@@ -118,8 +121,10 @@ public class PaintableBoxedText extends PaintableObject
 
 	private void prepTxt(String txtInit, float fontSizeInit, float maxWidth)
 	{
-		if (txtInit == null)
-			throw new NullPointerException();
+		if (null == txtInit)
+		{
+			throw new IllegalArgumentException("String txtInit is null!");
+		}
 
 		setFontSize(fontSizeInit);
 
@@ -187,8 +192,10 @@ public class PaintableBoxedText extends PaintableObject
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null)
-			throw new NullPointerException();
+		if (null == canvas)
+		{
+			throw new IllegalArgumentException("canvas is null!");
+		}
 
 		setFontSize(fontSize);
 

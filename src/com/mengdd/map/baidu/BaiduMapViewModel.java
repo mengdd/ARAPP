@@ -20,6 +20,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.map.BasicMapViewModel;
 import com.mengdd.utils.AppConstants;
 
@@ -47,6 +48,11 @@ public class BaiduMapViewModel extends BasicMapViewModel
 
 	private BMapManager mBMapManager = null;
 
+	@Override
+	public MapView getMap()
+	{
+		return mMapView;
+	}
 	public BaiduMapViewModel(Activity activity)
 	{
 		super(activity);
@@ -80,7 +86,11 @@ public class BaiduMapViewModel extends BasicMapViewModel
 
 		initMap();
 		mMapView.regMapViewListener(mBMapManager, mMapListener);
+		
+
 	}
+
+
 
 	@Override
 	public void onResume(Intent intent)
@@ -165,26 +175,26 @@ public class BaiduMapViewModel extends BasicMapViewModel
 		public void onGetCurrentMap(Bitmap b)
 		{
 
-			Log.d("test", "test" + "onGetCurrentMap");
-			File file = new File("/mnt/sdcard/test.png");
-			FileOutputStream out;
-			try
-			{
-				out = new FileOutputStream(file);
-				if (b.compress(Bitmap.CompressFormat.PNG, 70, out))
-				{
-					out.flush();
-					out.close();
-				}
-			}
-			catch (FileNotFoundException e)
-			{
-				e.printStackTrace();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+//			Log.d("test", "test" + "onGetCurrentMap");
+//			File file = new File("/mnt/sdcard/test.png");
+//			FileOutputStream out;
+//			try
+//			{
+//				out = new FileOutputStream(file);
+//				if (b.compress(Bitmap.CompressFormat.PNG, 70, out))
+//				{
+//					out.flush();
+//					out.close();
+//				}
+//			}
+//			catch (FileNotFoundException e)
+//			{
+//				e.printStackTrace();
+//			}
+//			catch (IOException e)
+//			{
+//				e.printStackTrace();
+//			}
 		}
 
 		@Override
@@ -199,7 +209,8 @@ public class BaiduMapViewModel extends BasicMapViewModel
 	{
 		GeoPoint geoPoint = new GeoPoint((int)(latitude * 1E6), (int)(longitude * 1E6));
 		mMapController.setCenter(geoPoint);
-
+		mMapController.animateTo(geoPoint);
+		
 	}
 
 	@Override

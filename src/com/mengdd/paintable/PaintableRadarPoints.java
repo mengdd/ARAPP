@@ -1,10 +1,8 @@
 package com.mengdd.paintable;
 
-
-
-import com.mengdd.ar.ui.Marker;
-import com.mengdd.ar.ui.Radar;
 import com.mengdd.arapp.GlobalARData;
+import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.Radar;
 
 import android.graphics.Canvas;
 
@@ -40,30 +38,43 @@ public class PaintableRadarPoints extends PaintableObject
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null)
-			throw new NullPointerException();
+		if (null == canvas)
+		{
+			throw new IllegalArgumentException("canvas is null!");
+
+		}
 
 		// Draw the markers in the circle
 		float range = GlobalARData.getRadius() * 1000;
 		float scale = range / Radar.RADIUS;
-		for (Marker pm : GlobalARData.getMarkers())
+		
+		for (Marker marker : GlobalARData.getMarkers())
 		{
-			pm.getLocation().get(locationArray);
+			marker.getLocationVector().get(locationArray);
 			float x = locationArray[0] / scale;
 			float y = locationArray[2] / scale;
 			if ((x * x + y * y) < (Radar.RADIUS * Radar.RADIUS))
 			{
 				if (paintablePoint == null)
-					paintablePoint = new PaintablePoint(pm.getColor(), true);
+				{
+					paintablePoint = new PaintablePoint(marker.getColor(), true);
+				}
 				else
-					paintablePoint.set(pm.getColor(), true);
+				{
+					paintablePoint.set(marker.getColor(), true);
+				}
 
+				//here translate the Radar point
 				if (pointContainer == null)
+				{
 					pointContainer = new PaintablePosition(paintablePoint, (x
 							+ Radar.RADIUS - 1), (y + Radar.RADIUS - 1), 0, 1);
+				}
 				else
+				{
 					pointContainer.set(paintablePoint, (x + Radar.RADIUS - 1),
 							(y + Radar.RADIUS - 1), 0, 1);
+				}
 
 				pointContainer.paint(canvas);
 			}

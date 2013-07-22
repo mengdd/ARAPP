@@ -10,7 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.mengdd.ar.ui.Marker;
+import com.mengdd.poi.ui.Marker;
+import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.Matrix;
 
 import android.location.Location;
@@ -38,7 +39,6 @@ import android.util.Log;
 public abstract class GlobalARData
 {
 
-	private static final String TAG = "ARData";
 	private static final Map<String, Marker> markerList = new ConcurrentHashMap<String, Marker>();
 	private static final List<Marker> cache = new CopyOnWriteArrayList<Marker>();
 	private static final AtomicBoolean dirty = new AtomicBoolean(false);
@@ -124,7 +124,7 @@ public abstract class GlobalARData
 				GlobalARData.zoomProgress = zoomProgress;
 				if (dirty.compareAndSet(false, true))
 				{
-					Log.v(TAG, "Setting DIRTY flag!");
+					Log.v(AppConstants.LOG_TAG, "Setting DIRTY flag!");
 					cache.clear();
 				}
 			}
@@ -186,7 +186,7 @@ public abstract class GlobalARData
 			throw new IllegalArgumentException("currentLocaiont is null!");
 		}
 
-		Log.d(TAG, "current location. location=" + currentLocation.toString());
+		Log.d(AppConstants.LOG_TAG, "GL set current location. location=" + currentLocation.toString());
 		synchronized (currentLocation)
 		{
 			GlobalARData.currentLocation = currentLocation;
@@ -251,7 +251,7 @@ public abstract class GlobalARData
 
 	private static void onLocationChanged(Location location)
 	{
-		Log.d(TAG,
+		Log.d(AppConstants.LOG_TAG,
 				"New location, updating markers. location="
 						+ location.toString());
 
@@ -260,6 +260,11 @@ public abstract class GlobalARData
 		{
 			for (LocationListener listener : mLocationListeners)
 			{
+				if (null == listener)
+				{
+					throw new NullPointerException(
+							"LocationListener is null ! Please check if you remove listener from GlobalARData before you destroy it.");
+				}
 				listener.onLocationChanged(location);
 			}
 		}
@@ -273,7 +278,7 @@ public abstract class GlobalARData
 
 		if (dirty.compareAndSet(false, true))
 		{
-			Log.v(TAG, "Setting DIRTY flag!");
+			Log.v(AppConstants.LOG_TAG, "Setting DIRTY flag!");
 			cache.clear();
 		}
 	}
@@ -314,6 +319,7 @@ public abstract class GlobalARData
 	{
 		synchronized (GlobalARData.rotationMatrix)
 		{
+			//Log.i(AppConstants.LOG_TAG, "rotationMatrix: " + rotationMatrix.toString());
 			return rotationMatrix;
 		}
 	}
@@ -337,7 +343,7 @@ public abstract class GlobalARData
 			return;
 		}
 
-		Log.d(TAG,
+		Log.d(AppConstants.LOG_TAG,
 				"New markers, updating markers. new markers="
 						+ markers.toString());
 		for (Marker marker : markers)
@@ -351,8 +357,24 @@ public abstract class GlobalARData
 
 		if (dirty.compareAndSet(false, true))
 		{
-			Log.v(TAG, "Setting DIRTY flag!");
+			Log.v(AppConstants.LOG_TAG, "Setting DIRTY flag!");
 			cache.clear();
+		}
+	}
+	
+	public static void logMarkers()
+	{
+		List<Marker> markers = getMarkers();
+		
+		if(null != markers)
+		{
+			int i = 1;
+			for(Marker marker: markers)
+			{
+				Log.i(AppConstants.LOG_TAG, "The " + i + " th marker:" + marker.toString());
+				i++;
+				
+			}
 		}
 	}
 
@@ -367,16 +389,16 @@ public abstract class GlobalARData
 		// detection
 		if (dirty.compareAndSet(true, false))
 		{
-			Log.v(TAG,
+			Log.v(AppConstants.LOG_TAG,
 					"DIRTY flag found, resetting all marker heights to zero.");
 			for (Marker ma : markerList.values())
 			{
-				ma.getLocation().get(locationArray);
+				ma.getLocationVector().get(locationArray);
 				locationArray[1] = ma.getInitialY();
-				ma.getLocation().set(locationArray);
+				ma.getLocationVector().set(locationArray);
 			}
 
-			Log.v(TAG, "Populating the cache.");
+			Log.v(AppConstants.LOG_TAG, "Populating the cache.");
 			List<Marker> copy = new ArrayList<Marker>();
 			copy.addAll(markerList.values());
 			Collections.sort(copy, comparator);

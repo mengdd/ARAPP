@@ -8,11 +8,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.components.ViewModel;
 import com.mengdd.location.LocationModel;
+import com.mengdd.utils.AppConstants;
 
 /**
  * Location ViewModel for finding current location information.
@@ -31,7 +34,15 @@ public class GoogleLocationModel extends LocationModel implements LocationListen
 	private static final int MIN_TIME = 3 * 1000;
 	private static final int MIN_DISTANCE = 10;
 
+	private long mLastFixTime = 0;
+	private long mCurrentFixTime = 0;
 
+
+
+	public long getLastFixTime()
+	{
+		return mLastFixTime;
+	}
 
 	public GoogleLocationModel(Activity activity)
 	{
@@ -41,6 +52,7 @@ public class GoogleLocationModel extends LocationModel implements LocationListen
 	@Override
 	public void registerLocationUpdates()
 	{
+		mLastFixTime = mCurrentFixTime = SystemClock.uptimeMillis();
 
 		if (null == mLocationManager)
 		{
@@ -58,6 +70,8 @@ public class GoogleLocationModel extends LocationModel implements LocationListen
 			mLocationManager.requestLocationUpdates(
 					LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE,
 					this);
+			Log.i(AppConstants.LOG_TAG, "GoogleLocationModel: registerLocationUpdates successfully!");
+			
 
 		}
 
@@ -78,6 +92,8 @@ public class GoogleLocationModel extends LocationModel implements LocationListen
 	@Override
 	public void onLocationChanged(Location location)
 	{
+		mCurrentFixTime = SystemClock.uptimeMillis();
+		Log.i(AppConstants.LOG_TAG, "GoogleLocationModel: onLocationChanged: " + location);
 		boolean isNewBetter = isBetterLocation(location, mCurrentLocation);
 		if (isNewBetter)
 		{
@@ -87,6 +103,8 @@ public class GoogleLocationModel extends LocationModel implements LocationListen
 			// updated value
 			GlobalARData.setCurrentLocation(location);
 		}
+		
+		mLastFixTime = mCurrentFixTime;
 
 	}
 

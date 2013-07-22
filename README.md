@@ -25,4 +25,13 @@ The location source settings intent.
 The request of update and unregister through LocationManager.
 There is a UI for the user to control, still thinking about one without UI.
 
+2013-07-22 Basic POI and Radar graph, and Baidu Map
+The POI information is gained through network: Google Place and Wiki.
+The Radar is adapter from Justin Wetherell's work: android-augment-reality-framework.
+Baidu Map and location SDK are also added.
+reference links:
+http://code.google.com/p/android-augment-reality-framework/
+Google Place API:
+https://developers.google.com/places/documentation/
+
 

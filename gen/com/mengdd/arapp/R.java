@@ -149,8 +149,8 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f040006;
         public static final int common_signin_btn_light_text_focused=0x7f040007;
         public static final int common_signin_btn_light_text_pressed=0x7f040005;
-        public static final int common_signin_btn_text_dark=0x7f040023;
-        public static final int common_signin_btn_text_light=0x7f040024;
+        public static final int common_signin_btn_text_dark=0x7f040025;
+        public static final int common_signin_btn_text_light=0x7f040026;
         public static final int compass_arrow=0x7f04000f;
         public static final int compass_arrow_shadow=0x7f040010;
         public static final int compass_direction_text=0x7f04000b;
@@ -167,6 +167,10 @@ containing a value of this type.
         public static final int inner_border_two=0x7f040016;
         public static final int marker_color=0x7f040012;
         public static final int outer_border=0x7f040014;
+        public static final int radar_color=0x7f040024;
+        /**  Radar related color 
+         */
+        public static final int radar_line_color=0x7f040023;
         public static final int red=0x7f040020;
         public static final int shadow_color=0x7f040013;
         public static final int text_color=0x7f04000a;
@@ -186,6 +190,13 @@ containing a value of this type.
         public static final int compass_main_dir=0x7f070003;
         public static final int compass_sub_dir=0x7f070004;
         public static final int compass_text=0x7f070002;
+        /**  Radar related
+         */
+        public static final int radar_area=0x7f070005;
+        public static final int radar_paddingX=0x7f070007;
+        public static final int radar_paddingY=0x7f070008;
+        public static final int radar_radius=0x7f070006;
+        public static final int radar_text=0x7f070009;
     }
     public static final class drawable {
         public static final int buzz=0x7f020000;
@@ -219,82 +230,90 @@ containing a value of this type.
         public static final int wikipedia=0x7f02001c;
     }
     public static final class id {
-        public static final int accuracyLabel=0x7f050014;
-        public static final int accuracyUnits=0x7f050016;
-        public static final int accuracyValue=0x7f050015;
-        public static final int action_settings=0x7f05002a;
-        public static final int allProvidersLabel=0x7f050009;
-        public static final int allProvidersValue=0x7f05000a;
-        public static final int bMapView=0x7f050005;
-        public static final int button_capture=0x7f050007;
-        public static final int camera_frame=0x7f05001b;
-        public static final int camera_preview=0x7f050006;
-        public static final int compassSwitch=0x7f05001c;
-        public static final int compass_frame=0x7f05001d;
-        public static final int controlPanel=0x7f05000b;
-        public static final int frame=0x7f050021;
-        public static final int frame2=0x7f050025;
-        public static final int goMap=0x7f05001e;
-        public static final int horizonView=0x7f050008;
+        public static final int accuracyLabel=0x7f050017;
+        public static final int accuracyUnits=0x7f050019;
+        public static final int accuracyValue=0x7f050018;
+        public static final int action_baidu_map=0x7f05002b;
+        public static final int action_google_map=0x7f05002c;
+        public static final int action_poi=0x7f05002d;
+        public static final int allProvidersLabel=0x7f05000c;
+        public static final int allProvidersValue=0x7f05000d;
+        public static final int bMapView=0x7f050008;
+        public static final int button_capture=0x7f05000a;
+        public static final int camera_frame=0x7f050005;
+        public static final int camera_preview=0x7f050009;
+        public static final int compassSwitch=0x7f05001e;
+        public static final int compass_frame=0x7f05001f;
+        public static final int controlPanel=0x7f05000e;
+        public static final int frame=0x7f050022;
+        public static final int frame2=0x7f050026;
+        public static final int horizonView=0x7f05000b;
         public static final int hybrid=0x7f050004;
-        public static final int latitudeLabel=0x7f05000e;
-        public static final int latitudeValue=0x7f05000f;
-        public static final int longitudeLabel=0x7f050010;
-        public static final int longitudeValue=0x7f050011;
-        public static final int mainList=0x7f050020;
-        public static final int main_frame=0x7f050023;
-        public static final int map=0x7f050026;
-        public static final int mapContent=0x7f050028;
-        public static final int mapSwitch=0x7f050027;
-        public static final int map_frame=0x7f05001f;
-        public static final int myTextView=0x7f050029;
-        public static final int next=0x7f050022;
+        public static final int latitudeLabel=0x7f050011;
+        public static final int latitudeValue=0x7f050012;
+        public static final int longitudeLabel=0x7f050013;
+        public static final int longitudeValue=0x7f050014;
+        public static final int mainList=0x7f050021;
+        public static final int main_frame=0x7f050024;
+        public static final int map=0x7f050027;
+        public static final int mapContent=0x7f050029;
+        public static final int mapSwitch=0x7f050028;
+        public static final int map_frame=0x7f050020;
+        public static final int myTextView=0x7f05002a;
+        public static final int next=0x7f050023;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int providerLabel=0x7f050012;
-        public static final int providerSpinner=0x7f05000c;
-        public static final int providerValue=0x7f050013;
+        public static final int providerLabel=0x7f050015;
+        public static final int providerSpinner=0x7f05000f;
+        public static final int providerValue=0x7f050016;
+        public static final int radar_frame=0x7f050006;
         public static final int satellite=0x7f050002;
-        public static final int settingsBtn=0x7f05000d;
-        public static final int single_tip=0x7f05001a;
+        public static final int settingsBtn=0x7f050010;
+        public static final int single_tip=0x7f05001d;
         public static final int terrain=0x7f050003;
-        public static final int textView=0x7f050024;
-        public static final int timeToFixLabel=0x7f050017;
-        public static final int timeToFixUnits=0x7f050019;
-        public static final int timeToFixValue=0x7f050018;
+        public static final int textView=0x7f050025;
+        public static final int timeToFixLabel=0x7f05001a;
+        public static final int timeToFixUnits=0x7f05001c;
+        public static final int timeToFixValue=0x7f05001b;
+        public static final int zoom_frame=0x7f050007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int baidu_map_view_root=0x7f030001;
-        public static final int camera_view_model=0x7f030002;
-        public static final int compass_view_model=0x7f030003;
-        public static final int cur_location_view_model=0x7f030004;
-        public static final int dialog_single_tip=0x7f030005;
-        public static final int first=0x7f030006;
-        public static final int google_map_view_root=0x7f030007;
-        public static final int location_view=0x7f030008;
-        public static final int map_activity=0x7f030009;
-        public static final int test_all=0x7f03000a;
-        public static final int test_baidumap=0x7f03000b;
-        public static final int test_camera=0x7f03000c;
-        public static final int test_compass=0x7f03000d;
-        public static final int test_cur_location=0x7f03000e;
-        public static final int test_googlemap=0x7f03000f;
-        public static final int test_mapview=0x7f030010;
-        public static final int test_poi_data=0x7f030011;
+        public static final int arpoi=0x7f030001;
+        public static final int baidu_map_view_root=0x7f030002;
+        public static final int camera_view_model=0x7f030003;
+        public static final int compass_view_model=0x7f030004;
+        public static final int cur_location_view_model=0x7f030005;
+        public static final int dialog_single_tip=0x7f030006;
+        public static final int first=0x7f030007;
+        public static final int google_map_view_root=0x7f030008;
+        public static final int location_view=0x7f030009;
+        public static final int map_activity=0x7f03000a;
+        public static final int test_all=0x7f03000b;
+        public static final int test_baidumap=0x7f03000c;
+        public static final int test_camera=0x7f03000d;
+        public static final int test_compass=0x7f03000e;
+        public static final int test_cur_location=0x7f03000f;
+        public static final int test_googlemap=0x7f030010;
+        public static final int test_mapview=0x7f030011;
+        public static final int test_poi_data=0x7f030012;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
     }
     public static final class string {
-        public static final int accuracyLabel=0x7f060028;
-        public static final int action_settings=0x7f060016;
-        public static final int alert_cancel=0x7f060034;
-        public static final int alert_confirm=0x7f060033;
-        public static final int alert_no=0x7f060036;
-        public static final int alert_yes=0x7f060035;
-        public static final int allProvidersLabel=0x7f06002c;
-        public static final int app_name=0x7f060015;
+        public static final int accuracyLabel=0x7f060030;
+        public static final int action_go_map=0x7f06001a;
+        public static final int action_go_poi=0x7f06001d;
+        public static final int action_settings=0x7f060019;
+        public static final int alert_cancel=0x7f06003c;
+        public static final int alert_confirm=0x7f06003b;
+        public static final int alert_no=0x7f06003e;
+        public static final int alert_yes=0x7f06003d;
+        public static final int allProvidersLabel=0x7f060034;
+        /**  main project 
+         */
+        public static final int app_name=0x7f060018;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
          */
         public static final int auth_client_availability_notification_title=0x7f06000f;
@@ -304,13 +323,15 @@ containing a value of this type.
         /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
          */
         public static final int auth_client_requested_by_msg=0x7f060011;
-        public static final int cardinal_east=0x7f060022;
+        public static final int baidu_map=0x7f06001c;
+        public static final int baidu_map_api_key=0x7f060017;
+        public static final int cardinal_east=0x7f06002a;
         /**  Compass 
          */
-        public static final int cardinal_north=0x7f060021;
-        public static final int cardinal_south=0x7f060023;
-        public static final int cardinal_west=0x7f060024;
-        public static final int changeLocationProviderSettingsText=0x7f06002e;
+        public static final int cardinal_north=0x7f060029;
+        public static final int cardinal_south=0x7f06002b;
+        public static final int cardinal_west=0x7f06002c;
+        public static final int changeLocationProviderSettingsText=0x7f060036;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -366,20 +387,28 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int compass=0x7f06001d;
-        public static final int compass_off=0x7f06001f;
-        public static final int compass_on=0x7f06001e;
-        public static final int dialog_provider_not_enabled=0x7f060032;
-        public static final int dialog_set_location_src=0x7f060031;
+        public static final int compass=0x7f060024;
+        public static final int compass_off=0x7f060026;
+        public static final int compass_on=0x7f060025;
+        public static final int dialog_provider_not_enabled=0x7f06003a;
+        public static final int dialog_set_location_src=0x7f060039;
         /**  Dialogs 
          */
-        public static final int dialog_title_setting_location=0x7f060030;
-        public static final int enabledProvidersLabel=0x7f06002d;
-        public static final int goto_second=0x7f060020;
-        public static final int hello_world=0x7f060017;
+        public static final int dialog_title_setting_location=0x7f060038;
+        public static final int enabledProvidersLabel=0x7f060035;
+        public static final int google_map=0x7f06001b;
+        public static final int google_maps_api_key=0x7f060016;
+        /**  API Keys 
+         */
+        public static final int google_places_api_key=0x7f060015;
+        public static final int goto_map=0x7f060027;
+        public static final int goto_poi=0x7f060028;
+        /**  MainProject 
+         */
+        public static final int hello_world=0x7f06001e;
         /**  Location 
          */
-        public static final int latitudeLabel=0x7f060025;
+        public static final int latitudeLabel=0x7f06002d;
         /**  Location client code resources (prefix with location_client) 
 
         Begin strings for location.reporting
@@ -391,17 +420,17 @@ containing a value of this type.
         public static final int location_client_ulr_inactive_age_under_13=0x7f060012;
         public static final int location_client_ulr_inactive_age_unknown=0x7f060013;
         public static final int location_client_ulr_inactive_unknown_restriction=0x7f060014;
-        public static final int longitudeLabel=0x7f060026;
-        public static final int map=0x7f06001a;
-        public static final int map_off=0x7f06001c;
-        public static final int map_on=0x7f06001b;
-        public static final int metersUnit=0x7f06002b;
-        public static final int no_activity=0x7f060019;
-        public static final int no_camera=0x7f060018;
-        public static final int providerLabel=0x7f060027;
-        public static final int provider_prompt=0x7f06002f;
-        public static final int secondsUnit=0x7f06002a;
-        public static final int timeToFixLabel=0x7f060029;
+        public static final int longitudeLabel=0x7f06002e;
+        public static final int map=0x7f060021;
+        public static final int map_off=0x7f060023;
+        public static final int map_on=0x7f060022;
+        public static final int metersUnit=0x7f060033;
+        public static final int no_activity=0x7f060020;
+        public static final int no_camera=0x7f06001f;
+        public static final int providerLabel=0x7f06002f;
+        public static final int provider_prompt=0x7f060037;
+        public static final int secondsUnit=0x7f060032;
+        public static final int timeToFixLabel=0x7f060031;
     }
     public static final class style {
         /** 

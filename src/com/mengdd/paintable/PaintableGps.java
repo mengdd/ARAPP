@@ -63,8 +63,10 @@ public class PaintableGps extends PaintableObject
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null)
-			throw new NullPointerException();
+		if (null == canvas)
+		{
+			throw new IllegalArgumentException("canvas is null!");
+		}
 
 		setStrokeWidth(strokeWidth);
 		setFill(fill);

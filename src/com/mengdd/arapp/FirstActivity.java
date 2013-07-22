@@ -6,12 +6,12 @@ import java.util.List;
 import com.mengdd.camera.CameraViewModel;
 import com.mengdd.components.ViewModel;
 import com.mengdd.components.ViewModelManager;
-import com.mengdd.map.google.GoogleMapViewModel;
 import com.mengdd.sensors.CompassViewModel;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
 /**
@@ -34,15 +33,13 @@ import android.widget.ToggleButton;
  */
 public class FirstActivity extends Activity
 {
-	private ViewModelManager mViewModelManager = null;
+
 
 	private ToggleButton mCompassSwitchBtn = null;
 
 	private List<ViewModel> mViewModels = null;
 	private CameraViewModel mCameraViewModel = null;
 	private CompassViewModel mCompassViewModel = null;
-	
-	private Button mMapButton = null;
 
 
 	@Override
@@ -83,22 +80,8 @@ public class FirstActivity extends Activity
 		mCompassSwitchBtn.setChecked(false);
 		mCompassSwitchBtn
 				.setOnCheckedChangeListener(mSwichCheckedChangeListener);
-		
-		
-		//Go to Map Button 
-		mMapButton = (Button) findViewById(R.id.goMap);
-		mMapButton.setOnClickListener(new View.OnClickListener()
-		{
-			
-			@Override
-			public void onClick(View v)
-			{
-				Intent intent = new Intent();
-				intent.setClass(FirstActivity.this, MapActivity.class);
-				
-				startActivity(intent);
-			}
-		});
+
+
 
 	}
 
@@ -171,4 +154,49 @@ public class FirstActivity extends Activity
 		}
 	};
 
+	@Override
+	public boolean onCreateOptionsMenu(android.view.Menu menu)
+	{
+		// This method is to init the Menu
+
+		super.onCreateOptionsMenu(menu);
+
+		getMenuInflater().inflate(R.menu.main, menu);
+
+		return true;
+	};
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		Intent intent = new Intent();
+		switch (item.getItemId())
+		{
+
+			case R.id.action_baidu_map:
+
+				intent.setClass(FirstActivity.this, BDMapActivity.class);
+				startActivity(intent);
+
+				break;
+			case R.id.action_google_map:
+				intent.setClass(FirstActivity.this, GMapActivity.class);
+
+				startActivity(intent);
+
+				break;
+			case R.id.action_poi:
+				intent.setClass(FirstActivity.this, AugmentedPOIActivity.class);
+
+				startActivity(intent);
+
+				break;
+
+			default:
+				return super.onOptionsItemSelected(item);
+
+		}
+
+		return true;
+	}
 }

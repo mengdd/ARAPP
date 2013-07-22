@@ -31,6 +31,19 @@ public class CameraPreview extends SurfaceView implements
 	private Camera mCamera;
 	Size mPreviewSize;
 	List<Size> mSupportedPreviewSizes;
+	private int mRotationDegree = 90;
+	
+
+
+	public int getDegree()
+	{
+		return mRotationDegree;
+	}
+
+	public void setDegree(int degree)
+	{
+		this.mRotationDegree = degree;
+	}
 
 	public CameraPreview(Context context, AttributeSet attrs, int defStyle)
 	{
@@ -113,7 +126,8 @@ public class CameraPreview extends SurfaceView implements
 			requestLayout();
 
 			mCamera.setParameters(parameters);
-			mCamera.setDisplayOrientation(90);
+	
+			mCamera.setDisplayOrientation(mRotationDegree);
 			Log.d(AppConstants.LOG_TAG, "camera set parameters successfully!: "
 					+ parameters.getPreviewSize());
 

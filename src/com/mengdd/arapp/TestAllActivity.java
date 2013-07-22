@@ -6,6 +6,7 @@ import com.mengdd.location.google.TestGoogleLocationActivity;
 import com.mengdd.map.baidu.TestBaiduMapActivity;
 import com.mengdd.map.google.TestGoogleMapActivity;
 import com.mengdd.poi.data.TestPOIDataActivity;
+import com.mengdd.poi.ui.TestRadarActivity;
 import com.mengdd.sensors.TestCompassActivity;
 import com.mengdd.utils.AppConstants;
 
@@ -109,13 +110,13 @@ public class TestAllActivity extends Activity
 				intent.setClass(TestAllActivity.this, TestCameraActivity.class);
 
 			}
-			//
-			// if (itemString.equals(AppConstants.AR_CAMERA))
-			// {
-			// intent.setClass(TestAllActivity.this,
-			// MainARCameraActivity.class);
-			//
-			// }
+			
+			 if (itemString.equals(AppConstants.AR_CAMERA))
+			 {
+			 intent.setClass(TestAllActivity.this,
+			 TestRadarActivity.class);
+			
+			 }
 			
 			
 			 if (itemString.equals(AppConstants.POI_DATA))

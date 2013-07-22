@@ -29,6 +29,7 @@ public abstract class BasicMapViewModel extends ViewModel
 		return mRootView;
 	}
 
+	public abstract Object getMap();
 	public abstract void changeMapCamera(double latitude, double longitude);
 
 	public abstract void addMarker(double latitude, double longitude);

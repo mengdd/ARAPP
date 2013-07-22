@@ -6,14 +6,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mengdd.ar.ui.IconMarker;
-import com.mengdd.ar.ui.Marker;
 import com.mengdd.arapp.R;
+import com.mengdd.poi.ui.IconMarker;
+import com.mengdd.poi.ui.Marker;
+import com.mengdd.utils.AppConstants;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * This class extends DataSource to fetch data from Wikipedia.
@@ -58,6 +60,8 @@ public class WikipediaDataSource extends NetworkDataSource
 	public String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale)
 	{
+		Log.i(AppConstants.LOG_TAG, BASE_URL + "?lat=" + lat + "&lng=" + lon + "&radius=" + radius
+				+ "&maxRows=40" + "&lang=" + locale);
 		return BASE_URL + "?lat=" + lat + "&lng=" + lon + "&radius=" + radius
 				+ "&maxRows=40" + "&lang=" + locale;
 
@@ -115,6 +119,7 @@ public class WikipediaDataSource extends NetworkDataSource
 		}
 
 		Marker ma = null;
+		Log.i(AppConstants.LOG_TAG, "Wiki processJSONObject jsonObject: "+jsonObject.toString() );
 		if (jsonObject.has("title") && jsonObject.has("lat")
 				&& jsonObject.has("lng") && jsonObject.has("elevation"))
 		{
@@ -124,6 +129,8 @@ public class WikipediaDataSource extends NetworkDataSource
 						jsonObject.getDouble("lat"),
 						jsonObject.getDouble("lng"),
 						jsonObject.getDouble("elevation"), Color.WHITE, icon);
+				
+				
 			}
 			catch (JSONException e)
 			{

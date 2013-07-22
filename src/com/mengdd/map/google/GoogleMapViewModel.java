@@ -60,12 +60,14 @@ public class GoogleMapViewModel extends BasicMapViewModel
 		LinearLayout.LayoutParams layoutParams = new LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		mMapView.setLayoutParams(layoutParams);
+		
+	
 
 		mMapView.onCreate(null);
 
 		((LinearLayout) mRootView).addView(mMapView, 0);
 
-		mGoogleMap = getGoogleMap();
+		mGoogleMap = mMapView.getMap();
 
 		// Solve the problem of NullPointerException of CameraUpdateFactory
 		try
@@ -77,6 +79,16 @@ public class GoogleMapViewModel extends BasicMapViewModel
 			e.printStackTrace();
 		}
 
+	}
+	
+	@Override
+	public GoogleMap getMap()
+	{
+		if(null == mGoogleMap && null != mMapView)
+		{
+			mGoogleMap = mMapView.getMap();
+		}
+		return mGoogleMap;
 	}
 
 	@Override
@@ -108,16 +120,6 @@ public class GoogleMapViewModel extends BasicMapViewModel
 		{
 			mMapView.onPause();
 		}
-	}
-
-	private GoogleMap getGoogleMap()
-	{
-		GoogleMap map = null;
-
-		map = mMapView.getMap();
-
-		return map;
-
 	}
 
 	/**
@@ -238,4 +240,6 @@ public class GoogleMapViewModel extends BasicMapViewModel
 		mGoogleMap.addMarker(new MarkerOptions().position(position)
 				.title(title));
 	}
+
+
 }

@@ -36,13 +36,15 @@ public class PaintableIcon extends PaintableObject
 	 * 
 	 * @param bitmap
 	 *            Bitmap that should be rendered.
-	 * @throws NullPointerException
+	 * @throws IllegalArgumentException
 	 *             if Bitmap is NULL.
 	 */
 	public void set(Bitmap bitmap, int width, int height)
 	{
-		if (bitmap == null)
-			throw new NullPointerException();
+		if (null == bitmap)
+		{
+			throw new IllegalArgumentException("bitmap is null!");
+		}
 
 		this.bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
 	}
@@ -53,8 +55,10 @@ public class PaintableIcon extends PaintableObject
 	@Override
 	public void paint(Canvas canvas)
 	{
-		if (canvas == null || bitmap == null)
-			throw new NullPointerException();
+		if (null == canvas || null == bitmap)
+		{
+			throw new IllegalArgumentException("canvas or bitmap is null!");
+		}
 
 		paintBitmap(canvas, bitmap, -(bitmap.getWidth() / 2),
 				-(bitmap.getHeight() / 2));

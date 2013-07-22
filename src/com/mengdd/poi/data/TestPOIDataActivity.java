@@ -2,11 +2,11 @@ package com.mengdd.poi.data;
 
 import java.util.List;
 
-import com.mengdd.ar.ui.Marker;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.location.LocationModel;
 import com.mengdd.location.google.GoogleLocationModel;
+import com.mengdd.poi.ui.Marker;
 import com.mengdd.utils.AppConstants;
 
 
@@ -30,7 +30,7 @@ public class TestPOIDataActivity extends Activity implements LocationListener
 		setContentView(R.layout.test_poi_data);
 		mTextView= (TextView)findViewById(R.id.myTextView);
 		mLocationModel = new GoogleLocationModel(this);
-		mPOIViewModel = new POIViewModel();
+		mPOIViewModel = new POIViewModel(this);
 
 	}
 
@@ -71,9 +71,11 @@ public class TestPOIDataActivity extends Activity implements LocationListener
 			int i = 1;
 			for (Marker marker : markersList)
 			{
-				sBuffer.append("The " + i + " marker");
+				sBuffer.append("\nThe " + i + " marker");
 				sBuffer.append("\nName: " + marker.getName());
-				sBuffer.append("\nLocation: " + marker.getLocation());
+				sBuffer.append("\nLocation: " + marker.getLocationVector());
+				
+				++i;
 
 			}
 		}

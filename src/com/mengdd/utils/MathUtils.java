@@ -1,8 +1,10 @@
 package com.mengdd.utils;
 
-
+import android.location.Location;
+import android.util.Log;
 
 import com.mengdd.arapp.GlobalARData;
+import com.mengdd.poi.data.PhysicalLocation;
 
 /**
  * A static class used to calculate azimuth, pitch, and roll given a rotation
@@ -103,8 +105,11 @@ public class MathUtils
 	public static synchronized void calcPitchBearing(Matrix rotationMatrix)
 	{
 		if (rotationMatrix == null)
+		{
 			return;
+		}
 
+		//Log.i(AppConstants.LOG_TAG, "calcPitchBearing");
 		tempMatrix.set(rotationMatrix);
 		tempMatrix.transpose();
 		if (GlobalARData.portrait)
@@ -145,8 +150,8 @@ public class MathUtils
 	 * @param addY
 	 *            Add Y to the projected point.
 	 */
-	public static void projectPoint(Vector orgPoint, Vector prjPoint, float distance,
-			int width, int height, float addX, float addY)
+	public static void projectPoint(Vector orgPoint, Vector prjPoint,
+			float distance, int width, int height, float addX, float addY)
 	{
 		float[] tmp1 = new float[3];
 		float[] tmp2 = new float[3];
@@ -160,4 +165,51 @@ public class MathUtils
 
 		prjPoint.set(tmp2);
 	}
+
+	/**
+	 * Converts a Location relative to original location to a Vector
+	 * 
+	 * @param origiLocation
+	 *            the location as original point
+	 * @param destLocation
+	 *            the location as destination
+	 * @return
+	 */
+	public static synchronized Vector convLocationToVector(
+			Location origiLocation, PhysicalLocation destLocation)
+	{
+		if (origiLocation == null || destLocation == null)
+		{
+			throw new IllegalArgumentException("Location is null");
+		}
+
+		Vector vector = new Vector();
+		float[] x = new float[1];
+		double y = 0.0d;
+		float[] z = new float[1];
+
+		Location.distanceBetween(origiLocation.getLatitude(),
+				origiLocation.getLongitude(), destLocation.getLatitude(),
+				origiLocation.getLongitude(), z);
+
+		Location.distanceBetween(origiLocation.getLatitude(),
+				origiLocation.getLongitude(), origiLocation.getLatitude(),
+				destLocation.getLongitude(), x);
+
+		y = destLocation.getAltitude() - origiLocation.getAltitude();
+
+		if (origiLocation.getLatitude() < destLocation.getLatitude())
+		{
+			z[0] *= -1;
+		}
+		if (origiLocation.getLongitude() > destLocation.getLongitude())
+		{
+			x[0] *= -1;
+		}
+
+		vector.set(x[0], (float) y, z[0]);
+
+		return vector;
+	}
+
 }

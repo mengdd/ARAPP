@@ -10,21 +10,23 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
-import com.mengdd.ar.ui.Marker;
 import com.mengdd.arapp.GlobalARData;
+import com.mengdd.components.ViewModel;
+import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.RadarZoomController.OnRadarZoomChangedListener;
 import com.mengdd.utils.AppConstants;
 
-public class POIViewModel implements LocationListener
+public class POIViewModel extends ViewModel implements LocationListener, OnRadarZoomChangedListener
 {
-	public POIViewModel()
-	{
-		
-	}
+
 	private static final String locale = Locale.getDefault().getLanguage();
 	private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(
 			1);
@@ -32,6 +34,17 @@ public class POIViewModel implements LocationListener
 			1, 1, 20, TimeUnit.SECONDS, queue);
 	private static final Map<String, NetworkDataSource> sources = new ConcurrentHashMap<String, NetworkDataSource>();
 
+	public POIViewModel(Activity activity)
+	{
+		super(activity);
+	
+        NetworkDataSource wikipedia = new WikipediaDataSource(mActivity.getResources());
+        sources.put("wiki", wikipedia);
+        
+        NetworkDataSource google = new GooglePlacesDataSource(mActivity.getResources());
+        sources.put("google", google);
+	}
+	
 	/**
 	 * Update POI data according to the location information
 	 * 
@@ -39,8 +52,9 @@ public class POIViewModel implements LocationListener
 	 * @param lon
 	 * @param alt
 	 */
-	private void updateData(final double lat, final double lon, final double alt)
+	public void updateData(final double lat, final double lon, final double alt)
 	{
+		Log.i(AppConstants.LOG_TAG, "POIViewModel updateData");
 		try
 		{
 			exeService.execute(new Runnable()
@@ -135,6 +149,20 @@ public class POIViewModel implements LocationListener
 	public void onProviderDisabled(String provider)
 	{
 
+	}
+
+	@Override
+	public View getView()
+	{
+		return null;
+	}
+
+	@Override
+	public void onZoomChanged()
+	{
+        Location last = GlobalARData.getCurrentLocation();
+        updateData(last.getLatitude(), last.getLongitude(), last.getAltitude());
+		
 	}
 
 }

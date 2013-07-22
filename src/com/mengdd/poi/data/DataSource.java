@@ -2,7 +2,7 @@ package com.mengdd.poi.data;
 
 import java.util.List;
 
-import com.mengdd.ar.ui.Marker;
+import com.mengdd.poi.ui.Marker;
 
 
 /**
