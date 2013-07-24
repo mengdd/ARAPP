@@ -140,10 +140,10 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 			{
 
 				gmf = new GeomagneticField((float) GlobalARData
-						.getCurrentLocation().getLatitude(),
-						(float) GlobalARData.getCurrentLocation()
+						.getCurrentGoogleLocation().getLatitude(),
+						(float) GlobalARData.getCurrentGoogleLocation()
 								.getLongitude(), (float) GlobalARData
-								.getCurrentLocation().getAltitude(),
+								.getCurrentGoogleLocation().getAltitude(),
 						System.currentTimeMillis());
 
 				float dec = (float) Math.toRadians(-gmf.getDeclination());
@@ -345,9 +345,9 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		Log.i(AppConstants.LOG_TAG, "SensorViewModel onLocationChanged"
 				+ location);
 
-		gmf = new GeomagneticField((float) GlobalARData.getCurrentLocation()
-				.getLatitude(), (float) GlobalARData.getCurrentLocation()
-				.getLongitude(), (float) GlobalARData.getCurrentLocation()
+		gmf = new GeomagneticField((float) GlobalARData.getCurrentGoogleLocation()
+				.getLatitude(), (float) GlobalARData.getCurrentGoogleLocation()
+				.getLongitude(), (float) GlobalARData.getCurrentGoogleLocation()
 				.getAltitude(), System.currentTimeMillis());
 
 		float dec = (float) Math.toRadians(-gmf.getDeclination());

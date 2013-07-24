@@ -7,8 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mengdd.arapp.R;
-import com.mengdd.poi.ui.IconMarker;
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.GoogleMarker;
+import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
 
 import android.content.res.Resources;
@@ -60,22 +60,22 @@ public class WikipediaDataSource extends NetworkDataSource
 	public String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale)
 	{
-		Log.i(AppConstants.LOG_TAG, BASE_URL + "?lat=" + lat + "&lng=" + lon + "&radius=" + radius
-				+ "&maxRows=40" + "&lang=" + locale);
+		Log.i(AppConstants.LOG_TAG, BASE_URL + "?lat=" + lat + "&lng=" + lon
+				+ "&radius=" + radius + "&maxRows=40" + "&lang=" + locale);
 		return BASE_URL + "?lat=" + lat + "&lng=" + lon + "&radius=" + radius
 				+ "&maxRows=40" + "&lang=" + locale;
 
 	}
 
 	@Override
-	public List<Marker> parse(JSONObject root)
+	public List<BasicMarker> parse(JSONObject root)
 	{
 		if (root == null)
 			return null;
 
 		JSONObject jo = null;
 		JSONArray dataArray = null;
-		List<Marker> markers = new ArrayList<Marker>();
+		List<BasicMarker> markers = new ArrayList<BasicMarker>();
 
 		try
 		{
@@ -91,7 +91,7 @@ public class WikipediaDataSource extends NetworkDataSource
 			for (int i = 0; i < top; i++)
 			{
 				jo = dataArray.getJSONObject(i);
-				Marker ma = processJSONObject(jo);
+				BasicMarker ma = processJSONObject(jo);
 				if (null != ma)
 				{
 					markers.add(ma);
@@ -111,26 +111,26 @@ public class WikipediaDataSource extends NetworkDataSource
 	 * @param jsonObject
 	 * @return Marker
 	 */
-	private Marker processJSONObject(JSONObject jsonObject)
+	private BasicMarker processJSONObject(JSONObject jsonObject)
 	{
 		if (null == jsonObject)
 		{
 			return null;
 		}
 
-		Marker ma = null;
-		Log.i(AppConstants.LOG_TAG, "Wiki processJSONObject jsonObject: "+jsonObject.toString() );
+		BasicMarker ma = null;
+		Log.i(AppConstants.LOG_TAG, "Wiki processJSONObject jsonObject: "
+				+ jsonObject.toString());
 		if (jsonObject.has("title") && jsonObject.has("lat")
 				&& jsonObject.has("lng") && jsonObject.has("elevation"))
 		{
 			try
 			{
-				ma = new IconMarker(jsonObject.getString("title"),
-						jsonObject.getDouble("lat"),
+				ma = new GoogleMarker(jsonObject.getString("title"),
+						Color.WHITE, icon, jsonObject.getDouble("lat"),
 						jsonObject.getDouble("lng"),
-						jsonObject.getDouble("elevation"), Color.WHITE, icon);
-				
-				
+						jsonObject.getDouble("elevation"));
+
 			}
 			catch (JSONException e)
 			{

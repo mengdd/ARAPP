@@ -28,6 +28,8 @@ public class AppConstants
 	public static final String CAMERA = "Camera";
 	
 	public static final String POI_DATA = "POI Data";
+	public static final String POI_BAIDU = "POI Baidu";
+	public static final String MARKER_BAIDU = "Test Baidu Marker";
 	
 	//Camera Data default value:
     public static final float DEFAULT_VIEW_ANGLE = (float) Math.toRadians(45);

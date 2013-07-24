@@ -10,7 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.mengdd.poi.ui.Marker;
+import com.baidu.location.BDLocation;
+import com.mengdd.location.baidu.BaiduLocationHelper;
+import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.Matrix;
 
@@ -39,8 +41,8 @@ import android.util.Log;
 public abstract class GlobalARData
 {
 
-	private static final Map<String, Marker> markerList = new ConcurrentHashMap<String, Marker>();
-	private static final List<Marker> cache = new CopyOnWriteArrayList<Marker>();
+	private static final Map<String, BasicMarker> markerList = new ConcurrentHashMap<String, BasicMarker>();
+	private static final List<BasicMarker> cache = new CopyOnWriteArrayList<BasicMarker>();
 	private static final AtomicBoolean dirty = new AtomicBoolean(false);
 	private static final float[] locationArray = new float[3];
 
@@ -60,9 +62,19 @@ public abstract class GlobalARData
 	public static final Location hardFix = new Location("ATL");
 	static
 	{
-		hardFix.setLatitude(39.931261);
-		hardFix.setLongitude(-75.051267);
-		hardFix.setAltitude(1);
+		hardFix.setLatitude(39.97603);
+		hardFix.setLongitude(116.31757);
+		hardFix.setAltitude(0);
+	}
+	
+	/* defaulting to our place */
+	public static final BDLocation hardFixBD = new BDLocation();
+	static
+	{
+		//海淀黄庄百度地图坐标116.324338,39.981877
+		hardFixBD.setLatitude(39.981877);
+		hardFixBD.setLongitude(116.324338);
+	
 	}
 
 	private static final Object radiusLock = new Object();
@@ -70,12 +82,16 @@ public abstract class GlobalARData
 	private static String zoomLevel = new String();
 	private static final Object zoomProgressLock = new Object();
 	private static int zoomProgress = 0;
-	private static Location currentLocation = hardFix;
+	
 	private static Matrix rotationMatrix = new Matrix();
 	private static final Object azimuthLock = new Object();
 	private static float azimuth = 0;
 	private static final Object rollLock = new Object();
 	private static float roll = 0;
+	
+	//we have two location fields, they are updated by different SDK
+	private static Location currentGoogleLocation = hardFix;
+	private static BDLocation currentBaiduLocation = hardFixBD;
 
 	/**
 	 * Set the zoom level.
@@ -178,7 +194,7 @@ public abstract class GlobalARData
 	 *            Location to set.
 	 * @throws IllegalArgumentException
 	 */
-	public static void setCurrentLocation(Location currentLocation)
+	public static void setCurrentGoogleLocation(Location currentLocation)
 			throws IllegalArgumentException
 	{
 		if (currentLocation == null)
@@ -186,14 +202,28 @@ public abstract class GlobalARData
 			throw new IllegalArgumentException("currentLocaiont is null!");
 		}
 
-		Log.d(AppConstants.LOG_TAG, "GL set current location. location=" + currentLocation.toString());
 		synchronized (currentLocation)
 		{
-			GlobalARData.currentLocation = currentLocation;
+			GlobalARData.currentGoogleLocation = currentLocation;
 		}
-		onLocationChanged(currentLocation);
+		onLocationChanged(GlobalARData.currentGoogleLocation);
 	}
 
+	public static void setCurrentBaiduLocation(BDLocation currentLocation)
+			throws IllegalArgumentException
+	{
+		if (currentLocation == null)
+		{
+			throw new IllegalArgumentException("currentLocaiont is null!");
+		}
+
+		synchronized (currentLocation)
+		{
+			GlobalARData.currentBaiduLocation = currentLocation;
+		}
+		Location tempLocation = BaiduLocationHelper.convertBD2AndroidLocation(currentLocation);
+		onLocationChanged(tempLocation);
+	}
 	// Observers
 	private static List<LocationListener> mLocationListeners;
 
@@ -271,9 +301,9 @@ public abstract class GlobalARData
 
 		// keep temporary
 		// *****************************************************************
-		for (Marker ma : markerList.values())
+		for (BasicMarker ma : markerList.values())
 		{
-			ma.calcRelativePosition(location);
+			ma.updateRelativePosition(GlobalARData.getCurrentGoogleLocation(), GlobalARData.getCurrentBaiduLocation());
 		}
 
 		if (dirty.compareAndSet(false, true))
@@ -284,15 +314,28 @@ public abstract class GlobalARData
 	}
 
 	/**
-	 * Get the current Location.
+	 * Get the current Google Location.
 	 * 
 	 * @return Location representing the current location.
 	 */
-	public static Location getCurrentLocation()
+	public static Location getCurrentGoogleLocation()
 	{
-		synchronized (GlobalARData.currentLocation)
+		synchronized (GlobalARData.currentGoogleLocation)
 		{
-			return GlobalARData.currentLocation;
+			return GlobalARData.currentGoogleLocation;
+		}
+	}
+	
+	/**
+	 * Get the current Baidu Location.
+	 * 
+	 * @return Location representing the current location.
+	 */
+	public static BDLocation getCurrentBaiduLocation()
+	{
+		synchronized (GlobalARData.currentBaiduLocation)
+		{
+			return GlobalARData.currentBaiduLocation;
 		}
 	}
 
@@ -330,7 +373,7 @@ public abstract class GlobalARData
 	 * @param markers
 	 *            List of Markers to add.
 	 */
-	public static void addMarkers(Collection<Marker> markers)
+	public static void addMarkers(Collection<BasicMarker> markers)
 	{
 		if (null == markers)
 		{
@@ -346,11 +389,11 @@ public abstract class GlobalARData
 		Log.d(AppConstants.LOG_TAG,
 				"New markers, updating markers. new markers="
 						+ markers.toString());
-		for (Marker marker : markers)
+		for (BasicMarker marker : markers)
 		{
 			if (!markerList.containsKey(marker.getName()))
 			{
-				marker.calcRelativePosition(GlobalARData.getCurrentLocation());
+				marker.updateRelativePosition(GlobalARData.getCurrentGoogleLocation(), GlobalARData.getCurrentBaiduLocation());
 				markerList.put(marker.getName(), marker);
 			}
 		}
@@ -364,12 +407,12 @@ public abstract class GlobalARData
 	
 	public static void logMarkers()
 	{
-		List<Marker> markers = getMarkers();
+		List<BasicMarker> markers = getMarkers();
 		
 		if(null != markers)
 		{
 			int i = 1;
-			for(Marker marker: markers)
+			for(BasicMarker marker: markers)
 			{
 				Log.i(AppConstants.LOG_TAG, "The " + i + " th marker:" + marker.toString());
 				i++;
@@ -383,7 +426,7 @@ public abstract class GlobalARData
 	 * 
 	 * @return Collection of Markers.
 	 */
-	public static List<Marker> getMarkers()
+	public static List<BasicMarker> getMarkers()
 	{
 		// If markers we added, zero out the altitude to recompute the collision
 		// detection
@@ -391,7 +434,7 @@ public abstract class GlobalARData
 		{
 			Log.v(AppConstants.LOG_TAG,
 					"DIRTY flag found, resetting all marker heights to zero.");
-			for (Marker ma : markerList.values())
+			for (BasicMarker ma : markerList.values())
 			{
 				ma.getLocationVector().get(locationArray);
 				locationArray[1] = ma.getInitialY();
@@ -399,7 +442,7 @@ public abstract class GlobalARData
 			}
 
 			Log.v(AppConstants.LOG_TAG, "Populating the cache.");
-			List<Marker> copy = new ArrayList<Marker>();
+			List<BasicMarker> copy = new ArrayList<BasicMarker>();
 			copy.addAll(markerList.values());
 			Collections.sort(copy, comparator);
 			// The cache should be sorted from closest to farthest marker.
@@ -409,14 +452,14 @@ public abstract class GlobalARData
 		return Collections.unmodifiableList(cache);
 	}
 
-	private static final Comparator<Marker> comparator = new Comparator<Marker>()
+	private static final Comparator<BasicMarker> comparator = new Comparator<BasicMarker>()
 	{
 
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
-		public int compare(Marker arg0, Marker arg1)
+		public int compare(BasicMarker arg0, BasicMarker arg1)
 		{
 			return Double.compare(arg0.getDistance(), arg1.getDistance());
 		}

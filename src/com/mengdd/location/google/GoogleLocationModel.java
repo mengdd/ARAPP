@@ -101,7 +101,7 @@ public class GoogleLocationModel extends LocationModel implements LocationListen
 
 			// set the location to a global class so other class can get the
 			// updated value
-			GlobalARData.setCurrentLocation(location);
+			GlobalARData.setCurrentGoogleLocation(location);
 		}
 		
 		mLastFixTime = mCurrentFixTime;

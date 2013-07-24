@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.components.ViewModel;
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.poi.ui.RadarZoomController.OnRadarZoomChangedListener;
 import com.mengdd.utils.AppConstants;
 
@@ -108,16 +108,18 @@ public class POIViewModel extends ViewModel implements LocationListener, OnRadar
 		}
 		catch (NullPointerException e)
 		{
+			Log.e(AppConstants.LOG_TAG, "NullPointerException");
 			return false;
 		}
 
-		List<Marker> markers = null;
+		List<BasicMarker> markers = null;
 		try
 		{
 			markers = source.parse(url);
 		}
 		catch (NullPointerException e)
 		{
+			Log.e(AppConstants.LOG_TAG, "NullPointerException");
 			return false;
 		}
 
@@ -160,7 +162,7 @@ public class POIViewModel extends ViewModel implements LocationListener, OnRadar
 	@Override
 	public void onZoomChanged()
 	{
-        Location last = GlobalARData.getCurrentLocation();
+        Location last = GlobalARData.getCurrentGoogleLocation();
         updateData(last.getLatitude(), last.getLongitude(), last.getAltitude());
 		
 	}

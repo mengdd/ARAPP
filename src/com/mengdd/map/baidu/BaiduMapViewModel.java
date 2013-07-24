@@ -127,7 +127,7 @@ public class BaiduMapViewModel extends BasicMapViewModel
 	{
 		GeoPoint centerpt = mMapView.getMapCenter();
 		int maxLevel = mMapView.getMaxZoomLevel();
-		int zoomlevel = mMapView.getZoomLevel();
+		float zoomlevel = mMapView.getZoomLevel();
 		boolean isTraffic = mMapView.isTraffic();
 		boolean isSatillite = mMapView.isSatellite();
 		boolean isDoubleClick = mMapView.isDoubleClickZooming();

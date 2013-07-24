@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.FileUtils;
 import com.mengdd.utils.HttpUtils;
 
@@ -36,20 +36,20 @@ public abstract class NetworkDataSource extends DataSource
 	protected static final int READ_TIMEOUT = 10000;
 	protected static final int CONNECT_TIMEOUT = 10000;
 
-	protected List<Marker> markersCache = null;
+	protected List<BasicMarker> markersCache = null;
 
 	//the two methods have to be abstract, let the subclass to implement them with details info.
 	public abstract String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale);
 
-	public abstract List<Marker> parse(JSONObject root);
+	public abstract List<BasicMarker> parse(JSONObject root);
 
 	/**
 	 * This method get the Markers if they have already been downloaded once.
 	 * 
 	 * @return List of Marker objects or NULL if not downloaded yet.
 	 */
-	public List<Marker> getMarkers()
+	public List<BasicMarker> getMarkers()
 	{
 		return markersCache;
 	}
@@ -61,7 +61,7 @@ public abstract class NetworkDataSource extends DataSource
 	 *            URL to parse.
 	 * @return List of Marker's from the URL.
 	 */
-	public List<Marker> parse(String url)
+	public List<BasicMarker> parse(String url)
 	{
 		if (null == url)
 		{

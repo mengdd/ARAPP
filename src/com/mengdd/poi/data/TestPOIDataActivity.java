@@ -6,7 +6,7 @@ import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.location.LocationModel;
 import com.mengdd.location.google.GoogleLocationModel;
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
 
 
@@ -60,7 +60,7 @@ public class TestPOIDataActivity extends Activity implements LocationListener
 	{
 		StringBuffer sBuffer = new StringBuffer();
 
-		List<Marker> markersList = GlobalARData.getMarkers();
+		List<BasicMarker> markersList = GlobalARData.getMarkers();
 		if(null == markersList)
 		{
 			Log.i(AppConstants.LOG_TAG, "markerList is null");
@@ -69,7 +69,7 @@ public class TestPOIDataActivity extends Activity implements LocationListener
 		{
 			Log.i(AppConstants.LOG_TAG, "markerList count: " + markersList.size());
 			int i = 1;
-			for (Marker marker : markersList)
+			for (BasicMarker marker : markersList)
 			{
 				sBuffer.append("\nThe " + i + " marker");
 				sBuffer.append("\nName: " + marker.getName());

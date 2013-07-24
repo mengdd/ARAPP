@@ -35,8 +35,8 @@ public class ARPOIView extends View implements SensorEventListener
 
 
 	private static final float[] locationArray = new float[3];
-	private static final List<Marker> cache = new ArrayList<Marker>();
-	private static final TreeSet<Marker> updated = new TreeSet<Marker>();
+	private static final List<BasicMarker> cache = new ArrayList<BasicMarker>();
+	private static final TreeSet<BasicMarker> updated = new TreeSet<BasicMarker>();
 	private static final int COLLISION_ADJUSTMENT = 100;
 
 	public ARPOIView(Context context, AttributeSet attrs, int defStyle)
@@ -76,7 +76,7 @@ public class ARPOIView extends View implements SensorEventListener
 		}
 
 		// Get all the markers
-		List<Marker> collection = GlobalARData.getMarkers();
+		List<BasicMarker> collection = GlobalARData.getMarkers();
 		Log.w(AppConstants.LOG_TAG, "markers count all: " + collection.size());
 		// Prune all the markers that are out of the radar's radius (speeds
 		// up drawing and collision detection)
@@ -84,7 +84,7 @@ public class ARPOIView extends View implements SensorEventListener
 		
 		debugRadarCount = 0;
 		debugViewCount = 0;
-		for (Marker m : collection)
+		for (BasicMarker m : collection)
 		{
 			
 			
@@ -112,10 +112,10 @@ public class ARPOIView extends View implements SensorEventListener
 
 		// Draw AR markers in reverse order since the last drawn should be
 		// the closest
-		ListIterator<Marker> iter = collection.listIterator(collection.size());
+		ListIterator<BasicMarker> iter = collection.listIterator(collection.size());
 		while (iter.hasPrevious())
 		{
-			Marker marker = iter.previous();
+			BasicMarker marker = iter.previous();
 			marker.draw(canvas);
 		}
 
@@ -127,12 +127,12 @@ public class ARPOIView extends View implements SensorEventListener
 	}
 
 	private static void adjustForCollisions(Canvas canvas,
-			List<Marker> collection)
+			List<BasicMarker> collection)
 	{
 		updated.clear();
 
 		// Update the AR markers for collisions
-		for (Marker marker1 : collection)
+		for (BasicMarker marker1 : collection)
 		{
 			if (updated.contains(marker1) || !marker1.isInView())
 			{
@@ -140,7 +140,7 @@ public class ARPOIView extends View implements SensorEventListener
 			}
 
 			int collisions = 1;
-			for (Marker marker2 : collection)
+			for (BasicMarker marker2 : collection)
 			{
 				if (marker1.equals(marker2) || updated.contains(marker2)
 						|| !marker2.isInView())

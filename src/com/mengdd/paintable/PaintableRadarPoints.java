@@ -1,7 +1,7 @@
 package com.mengdd.paintable;
 
 import com.mengdd.arapp.GlobalARData;
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.poi.ui.Radar;
 
 import android.graphics.Canvas;
@@ -48,7 +48,7 @@ public class PaintableRadarPoints extends PaintableObject
 		float range = GlobalARData.getRadius() * 1000;
 		float scale = range / Radar.RADIUS;
 		
-		for (Marker marker : GlobalARData.getMarkers())
+		for (BasicMarker marker : GlobalARData.getMarkers())
 		{
 			marker.getLocationVector().get(locationArray);
 			float x = locationArray[0] / scale;

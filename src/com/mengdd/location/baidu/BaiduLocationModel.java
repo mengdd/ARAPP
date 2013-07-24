@@ -87,7 +87,7 @@ public class BaiduLocationModel extends LocationModel
 			mCurrentLocation = BaiduLocationHelper.convertBD2AndroidLocation(location);
 			
 			//set to Global data class to keep
-			GlobalARData.setCurrentLocation(mCurrentLocation);
+			GlobalARData.setCurrentGoogleLocation(mCurrentLocation);
 
 			StringBuffer sb = new StringBuffer(256);
 			sb.append("time : ");
@@ -146,6 +146,8 @@ public class BaiduLocationModel extends LocationModel
 				sb.append("\nPoi:");
 				sb.append(poiLocation.getPoi());
 			}
+			
+			
 			else
 			{
 				sb.append("noPoi information");

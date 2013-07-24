@@ -8,13 +8,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mengdd.arapp.R;
-import com.mengdd.poi.ui.IconMarker;
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.GoogleMarker;
+import com.mengdd.poi.ui.BasicMarker;
+import com.mengdd.utils.AppConstants;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * This class extends DataSource to fetch data from Google Places.
@@ -70,6 +72,10 @@ public class GooglePlacesDataSource extends NetworkDataSource
 	{
 		try
 		{
+			Log.i(AppConstants.LOG_TAG, "Google createRequestURL: " +  URL + "location=" + lat + "," + lon + "&radius="
+					+ (radius * 1000.0f) + "&types=" + TYPES
+					+ "&sensor=true&key=" + key);
+			
 			return URL + "location=" + lat + "," + lon + "&radius="
 					+ (radius * 1000.0f) + "&types=" + TYPES
 					+ "&sensor=true&key=" + key;
@@ -82,14 +88,18 @@ public class GooglePlacesDataSource extends NetworkDataSource
 	}
 
 	@Override
-	public List<Marker> parse(JSONObject root)
+	public List<BasicMarker> parse(JSONObject root)
 	{
 		if (root == null)
+		{
 			throw new NullPointerException();
+		}
+		
+		Log.i(AppConstants.LOG_TAG, "GoogleDataSource: parse JSONObject: " + root.toString());
 
 		JSONObject jo = null;
 		JSONArray dataArray = null;
-		List<Marker> markers = new ArrayList<Marker>();
+		List<BasicMarker> markers = new ArrayList<BasicMarker>();
 
 		try
 		{
@@ -101,7 +111,7 @@ public class GooglePlacesDataSource extends NetworkDataSource
 			for (int i = 0; i < top; i++)
 			{
 				jo = dataArray.getJSONObject(i);
-				Marker ma = processJSONObject(jo);
+				BasicMarker ma = processJSONObject(jo);
 				if (ma != null)
 					markers.add(ma);
 			}
@@ -113,15 +123,20 @@ public class GooglePlacesDataSource extends NetworkDataSource
 		return markers;
 	}
 
-	private Marker processJSONObject(JSONObject jo)
+	private BasicMarker processJSONObject(JSONObject jo)
 	{
 		if (jo == null)
+		{
 			throw new NullPointerException();
+		}
 
 		if (!jo.has("geometry"))
+		{
 			throw new NullPointerException();
+		}
 
-		Marker ma = null;
+		Log.i(AppConstants.LOG_TAG, "GoogleDataSource: " + jo.toString());
+		BasicMarker ma = null;
 		try
 		{
 			Double lat = null, lon = null;
@@ -137,12 +152,13 @@ public class GooglePlacesDataSource extends NetworkDataSource
 			{
 				String user = jo.getString("name");
 
-				ma = new IconMarker("Google " + user + ": "
-						+ jo.getString("name"), lat, lon, 0, Color.RED, icon);
+				ma = new GoogleMarker("Google " + user + ": "
+						+ jo.getString("name"), Color.RED, icon,lat, lon, 0);
 			}
 		}
 		catch (Exception e)
 		{
+			Log.e(AppConstants.LOG_TAG, "catch block in Google parse object");
 			e.printStackTrace();
 		}
 		return ma;

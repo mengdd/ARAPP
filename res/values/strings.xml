@@ -2,7 +2,7 @@
 <resources>
 
     <!-- API Keys -->
-    <string name="google_places_api_key">AIzaSyDTKpl91a7nz7xbcTATOINumprrPn3Rieo</string>
+    <string name="google_places_api_key">AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA</string>
     <string name="google_maps_api_key">AIzaSyDTKpl91a7nz7xbcTATOINumprrPn3Rieo</string>
     <string name="baidu_map_api_key">AIzaSyC5mTsDhjayzCqXH87ggEYsfswR1cStfX8</string>
 

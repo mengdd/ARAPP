@@ -2,7 +2,7 @@ package com.mengdd.poi.data;
 
 import java.util.List;
 
-import com.mengdd.poi.ui.Marker;
+import com.mengdd.poi.ui.BasicMarker;
 
 
 /**
@@ -24,5 +24,5 @@ import com.mengdd.poi.ui.Marker;
  */
 public abstract class DataSource {
 
-    public abstract List<Marker> getMarkers();
+    public abstract List<BasicMarker> getMarkers();
 }

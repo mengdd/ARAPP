@@ -83,7 +83,7 @@ public class BaiduMyLocationOverlay
 		if (isZoomEnabled)
 		{
 			int maxZoomLevel = mMapView.getMaxZoomLevel();
-			int currentZoomLevel = mMapView.getZoomLevel();
+			float currentZoomLevel = mMapView.getZoomLevel();
 			if (currentZoomLevel < maxZoomLevel)
 			{
 				mMapController.zoomIn();

@@ -3,6 +3,8 @@ package com.mengdd.utils;
 import android.location.Location;
 import android.util.Log;
 
+import com.baidu.mapapi.utils.DistanceUtil;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.poi.data.PhysicalLocation;
 
@@ -109,7 +111,7 @@ public class MathUtils
 			return;
 		}
 
-		//Log.i(AppConstants.LOG_TAG, "calcPitchBearing");
+		// Log.i(AppConstants.LOG_TAG, "calcPitchBearing");
 		tempMatrix.set(rotationMatrix);
 		tempMatrix.transpose();
 		if (GlobalARData.portrait)
@@ -168,6 +170,9 @@ public class MathUtils
 
 	/**
 	 * Converts a Location relative to original location to a Vector
+	 * Vector X stands for distance in Longitude,in meters.
+	 * Vector Y stands for distance in Altitude,in meters.
+	 * Vector Z stands for distance in Latitude,in meters.
 	 * 
 	 * @param origiLocation
 	 *            the location as original point
@@ -188,10 +193,12 @@ public class MathUtils
 		double y = 0.0d;
 		float[] z = new float[1];
 
+		// store latitude distance in z
 		Location.distanceBetween(origiLocation.getLatitude(),
 				origiLocation.getLongitude(), destLocation.getLatitude(),
 				origiLocation.getLongitude(), z);
 
+		// store longitude distance in x
 		Location.distanceBetween(origiLocation.getLatitude(),
 				origiLocation.getLongitude(), origiLocation.getLatitude(),
 				destLocation.getLongitude(), x);
@@ -208,6 +215,58 @@ public class MathUtils
 		}
 
 		vector.set(x[0], (float) y, z[0]);
+
+		return vector;
+	}
+
+	/**
+	 * Converts a GeoPoint relative to original GeoPoint to a Vector
+	 * Vector X stands for distance in Longitude,in meters.
+	 * Vector Y stands for distance in Altitude,in meters.
+	 * (Because GeoPoint with no information about Altitude, so this value should always be zero)
+	 * Vector Z stands for distance in Latitude,in meters.
+	 * 
+	 * 
+	 * @param origiPoint
+	 * @param destPoint
+	 * @return
+	 */
+	public static synchronized Vector convGeoPointToVector(GeoPoint origiPoint,
+			GeoPoint destPoint)
+	{
+		if (origiPoint == null || destPoint == null)
+		{
+			throw new IllegalArgumentException("Location is null");
+		}
+
+		Vector vector = new Vector();
+		double x;
+		double y = 0.0d;
+		double z;
+
+		// store latitude distance in z
+
+		z = DistanceUtil.getDistance(
+				origiPoint,
+				new GeoPoint(destPoint.getLatitudeE6(), origiPoint
+						.getLongitudeE6()));
+
+		// store longitude distance in x
+		x = DistanceUtil.getDistance(
+				origiPoint,
+				new GeoPoint(origiPoint.getLatitudeE6(), destPoint
+						.getLongitudeE6()));
+
+		if (origiPoint.getLatitudeE6() < destPoint.getLatitudeE6())
+		{
+			z *= -1;
+		}
+		if (origiPoint.getLongitudeE6() > destPoint.getLongitudeE6())
+		{
+			x *= -1;
+		}
+
+		vector.set((float) x, (float) y, (float) z);
 
 		return vector;
 	}

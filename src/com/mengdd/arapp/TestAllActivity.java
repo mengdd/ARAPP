@@ -5,6 +5,7 @@ import com.mengdd.location.baidu.TestBaiduLocationActivity;
 import com.mengdd.location.google.TestGoogleLocationActivity;
 import com.mengdd.map.baidu.TestBaiduMapActivity;
 import com.mengdd.map.google.TestGoogleMapActivity;
+import com.mengdd.poi.baidu.TestBaiduPoiActivity;
 import com.mengdd.poi.data.TestPOIDataActivity;
 import com.mengdd.poi.ui.TestRadarActivity;
 import com.mengdd.sensors.TestCompassActivity;
@@ -35,7 +36,7 @@ public class TestAllActivity extends Activity
 	private String[] functionsNames = new String[] { AppConstants.MAIN_APP,
 			AppConstants.GOOGLE_MAP, AppConstants.BAIDU_MAP,
 			AppConstants.LOCALICATION_GOOGLE,AppConstants.LOCALICATION_BAIDU, AppConstants.COMPASS,
-			AppConstants.CAMERA, AppConstants.AR_CAMERA, AppConstants.POI_DATA };
+			AppConstants.CAMERA, AppConstants.AR_CAMERA, AppConstants.POI_DATA ,AppConstants.POI_BAIDU, AppConstants.MARKER_BAIDU};
 
 	private ListView mListView = null;
 	private ArrayAdapter<String> mAdapter = null;
@@ -123,6 +124,20 @@ public class TestAllActivity extends Activity
 			 {
 			 intent.setClass(TestAllActivity.this,
 			 TestPOIDataActivity.class);
+			
+			 }
+			 
+			 if (itemString.equals(AppConstants.POI_BAIDU))
+			 {
+			 intent.setClass(TestAllActivity.this,
+			 TestBaiduPoiActivity.class);
+			
+			 }
+			 
+			 if (itemString.equals(AppConstants.POI_BAIDU))
+			 {
+			 intent.setClass(TestAllActivity.this,
+			 TestBaiduPoiActivity.class);
 			
 			 }
 

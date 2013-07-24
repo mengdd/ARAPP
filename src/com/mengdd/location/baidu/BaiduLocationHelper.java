@@ -4,6 +4,7 @@ import android.location.Location;
 import android.location.LocationManager;
 
 import com.baidu.location.BDLocation;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 
 public class BaiduLocationHelper
 {
@@ -79,6 +80,22 @@ public class BaiduLocationHelper
 		}
 
 		return bdLocation;
+	}
+	
+	
+	public static GeoPoint getGeoPointFromBDLocation(BDLocation bdLocation)
+	{
+		if(null == bdLocation)
+		{
+			throw new IllegalArgumentException("bdLocation is null!");
+		}
+		GeoPoint geoPoint = null;
+		geoPoint = new GeoPoint(
+				(int) (bdLocation.getLatitude() * 1e6),
+				(int) (bdLocation.getLongitude() * 1e6));
+		
+		return geoPoint;
+		
 	}
 
 }
