@@ -23,7 +23,7 @@ import com.mengdd.utils.AppConstants;
 public class BaiduMapHelper
 {
 
-	private static final String strKey = "3BDBC2CD0C6C1F6CB163ED66F26012C7F7CCECC8";
+	private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
 	private static boolean mBDKeyRight = true;
 	private static BMapManager mBMapManager = null;
 	public static BMapManager getMapManager()
@@ -31,38 +31,7 @@ public class BaiduMapHelper
 		return mBMapManager;
 	}
 
-	/*
-	// Singleton Pattern
-	// Volatile修饰的成员变量在每次被线程访问时，都强迫从共享内存中重读该成员变量的值。
-	// 即阻止线程为了优化性能而保有变量的私有拷贝
-	private volatile static BaiduMapHelper mInstance = null;
 
-	public static BaiduMapHelper getInstance()
-	{
-		if (null == mInstance)
-		{
-			synchronized (BaiduMapHelper.class)
-			{
-				if (null == mInstance)
-				{
-					mInstance = new BaiduMapHelper();
-				}
-
-			}
-
-		}
-
-		return mInstance;
-	}
-
-	// Singleton Pattern: use a private constructor so instance can only be
-	// created inside this class
-	private BaiduMapHelper()
-	{
-
-	}
-	
-	*/
 
 	public static void initBaiduMapManager(Context context)
 	{

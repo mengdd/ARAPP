@@ -5,9 +5,12 @@ import java.lang.reflect.Method;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Utility Class for UI related work
@@ -172,5 +175,41 @@ public class UIUtils
 		{
 			return null;
 		}
+	}
+
+	/**
+	 * 从view 得到图片
+	 * 
+	 * @param view
+	 * @return
+	 */
+	public static Bitmap getBitmapFromView(View view)
+	{
+		view.destroyDrawingCache();
+		view.measure(View.MeasureSpec.makeMeasureSpec(0,
+				View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
+				.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+		view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+		view.setDrawingCacheEnabled(true);
+		Bitmap bitmap = view.getDrawingCache(true);
+		return bitmap;
+	}
+
+	public static void showToast(Context context, CharSequence text,
+			boolean longToast)
+	{
+
+		Toast toast = null;
+		if (longToast)
+		{
+			toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+
+		}
+		else
+		{
+			toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+		}
+
+		toast.show();
 	}
 }

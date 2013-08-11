@@ -36,4 +36,6 @@ public class AppConstants
     public static final float DEFAULT_DISTANCE = 100;
     public static final float DEFAULT_CAMERA_WIDTH = 320;
     public static final float DEFAULT_CAMERA_HEIGHT = 480;
+    
+    
 }

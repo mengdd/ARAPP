@@ -219,9 +219,9 @@ public class GoogleCurrentLocation extends ViewModel
 	}
 
 	@Override
-	public void onDestory()
+	public void onDestroy()
 	{
-		super.onDestory();
+		super.onDestroy();
 	}
 
 	private LocationListener mLocationListener = new LocationListener()

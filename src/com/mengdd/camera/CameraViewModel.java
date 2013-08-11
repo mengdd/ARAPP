@@ -44,7 +44,13 @@ public class CameraViewModel extends ViewModel
 	// The first rear facing camera
 	private int mDefaultCameraId;
 
-
+	private Button captureButton = null;
+	
+	public void setCaptureButtonVisibility(int visibility)
+	{
+		captureButton.setVisibility(visibility);
+		
+	}
 
 	public CameraViewModel(Activity activity)
 	{
@@ -73,7 +79,7 @@ public class CameraViewModel extends ViewModel
 		preview.addView(mCameraPreview, 0);
 
 		// 使用按钮进行拍摄动作监听
-		Button captureButton = (Button) mRootView
+		captureButton = (Button) mRootView
 				.findViewById(R.id.button_capture);
 		captureButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -118,9 +124,9 @@ public class CameraViewModel extends ViewModel
 	}
 
 	@Override
-	public void onDestory()
+	public void onDestroy()
 	{
-		super.onDestory();
+		super.onDestroy();
 	}
 
 	/**

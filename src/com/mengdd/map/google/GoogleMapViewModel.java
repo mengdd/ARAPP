@@ -92,10 +92,10 @@ public class GoogleMapViewModel extends BasicMapViewModel
 	}
 
 	@Override
-	public void onDestory()
+	public void onDestroy()
 	{
 
-		super.onDestory();
+		super.onDestroy();
 		if (isVisible)
 		{
 			mMapView.onDestroy();

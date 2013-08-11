@@ -123,7 +123,7 @@ public class ViewModelManager
 
 			if (isDestory)
 			{
-				lastModel.onDestory();
+				lastModel.onDestroy();
 			}
 
 			if (mBackStack.size() > 0)
@@ -195,7 +195,7 @@ public class ViewModelManager
 
 					if (destoryLast && mCurrentViewModel.IsInited())
 					{
-						mCurrentViewModel.onDestory();
+						mCurrentViewModel.onDestroy();
 					}
 				}
 
@@ -218,7 +218,7 @@ public class ViewModelManager
 
 						if (destoryLast && viewModel.IsInited())
 						{
-							backModel.onDestory();
+							backModel.onDestroy();
 							backModel = null;
 						}
 					}
@@ -333,7 +333,7 @@ public class ViewModelManager
 			ViewModel viewModel = mViewModels.get(tag);
 			if (viewModel.IsInited())
 			{
-				viewModel.onDestory();
+				viewModel.onDestroy();
 			}
 		}
 		mViewModels.clear();
@@ -348,7 +348,7 @@ public class ViewModelManager
 	{
 		if (mCurrentViewModel != null)
 		{
-			mCurrentViewModel.onDestory();
+			mCurrentViewModel.onDestroy();
 		}
 	}
 
@@ -393,4 +393,14 @@ public class ViewModelManager
 		}
 	}
 
+	/**
+	 * 根据TAG获取ViewModel
+	 * 
+	 * @param tag
+	 * @return
+	 */
+	public ViewModel findViewModelByTag(String tag)
+	{
+		return mViewModels.get(tag);
+	}
 }

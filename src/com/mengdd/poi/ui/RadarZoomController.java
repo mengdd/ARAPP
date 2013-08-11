@@ -1,6 +1,9 @@
 package com.mengdd.poi.ui;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mengdd.arapp.GlobalARData;
 import android.content.Context;
 import android.view.View;
@@ -62,12 +65,41 @@ public class RadarZoomController
 	{
 		public void onZoomChanged();
 	}
-	
-	private OnRadarZoomChangedListener mZoomChangedListener = null;
-	
-	public void setOnZoomChangedListener(OnRadarZoomChangedListener listener)
+
+	private List<OnRadarZoomChangedListener> mZoomChangedListeners = null;
+
+	public void addOnZoomChangedListener(OnRadarZoomChangedListener listener)
 	{
-		mZoomChangedListener = listener;
+
+		if (null == listener)
+		{
+			throw new IllegalArgumentException("listener is null!");
+		}
+
+		if (null == mZoomChangedListeners)
+		{
+			mZoomChangedListeners = new ArrayList<RadarZoomController.OnRadarZoomChangedListener>();
+		}
+
+		mZoomChangedListeners.add(listener);
+
+	}
+
+	public boolean removeOnZoomChangedListener(
+			OnRadarZoomChangedListener listener)
+	{
+		boolean result = false;
+		if (null == listener)
+		{
+			throw new IllegalArgumentException("listener is null!");
+		}
+
+		if (null != mZoomChangedListeners)
+		{
+			result = mZoomChangedListeners.remove(listener);
+		}
+
+		return result;
 	}
 
 	private void updateDataOnZoom()
@@ -77,11 +109,14 @@ public class RadarZoomController
 		GlobalARData.setRadius(zoomLevel);
 		GlobalARData.setZoomLevel(FORMAT.format(zoomLevel));
 		GlobalARData.setZoomProgress(mSeekBar.getProgress());
-		
-		//outsider listener
-		if(null != mZoomChangedListener)
+
+		// outsider listener
+		if (null != mZoomChangedListeners)
 		{
-			mZoomChangedListener.onZoomChanged();
+			for (OnRadarZoomChangedListener listener : mZoomChangedListeners)
+			{
+				listener.onZoomChanged();
+			}
 		}
 	}
 

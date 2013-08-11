@@ -46,7 +46,7 @@ public abstract class ViewModel
 
 	}
 
-	public void onDestory()
+	public void onDestroy()
 	{
 		mInited = false;
 	}

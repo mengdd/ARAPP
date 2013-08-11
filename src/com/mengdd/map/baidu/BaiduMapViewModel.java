@@ -116,9 +116,9 @@ public class BaiduMapViewModel extends BasicMapViewModel
 	}
 
 	@Override
-	public void onDestory()
+	public void onDestroy()
 	{
-		super.onDestory();
+		super.onDestroy();
 
 		mMapView.destroy();
 	}
@@ -201,6 +201,12 @@ public class BaiduMapViewModel extends BasicMapViewModel
 		public void onMapAnimationFinish()
 		{
 
+		}
+
+		@Override
+		public void onMapLoadFinish()
+		{
+			
 		}
 	};
 

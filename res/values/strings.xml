@@ -4,7 +4,7 @@
     <!-- API Keys -->
     <string name="google_places_api_key">AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA</string>
     <string name="google_maps_api_key">AIzaSyDTKpl91a7nz7xbcTATOINumprrPn3Rieo</string>
-    <string name="baidu_map_api_key">AIzaSyC5mTsDhjayzCqXH87ggEYsfswR1cStfX8</string>
+    <string name="baidu_map_api_key">9f73afe814fc8582b9e6b20043adee7b</string>
 
     <!-- main project -->
     <string name="app_name">ARApp</string>
@@ -14,7 +14,22 @@
     <string name="baidu_map">Baidu Map</string>
     <string name="action_go_poi">Watch POI</string>
 
+    <!-- Drawer Menuer -->
+    <string-array name="drawer_menu_items">
+        <item>User Login</item>
+        <item>Friends</item>
+        <item>Google Map</item>
+        <item>Baidu Map</item>
+        <item>Search</item>
+        <item>Where am I?</item>
+        <item>Real Scene</item>
+        <item>Map API Compare</item>
+        <item>Add My Markers</item>
+        <item>Settings</item>
+    </string-array>
+
     <!-- MainProject -->
+    <string name="main_title">LBS ARApp</string>
     <string name="hello_world">Hello world!</string>
     <string name="no_camera">No camera on this device!</string>
     <string name="no_activity">Activity Not Found Exception!</string>
@@ -57,9 +72,69 @@
     <string name="dialog_title_setting_location">"Want Provider Settings?"</string>
     <string name="dialog_set_location_src">"Do you want to set the Location Providers?"</string>
     <string name="dialog_provider_not_enabled">"Location Provider: “"%s"” is not enabled.\n"</string>
-    <string name="alert_confirm">Ok</string>
+    <string name="alert_confirm">OK</string>
     <string name="alert_cancel">Cancel</string>
     <string name="alert_yes">Yes</string>
     <string name="alert_no">No</string>
+
+    <!-- Login -->
+    <string name="login_title">Log In Or Join</string>
+    <string name="login">Log In</string>
+    <string name="join">Join</string>
+    <string name="username">User Name:</string>
+    <string name="username_hint">Input your user name</string>
+    <string name="password">Password:</string>
+    <string name="password_hint">Input your password</string>
+
+    <!-- Google Map -->
+    <string name="googlemap_title">Google Map</string>
+
+    <!-- Baidu Map -->
+    <string name="baidumap_title">Baidu Map</string>
+
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="btn_map">Log In</string>
+    <string name="btn_search">Join</string>
+    <string name="btn_list">User Name:</string>
+    <string name="btn_realscene">Input your user name</string>
+
+    <!-- Search UI -->
+    <string name="search_title">Search Information</string>
+    <string name="search">Search</string>
+    <string name="at">Search in:</string>
+    <string name="city">City:</string>
+    <string name="search_in_city">Search in City</string>
+    <string name="search_nearby">Search Nearby</string>
+    <string name="default_city">北京</string>
+    <string name="looking_for">Looking For: </string>
+    <string name="default_keyword">餐厅</string>
+    <string name="clear_before">Clear Before Search</string>
+    <string name="current_location">Current Location</string>
+    <string name="search_radius">Search Radius</string>
+    <!-- Search bottom menu -->
+    <string name="search_menu_ui">Search</string>
+    <string name="search_menu_list">Result List</string>
+    <string name="search_menu_map">Map</string>
+    <string name="search_menu_realscene">Real Scene</string>
+
+    <!-- Search Result -->
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+
+    <!-- Custom Markers -->
+    <string name="goto_my">Focus my Place</string>
+    <string name="add_marker">Add Marker Here</string>
+    <string name="new_marker">New Marker</string>
+    <string name="save_marker">Save Marker</string>
+    <string name="save_success">Save Marker Successfully!</string>
+    <string name="save_failed">Save Marker Failed!</string>
+
+    <!-- Save Marker Dialog -->
+
+    <string name="dialog_title_save_marker">Save Marker Successfully!</string>
+    <string name="dialog_save_marker_name">Marker name: </string>
+    <string name="dialog_save_marker_des">Marker description: </string>
+    <string name="dialog_too_long">"String is too long!</string>
 
 </resources>

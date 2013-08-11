@@ -23,6 +23,7 @@ import com.baidu.mapapi.search.MKPoiInfo;
 import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
+import com.baidu.mapapi.search.MKShareUrlResult;
 import com.baidu.mapapi.search.MKSuggestionInfo;
 import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
@@ -187,6 +188,13 @@ public class BaiduPoiSearchViewModel extends ViewModel
 		public void onGetAddrResult(MKAddrInfo result, int iError)
 		{
 			Log.i(AppConstants.LOG_TAG, "onGetAddrResult: " + iError);
+		}
+
+		@Override
+		public void onGetShareUrlResult(MKShareUrlResult arg0, int arg1,
+				int arg2)
+		{
+			
 		}
 	};
 

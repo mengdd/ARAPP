@@ -9,9 +9,12 @@ package com.mengdd.arapp;
 
 public final class R {
     public static final class array {
+        /**  Drawer Menuer 
+         */
+        public static final int drawer_menu_items=0x7f080000;
         /**  Location Providers 
          */
-        public static final int location_providers=0x7f080000;
+        public static final int location_providers=0x7f080001;
     }
     public static final class attr {
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
@@ -149,14 +152,16 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f040006;
         public static final int common_signin_btn_light_text_focused=0x7f040007;
         public static final int common_signin_btn_light_text_pressed=0x7f040005;
-        public static final int common_signin_btn_text_dark=0x7f040025;
-        public static final int common_signin_btn_text_light=0x7f040026;
+        public static final int common_signin_btn_text_dark=0x7f040028;
+        public static final int common_signin_btn_text_light=0x7f040029;
         public static final int compass_arrow=0x7f04000f;
         public static final int compass_arrow_shadow=0x7f040010;
         public static final int compass_direction_text=0x7f04000b;
         public static final int compass_marker=0x7f04000d;
         public static final int compass_marker_shadow=0x7f04000e;
         public static final int compass_sub_direction_text=0x7f04000c;
+        public static final int drawer_bg=0x7f040024;
+        public static final int drawer_text=0x7f040025;
         public static final int green=0x7f040021;
         public static final int horizon_ground_from=0x7f04001a;
         public static final int horizon_ground_to=0x7f04001b;
@@ -167,14 +172,17 @@ containing a value of this type.
         public static final int inner_border_two=0x7f040016;
         public static final int marker_color=0x7f040012;
         public static final int outer_border=0x7f040014;
-        public static final int radar_color=0x7f040024;
+        public static final int radar_color=0x7f040027;
         /**  Radar related color 
          */
-        public static final int radar_line_color=0x7f040023;
+        public static final int radar_line_color=0x7f040026;
         public static final int red=0x7f040020;
         public static final int shadow_color=0x7f040013;
         public static final int text_color=0x7f04000a;
         public static final int text_color2=0x7f04001c;
+        /**  main UI color 
+         */
+        public static final int title_background=0x7f040023;
         public static final int transparent_color=0x7f04001d;
         public static final int white=0x7f04001e;
     }
@@ -200,87 +208,157 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int baidu=0x7f020000;
-        public static final int buzz=0x7f020001;
-        public static final int common_signin_btn_icon_dark=0x7f020002;
-        public static final int common_signin_btn_icon_disabled_dark=0x7f020003;
-        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020004;
-        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020005;
-        public static final int common_signin_btn_icon_disabled_light=0x7f020006;
-        public static final int common_signin_btn_icon_focus_dark=0x7f020007;
-        public static final int common_signin_btn_icon_focus_light=0x7f020008;
-        public static final int common_signin_btn_icon_light=0x7f020009;
-        public static final int common_signin_btn_icon_normal_dark=0x7f02000a;
-        public static final int common_signin_btn_icon_normal_light=0x7f02000b;
-        public static final int common_signin_btn_icon_pressed_dark=0x7f02000c;
-        public static final int common_signin_btn_icon_pressed_light=0x7f02000d;
-        public static final int common_signin_btn_text_dark=0x7f02000e;
-        public static final int common_signin_btn_text_disabled_dark=0x7f02000f;
-        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020010;
-        public static final int common_signin_btn_text_disabled_focus_light=0x7f020011;
-        public static final int common_signin_btn_text_disabled_light=0x7f020012;
-        public static final int common_signin_btn_text_focus_dark=0x7f020013;
-        public static final int common_signin_btn_text_focus_light=0x7f020014;
-        public static final int common_signin_btn_text_light=0x7f020015;
-        public static final int common_signin_btn_text_normal_dark=0x7f020016;
-        public static final int common_signin_btn_text_normal_light=0x7f020017;
-        public static final int common_signin_btn_text_pressed_dark=0x7f020018;
-        public static final int common_signin_btn_text_pressed_light=0x7f020019;
-        public static final int ic_launcher=0x7f02001a;
-        public static final int icon=0x7f02001b;
-        public static final int twitter=0x7f02001c;
-        public static final int wikipedia=0x7f02001d;
+        public static final int btn_back=0x7f020001;
+        public static final int btn_back_ic=0x7f020002;
+        public static final int btn_settings=0x7f020003;
+        public static final int buzz=0x7f020004;
+        public static final int common_signin_btn_icon_dark=0x7f020005;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020006;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020007;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020008;
+        public static final int common_signin_btn_icon_disabled_light=0x7f020009;
+        public static final int common_signin_btn_icon_focus_dark=0x7f02000a;
+        public static final int common_signin_btn_icon_focus_light=0x7f02000b;
+        public static final int common_signin_btn_icon_light=0x7f02000c;
+        public static final int common_signin_btn_icon_normal_dark=0x7f02000d;
+        public static final int common_signin_btn_icon_normal_light=0x7f02000e;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f02000f;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020010;
+        public static final int common_signin_btn_text_dark=0x7f020011;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020012;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020013;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020014;
+        public static final int common_signin_btn_text_disabled_light=0x7f020015;
+        public static final int common_signin_btn_text_focus_dark=0x7f020016;
+        public static final int common_signin_btn_text_focus_light=0x7f020017;
+        public static final int common_signin_btn_text_light=0x7f020018;
+        public static final int common_signin_btn_text_normal_dark=0x7f020019;
+        public static final int common_signin_btn_text_normal_light=0x7f02001a;
+        public static final int common_signin_btn_text_pressed_dark=0x7f02001b;
+        public static final int common_signin_btn_text_pressed_light=0x7f02001c;
+        public static final int ic_drawer=0x7f02001d;
+        public static final int ic_launcher=0x7f02001e;
+        public static final int icon=0x7f02001f;
+        public static final int icon_gcoding=0x7f020020;
+        public static final int icon_marka=0x7f020021;
+        public static final int icon_markb=0x7f020022;
+        public static final int icon_markc=0x7f020023;
+        public static final int icon_markd=0x7f020024;
+        public static final int icon_marke=0x7f020025;
+        public static final int nav_turn_via_1=0x7f020026;
+        public static final int popup_down=0x7f020027;
+        public static final int popup_left=0x7f020028;
+        public static final int popup_middle=0x7f020029;
+        public static final int popup_right=0x7f02002a;
+        public static final int popup_side=0x7f02002b;
+        public static final int selector_btn_back=0x7f02002c;
+        public static final int selector_btn_bottom_menu=0x7f02002d;
+        public static final int selector_btn_setting=0x7f02002e;
+        public static final int shape_background=0x7f02002f;
+        public static final int shape_btn_bottom_menu=0x7f020030;
+        public static final int twitter=0x7f020031;
+        public static final int wikipedia=0x7f020032;
     }
     public static final class id {
-        public static final int accuracyLabel=0x7f05001c;
-        public static final int accuracyUnits=0x7f05001e;
-        public static final int accuracyValue=0x7f05001d;
-        public static final int action_baidu_map=0x7f050030;
-        public static final int action_google_map=0x7f050031;
-        public static final int action_poi=0x7f050032;
-        public static final int allProvidersLabel=0x7f050011;
-        public static final int allProvidersValue=0x7f050012;
+        public static final int accuracyLabel=0x7f050020;
+        public static final int accuracyUnits=0x7f050022;
+        public static final int accuracyValue=0x7f050021;
+        public static final int action_baidu_map=0x7f050061;
+        public static final int action_google_map=0x7f050062;
+        public static final int action_poi=0x7f050063;
+        public static final int address=0x7f050044;
+        public static final int allProvidersLabel=0x7f050015;
+        public static final int allProvidersValue=0x7f050016;
         public static final int bMapView=0x7f050008;
-        public static final int button_capture=0x7f05000f;
+        public static final int bottom_content=0x7f050039;
+        public static final int bottom_menu=0x7f050026;
+        public static final int btn_map=0x7f050042;
+        public static final int button_capture=0x7f050013;
         public static final int camera_frame=0x7f050005;
-        public static final int camera_preview=0x7f05000e;
+        public static final int camera_preview=0x7f050012;
         public static final int city=0x7f050009;
-        public static final int compassSwitch=0x7f050023;
-        public static final int compass_frame=0x7f050024;
-        public static final int controlPanel=0x7f050013;
-        public static final int frame=0x7f050027;
-        public static final int frame2=0x7f05002b;
-        public static final int horizonView=0x7f050010;
+        public static final int city_mode=0x7f050053;
+        public static final int compassSwitch=0x7f05002f;
+        public static final int compass_frame=0x7f050030;
+        public static final int controlPanel=0x7f050017;
+        public static final int drawerLayout=0x7f050036;
+        public static final int drawer_close_content=0x7f050037;
+        public static final int drawer_list=0x7f05003b;
+        public static final int drawer_open_content=0x7f05003a;
+        public static final int frame=0x7f050059;
+        public static final int frame2=0x7f05005d;
+        public static final int goto_my=0x7f050029;
+        public static final int header_back=0x7f050031;
+        public static final int header_setting=0x7f050032;
+        public static final int header_title=0x7f050033;
+        public static final int horizonView=0x7f050014;
         public static final int hybrid=0x7f050004;
-        public static final int latitudeLabel=0x7f050016;
-        public static final int latitudeValue=0x7f050017;
-        public static final int longitudeLabel=0x7f050018;
-        public static final int longitudeValue=0x7f050019;
-        public static final int mainList=0x7f050026;
-        public static final int main_frame=0x7f050029;
-        public static final int map=0x7f05002c;
-        public static final int mapContent=0x7f05002e;
-        public static final int mapSwitch=0x7f05002d;
-        public static final int map_frame=0x7f050025;
+        public static final int info=0x7f050045;
+        public static final int keywords=0x7f05004d;
+        public static final int latitudeLabel=0x7f05001a;
+        public static final int latitudeValue=0x7f05001b;
+        public static final int location=0x7f050055;
+        public static final int longitudeLabel=0x7f05001c;
+        public static final int longitudeValue=0x7f05001d;
+        public static final int mainList=0x7f050058;
+        public static final int main_content=0x7f050028;
+        public static final int main_frame=0x7f05005b;
+        public static final int main_title=0x7f050038;
+        public static final int map=0x7f050043;
+        public static final int mapContent=0x7f05005f;
+        public static final int mapSwitch=0x7f05005e;
+        public static final int map_frame=0x7f05003c;
         public static final int map_next_data=0x7f05000c;
-        public static final int myTextView=0x7f05002f;
-        public static final int next=0x7f050028;
+        public static final int marker_des=0x7f05002d;
+        public static final int marker_name=0x7f05002c;
+        public static final int myTextView=0x7f050060;
+        public static final int near_mode=0x7f050054;
+        public static final int new_marker=0x7f05002a;
+        public static final int next=0x7f05005a;
+        public static final int next_btn=0x7f050049;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int providerLabel=0x7f05001a;
-        public static final int providerSpinner=0x7f050014;
-        public static final int providerValue=0x7f05001b;
+        public static final int pageText=0x7f050048;
+        public static final int page_btns=0x7f050046;
+        public static final int password=0x7f050035;
+        public static final int popdown=0x7f050040;
+        public static final int popinfo=0x7f05003e;
+        public static final int popleft=0x7f05003d;
+        public static final int popright=0x7f050041;
+        public static final int previous_btn=0x7f050047;
+        public static final int providerLabel=0x7f05001e;
+        public static final int providerSpinner=0x7f050018;
+        public static final int providerValue=0x7f05001f;
         public static final int radar_frame=0x7f050006;
+        public static final int radioGroup1=0x7f05004f;
+        public static final int radio_mode_inCity=0x7f050050;
+        public static final int radio_mode_nearby=0x7f050051;
+        public static final int radius=0x7f050056;
         public static final int resultList=0x7f05000d;
         public static final int satellite=0x7f050002;
+        public static final int save_marker=0x7f05002b;
         public static final int search=0x7f05000b;
+        public static final int search_btn=0x7f05004e;
+        public static final int search_list=0x7f05004a;
+        public static final int search_main=0x7f05004c;
+        public static final int search_menu_list=0x7f05000f;
+        public static final int search_menu_map=0x7f050010;
+        public static final int search_menu_real=0x7f050011;
+        public static final int search_menu_ui=0x7f05000e;
+        public static final int search_mode=0x7f050052;
+        public static final int search_radius=0x7f050057;
+        public static final int search_ui=0x7f05004b;
         public static final int searchkey=0x7f05000a;
-        public static final int settingsBtn=0x7f050015;
-        public static final int single_tip=0x7f050022;
+        public static final int settingsBtn=0x7f050019;
+        public static final int single_tip=0x7f05002e;
         public static final int terrain=0x7f050003;
-        public static final int textView=0x7f05002a;
-        public static final int timeToFixLabel=0x7f05001f;
-        public static final int timeToFixUnits=0x7f050021;
-        public static final int timeToFixValue=0x7f050020;
+        public static final int textView=0x7f05005c;
+        public static final int textcache=0x7f05003f;
+        public static final int timeToFixLabel=0x7f050023;
+        public static final int timeToFixUnits=0x7f050025;
+        public static final int timeToFixValue=0x7f050024;
+        public static final int title=0x7f050027;
+        public static final int username=0x7f050034;
         public static final int zoom_frame=0x7f050007;
     }
     public static final class layout {
@@ -288,57 +366,98 @@ containing a value of this type.
         public static final int arpoi=0x7f030001;
         public static final int baidu_map_view_root=0x7f030002;
         public static final int baidu_poi_view_model=0x7f030003;
-        public static final int camera_view_model=0x7f030004;
-        public static final int compass_view_model=0x7f030005;
-        public static final int cur_location_view_model=0x7f030006;
-        public static final int dialog_single_tip=0x7f030007;
-        public static final int first=0x7f030008;
-        public static final int google_map_view_root=0x7f030009;
-        public static final int location_view=0x7f03000a;
-        public static final int map_activity=0x7f03000b;
-        public static final int test_all=0x7f03000c;
-        public static final int test_baidumap=0x7f03000d;
-        public static final int test_camera=0x7f03000e;
-        public static final int test_compass=0x7f03000f;
-        public static final int test_cur_location=0x7f030010;
-        public static final int test_googlemap=0x7f030011;
-        public static final int test_mapview=0x7f030012;
-        public static final int test_poi_data=0x7f030013;
+        public static final int bottom_menu=0x7f030004;
+        public static final int camera_view_model=0x7f030005;
+        public static final int compass_view_model=0x7f030006;
+        public static final int cur_location_view_model=0x7f030007;
+        public static final int custom_main=0x7f030008;
+        public static final int dialog_save_marker=0x7f030009;
+        public static final int dialog_single_tip=0x7f03000a;
+        public static final int drawer_item=0x7f03000b;
+        public static final int first=0x7f03000c;
+        public static final int frame_bottom=0x7f03000d;
+        public static final int frame_header=0x7f03000e;
+        public static final int google_map_view_root=0x7f03000f;
+        public static final int location_view=0x7f030010;
+        public static final int login_activity=0x7f030011;
+        public static final int main_activity=0x7f030012;
+        public static final int map_activity=0x7f030013;
+        public static final int pop_view=0x7f030014;
+        public static final int search_baidu_poi_activity=0x7f030015;
+        public static final int search_main=0x7f030016;
+        public static final int search_map=0x7f030017;
+        public static final int search_poi_item=0x7f030018;
+        public static final int search_real_scene=0x7f030019;
+        public static final int search_result_list=0x7f03001a;
+        public static final int search_ui=0x7f03001b;
+        public static final int test_all=0x7f03001c;
+        public static final int test_baidumap=0x7f03001d;
+        public static final int test_camera=0x7f03001e;
+        public static final int test_compass=0x7f03001f;
+        public static final int test_cur_location=0x7f030020;
+        public static final int test_googlemap=0x7f030021;
+        public static final int test_mapview=0x7f030022;
+        public static final int test_poi_data=0x7f030023;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
     }
     public static final class string {
-        public static final int accuracyLabel=0x7f060030;
+        public static final int accuracyLabel=0x7f060031;
         public static final int action_go_map=0x7f06001a;
         public static final int action_go_poi=0x7f06001d;
         public static final int action_settings=0x7f060019;
-        public static final int alert_cancel=0x7f06003c;
-        public static final int alert_confirm=0x7f06003b;
-        public static final int alert_no=0x7f06003e;
-        public static final int alert_yes=0x7f06003d;
-        public static final int allProvidersLabel=0x7f060034;
+        public static final int add_marker=0x7f060060;
+        public static final int alert_cancel=0x7f06003d;
+        public static final int alert_confirm=0x7f06003c;
+        public static final int alert_no=0x7f06003f;
+        public static final int alert_yes=0x7f06003e;
+        public static final int allProvidersLabel=0x7f060035;
         /**  main project 
          */
         public static final int app_name=0x7f060018;
-        /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
+        public static final int at=0x7f06004f;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        enabled for a application to work. [CHAR LIMIT=70] 
          */
-        public static final int auth_client_availability_notification_title=0x7f06000f;
+        public static final int auth_client_needs_enabling_title=0x7f060010;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        installed for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_installation_title=0x7f060011;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        udpated for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_update_title=0x7f060012;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
          */
-        public static final int auth_client_play_services_err_notification_msg=0x7f060010;
+        public static final int auth_client_play_services_err_notification_msg=0x7f060013;
         /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
          */
-        public static final int auth_client_requested_by_msg=0x7f060011;
+        public static final int auth_client_requested_by_msg=0x7f060014;
+        /**   Title for notification shown when a bad version of GooglePlayServices
+        has been installed and needs correction for an application to work.
+        [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_using_bad_version_title=0x7f06000f;
         public static final int baidu_map=0x7f06001c;
         public static final int baidu_map_api_key=0x7f060017;
-        public static final int cardinal_east=0x7f06002a;
+        /**  Baidu Map 
+         */
+        public static final int baidumap_title=0x7f060048;
+        public static final int btn_list=0x7f06004c;
+        public static final int btn_map=0x7f06004a;
+        public static final int btn_realscene=0x7f06004d;
+        public static final int btn_search=0x7f06004b;
+        public static final int cardinal_east=0x7f06002b;
         /**  Compass 
          */
-        public static final int cardinal_north=0x7f060029;
-        public static final int cardinal_south=0x7f06002b;
-        public static final int cardinal_west=0x7f06002c;
-        public static final int changeLocationProviderSettingsText=0x7f060036;
+        public static final int cardinal_north=0x7f06002a;
+        public static final int cardinal_south=0x7f06002c;
+        public static final int cardinal_west=0x7f06002d;
+        public static final int changeLocationProviderSettingsText=0x7f060037;
+        public static final int city=0x7f060050;
+        public static final int clear_before=0x7f060056;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -394,50 +513,87 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int compass=0x7f060024;
-        public static final int compass_off=0x7f060026;
-        public static final int compass_on=0x7f060025;
-        public static final int dialog_provider_not_enabled=0x7f06003a;
-        public static final int dialog_set_location_src=0x7f060039;
+        public static final int compass=0x7f060025;
+        public static final int compass_off=0x7f060027;
+        public static final int compass_on=0x7f060026;
+        public static final int current_location=0x7f060057;
+        public static final int default_city=0x7f060053;
+        public static final int default_keyword=0x7f060055;
+        public static final int dialog_provider_not_enabled=0x7f06003b;
+        public static final int dialog_save_marker_des=0x7f060067;
+        public static final int dialog_save_marker_name=0x7f060066;
+        public static final int dialog_set_location_src=0x7f06003a;
+        /**  Save Marker Dialog 
+         */
+        public static final int dialog_title_save_marker=0x7f060065;
         /**  Dialogs 
          */
-        public static final int dialog_title_setting_location=0x7f060038;
-        public static final int enabledProvidersLabel=0x7f060035;
+        public static final int dialog_title_setting_location=0x7f060039;
+        public static final int dialog_too_long=0x7f060068;
+        public static final int enabledProvidersLabel=0x7f060036;
         public static final int google_map=0x7f06001b;
         public static final int google_maps_api_key=0x7f060016;
         /**  API Keys 
          */
         public static final int google_places_api_key=0x7f060015;
-        public static final int goto_map=0x7f060027;
-        public static final int goto_poi=0x7f060028;
-        /**  MainProject 
+        /**  Google Map 
          */
-        public static final int hello_world=0x7f06001e;
+        public static final int googlemap_title=0x7f060047;
+        public static final int goto_map=0x7f060028;
+        /**  Custom Markers 
+         */
+        public static final int goto_my=0x7f06005f;
+        public static final int goto_poi=0x7f060029;
+        public static final int hello_world=0x7f06001f;
+        public static final int join=0x7f060042;
         /**  Location 
          */
-        public static final int latitudeLabel=0x7f06002d;
-        /**  Location client code resources (prefix with location_client) 
-
-        Begin strings for location.reporting
-    
-
-        Some InactiveReason names.  See more in OneUp/package/location/res/values/strings.xml
-    
+        public static final int latitudeLabel=0x7f06002e;
+        public static final int login=0x7f060041;
+        /**  Login 
          */
-        public static final int location_client_ulr_inactive_age_under_13=0x7f060012;
-        public static final int location_client_ulr_inactive_age_unknown=0x7f060013;
-        public static final int location_client_ulr_inactive_unknown_restriction=0x7f060014;
-        public static final int longitudeLabel=0x7f06002e;
-        public static final int map=0x7f060021;
-        public static final int map_off=0x7f060023;
-        public static final int map_on=0x7f060022;
-        public static final int metersUnit=0x7f060033;
-        public static final int no_activity=0x7f060020;
-        public static final int no_camera=0x7f06001f;
-        public static final int providerLabel=0x7f06002f;
-        public static final int provider_prompt=0x7f060037;
-        public static final int secondsUnit=0x7f060032;
-        public static final int timeToFixLabel=0x7f060031;
+        public static final int login_title=0x7f060040;
+        public static final int longitudeLabel=0x7f06002f;
+        public static final int looking_for=0x7f060054;
+        /**  MainProject 
+         */
+        public static final int main_title=0x7f06001e;
+        public static final int map=0x7f060022;
+        public static final int map_off=0x7f060024;
+        public static final int map_on=0x7f060023;
+        public static final int metersUnit=0x7f060034;
+        public static final int new_marker=0x7f060061;
+        public static final int next=0x7f06005e;
+        public static final int no_activity=0x7f060021;
+        public static final int no_camera=0x7f060020;
+        public static final int password=0x7f060045;
+        public static final int password_hint=0x7f060046;
+        /**  Search Result 
+         */
+        public static final int previous=0x7f06005d;
+        public static final int providerLabel=0x7f060030;
+        public static final int provider_prompt=0x7f060038;
+        public static final int save_failed=0x7f060064;
+        public static final int save_marker=0x7f060062;
+        public static final int save_success=0x7f060063;
+        public static final int search=0x7f06004e;
+        public static final int search_in_city=0x7f060051;
+        public static final int search_menu_list=0x7f06005a;
+        public static final int search_menu_map=0x7f06005b;
+        public static final int search_menu_realscene=0x7f06005c;
+        /**  Search bottom menu 
+         */
+        public static final int search_menu_ui=0x7f060059;
+        public static final int search_nearby=0x7f060052;
+        public static final int search_radius=0x7f060058;
+        /**  Search 
+ Search UI 
+         */
+        public static final int search_title=0x7f060049;
+        public static final int secondsUnit=0x7f060033;
+        public static final int timeToFixLabel=0x7f060032;
+        public static final int username=0x7f060043;
+        public static final int username_hint=0x7f060044;
     }
     public static final class style {
         /** 
@@ -521,7 +677,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraBearing
+          @attr name com.mengdd.arapp:cameraBearing
         */
         public static final int MapAttrs_cameraBearing = 1;
         /**
@@ -535,7 +691,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLat
+          @attr name com.mengdd.arapp:cameraTargetLat
         */
         public static final int MapAttrs_cameraTargetLat = 2;
         /**
@@ -549,7 +705,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLng
+          @attr name com.mengdd.arapp:cameraTargetLng
         */
         public static final int MapAttrs_cameraTargetLng = 3;
         /**
@@ -563,7 +719,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTilt
+          @attr name com.mengdd.arapp:cameraTilt
         */
         public static final int MapAttrs_cameraTilt = 4;
         /**
@@ -577,7 +733,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraZoom
+          @attr name com.mengdd.arapp:cameraZoom
         */
         public static final int MapAttrs_cameraZoom = 5;
         /**
@@ -597,7 +753,7 @@ containing a value of this type.
 <tr><td><code>terrain</code></td><td>3</td><td></td></tr>
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
-          @attr name android:mapType
+          @attr name com.mengdd.arapp:mapType
         */
         public static final int MapAttrs_mapType = 0;
         /**
@@ -611,7 +767,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiCompass
+          @attr name com.mengdd.arapp:uiCompass
         */
         public static final int MapAttrs_uiCompass = 6;
         /**
@@ -625,7 +781,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiRotateGestures
+          @attr name com.mengdd.arapp:uiRotateGestures
         */
         public static final int MapAttrs_uiRotateGestures = 7;
         /**
@@ -639,7 +795,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiScrollGestures
+          @attr name com.mengdd.arapp:uiScrollGestures
         */
         public static final int MapAttrs_uiScrollGestures = 8;
         /**
@@ -653,7 +809,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiTiltGestures
+          @attr name com.mengdd.arapp:uiTiltGestures
         */
         public static final int MapAttrs_uiTiltGestures = 9;
         /**
@@ -667,7 +823,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomControls
+          @attr name com.mengdd.arapp:uiZoomControls
         */
         public static final int MapAttrs_uiZoomControls = 10;
         /**
@@ -681,7 +837,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomGestures
+          @attr name com.mengdd.arapp:uiZoomGestures
         */
         public static final int MapAttrs_uiZoomGestures = 11;
         /**
@@ -695,7 +851,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:useViewLifecycle
+          @attr name com.mengdd.arapp:useViewLifecycle
         */
         public static final int MapAttrs_useViewLifecycle = 12;
         /**
@@ -709,7 +865,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:zOrderOnTop
+          @attr name com.mengdd.arapp:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 13;
     };

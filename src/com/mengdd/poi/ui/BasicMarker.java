@@ -3,7 +3,6 @@ package com.mengdd.poi.ui;
 import java.text.DecimalFormat;
 
 import com.baidu.location.BDLocation;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.camera.CameraData;
 import com.mengdd.paintable.PaintableBox;
@@ -13,13 +12,17 @@ import com.mengdd.paintable.PaintableIcon;
 import com.mengdd.paintable.PaintableObject;
 import com.mengdd.paintable.PaintablePoint;
 import com.mengdd.paintable.PaintablePosition;
+import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.MathUtils;
 import com.mengdd.utils.Vector;
 
+import android.R.integer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.Handler;
+import android.util.Log;
 
 /**
  * This class will represent a physical location and will calculate it's
@@ -45,23 +48,23 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 {
 	public enum MarkerType
 	{
-		GoogleMarker,
-		BaiduMarker
+		GoogleMarker, BaiduMarker
 	}
-	
+
 	protected MarkerType mMarkerType = null;
 
 	// Used to show exact GPS position
-	protected static boolean debugGpsPosition = false;
+	protected boolean debugGpsPosition = false;
 
 	// Used to debug the touching mechanism
-	protected static boolean debugTouchZone = false;
+	protected boolean debugTouchZone = false;
 
 	protected static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(
 			"@#");
 
 	// Marker's default color
 	protected int color = Color.WHITE;
+	protected int colorBackup = Color.WHITE;
 
 	// Container for the circle or icon symbol
 	protected PaintableObject gpsSymbol = null;
@@ -74,6 +77,9 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 	// Is within the radar
 	protected volatile boolean isOnRadar = false;
 
+	protected float radarPointScale = 1.0f;
+	protected float radarPointScaleBackup = 1.0f;
+
 	protected final float[] locationArray = new float[3];
 
 	protected CameraData mCameraData = null;
@@ -83,6 +89,9 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 
 	// Physical location's X, Y, Z relative to the device's location
 	protected Vector mLocationVector = new Vector();
+
+	// the direction Vector, ie, the normal form of LocationVector
+	protected Vector mDirectionVector = new Vector();
 
 	// private volatile static CameraModel cam = null;
 
@@ -94,33 +103,57 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 	// For tracking Markers which have no altitude
 	protected boolean noAltitude = false;
 
+	// position
 	protected volatile PaintablePosition positionContainer = null;
 	protected PaintablePoint positionPoint = null;
+	// Container for position text
+	protected PaintableBoxedText positionTextBox = null;
+	protected volatile PaintablePosition positionTextContainer = null;
 
 	protected volatile PaintablePosition symbolContainer = null;
 	// Container for text
 	protected PaintableBoxedText textBox = null;
-
 	protected volatile PaintablePosition textContainer = null;
+
+	// Touch
 	protected PaintableBox touchBox = null;
 	protected volatile PaintablePosition touchPosition = null;
 
 	// IconMarker has one, other is null
 	protected Bitmap iconBitmap = null;
 
+	protected int iconSize = 0;
+	protected final int ICON_SIZE_MAX = 128;
+	protected final int ICON_SIZE_MIN = 16;
+	protected float textSize = 0;
+	protected final float TEXT_SIZE_MAX = 32;
+	protected final float TEXT_SIZE_MIN = 18;
+
+	// when mDistance < ICON_DISTANCE_MIN, the iconSize and textSize are Max
+	// Values
+	protected final float ICON_DISTANCE_MIN = 100;
+	// when mDistance > ICON_DISTANCE_MAX, the iconSize and textSize are Min
+	// Values
+	protected final float ICON_DISTANCE_MAX = 2100;
+
+	// when ICON_DISTANCE_MIN < mDistance < ICON_DISTANCE_MAX, the iconSize and
+	// textSize are Linear interpolation values between Max and Min
+
 	public BasicMarker()
 	{
 	}
+
 	public synchronized void set(String name, int color, Bitmap icon)
 	{
 		this.mName = name;
 		this.color = color;
+		this.colorBackup = color;
 		this.iconBitmap = icon;
 		this.isOnRadar = false;
 		this.isInView = false;
 		this.mLocationVector.set(0, 0, 0);
 		this.initialY = 0.0f;
-	
+
 	}
 
 	/**
@@ -133,13 +166,52 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		calcRelativePosition(origLocation, origBDLocation);
 		// Update the markers distance based on the new location.
 		updateDistance(origLocation, origBDLocation);
-		
+
+		updateDirection();
+		updateSizeInfo();
+
 	}
+
 	protected abstract void calcRelativePosition(Location origLocation,
 			BDLocation origBDLocation);
-	
+
 	protected abstract void updateDistance(Location origLocation,
 			BDLocation origBDLocation);
+
+	private void updateDirection()
+	{
+		mDirectionVector.set(mLocationVector);
+		mDirectionVector.norm();
+	}
+
+	private void updateSizeInfo()
+	{
+		if (mDistance <= ICON_DISTANCE_MIN)
+		{
+			iconSize = ICON_SIZE_MAX;
+			textSize = TEXT_SIZE_MAX;
+
+		}
+		else if (mDistance >= ICON_DISTANCE_MAX)
+		{
+			iconSize = ICON_SIZE_MIN;
+			textSize = TEXT_SIZE_MIN;
+
+		}
+		else
+		{
+			float ratio = 1 - (float) (mDistance - ICON_DISTANCE_MIN)
+					/ (ICON_DISTANCE_MAX - ICON_DISTANCE_MIN);
+
+			iconSize = ICON_SIZE_MIN
+					+ Math.round(ratio * (ICON_SIZE_MAX - ICON_SIZE_MIN));
+			textSize = TEXT_SIZE_MIN
+					+ Math.round(ratio * (TEXT_SIZE_MAX - TEXT_SIZE_MIN));
+
+		}
+
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -187,6 +259,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		if (debugGpsPosition)
 		{
 			drawPosition(canvas);
+			drawPositionText(canvas);
 		}
 	}
 
@@ -213,6 +286,23 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 	public synchronized int getColor()
 	{
 		return this.color;
+	}
+
+	public synchronized void setColor(int color)
+	{
+		this.color = color;
+
+	}
+
+	public float getRadarPointScale()
+	{
+		return radarPointScale;
+	}
+
+	public void setRadarPointScale(float radarPointScale)
+	{
+		this.radarPointScale = radarPointScale;
+	
 	}
 
 	/**
@@ -254,6 +344,11 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 	public Vector getLocationVector()
 	{
 		return mLocationVector;
+	}
+
+	public Vector getDirectionVector()
+	{
+		return mDirectionVector;
 	}
 
 	/**
@@ -300,6 +395,39 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		// Log.e("handleClick", "point (x="+x+" y="+y+")");
 		boolean result = isPointOnMarker(x, y, this);
 		return result;
+	}
+	
+	public void onTouch()
+	{
+		//store the old values
+		colorBackup = color;
+		radarPointScaleBackup = radarPointScale;
+		
+		//touch values
+		color = Color.RED;
+		radarPointScale = 5.0f;
+		
+		debugTouchZone = true;
+		
+		new Handler().postDelayed(new Runnable()
+		{
+			
+			@Override
+			public void run()
+			{
+				onUnTouch();
+			}
+		}, 2000);
+	}
+	
+	public void onUnTouch()
+	{
+		//restore to old values
+		color = colorBackup;
+		radarPointScale = radarPointScaleBackup;
+		debugTouchZone = false;
+		
+	
 	}
 
 	/**
@@ -387,25 +515,20 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 			}
 			else
 			{
-				gpsSymbol = new PaintableIcon(iconBitmap, 96, 96);
+				gpsSymbol = new PaintableIcon(iconBitmap, iconSize, iconSize);
 			}
 		}
+
+		Log.i(AppConstants.LOG_TAG, "iconSize: " + iconSize + ", distance: "
+				+ mDistance);
 
 		getScreenPosition().get(locationArray);
 		float x = locationArray[0];
 		float y = locationArray[1];
-		if (GlobalARData.portrait)
-		{
-			x -= gpsSymbol.getWidth() / 2;
-			y -= gpsSymbol.getHeight();
-		}
-		else
-		{
-			y -= gpsSymbol.getHeight() / 2;
-		}
+
+		y -= gpsSymbol.getHeight() / 2;
+
 		float currentAngle = 0;
-		if (GlobalARData.portrait)
-			currentAngle = -90;
 
 		if (null == symbolContainer)
 		{
@@ -415,8 +538,10 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		else
 		{
 			symbolContainer.set(gpsSymbol, x, y, currentAngle, 1);
-			symbolContainer.paint(canvas);
+
 		}
+
+		symbolContainer.paint(canvas);
 	}
 
 	protected synchronized void drawPosition(Canvas canvas)
@@ -427,21 +552,23 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		}
 
 		if (positionPoint == null)
-			positionPoint = new PaintablePoint(Color.MAGENTA, true);
+		{
+			positionPoint = new PaintablePoint(Color.RED, true);
+		}
 
 		getScreenPosition().get(locationArray);
 		float currentAngle = 0;
-		if (GlobalARData.portrait)
-		{
-			currentAngle = -90;
-		}
 
 		if (positionContainer == null)
+		{
 			positionContainer = new PaintablePosition(positionPoint,
 					locationArray[0], locationArray[1], currentAngle, 1);
+		}
 		else
+		{
 			positionContainer.set(positionPoint, locationArray[0],
 					locationArray[1], currentAngle, 1);
+		}
 
 		positionContainer.paint(canvas);
 	}
@@ -463,37 +590,84 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 			double d = mDistance / 1000.0;
 			textStr = mName + " (" + DECIMAL_FORMAT.format(d) + "km)";
 		}
-		float maxHeight = Math.round(canvas.getHeight() / 10f) + 1;
+
+		// int minSize = (canvas.getHeight() < canvas.getWidth()) ? canvas
+		// .getHeight() : canvas.getWidth();
+
+		// float maxHeight = Math.round(minSize / 20f) + 1;
+		float maxHeight = textSize;
 
 		if (textBox == null)
+		{
 			textBox = new PaintableBoxedText(textStr,
 					Math.round(maxHeight / 2f) + 1, 300);
+		}
 		else
+		{
 			textBox.set(textStr, Math.round(maxHeight / 2f) + 1, 300);
+		}
 
 		getScreenPosition().get(locationArray);
 		float x = locationArray[0];
 		float y = locationArray[1];
-		if (GlobalARData.portrait)
-		{
-			x -= textBox.getWidth() / 2;
-			x += textBox.getHeight() / 2;
-			y -= textBox.getHeight() / 2;
-		}
-		else
-		{
-			x -= textBox.getWidth() / 2;
-		}
+
+		x -= textBox.getWidth() / 2;
+
 		float currentAngle = 0;
-		if (GlobalARData.portrait)
-			currentAngle = -90;
 
 		if (textContainer == null)
+		{
 			textContainer = new PaintablePosition(textBox, x, y, currentAngle,
 					1);
+		}
 		else
+		{
 			textContainer.set(textBox, x, y, currentAngle, 1);
+		}
+
 		textContainer.paint(canvas);
+	}
+
+	protected synchronized void drawPositionText(Canvas canvas)
+	{
+		if (canvas == null)
+		{
+			throw new IllegalArgumentException("canvas is null!");
+		}
+
+		String textStr = mName + getScreenPosition().toString();
+
+		float maxHeight = Math.round(canvas.getHeight() / 10f) + 1;
+
+		if (positionTextBox == null)
+		{
+			positionTextBox = new PaintableBoxedText(textStr,
+					Math.round(maxHeight / 2f) + 1, 300);
+		}
+		else
+		{
+			positionTextBox.set(textStr, Math.round(maxHeight / 2f) + 1, 300);
+		}
+
+		getScreenPosition().get(locationArray);
+		float x = locationArray[0];
+		float y = locationArray[1];
+
+		x -= positionTextBox.getWidth() / 2;
+
+		float currentAngle = 0;
+
+		if (positionTextContainer == null)
+		{
+			positionTextContainer = new PaintablePosition(positionTextBox, x,
+					y, currentAngle, 1);
+		}
+		else
+		{
+			positionTextContainer.set(positionTextBox, x, y, currentAngle, 1);
+		}
+
+		positionTextContainer.paint(canvas);
 	}
 
 	protected synchronized void drawTouchZone(Canvas canvas)
@@ -504,39 +678,38 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		}
 
 		if (gpsSymbol == null)
+		{
 			return;
+		}
 
 		if (touchBox == null)
+		{
 			touchBox = new PaintableBox(getWidth(), getHeight(), Color.WHITE,
 					Color.GREEN);
+		}
 		else
+		{
 			touchBox.set(getWidth(), getHeight());
+		}
 
 		getScreenPosition().get(locationArray);
 		float x = locationArray[0];
 		float y = locationArray[1];
-		if (GlobalARData.portrait)
-		{
-			x -= textBox.getWidth() / 2;
-			y -= textBox.getWidth() / 2;
-			y += gpsSymbol.getHeight() / 2;
-		}
-		else
-		{
-			x -= textBox.getWidth() / 2;
-			y -= gpsSymbol.getHeight();
-		}
+
+		x -= textBox.getWidth() / 2;
+		y -= gpsSymbol.getHeight();
+
 		float currentAngle = 0;
-		if (GlobalARData.portrait)
-		{
-			currentAngle = -90;
-		}
 
 		if (touchPosition == null)
+		{
 			touchPosition = new PaintablePosition(touchBox, x, y, currentAngle,
 					1);
+		}
 		else
+		{
 			touchPosition.set(touchBox, x, y, currentAngle, 1);
+		}
 		touchPosition.paint(canvas);
 	}
 
@@ -563,29 +736,15 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		float width = marker.getWidth();
 		float height = marker.getHeight();
 
-		if (GlobalARData.portrait)
-		{
-			x -= height / 2;
-			y += width / 2;
-		}
-		else
-		{
-			x -= width / 2;
-			y -= height / 2;
-		}
+		x -= width / 2;
+		y -= height / 2;
 
 		float middleX = 0;
 		float middleY = 0;
-		if (GlobalARData.portrait)
-		{
-			middleX = x + (height / 2);
-			middleY = y - (width / 2);
-		}
-		else
-		{
-			middleX = x + (width / 2);
-			middleY = y + (height / 2);
-		}
+
+		middleX = x + (width / 2);
+		middleY = y + (height / 2);
+
 		boolean middleOfMarker = isPointOnMarker(middleX, middleY, this);
 		if (middleOfMarker)
 			return true;
@@ -595,38 +754,20 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 
 		float urX = x;
 		float urY = y;
-		if (GlobalARData.portrait)
-		{
-			urX += height;
-		}
-		else
-		{
-			urX += width;
-		}
+
+		urX += width;
 
 		float llX = x;
 		float llY = y;
-		if (GlobalARData.portrait)
-		{
-			llY -= width;
-		}
-		else
-		{
-			llY += height;
-		}
+
+		llY += height;
 
 		float lrX = x;
 		float lrY = y;
-		if (GlobalARData.portrait)
-		{
-			lrX += height;
-			lrY -= width;
-		}
-		else
-		{
-			lrX += width;
-			lrY += height;
-		}
+
+		lrX += width;
+		lrY += height;
+
 		/*
 		 * Log.w("isMarkerOnMarker", "name "+this.name);
 		 * Log.w("isMarkerOnMarker", "ul (x="+(ulX)+" y="+(ulY)+")");
@@ -679,49 +820,26 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		float width = marker.getWidth();
 		float height = marker.getHeight();
 
-		if (GlobalARData.portrait)
-		{
-			x -= height / 2;
-			y += width / 2;
-		}
-		else
-		{
-			x -= width / 2;
-			y -= height / 2;
-		}
+		x -= width / 2;
+		y -= height / 2;
 
 		float ulX = x;
 		float ulY = y;
 
-		float lrX = x;
-		float lrY = y;
-		if (GlobalARData.portrait)
-		{
-			lrX += height;
-			lrY -= width;
-		}
-		else
-		{
-			lrX += width;
-			lrY += height;
-		}
+		float lrX = x + width;
+		float lrY = y + height;
+
+
 		/*
 		 * Log.w("isPointOnMarker", "xPoint="+(xPoint)+" yPoint="+(yPoint));
 		 * Log.w("isPointOnMarker", "name "+this.name); Log.w("isPointOnMarker",
 		 * "ul (x="+(ulX)+" y="+(ulY)+")"); Log.w("isPointOnMarker",
 		 * "lr (x="+(lrX)+" y="+(lrY)+")");
 		 */
-		if (GlobalARData.portrait)
+
+		if (xPoint >= ulX && xPoint <= lrX && yPoint >= ulY && yPoint <= lrY)
 		{
-			if (xPoint >= ulX && xPoint <= lrX && yPoint <= ulY
-					&& yPoint >= lrY)
-				return true;
-		}
-		else
-		{
-			if (xPoint >= ulX && xPoint <= lrX && yPoint >= ulY
-					&& yPoint <= lrY)
-				return true;
+			return true;
 		}
 
 		return false;
@@ -748,24 +866,22 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		mScreenVector.set(tmpVector);
 	}
 
-
-
-	protected synchronized void updateRadar()
+	private synchronized void updateRadar()
 	{
 		isOnRadar = false;
 
 		float range = GlobalARData.getRadius() * 1000;
-		float scale = range / Radar.RADIUS;
+		float scale = range / RadarView.RADIUS;
 		mLocationVector.get(locationArray);
 		float x = locationArray[0] / scale;
 		float y = locationArray[2] / scale; // z==y Switched on purpose
-		if ((x * x + y * y) < (Radar.RADIUS * Radar.RADIUS))
+		if ((x * x + y * y) < (RadarView.RADIUS * RadarView.RADIUS))
 		{
 			isOnRadar = true;
 		}
 	}
 
-	protected synchronized void updateView()
+	private synchronized void updateView()
 	{
 		isInView = false;
 
@@ -815,15 +931,6 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 			lrY += height;
 		}
 
-		/*
-		 * Log.w("updateView", "name "+this.name); Log.w("updateView",
-		 * "ul (x="+(ulX)+" y="+(ulY)+")"); Log.w("updateView",
-		 * "lr (x="+(lrX)+" y="+(lrY)+")"); Log.w("updateView",
-		 * "cam (w="+(cam.getWidth())+" h="+(cam.getHeight())+")"); if
-		 * (!isInView) Log.w("updateView", "isInView "+isInView); else
-		 * Log.e("updateView", "isInView "+isInView);
-		 */
-
 		if (GlobalARData.portrait
 				&& (lrX >= -1 && ulX <= mCameraData.getWidth() && ulY >= -1 && lrY <= mCameraData
 						.getHeight()))
@@ -835,6 +942,16 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 		{
 			isInView = true;
 		}
+
+		/*
+		 * Log.w("updateView", "name "+this.name); Log.w("updateView",
+		 * "ul (x="+(ulX)+" y="+(ulY)+")"); Log.w("updateView",
+		 * "lr (x="+(lrX)+" y="+(lrY)+")"); Log.w("updateView",
+		 * "cam (w="+(cam.getWidth())+" h="+(cam.getHeight())+")"); if
+		 * (!isInView) Log.w("updateView", "isInView "+isInView); else
+		 * Log.e("updateView", "isInView "+isInView);
+		 */
+
 	}
 
 }

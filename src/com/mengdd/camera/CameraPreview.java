@@ -6,6 +6,7 @@ import java.util.List;
 import com.mengdd.utils.AppConstants;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.util.AttributeSet;
@@ -73,6 +74,7 @@ public class CameraPreview extends SurfaceView implements
 		mHolder.addCallback(this);
 		// deprecated setting, but required on Android versions prior to 3.0
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+		mHolder.setFormat(PixelFormat.TRANSLUCENT);
 
 	}
 

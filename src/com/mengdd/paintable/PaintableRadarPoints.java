@@ -2,7 +2,7 @@ package com.mengdd.paintable;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.poi.ui.BasicMarker;
-import com.mengdd.poi.ui.Radar;
+import com.mengdd.poi.ui.RadarView;
 
 import android.graphics.Canvas;
 
@@ -46,14 +46,14 @@ public class PaintableRadarPoints extends PaintableObject
 
 		// Draw the markers in the circle
 		float range = GlobalARData.getRadius() * 1000;
-		float scale = range / Radar.RADIUS;
+		float scale = range / RadarView.RADIUS;
 		
 		for (BasicMarker marker : GlobalARData.getMarkers())
 		{
 			marker.getLocationVector().get(locationArray);
 			float x = locationArray[0] / scale;
 			float y = locationArray[2] / scale;
-			if ((x * x + y * y) < (Radar.RADIUS * Radar.RADIUS))
+			if ((x * x + y * y) < (RadarView.RADIUS * RadarView.RADIUS))
 			{
 				if (paintablePoint == null)
 				{
@@ -64,16 +64,17 @@ public class PaintableRadarPoints extends PaintableObject
 					paintablePoint.set(marker.getColor(), true);
 				}
 
+				float radarPointScale = marker.getRadarPointScale();
 				//here translate the Radar point
 				if (pointContainer == null)
 				{
 					pointContainer = new PaintablePosition(paintablePoint, (x
-							+ Radar.RADIUS - 1), (y + Radar.RADIUS - 1), 0, 1);
+							+ RadarView.RADIUS - 1), (y + RadarView.RADIUS - 1), 0, radarPointScale);
 				}
 				else
 				{
-					pointContainer.set(paintablePoint, (x + Radar.RADIUS - 1),
-							(y + Radar.RADIUS - 1), 0, 1);
+					pointContainer.set(paintablePoint, (x + RadarView.RADIUS - 1),
+							(y + RadarView.RADIUS - 1), 0, radarPointScale);
 				}
 
 				pointContainer.paint(canvas);
@@ -87,7 +88,7 @@ public class PaintableRadarPoints extends PaintableObject
 	@Override
 	public float getWidth()
 	{
-		return Radar.RADIUS * 2;
+		return RadarView.RADIUS * 2;
 	}
 
 	/**
@@ -96,6 +97,6 @@ public class PaintableRadarPoints extends PaintableObject
 	@Override
 	public float getHeight()
 	{
-		return Radar.RADIUS * 2;
+		return RadarView.RADIUS * 2;
 	}
 }

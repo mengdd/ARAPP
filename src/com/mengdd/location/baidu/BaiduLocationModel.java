@@ -49,7 +49,10 @@ public class BaiduLocationModel extends LocationModel
 	@Override
 	public void registerLocationUpdates()
 	{
+		
 		initLocationClient();
+		Log.d(AppConstants.LOG_TAG, "Register Baidu Location Model");
+		
 		if (null != mLocationClient && mLocationClient.isStarted())
 		{
 			mLocationClient.requestLocation();
@@ -64,6 +67,8 @@ public class BaiduLocationModel extends LocationModel
 	@Override
 	public void unregisterLocationUpdates()
 	{
+		Log.d(AppConstants.LOG_TAG, "Unregister Baidu Location Model");
+		
 		if(null != mLocationClient)
 		{
 			mLocationClient.unRegisterLocationListener(mLocationListener);
@@ -87,7 +92,8 @@ public class BaiduLocationModel extends LocationModel
 			mCurrentLocation = BaiduLocationHelper.convertBD2AndroidLocation(location);
 			
 			//set to Global data class to keep
-			GlobalARData.setCurrentGoogleLocation(mCurrentLocation);
+			//GlobalARData.setCurrentGoogleLocation(mCurrentLocation);
+			GlobalARData.setCurrentBaiduLocation(mBDLocation);
 
 			StringBuffer sb = new StringBuffer(256);
 			sb.append("time : ");

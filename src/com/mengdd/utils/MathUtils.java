@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.poi.data.PhysicalLocation;
 
@@ -114,6 +115,7 @@ public class MathUtils
 		// Log.i(AppConstants.LOG_TAG, "calcPitchBearing");
 		tempMatrix.set(rotationMatrix);
 		tempMatrix.transpose();
+
 		if (GlobalARData.portrait)
 		{
 			looking.set(0, 1, 0);
@@ -122,6 +124,7 @@ public class MathUtils
 		{
 			looking.set(1, 0, 0);
 		}
+
 		looking.prod(tempMatrix);
 		looking.get(lookingArray);
 		MathUtils.azimuth = ((getAngle(0, 0, lookingArray[0], lookingArray[2]) + 360) % 360);
@@ -223,7 +226,8 @@ public class MathUtils
 	 * Converts a GeoPoint relative to original GeoPoint to a Vector
 	 * Vector X stands for distance in Longitude,in meters.
 	 * Vector Y stands for distance in Altitude,in meters.
-	 * (Because GeoPoint with no information about Altitude, so this value should always be zero)
+	 * (Because GeoPoint with no information about Altitude, so this value
+	 * should always be zero)
 	 * Vector Z stands for distance in Latitude,in meters.
 	 * 
 	 * 

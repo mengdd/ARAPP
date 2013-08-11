@@ -1,5 +1,4 @@
 package com.mengdd.utils;
-
 /**
  * A Vector representation which adds many of the mathematical operations
  * involved in Vectors.

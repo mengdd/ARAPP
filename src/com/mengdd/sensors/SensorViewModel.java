@@ -24,6 +24,7 @@ import com.mengdd.arapp.GlobalARData;
 import com.mengdd.components.ViewModel;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.LowPassFilter;
+import com.mengdd.utils.MathUtils;
 import com.mengdd.utils.Matrix;
 
 /**
@@ -138,12 +139,12 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 
 			try
 			{
+				// if no new location,use the hardfix google location at first
+				Location location = GlobalARData.getCurrentGoogleLocation();
 
-				gmf = new GeomagneticField((float) GlobalARData
-						.getCurrentGoogleLocation().getLatitude(),
-						(float) GlobalARData.getCurrentGoogleLocation()
-								.getLongitude(), (float) GlobalARData
-								.getCurrentGoogleLocation().getAltitude(),
+				gmf = new GeomagneticField((float) location.getLatitude(),
+						(float) location.getLongitude(),
+						(float) location.getAltitude(),
 						System.currentTimeMillis());
 
 				float dec = (float) Math.toRadians(-gmf.getDeclination());
@@ -243,8 +244,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 			grav[0] = smooth[0];
 			grav[1] = smooth[1];
 			grav[2] = smooth[2];
-			
-			notifySensorListeners(evt);
+
 		}
 		else if (evt.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
 		{
@@ -252,8 +252,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 			mag[0] = smooth[0];
 			mag[1] = smooth[1];
 			mag[2] = smooth[2];
-			
-			notifySensorListeners(evt);
+
 		}
 
 		// // Find real world position relative to phone location ////
@@ -265,8 +264,17 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		// SensorManager.AXIS_MINUS_X, rotation);
 		// SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_X,
 		// SensorManager.AXIS_MINUS_Z, rotation);
-		SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_Y,
-				SensorManager.AXIS_MINUS_Z, rotation);
+		if (GlobalARData.portrait)
+		{
+			SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_X,
+					SensorManager.AXIS_MINUS_Z, rotation);
+		}
+		else
+		{
+			SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_Y,
+					SensorManager.AXIS_MINUS_Z, rotation);
+
+		}
 
 		/*
 		 * Using Matrix operations instead. This was way too inaccurate,
@@ -318,7 +326,14 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		// x/y/z)
 		GlobalARData.setRotationMatrix(magneticCompensatedCoord);
 
+		// Update the pitch and bearing using the phone's rotation matrix
+		MathUtils.calcPitchBearing(GlobalARData.getRotationMatrix());
+		GlobalARData.setAzimuth(MathUtils.getAzimuth());
+
 		computing.set(false);
+
+		// notify listeners
+		notifySensorListeners(evt);
 	}
 
 	@Override
@@ -345,10 +360,9 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		Log.i(AppConstants.LOG_TAG, "SensorViewModel onLocationChanged"
 				+ location);
 
-		gmf = new GeomagneticField((float) GlobalARData.getCurrentGoogleLocation()
-				.getLatitude(), (float) GlobalARData.getCurrentGoogleLocation()
-				.getLongitude(), (float) GlobalARData.getCurrentGoogleLocation()
-				.getAltitude(), System.currentTimeMillis());
+		gmf = new GeomagneticField((float) location.getLatitude(),
+				(float) location.getLongitude(),
+				(float) location.getAltitude(), System.currentTimeMillis());
 
 		float dec = (float) Math.toRadians(-gmf.getDeclination());
 
@@ -376,21 +390,20 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 			Log.e(TAG, "Compass data unreliable");
 		}
 	}
-	
-	
+
 	private void notifySensorListeners(SensorEvent event)
 	{
-		
-		if(null != mSensorListeners && mSensorListeners.size() > 0)
+
+		if (null != mSensorListeners && mSensorListeners.size() > 0)
 		{
-			for(SensorEventListener listener : mSensorListeners)
+			for (SensorEventListener listener : mSensorListeners)
 			{
 				listener.onSensorChanged(event);
 			}
-			
+
 		}
 	}
-	
+
 	// Observers
 	private List<SensorEventListener> mSensorListeners;
 
@@ -402,7 +415,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	 * @param listener
 	 * @return
 	 */
-	public boolean addLocationListener(SensorEventListener listener)
+	public boolean addSensorEventListener(SensorEventListener listener)
 	{
 		boolean result = false;
 		if (null == listener)
@@ -427,7 +440,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	 * @param listener
 	 * @return
 	 */
-	public boolean removeLocationListener(SensorEventListener listener)
+	public boolean removeSensorEventListener(SensorEventListener listener)
 	{
 		boolean result = false;
 		if (null == listener)
@@ -435,7 +448,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 			throw new IllegalArgumentException("lister == null");
 		}
 
-		if (null == mSensorListeners )
+		if (null == mSensorListeners)
 		{
 			return result;
 		}
@@ -445,6 +458,5 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		return result;
 
 	}
-
 
 }

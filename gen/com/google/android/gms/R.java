@@ -34,34 +34,34 @@ public final class R {
 		public static final int common_signin_btn_light_text_disabled = 0x7f040006;
 		public static final int common_signin_btn_light_text_focused = 0x7f040007;
 		public static final int common_signin_btn_light_text_pressed = 0x7f040005;
-		public static final int common_signin_btn_text_dark = 0x7f040025;
-		public static final int common_signin_btn_text_light = 0x7f040026;
+		public static final int common_signin_btn_text_dark = 0x7f040028;
+		public static final int common_signin_btn_text_light = 0x7f040029;
 	}
 	public static final class drawable {
-		public static final int common_signin_btn_icon_dark = 0x7f020002;
-		public static final int common_signin_btn_icon_disabled_dark = 0x7f020003;
-		public static final int common_signin_btn_icon_disabled_focus_dark = 0x7f020004;
-		public static final int common_signin_btn_icon_disabled_focus_light = 0x7f020005;
-		public static final int common_signin_btn_icon_disabled_light = 0x7f020006;
-		public static final int common_signin_btn_icon_focus_dark = 0x7f020007;
-		public static final int common_signin_btn_icon_focus_light = 0x7f020008;
-		public static final int common_signin_btn_icon_light = 0x7f020009;
-		public static final int common_signin_btn_icon_normal_dark = 0x7f02000a;
-		public static final int common_signin_btn_icon_normal_light = 0x7f02000b;
-		public static final int common_signin_btn_icon_pressed_dark = 0x7f02000c;
-		public static final int common_signin_btn_icon_pressed_light = 0x7f02000d;
-		public static final int common_signin_btn_text_dark = 0x7f02000e;
-		public static final int common_signin_btn_text_disabled_dark = 0x7f02000f;
-		public static final int common_signin_btn_text_disabled_focus_dark = 0x7f020010;
-		public static final int common_signin_btn_text_disabled_focus_light = 0x7f020011;
-		public static final int common_signin_btn_text_disabled_light = 0x7f020012;
-		public static final int common_signin_btn_text_focus_dark = 0x7f020013;
-		public static final int common_signin_btn_text_focus_light = 0x7f020014;
-		public static final int common_signin_btn_text_light = 0x7f020015;
-		public static final int common_signin_btn_text_normal_dark = 0x7f020016;
-		public static final int common_signin_btn_text_normal_light = 0x7f020017;
-		public static final int common_signin_btn_text_pressed_dark = 0x7f020018;
-		public static final int common_signin_btn_text_pressed_light = 0x7f020019;
+		public static final int common_signin_btn_icon_dark = 0x7f020005;
+		public static final int common_signin_btn_icon_disabled_dark = 0x7f020006;
+		public static final int common_signin_btn_icon_disabled_focus_dark = 0x7f020007;
+		public static final int common_signin_btn_icon_disabled_focus_light = 0x7f020008;
+		public static final int common_signin_btn_icon_disabled_light = 0x7f020009;
+		public static final int common_signin_btn_icon_focus_dark = 0x7f02000a;
+		public static final int common_signin_btn_icon_focus_light = 0x7f02000b;
+		public static final int common_signin_btn_icon_light = 0x7f02000c;
+		public static final int common_signin_btn_icon_normal_dark = 0x7f02000d;
+		public static final int common_signin_btn_icon_normal_light = 0x7f02000e;
+		public static final int common_signin_btn_icon_pressed_dark = 0x7f02000f;
+		public static final int common_signin_btn_icon_pressed_light = 0x7f020010;
+		public static final int common_signin_btn_text_dark = 0x7f020011;
+		public static final int common_signin_btn_text_disabled_dark = 0x7f020012;
+		public static final int common_signin_btn_text_disabled_focus_dark = 0x7f020013;
+		public static final int common_signin_btn_text_disabled_focus_light = 0x7f020014;
+		public static final int common_signin_btn_text_disabled_light = 0x7f020015;
+		public static final int common_signin_btn_text_focus_dark = 0x7f020016;
+		public static final int common_signin_btn_text_focus_light = 0x7f020017;
+		public static final int common_signin_btn_text_light = 0x7f020018;
+		public static final int common_signin_btn_text_normal_dark = 0x7f020019;
+		public static final int common_signin_btn_text_normal_light = 0x7f02001a;
+		public static final int common_signin_btn_text_pressed_dark = 0x7f02001b;
+		public static final int common_signin_btn_text_pressed_light = 0x7f02001c;
 	}
 	public static final class id {
 		public static final int hybrid = 0x7f050004;
@@ -71,9 +71,12 @@ public final class R {
 		public static final int terrain = 0x7f050003;
 	}
 	public static final class string {
-		public static final int auth_client_availability_notification_title = 0x7f06000f;
-		public static final int auth_client_play_services_err_notification_msg = 0x7f060010;
-		public static final int auth_client_requested_by_msg = 0x7f060011;
+		public static final int auth_client_needs_enabling_title = 0x7f060010;
+		public static final int auth_client_needs_installation_title = 0x7f060011;
+		public static final int auth_client_needs_update_title = 0x7f060012;
+		public static final int auth_client_play_services_err_notification_msg = 0x7f060013;
+		public static final int auth_client_requested_by_msg = 0x7f060014;
+		public static final int auth_client_using_bad_version_title = 0x7f06000f;
 		public static final int common_google_play_services_enable_button = 0x7f060006;
 		public static final int common_google_play_services_enable_text = 0x7f060005;
 		public static final int common_google_play_services_enable_title = 0x7f060004;
@@ -89,9 +92,6 @@ public final class R {
 		public static final int common_google_play_services_update_title = 0x7f060007;
 		public static final int common_signin_button_text = 0x7f06000d;
 		public static final int common_signin_button_text_long = 0x7f06000e;
-		public static final int location_client_ulr_inactive_age_under_13 = 0x7f060012;
-		public static final int location_client_ulr_inactive_age_unknown = 0x7f060013;
-		public static final int location_client_ulr_inactive_unknown_restriction = 0x7f060014;
 	}
 	public static final class styleable {
 		public static final int[] MapAttrs = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d };
