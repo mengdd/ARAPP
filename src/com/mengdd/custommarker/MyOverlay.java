@@ -131,6 +131,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 		return false;
 	}
 
+
 	public boolean saveMarkerToDb(MarkerItem markerItem)
 	{
 		boolean success = false;
@@ -167,12 +168,4 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 		}
 	}
 
-	private OnSaveCustomMarkerListener mOnSaveCustomMarkerListener = new OnSaveCustomMarkerListener()
-	{
-
-		@Override
-		public void onSaveMarker(MarkerItem markerItem)
-		{
-		}
-	};
 }

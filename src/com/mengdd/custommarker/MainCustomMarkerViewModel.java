@@ -236,5 +236,4 @@ public class MainCustomMarkerViewModel extends ViewModel
 		}
 
 	}
-
 }

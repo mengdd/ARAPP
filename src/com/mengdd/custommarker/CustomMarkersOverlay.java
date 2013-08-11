@@ -88,14 +88,15 @@ public class CustomMarkersOverlay
 
 		mMyOverlay.addNewItem(newItem);
 	}
- 
+
 	public MarkerItem getMarkerItemInEdit()
 	{
 		MarkerItem item = null;
 		item = mMyOverlay.getMovingItem();
-		
+
 		return item;
 	}
+
 	public boolean saveMarkerItemToDb(MarkerItem markerItem)
 	{
 		boolean success = false;
@@ -104,13 +105,13 @@ public class CustomMarkersOverlay
 		return success;
 
 	}
-	
+
 	public void addDBMarkerToOverlay(MarkerItem marker)
 	{
 		marker.getDrawables(mResources);
 		marker.setFixed(true);
 		mMyOverlay.addNewItem(marker);
-		
+
 	}
 
 }
