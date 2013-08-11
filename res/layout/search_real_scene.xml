@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/camera_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/radar_frame"
+        android:layout_width="@dimen/radar_area"
+        android:layout_height="@dimen/radar_area" >
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/zoom_frame"
+        android:layout_width="@dimen/radar_area"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radar_frame"
+        android:paddingLeft="@dimen/radar_paddingX"
+        android:paddingRight="@dimen/radar_paddingX" >
+    </FrameLayout>
+
+</RelativeLayout>
