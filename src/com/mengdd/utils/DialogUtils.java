@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -182,13 +183,16 @@ public class DialogUtils
 
 		private void initView(View view)
 		{
+			Log.i(AppConstants.LOG_TAG, "initView in saveDialog");
 			mNameEditText = (EditText) view.findViewById(R.id.marker_name);
 			mNameEditText.setText(mMarkerItem.getName());
 			mNameEditText.addTextChangedListener(mNameTextWatcher);
+			mNewName = mNameEditText.getText().toString();
 
 			mDesEditText = (EditText) view.findViewById(R.id.marker_des);
 			mDesEditText.setText(mMarkerItem.getDescription());
 			mDesEditText.addTextChangedListener(mDesTextWatcher);
+			mNewDescripton = mDesEditText.getText().toString();
 		}
 		@Override
 		public void onClick(DialogInterface dialog, int which)
@@ -212,6 +216,8 @@ public class DialogUtils
 					
 					mSaveListener.onSaveMarker(mMarkerItem);
 				}
+
+
 			}
 
 			if (null != mSaveMarkerDialog && !undismiss)

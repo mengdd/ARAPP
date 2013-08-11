@@ -112,6 +112,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.mengdd.arapp.activities.CustomMapActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.mengdd.tests.AugmentedPOIActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >

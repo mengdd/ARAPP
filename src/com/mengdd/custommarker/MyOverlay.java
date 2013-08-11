@@ -131,18 +131,40 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 		return false;
 	}
 
-	public boolean saveMarkerToDb()
+	public boolean saveMarkerToDb(MarkerItem markerItem)
 	{
 		boolean success = false;
 
-		MarkerItem saveItem = mItemsList.get(mCurrentMoveItemId);
-		
-		DialogUtils.showSaveMarkerDialog(mActivity, mOnSaveCustomMarkerListener, saveItem);
+		long ret = CustomMarkerTable.insert(markerItem);
 
+		if (ret > 0)
+		{
 
+			mCurrentMoveItemId = -1;
+
+			markerItem.setFixed(true);
+			updateItem(markerItem.getItem());
+
+			mMapView.refresh();
+
+			success = true;
+
+		}
 
 		return success;
 
+	}
+
+	public MarkerItem getMovingItem()
+	{
+		if (mCurrentMoveItemId >= 0 && mCurrentMoveItemId < mItemsList.size())
+		{
+			return mItemsList.get(mCurrentMoveItemId);
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	private OnSaveCustomMarkerListener mOnSaveCustomMarkerListener = new OnSaveCustomMarkerListener()
@@ -151,19 +173,6 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 		@Override
 		public void onSaveMarker(MarkerItem markerItem)
 		{
-			long ret = CustomMarkerTable.insert(markerItem);
-
-			if (ret > 0)
-			{
-
-				mCurrentMoveItemId = -1;
-
-				markerItem.setFixed(true);
-				updateItem(markerItem.getItem());
-
-				mMapView.refresh();
-
-			}
 		}
 	};
 }

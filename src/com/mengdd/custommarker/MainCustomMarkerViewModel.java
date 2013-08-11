@@ -6,29 +6,26 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.baidu.mapapi.map.MapView;
 import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
+import com.mengdd.arapp.activities.CustomMapActivity;
 import com.mengdd.components.ViewModel;
-import com.mengdd.location.baidu.BaiduLocationModel;
-import com.mengdd.map.BasicMapViewModel;
-import com.mengdd.map.baidu.BaiduMapViewModel;
-import com.mengdd.map.baidu.BaiduMyLocationOverlay;
-import com.mengdd.utils.AppConstants;
 
 public class MainCustomMarkerViewModel extends ViewModel
 {
+	public enum CustomMarkerScene
+	{
+		Map, List, RealScene
+	}
+
 	private View mRootView = null;
 
 	private FrameHeaderViewModel mHeaderViewModel = null;
@@ -36,15 +33,11 @@ public class MainCustomMarkerViewModel extends ViewModel
 
 	private List<ViewModel> mViewModels = null;
 
-	private BasicMapViewModel mMapViewModel = null;
-	private MapView mapView= null;
-	private CustomMarkersOverlay mMarkersOverlay = null;
-	private BaiduLocationModel mLocationModel = null;
-	private BaiduMyLocationOverlay mLocationOverlay = null;
+	private ListCustomMarkerViewModel mListViewModel = null;
+	private RealSceneCMViewModel mRealSceneViewModel = null;
 
-	private Button mGoButton = null;
-	private Button mNewMarkerBtn = null;
-	private Button mSaveMarkerBtn = null;
+	private View mListView = null;
+	private View mRealSceneView = null;
 
 	public MainCustomMarkerViewModel(Activity activity)
 	{
@@ -60,37 +53,34 @@ public class MainCustomMarkerViewModel extends ViewModel
 
 		initHeader();
 
-		mMapViewModel = new BaiduMapViewModel(mActivity);
+		initBottom();
+
+		// list
+		mListViewModel = new ListCustomMarkerViewModel(mActivity);
+
+		// real scene
+		mRealSceneViewModel = new RealSceneCMViewModel(mActivity);
+
 		mViewModels = new ArrayList<ViewModel>();
-		mViewModels.add(mMapViewModel);
+
+		mViewModels.add(mListViewModel);
+		mViewModels.add(mRealSceneViewModel);
 
 		for (ViewModel viewModel : mViewModels)
 		{
 			viewModel.onCreate(null);
 		}
 
+		mListView = mListViewModel.getView();
+		mRealSceneView = mRealSceneViewModel.getView();
+
 		RelativeLayout mainLayout = (RelativeLayout) mRootView
 				.findViewById(R.id.main_content);
-		mainLayout.addView(mMapViewModel.getView(), 0);
 
-		mGoButton = (Button) mRootView.findViewById(R.id.goto_my);
-		mGoButton.setOnClickListener(mOnGoToClickListener);
+		mainLayout.addView(mListView, 0);
+		mainLayout.addView(mRealSceneView, 1);
 
-		mNewMarkerBtn = (Button) mRootView.findViewById(R.id.new_marker);
-		mNewMarkerBtn.setOnClickListener(mOnAddClickListener);
-		
-
-		mSaveMarkerBtn = (Button) mRootView.findViewById(R.id.save_marker);
-		mSaveMarkerBtn.setOnClickListener(mOnSaveClickListener);
-		mSaveMarkerBtn.setVisibility(View.GONE);
-
-		mapView = (MapView) mMapViewModel.getMap();
-		// marker overlay
-		mMarkersOverlay = new CustomMarkersOverlay(mActivity, mapView);
-
-		// my location overlay
-		mLocationModel = new BaiduLocationModel(mActivity);
-		mLocationOverlay = new BaiduMyLocationOverlay(mapView);
+		switchScene(CustomMarkerScene.Map);
 
 	}
 
@@ -101,7 +91,8 @@ public class MainCustomMarkerViewModel extends ViewModel
 		mHeaderViewModel = new FrameHeaderViewModel(mActivity);
 		mHeaderViewModel.onCreate(null);
 		mHeaderViewModel.setSettingVisibility(View.GONE);
-		mHeaderViewModel.setTitle(resources.getString(R.string.search_title));
+		mHeaderViewModel.setTitle(resources
+				.getString(R.string.custom_marker_title));
 		ViewGroup headerGourp = (ViewGroup) mRootView.findViewById(R.id.title);
 		headerGourp.addView(mHeaderViewModel.getView(), 0);
 		mHeaderViewModel.setOnBackListener(new OnBackListener()
@@ -110,11 +101,87 @@ public class MainCustomMarkerViewModel extends ViewModel
 			@Override
 			public void onBack()
 			{
-				mActivity.onKeyDown(KeyEvent.KEYCODE_BACK, new KeyEvent(
-						KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+				// mActivity.onKeyDown(KeyEvent.KEYCODE_BACK, new KeyEvent(
+				// KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+
+				mActivity.finish();
 
 			}
 		});
+
+	}
+
+	private void initBottom()
+	{
+
+		// Bottom Menu
+		CustomBottomViewModel bottomViewModel = new CustomBottomViewModel(
+				mActivity);
+		bottomViewModel.onCreate(null);
+		// bottom menu
+		FrameLayout bottomFrameLayout = (FrameLayout) mRootView
+				.findViewById(R.id.bottom_menu);
+		bottomFrameLayout.addView(bottomViewModel.getView());
+		bottomViewModel.setOnClickListener(mBottomOnClickListener);
+	}
+
+	private OnClickListener mBottomOnClickListener = new OnClickListener()
+	{
+
+		@Override
+		public void onClick(View v)
+		{
+			switch (v.getId())
+			{
+			case R.id.custom_map:
+
+				switchScene(CustomMarkerScene.Map);
+
+				break;
+			case R.id.custom_list:
+
+				switchScene(CustomMarkerScene.List);
+
+				break;
+			case R.id.custom_realscene:
+
+				switchScene(CustomMarkerScene.RealScene);
+
+				break;
+
+			default:
+				break;
+			}
+
+		}
+
+	};
+
+	private void switchScene(CustomMarkerScene scene)
+	{
+		switch (scene)
+		{
+		case Map:
+
+			Intent intent = new Intent();
+			intent.setClass(mActivity, CustomMapActivity.class);
+			mActivity.startActivity(intent);
+
+			break;
+		case List:
+			mListView.setVisibility(View.VISIBLE);
+			mRealSceneView.setVisibility(View.GONE);
+
+			break;
+		case RealScene:
+			mListView.setVisibility(View.GONE);
+			mRealSceneView.setVisibility(View.VISIBLE);
+
+			break;
+
+		default:
+			break;
+		}
 
 	}
 
@@ -155,8 +222,7 @@ public class MainCustomMarkerViewModel extends ViewModel
 		{
 			viewModel.onResume(null);
 		}
-		
-		mLocationModel.registerLocationUpdates();
+
 	}
 
 	@Override
@@ -168,70 +234,7 @@ public class MainCustomMarkerViewModel extends ViewModel
 		{
 			viewModel.onPause();
 		}
-		
-		mLocationModel.unregisterLocationUpdates();
+
 	}
-
-	private OnClickListener mOnGoToClickListener = new OnClickListener()
-	{
-
-		@Override
-		public void onClick(View v)
-		{
-			Log.i(AppConstants.LOG_TAG, "go to my place");
-			
-			mLocationOverlay.setGoToEnabled(true);
-			mLocationOverlay.setZoomEnabled(true);
-			mLocationOverlay.setLocationData(GlobalARData.getCurrentBaiduLocation());
-			
-
-		}
-	};
-
-	private OnClickListener mOnAddClickListener = new OnClickListener()
-	{
-
-		@Override
-		public void onClick(View v)
-		{
-			Log.i(AppConstants.LOG_TAG, "add new marker");
-			
-			mMarkersOverlay.initNewMarker();
-			mNewMarkerBtn.setVisibility(View.GONE);
-			mSaveMarkerBtn.setVisibility(View.VISIBLE);
-			
-			
-
-		}
-	};
-	
-	private OnClickListener mOnSaveClickListener = new OnClickListener()
-	{
-
-		@Override
-		public void onClick(View v)
-		{
-			Log.i(AppConstants.LOG_TAG, "save new marker");
-			
-
-			
-			boolean result = mMarkersOverlay.saveMarkerItemToDb();
-			
-			if(result)
-			{
-				Toast.makeText(mActivity, resources.getString(R.string.save_success),Toast.LENGTH_SHORT).show();
-				
-				mNewMarkerBtn.setVisibility(View.VISIBLE);
-				mSaveMarkerBtn.setVisibility(View.GONE);
-			}
-			else {
-				Toast.makeText(mActivity, resources.getString(R.string.save_failed),Toast.LENGTH_SHORT).show();
-			}
-			
-	
-			
-
-		}
-	};
 
 }

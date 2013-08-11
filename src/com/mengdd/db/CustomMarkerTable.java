@@ -520,7 +520,7 @@ public class CustomMarkerTable implements BaseColumns
 		return item;
 	}
 
-	public static Collection<MarkerItem> queryEqPresetItems()
+	public static Collection<MarkerItem> queryAllCustomMarkerItems()
 	{
 		Collection<MarkerItem> items = null;
 

@@ -123,10 +123,12 @@
     <string name="next">Next</string>
 
     <!-- Custom Markers -->
+    <string name="custom_marker_title">User Custom Markers</string>
     <string name="goto_my">Focus my Place</string>
     <string name="add_marker">Add Marker Here</string>
     <string name="new_marker">New Marker</string>
     <string name="save_marker">Save Marker</string>
+    <string name="load_markers">Load Markers</string>
     <string name="save_success">Save Marker Successfully!</string>
     <string name="save_failed">Save Marker Failed!</string>
 
@@ -136,5 +138,10 @@
     <string name="dialog_save_marker_name">Marker name: </string>
     <string name="dialog_save_marker_des">Marker description: </string>
     <string name="dialog_too_long">"String is too long!</string>
+
+    <!-- Custom Marker Bottom menu -->
+    <string name="custom_menu_list">List</string>
+    <string name="custom_menu_map">Map</string>
+    <string name="custom_menu_realscene">Real Scene</string>
 
 </resources>

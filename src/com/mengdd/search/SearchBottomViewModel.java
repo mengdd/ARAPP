@@ -31,7 +31,7 @@ public class SearchBottomViewModel extends ViewModel
 	public void onCreate(Intent intent)
 	{
 		super.onCreate(intent);
-		mRootView = View.inflate(mActivity, R.layout.bottom_menu, null);
+		mRootView = View.inflate(mActivity, R.layout.bottom_menu_search, null);
 		
 		btn1 = (Button)mRootView.findViewById(R.id.search_menu_ui);			
 		btn2= (Button)mRootView.findViewById(R.id.search_menu_list);
