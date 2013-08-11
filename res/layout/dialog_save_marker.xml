@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:text="@string/dialog_save_marker_name"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/marker_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true" 
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:text="@string/dialog_save_marker_des"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/marker_des"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:inputType="text"/>
+
+</LinearLayout>
