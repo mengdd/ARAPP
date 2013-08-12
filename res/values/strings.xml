@@ -143,5 +143,7 @@
     <string name="custom_menu_list">List</string>
     <string name="custom_menu_map">Map</string>
     <string name="custom_menu_realscene">Real Scene</string>
+     <!-- Custom Marker List -->
+    <string name="btn_refresh">Refresh Data</string>
 
 </resources>

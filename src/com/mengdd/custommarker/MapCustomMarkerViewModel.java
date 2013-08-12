@@ -191,6 +191,7 @@ public class MapCustomMarkerViewModel extends ViewModel
 			Log.i(AppConstants.LOG_TAG, "save new marker");
 
 			MarkerItem markerItem = mMarkersOverlay.getMarkerItemInEdit();
+			
 			if (null != markerItem)
 			{
 				DialogUtils.showSaveMarkerDialog(mActivity,
