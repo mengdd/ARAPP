@@ -124,10 +124,10 @@ public abstract class BasicMarker implements Comparable<BasicMarker>
 
 	protected int iconSize = 0;
 	protected final int ICON_SIZE_MAX = 128;
-	protected final int ICON_SIZE_MIN = 16;
+	protected final int ICON_SIZE_MIN = 56;
 	protected float textSize = 0;
 	protected final float TEXT_SIZE_MAX = 32;
-	protected final float TEXT_SIZE_MIN = 18;
+	protected final float TEXT_SIZE_MIN = 24;
 
 	// when mDistance < ICON_DISTANCE_MIN, the iconSize and textSize are Max
 	// Values

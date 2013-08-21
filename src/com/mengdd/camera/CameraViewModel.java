@@ -22,6 +22,7 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.FileUtils;
 import com.mengdd.utils.FileUtils.MediaType;
+import com.mengdd.utils.UIUtils;
 
 /**
  * 
@@ -43,7 +44,7 @@ public class CameraViewModel extends ViewModel
 
 	// The first rear facing camera
 	private int mDefaultCameraId;
-
+	private FrameLayout preview = null; 
 	private Button captureButton = null;
 	
 	public void setCaptureButtonVisibility(int visibility)
@@ -71,12 +72,6 @@ public class CameraViewModel extends ViewModel
 
 		mRootView = mInflater.inflate(R.layout.camera_view_model, null);
 
-		// Add CameraPreview to layout
-		mCameraPreview = new CameraPreview(mActivity);
-
-		FrameLayout preview = (FrameLayout) mRootView
-				.findViewById(R.id.camera_preview);
-		preview.addView(mCameraPreview, 0);
 
 		// 使用按钮进行拍摄动作监听
 		captureButton = (Button) mRootView
@@ -100,9 +95,22 @@ public class CameraViewModel extends ViewModel
 	public void onResume(Intent intent)
 	{
 		super.onResume(intent);
+		
+		// Add CameraPreview to layout
+		mCameraPreview = new CameraPreview(mActivity);
+
+		preview = (FrameLayout) mRootView
+				.findViewById(R.id.camera_preview);
+		preview.addView(mCameraPreview,0);
+
+
 
 		mCamera = getCameraInstance(mCameraCurrentlyLocked);
+
 		mCameraPreview.setCamera(mCamera);
+
+
+		
 	}
 
 	@Override
@@ -112,6 +120,14 @@ public class CameraViewModel extends ViewModel
 		if (null != mCamera)
 		{
 			mCameraPreview.setCamera(null);
+			
+
+			
+			preview.removeViewAt(0);
+			
+			mCamera.stopPreview();
+			mCamera.setPreviewCallback(null);
+			mCamera.lock();
 			mCamera.release();
 			mCamera = null;
 		}
@@ -222,7 +238,9 @@ public class CameraViewModel extends ViewModel
 			}
 
 			// 拍照后重新开始预览
+			Log.d(AppConstants.LOG_TAG, "camera --> stopPreview");
 			mCamera.stopPreview();
+			Log.d(AppConstants.LOG_TAG, "camera --> startPreview");
 			mCamera.startPreview();
 		}
 	};

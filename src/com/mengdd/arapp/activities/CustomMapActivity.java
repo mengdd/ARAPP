@@ -8,6 +8,7 @@ import com.mengdd.arapp.FrameHeaderViewModel;
 import com.mengdd.arapp.R;
 import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
 import com.mengdd.components.ViewModel;
+import com.mengdd.custommarker.MainCustomMarkerViewModel;
 import com.mengdd.custommarker.MapCustomMarkerViewModel;
 import com.mengdd.utils.AppConstants;
 
@@ -77,6 +78,7 @@ public class CustomMapActivity extends Activity
 				Log.i(AppConstants.LOG_TAG,"onBack in CustomMapActivity");
 //				CustomMapActivity.this.onKeyDown(KeyEvent.KEYCODE_BACK, new KeyEvent(
 //						KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+				
 				
 				finish();
 

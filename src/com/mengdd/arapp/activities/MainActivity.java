@@ -10,6 +10,7 @@ import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.db.DatabaseManager;
 import com.mengdd.tests.TestAllActivity;
 import com.mengdd.tests.TestBottomMenuActivity;
+import com.mengdd.tests.TestMin3dActivity;
 import com.mengdd.utils.AppConstants;
 
 import android.app.Activity;
@@ -48,7 +49,8 @@ public class MainActivity extends Activity
 	private static final int SCENE_REAL = 7;
 	private static final int SCENE_MAP_COMPARE = 8;
 	private static final int SCENE_ADD_MARKER = 9;
-	private static final int SCENE_SETTINGS = 10;
+	private static final int SCENE_3D = 10;
+	private static final int SCENE_SETTINGS = 11;
 
 	private int mCurrentSceneId = SCENE_MAIN_DEFALUT;
 
@@ -179,6 +181,11 @@ public class MainActivity extends Activity
 			case SCENE_ADD_MARKER:
 
 				intent.setClass(MainActivity.this, CustomMarkerActivity.class);
+				break;
+				
+			case SCENE_3D:
+
+				intent.setClass(MainActivity.this, TestMin3dActivity.class);
 				break;
 
 			case SCENE_SETTINGS:

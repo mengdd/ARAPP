@@ -23,7 +23,7 @@ import com.mengdd.utils.AppConstants;
 public class BaiduMapHelper
 {
 
-	private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
+	private static final String strKey = "FDa2d5111e0a3487be2e4927075d2629";
 	private static boolean mBDKeyRight = true;
 	private static BMapManager mBMapManager = null;
 	public static BMapManager getMapManager()

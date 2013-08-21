@@ -13,11 +13,13 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.baidu.platform.comapi.map.s;
 import com.mengdd.arapp.FrameHeaderViewModel;
 import com.mengdd.arapp.R;
 import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
 import com.mengdd.arapp.activities.CustomMapActivity;
 import com.mengdd.components.ViewModel;
+import com.mengdd.map.baidu.BaiduMapHelper;
 
 public class MainCustomMarkerViewModel extends ViewModel
 {
@@ -25,6 +27,8 @@ public class MainCustomMarkerViewModel extends ViewModel
 	{
 		Map, List, RealScene
 	}
+
+	private CustomMarkerScene mCurrentScene = CustomMarkerScene.Map;
 
 	private View mRootView = null;
 
@@ -48,6 +52,11 @@ public class MainCustomMarkerViewModel extends ViewModel
 	public void onCreate(Intent intent)
 	{
 		super.onCreate(intent);
+
+		if (null == BaiduMapHelper.getMapManager())
+		{
+			BaiduMapHelper.initBaiduMapManager(mActivity);
+		}
 
 		mRootView = mInflater.inflate(R.layout.custom_main, null);
 
@@ -80,7 +89,7 @@ public class MainCustomMarkerViewModel extends ViewModel
 		mainLayout.addView(mListView, 0);
 		mainLayout.addView(mRealSceneView, 1);
 
-		switchScene(CustomMarkerScene.Map);
+		switchScene(mCurrentScene);
 
 	}
 
@@ -133,24 +142,24 @@ public class MainCustomMarkerViewModel extends ViewModel
 		{
 			switch (v.getId())
 			{
-			case R.id.custom_map:
+				case R.id.custom_map:
 
-				switchScene(CustomMarkerScene.Map);
+					switchScene(CustomMarkerScene.Map);
 
-				break;
-			case R.id.custom_list:
+					break;
+				case R.id.custom_list:
 
-				switchScene(CustomMarkerScene.List);
+					switchScene(CustomMarkerScene.List);
 
-				break;
-			case R.id.custom_realscene:
+					break;
+				case R.id.custom_realscene:
 
-				switchScene(CustomMarkerScene.RealScene);
+					switchScene(CustomMarkerScene.RealScene);
 
-				break;
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 
 		}
@@ -159,28 +168,29 @@ public class MainCustomMarkerViewModel extends ViewModel
 
 	private void switchScene(CustomMarkerScene scene)
 	{
+
 		switch (scene)
 		{
-		case Map:
+			case Map:
 
-			Intent intent = new Intent();
-			intent.setClass(mActivity, CustomMapActivity.class);
-			mActivity.startActivity(intent);
+				Intent intent = new Intent();
+				intent.setClass(mActivity, CustomMapActivity.class);
+				mActivity.startActivity(intent);
 
-			break;
-		case List:
-			mListView.setVisibility(View.VISIBLE);
-			mRealSceneView.setVisibility(View.GONE);
+				break;
+			case List:
+				mListView.setVisibility(View.VISIBLE);
+				mRealSceneView.setVisibility(View.GONE);
 
-			break;
-		case RealScene:
-			mListView.setVisibility(View.GONE);
-			mRealSceneView.setVisibility(View.VISIBLE);
+				break;
+			case RealScene:
+				mListView.setVisibility(View.GONE);
+				mRealSceneView.setVisibility(View.VISIBLE);
 
-			break;
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
 	}
@@ -217,6 +227,13 @@ public class MainCustomMarkerViewModel extends ViewModel
 	public void onResume(Intent intent)
 	{
 		super.onResume(intent);
+
+		//if back from the map activity, turn to the List scene
+		if (CustomMarkerScene.Map == mCurrentScene)
+		{
+			mCurrentScene = CustomMarkerScene.List;
+			switchScene(mCurrentScene);
+		}
 
 		for (ViewModel viewModel : mViewModels)
 		{

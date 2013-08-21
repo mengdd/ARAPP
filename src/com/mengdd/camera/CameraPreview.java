@@ -111,7 +111,7 @@ public class CameraPreview extends SurfaceView implements
 		if (null == mHolder.getSurface())
 		{
 			// preview surface does not exist
-			Log.d(AppConstants.LOG_TAG, "null == mHolder.getSurface()");
+			Log.w(AppConstants.LOG_TAG, "null == mHolder.getSurface()");
 			return;
 		}
 
@@ -146,6 +146,7 @@ public class CameraPreview extends SurfaceView implements
 
 		if (null != mCamera)
 		{
+			Log.i(AppConstants.LOG_TAG, "camera --> stop");
 			mCamera.stopPreview();
 			mCamera.release();
 			mCamera = null;
@@ -163,7 +164,7 @@ public class CameraPreview extends SurfaceView implements
 
 				mCamera.setPreviewDisplay(mHolder);
 				mCamera.startPreview();
-				Log.d(AppConstants.LOG_TAG, "camera --> startPreview");
+				Log.i(AppConstants.LOG_TAG, "camera --> startPreview");
 			}
 
 		}
@@ -185,6 +186,7 @@ public class CameraPreview extends SurfaceView implements
 		{
 			if (null != mCamera)
 			{
+				Log.d(AppConstants.LOG_TAG, "camera --> stopPreview");
 				mCamera.stopPreview();
 			}
 		}
@@ -264,5 +266,6 @@ public class CameraPreview extends SurfaceView implements
 		}
 		return optimalSize;
 	}
+	
 
 }

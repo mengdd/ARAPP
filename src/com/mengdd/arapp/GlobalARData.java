@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.baidu.location.BDLocation;
+import com.baidu.platform.comapi.map.l;
 import com.mengdd.location.baidu.BaiduLocationHelper;
 import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
@@ -38,9 +39,8 @@ import android.util.Log;
  * @version 1.0
  * @since 2013-07-01
  */
-public abstract class GlobalARData
-{
-    public static boolean portrait = true;
+public abstract class GlobalARData {
+	public static boolean portrait = true;
 	private static final Map<String, BasicMarker> markerList = new ConcurrentHashMap<String, BasicMarker>();
 	private static final List<BasicMarker> cache = new CopyOnWriteArrayList<BasicMarker>();
 	private static final AtomicBoolean dirty = new AtomicBoolean(false);
@@ -48,8 +48,7 @@ public abstract class GlobalARData
 
 	/* defaulting to our place */
 	public static final Location hardFix = new Location("ATL");
-	static
-	{
+	static {
 		hardFix.setLatitude(39.97603);
 		hardFix.setLongitude(116.31757);
 		hardFix.setAltitude(0);
@@ -57,8 +56,7 @@ public abstract class GlobalARData
 
 	/* defaulting to our place */
 	public static final BDLocation hardFixBD = new BDLocation();
-	static
-	{
+	static {
 		// 海淀黄庄百度地图坐标116.324338,39.981877
 		hardFixBD.setLatitude(39.981877);
 		hardFixBD.setLongitude(116.324338);
@@ -87,15 +85,12 @@ public abstract class GlobalARData
 	 * @param zoomLevel
 	 *            String representing the zoom level.
 	 */
-	public static void setZoomLevel(String zoomLevel)
-	{
-		if (zoomLevel == null)
-		{
+	public static void setZoomLevel(String zoomLevel) {
+		if (zoomLevel == null) {
 			throw new IllegalArgumentException("zoomLevel == null!");
 		}
 
-		synchronized (GlobalARData.zoomLevel)
-		{
+		synchronized (GlobalARData.zoomLevel) {
 			GlobalARData.zoomLevel = zoomLevel;
 		}
 	}
@@ -105,10 +100,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return String representing the zoom level.
 	 */
-	public static String getZoomLevel()
-	{
-		synchronized (GlobalARData.zoomLevel)
-		{
+	public static String getZoomLevel() {
+		synchronized (GlobalARData.zoomLevel) {
 			return GlobalARData.zoomLevel;
 		}
 	}
@@ -119,15 +112,11 @@ public abstract class GlobalARData
 	 * @param zoomProgress
 	 *            int representing the zoom progress.
 	 */
-	public static void setZoomProgress(int zoomProgress)
-	{
-		synchronized (GlobalARData.zoomProgressLock)
-		{
-			if (GlobalARData.zoomProgress != zoomProgress)
-			{
+	public static void setZoomProgress(int zoomProgress) {
+		synchronized (GlobalARData.zoomProgressLock) {
+			if (GlobalARData.zoomProgress != zoomProgress) {
 				GlobalARData.zoomProgress = zoomProgress;
-				if (dirty.compareAndSet(false, true))
-				{
+				if (dirty.compareAndSet(false, true)) {
 					Log.v(AppConstants.LOG_TAG, "Setting DIRTY flag!");
 					cache.clear();
 				}
@@ -140,10 +129,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return int representing the zoom progress.
 	 */
-	public static int getZoomProgress()
-	{
-		synchronized (GlobalARData.zoomProgressLock)
-		{
+	public static int getZoomProgress() {
+		synchronized (GlobalARData.zoomProgressLock) {
 			return GlobalARData.zoomProgress;
 		}
 	}
@@ -154,10 +141,8 @@ public abstract class GlobalARData
 	 * @param radius
 	 *            float representing the radar screen.
 	 */
-	public static void setRadius(float radius)
-	{
-		synchronized (GlobalARData.radiusLock)
-		{
+	public static void setRadius(float radius) {
+		synchronized (GlobalARData.radiusLock) {
 			GlobalARData.radius = radius;
 		}
 	}
@@ -167,10 +152,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return float representing the radar screen.
 	 */
-	public static float getRadius()
-	{
-		synchronized (GlobalARData.radiusLock)
-		{
+	public static float getRadius() {
+		synchronized (GlobalARData.radiusLock) {
 			return GlobalARData.radius;
 		}
 	}
@@ -183,30 +166,24 @@ public abstract class GlobalARData
 	 * @throws IllegalArgumentException
 	 */
 	public static void setCurrentGoogleLocation(Location currentLocation)
-			throws IllegalArgumentException
-	{
-		if (currentLocation == null)
-		{
+			throws IllegalArgumentException {
+		if (currentLocation == null) {
 			throw new IllegalArgumentException("currentLocaiont is null!");
 		}
 
-		synchronized (currentLocation)
-		{
+		synchronized (currentLocation) {
 			GlobalARData.currentGoogleLocation = currentLocation;
 		}
 		onLocationChanged(GlobalARData.currentGoogleLocation);
 	}
 
 	public static void setCurrentBaiduLocation(BDLocation currentLocation)
-			throws IllegalArgumentException
-	{
-		if (currentLocation == null)
-		{
+			throws IllegalArgumentException {
+		if (currentLocation == null) {
 			throw new IllegalArgumentException("currentLocaiont is null!");
 		}
 
-		synchronized (currentLocation)
-		{
+		synchronized (currentLocation) {
 			GlobalARData.currentBaiduLocation = currentLocation;
 		}
 		Location tempLocation = BaiduLocationHelper
@@ -225,20 +202,19 @@ public abstract class GlobalARData
 	 * @param listener
 	 * @return
 	 */
-	public static boolean addLocationListener(LocationListener listener)
-	{
+	public static boolean addLocationListener(LocationListener listener) {
 		boolean result = false;
-		if (null == listener)
-		{
+		if (null == listener) {
 			throw new IllegalArgumentException("lister == null");
 		}
 
-		if (null == mLocationListeners)
-		{
+		if (null == mLocationListeners) {
 			mLocationListeners = new ArrayList<LocationListener>();
 		}
 
-		result = mLocationListeners.add(listener);
+		if (!mLocationListeners.contains(listener)) {
+			result = mLocationListeners.add(listener);
+		}
 
 		return result;
 	}
@@ -250,16 +226,13 @@ public abstract class GlobalARData
 	 * @param listener
 	 * @return
 	 */
-	public static boolean removeLocationListener(LocationListener listener)
-	{
+	public static boolean removeLocationListener(LocationListener listener) {
 		boolean result = false;
-		if (null == listener)
-		{
+		if (null == listener) {
 			throw new IllegalArgumentException("lister == null");
 		}
 
-		if (null == mLocationListeners)
-		{
+		if (null == mLocationListeners) {
 			return result;
 		}
 
@@ -269,18 +242,14 @@ public abstract class GlobalARData
 
 	}
 
-	private static void onLocationChanged(Location location)
-	{
+	private static void onLocationChanged(Location location) {
 		Log.d(AppConstants.LOG_TAG, "New location, updating markers. location="
 				+ location.toString());
 
 		// the listers do their corresponding work
-		if (null != mLocationListeners)
-		{
-			for (LocationListener listener : mLocationListeners)
-			{
-				if (null == listener)
-				{
+		if (null != mLocationListeners) {
+			for (LocationListener listener : mLocationListeners) {
+				if (null == listener) {
 					throw new NullPointerException(
 							"LocationListener is null ! Please check if you remove listener from GlobalARData before you destroy it.");
 				}
@@ -290,14 +259,12 @@ public abstract class GlobalARData
 
 		// keep temporary
 		// *****************************************************************
-		for (BasicMarker ma : markerList.values())
-		{
+		for (BasicMarker ma : markerList.values()) {
 			ma.updateRelativePosition(GlobalARData.getCurrentGoogleLocation(),
 					GlobalARData.getCurrentBaiduLocation());
 		}
 
-		if (dirty.compareAndSet(false, true))
-		{
+		if (dirty.compareAndSet(false, true)) {
 			Log.v(AppConstants.LOG_TAG, "Setting DIRTY flag!");
 			cache.clear();
 		}
@@ -308,10 +275,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return Location representing the current location.
 	 */
-	public static Location getCurrentGoogleLocation()
-	{
-		synchronized (GlobalARData.currentGoogleLocation)
-		{
+	public static Location getCurrentGoogleLocation() {
+		synchronized (GlobalARData.currentGoogleLocation) {
 			return GlobalARData.currentGoogleLocation;
 		}
 	}
@@ -321,10 +286,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return Location representing the current location.
 	 */
-	public static BDLocation getCurrentBaiduLocation()
-	{
-		synchronized (GlobalARData.currentBaiduLocation)
-		{
+	public static BDLocation getCurrentBaiduLocation() {
+		synchronized (GlobalARData.currentBaiduLocation) {
 			return GlobalARData.currentBaiduLocation;
 		}
 	}
@@ -335,10 +298,8 @@ public abstract class GlobalARData
 	 * @param rotationMatrix
 	 *            Matrix to use for rotation.
 	 */
-	public static void setRotationMatrix(Matrix rotationMatrix)
-	{
-		synchronized (GlobalARData.rotationMatrix)
-		{
+	public static void setRotationMatrix(Matrix rotationMatrix) {
+		synchronized (GlobalARData.rotationMatrix) {
 			GlobalARData.rotationMatrix = rotationMatrix;
 		}
 	}
@@ -348,18 +309,15 @@ public abstract class GlobalARData
 	 * 
 	 * @return Matrix representing the rotation matrix.
 	 */
-	public static Matrix getRotationMatrix()
-	{
-		synchronized (GlobalARData.rotationMatrix)
-		{
+	public static Matrix getRotationMatrix() {
+		synchronized (GlobalARData.rotationMatrix) {
 			// Log.i(AppConstants.LOG_TAG, "rotationMatrix: " +
 			// rotationMatrix.toString());
 			return rotationMatrix;
 		}
 	}
 
-	public static void clearMarkers()
-	{
+	public static void clearMarkers() {
 		markerList.clear();
 	}
 
@@ -369,26 +327,21 @@ public abstract class GlobalARData
 	 * @param markers
 	 *            List of Markers to add.
 	 */
-	public static void addMarkers(Collection<BasicMarker> markers)
-	{
-		if (null == markers)
-		{
+	public static void addMarkers(Collection<BasicMarker> markers) {
+		if (null == markers) {
 			throw new IllegalArgumentException(
 					"the Collection of markers is null!");
 		}
 
-		if (markers.size() <= 0)
-		{
+		if (markers.size() <= 0) {
 			return;
 		}
 
 		Log.d(AppConstants.LOG_TAG,
 				"New markers, updating markers. new markers="
 						+ markers.toString());
-		for (BasicMarker marker : markers)
-		{
-			if (!markerList.containsKey(marker.getName()))
-			{
+		for (BasicMarker marker : markers) {
+			if (!markerList.containsKey(marker.getName())) {
 				marker.updateRelativePosition(
 						GlobalARData.getCurrentGoogleLocation(),
 						GlobalARData.getCurrentBaiduLocation());
@@ -396,22 +349,18 @@ public abstract class GlobalARData
 			}
 		}
 
-		if (dirty.compareAndSet(false, true))
-		{
+		if (dirty.compareAndSet(false, true)) {
 			Log.v(AppConstants.LOG_TAG, "Setting DIRTY flag!");
 			cache.clear();
 		}
 	}
 
-	public static void logMarkers()
-	{
+	public static void logMarkers() {
 		List<BasicMarker> markers = getMarkers();
 
-		if (null != markers)
-		{
+		if (null != markers) {
 			int i = 1;
-			for (BasicMarker marker : markers)
-			{
+			for (BasicMarker marker : markers) {
 				Log.i(AppConstants.LOG_TAG,
 						"The " + i + " th marker:" + marker.toString());
 				i++;
@@ -425,16 +374,13 @@ public abstract class GlobalARData
 	 * 
 	 * @return Collection of Markers.
 	 */
-	public static List<BasicMarker> getMarkers()
-	{
+	public static List<BasicMarker> getMarkers() {
 		// If markers we added, zero out the altitude to recompute the collision
 		// detection
-		if (dirty.compareAndSet(true, false))
-		{
+		if (dirty.compareAndSet(true, false)) {
 			Log.v(AppConstants.LOG_TAG,
 					"DIRTY flag found, resetting all marker heights to zero.");
-			for (BasicMarker ma : markerList.values())
-			{
+			for (BasicMarker ma : markerList.values()) {
 				ma.getLocationVector().get(locationArray);
 				locationArray[1] = ma.getInitialY();
 				ma.getLocationVector().set(locationArray);
@@ -451,15 +397,13 @@ public abstract class GlobalARData
 		return Collections.unmodifiableList(cache);
 	}
 
-	private static final Comparator<BasicMarker> comparator = new Comparator<BasicMarker>()
-	{
+	private static final Comparator<BasicMarker> comparator = new Comparator<BasicMarker>() {
 
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
-		public int compare(BasicMarker arg0, BasicMarker arg1)
-		{
+		public int compare(BasicMarker arg0, BasicMarker arg1) {
 			return Double.compare(arg0.getDistance(), arg1.getDistance());
 		}
 	};
@@ -470,10 +414,8 @@ public abstract class GlobalARData
 	 * @param azimuth
 	 *            float representing the azimuth.
 	 */
-	public static void setAzimuth(float azimuth)
-	{
-		synchronized (azimuthLock)
-		{
+	public static void setAzimuth(float azimuth) {
+		synchronized (azimuthLock) {
 			GlobalARData.azimuth = azimuth;
 		}
 	}
@@ -483,10 +425,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return azimuth float representing the azimuth.
 	 */
-	public static float getAzimuth()
-	{
-		synchronized (azimuthLock)
-		{
+	public static float getAzimuth() {
+		synchronized (azimuthLock) {
 			return GlobalARData.azimuth;
 		}
 	}
@@ -497,10 +437,8 @@ public abstract class GlobalARData
 	 * @param roll
 	 *            float representing the roll.
 	 */
-	public static void setRoll(float roll)
-	{
-		synchronized (rollLock)
-		{
+	public static void setRoll(float roll) {
+		synchronized (rollLock) {
 			GlobalARData.roll = roll;
 		}
 	}
@@ -510,10 +448,8 @@ public abstract class GlobalARData
 	 * 
 	 * @return roll float representing the roll.
 	 */
-	public static float getRoll()
-	{
-		synchronized (rollLock)
-		{
+	public static float getRoll() {
+		synchronized (rollLock) {
 			return GlobalARData.roll;
 		}
 	}

@@ -23,6 +23,7 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.map.BasicMapViewModel;
 import com.mengdd.utils.AppConstants;
+import com.mengdd.utils.UIUtils;
 
 /**
  * The ViewModel to display a Baidu Map MapView.
@@ -106,6 +107,7 @@ public class BaiduMapViewModel extends BasicMapViewModel
 		super.onPause();
 
 		mMapView.onPause();
+
 	}
 
 	@Override

@@ -25,6 +25,7 @@
         <item>Real Scene</item>
         <item>Map API Compare</item>
         <item>Add My Markers</item>
+        <item>3D Markers</item>
         <item>Settings</item>
     </string-array>
 
@@ -100,7 +101,7 @@
     <string name="btn_realscene">Input your user name</string>
 
     <!-- Search UI -->
-    <string name="search_title">Search Information</string>
+    <string name="searchui_title">Search Information</string>
     <string name="search">Search</string>
     <string name="at">Search in:</string>
     <string name="city">City:</string>

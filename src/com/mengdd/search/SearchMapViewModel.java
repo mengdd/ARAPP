@@ -27,22 +27,19 @@ import com.mengdd.map.baidu.BaiduMyLocationOverlay;
 import com.mengdd.poi.baidu.BaiduPOIOverlay;
 import com.mengdd.utils.AppConstants;
 
-public class SearchMapViewModel extends ViewModel implements MKSearchListener
-{
+public class SearchMapViewModel extends ViewModel implements MKSearchListener {
 	private View mRootView = null;
 
 	private BaiduMapViewModel mMapViewModel = null;
 	private BaiduMyLocationOverlay myLocationOverlay = null;
 	private BaiduPOIOverlay mPoiOverlay = null;
 
-	protected SearchMapViewModel(Activity activity)
-	{
+	protected SearchMapViewModel(Activity activity) {
 		super(activity);
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 		mRootView = mInflater.inflate(R.layout.search_map, null);
 
@@ -64,28 +61,26 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return mRootView;
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		super.onStop();
+
 		mMapViewModel.onStop();
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
+
 		super.onDestroy();
 		mMapViewModel.onDestroy();
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		super.onResume(intent);
 		mMapViewModel.onResume(null);
 
@@ -93,99 +88,81 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
 		mMapViewModel.onPause();
 
 		GlobalARData.removeLocationListener(mLocationListener);
 	}
 
-	private LocationListener mLocationListener = new LocationListener()
-	{
+	private LocationListener mLocationListener = new LocationListener() {
 
 		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras)
-		{
+		public void onStatusChanged(String provider, int status, Bundle extras) {
 
 		}
 
 		@Override
-		public void onProviderEnabled(String provider)
-		{
+		public void onProviderEnabled(String provider) {
 
 		}
 
 		@Override
-		public void onProviderDisabled(String provider)
-		{
+		public void onProviderDisabled(String provider) {
 
 		}
 
 		@Override
-		public void onLocationChanged(Location location)
-		{
+		public void onLocationChanged(Location location) {
 			myLocationOverlay.setLocationData(GlobalARData
 					.getCurrentBaiduLocation());
 		}
 	};
 
 	@Override
-	public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError)
-	{
+	public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
 
 	}
 
 	@Override
-	public void onGetTransitRouteResult(MKTransitRouteResult result, int iError)
-	{
+	public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
 	}
 
 	@Override
-	public void onGetSuggestionResult(MKSuggestionResult result, int iError)
-	{
+	public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
 	}
 
 	@Override
-	public void onGetPoiResult(MKPoiResult result, int type, int iError)
-	{
-		if (null == result || 0!= iError)
-		{
+	public void onGetPoiResult(MKPoiResult result, int type, int iError) {
+		if (null == result || 0 != iError) {
 			return;
 		}
-		if(result.getCurrentNumPois()>0)
-		{
+		if (result.getCurrentNumPois() > 0) {
 			mPoiOverlay.setData(result.getAllPoi());
 		}
-			
 
 	}
 
 	@Override
-	public void onGetPoiDetailSearchResult(int type, int iError)
-	{
+	public void onGetPoiDetailSearchResult(int type, int iError) {
 	}
 
 	@Override
-	public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError)
-	{
+	public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
 
 	}
 
 	@Override
-	public void onGetBusDetailResult(MKBusLineResult result, int iError)
-	{
+	public void onGetBusDetailResult(MKBusLineResult result, int iError) {
 	}
 
 	@Override
-	public void onGetAddrResult(MKAddrInfo result, int iError)
-	{
+	public void onGetAddrResult(MKAddrInfo result, int iError) {
 	}
 
 	@Override
 	public void onGetShareUrlResult(MKShareUrlResult result, int type,
-			int iError)
-	{
+			int iError) {
 
 	}
 

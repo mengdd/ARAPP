@@ -55,6 +55,8 @@ public class ListCustomMarkerViewModel extends ViewModel
 			}
 		});
 		
+	
+		
 	}
 	
 	

@@ -212,7 +212,9 @@ public class DialogUtils
 				{
 					mMarkerItem.setName(mNewName);
 					mMarkerItem.setDescription(mNewDescripton);
-					mMarkerItem.setCreateDate(new Date().toString());
+					
+				
+					mMarkerItem.setCreateDate(DataUtils.getCurrentTime());
 					
 					mSaveListener.onSaveMarker(mMarkerItem);
 				}

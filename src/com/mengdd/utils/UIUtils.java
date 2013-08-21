@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,15 +34,20 @@ public class UIUtils
 		try
 		{
 			method = ViewGroup.class.getDeclaredMethod("detachViewFromParent",
-					int.class);
+					View.class);
 			method.setAccessible(true);
-			method.invoke(view, 0);
+			
+			ViewParent viewGroup = view.getParent();
+			method.invoke(viewGroup, view);
 		}
 		catch (Exception e)
 		{
-			// e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
+	
+	
+
 
 	public static void enableView(View view)
 	{

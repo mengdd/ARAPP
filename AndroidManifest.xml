@@ -165,6 +165,10 @@
             android:name="com.mengdd.tests.TestBottomMenuActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.mengdd.tests.TestMin3dActivity"
+            android:label="@string/app_name" >
+        </activity>
 
         <!-- Lab PC:  android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" -->
         <!-- Work PC:  android:value="AIzaSyAe3DcTEkyEF71dIdnZXOAyc9ue这里是两个杠urruo" -->

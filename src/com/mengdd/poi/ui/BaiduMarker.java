@@ -4,6 +4,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.search.MKPoiInfo;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.mengdd.custommarker.MarkerItem;
 import com.mengdd.location.baidu.BaiduLocationHelper;
 import com.mengdd.utils.MathUtils;
 
@@ -27,6 +28,10 @@ public class BaiduMarker extends BasicMarker
 	private GeoPoint mGeoPoint = null;
 	private MKPoiInfo mPoiInfo = null;
 
+	private MarkerItem mMarkerItem = null;
+
+
+
 	public BaiduMarker(String name, int color, Bitmap icon,
 			MKPoiInfo poiInfo)
 	{
@@ -34,7 +39,15 @@ public class BaiduMarker extends BasicMarker
 		mMarkerType = MarkerType.BaiduMarker;
 		set(name, color, icon, poiInfo);
 	}
-
+	public BaiduMarker(String name, int color, Bitmap icon, MarkerItem markerItem)
+	{
+		super();
+		mMarkerType = MarkerType.BaiduMarker;
+		
+		set(name, color, icon, markerItem);
+		
+		
+	}
 	public synchronized void set(String name, int color, Bitmap icon,
 			MKPoiInfo poiInfo)
 	{
@@ -45,6 +58,19 @@ public class BaiduMarker extends BasicMarker
 		this.noAltitude = true;
 
 	}
+	public synchronized void set(String name, int color, Bitmap icon,
+			MarkerItem markerItem)
+	{
+		super.set(name, color, icon);
+
+		this.mGeoPoint = markerItem.getPosition();
+		this.mMarkerItem = markerItem;
+		this.noAltitude = true;
+
+	}
+	
+
+	
 
 	@Override
 	protected void calcRelativePosition(Location origLocation,

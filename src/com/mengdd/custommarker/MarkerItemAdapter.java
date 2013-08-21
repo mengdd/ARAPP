@@ -15,11 +15,13 @@ public class MarkerItemAdapter extends BaseAdapter
 {
 	private Context mContext = null;
 	private List<MarkerItem> mMarkerData = null;
+	private LayoutInflater mInflater = null;
 
 	public MarkerItemAdapter(Context context, List<MarkerItem> markerItems)
 	{
 		mContext = context;
 		mMarkerData = markerItems;
+		mInflater = LayoutInflater.from(mContext);
 	}
 
 	public void setMarkerData(List<MarkerItem> markerItems)
@@ -64,7 +66,7 @@ public class MarkerItemAdapter extends BaseAdapter
 		if (null == convertView)
 		{
 			viewHolder = new ViewHolder();
-			LayoutInflater mInflater = LayoutInflater.from(mContext);
+
 			convertView = mInflater.inflate(R.layout.item_marker_item, null);
 
 			viewHolder.name = (TextView) convertView.findViewById(R.id.name);
