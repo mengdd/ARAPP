@@ -41,9 +41,10 @@ import com.mengdd.utils.UIUtils;
 
 public class MainSearchViewModel extends ViewModel {
 	public enum SearchScene {
-		SearchUI, Map, RealScene, ResultList
+		None, SearchUI, Map, RealScene, ResultList
 	}
 
+	private SearchScene mCurrentScene = SearchScene.None;
 	private View mRootView;
 
 	private FrameHeaderViewModel mHeaderViewModel = null;
@@ -247,28 +248,54 @@ public class MainSearchViewModel extends ViewModel {
 	}
 
 	public void switchScene(SearchScene scene) {
+
+		if (mCurrentScene == scene) {
+			return;
+		}
 		switch (scene) {
 			case SearchUI:
 
+				if (SearchScene.Map == mCurrentScene) {
+					mSearchMapViewModel.onPause();
+				}
+
+				if (SearchScene.RealScene == mCurrentScene) {
+					mSearchRealSceneViewModel.onPause();
+				}
 				mContentFrameLayout.removeAllViews();
 				mContentFrameLayout.addView(mSearchUIView);
 
 				break;
 			case Map:
 
+
+				if (SearchScene.RealScene == mCurrentScene) {
+					mSearchRealSceneViewModel.onPause();
+				}
 				mContentFrameLayout.removeAllViews();
 				mSearchMapViewModel.onResume(null);
 				mContentFrameLayout.addView(mSearchMapView);
 
 				break;
 			case RealScene:
+				if (SearchScene.Map == mCurrentScene) {
+					mSearchMapViewModel.onPause();
+				}
 
 				mContentFrameLayout.removeAllViews();
+				
+				mSearchRealSceneViewModel.onResume(null);
 				mContentFrameLayout.addView(mSearchRealSceneView);
 
 				break;
 			case ResultList:
+				if (SearchScene.Map == mCurrentScene) {
+					mSearchMapViewModel.onPause();
+				}
 
+				if (SearchScene.RealScene == mCurrentScene) {
+					mSearchRealSceneViewModel.onPause();
+				}
 				mContentFrameLayout.removeAllViews();
 				mContentFrameLayout.addView(mSearchResultView);
 				break;
@@ -276,6 +303,8 @@ public class MainSearchViewModel extends ViewModel {
 			default:
 				break;
 		}
+
+		mCurrentScene = scene;
 
 	}
 
