@@ -34,4 +34,13 @@ http://code.google.com/p/android-augment-reality-framework/
 Google Place API:
 https://developers.google.com/places/documentation/
 
+2013-10-08 long time no commit.
+Due to personal reasons, the project is developing at a strange pace.
+A lot work has been done during the pasted national holiday.
+Such as the keywords navigation, the updates of Baidu Map SDK and location SDK, the direction data in the SensorViewModel.
+I give up the computation in android-augment-reality-framework, and use a new one(which I picked up and turned out to work) to get the direction.
+I also use the angle to place the AR Markers and handled the collisions of markers in a pretty simple way.
+Also, I began to use a new formatter which put the left brace in the end of line.
+I think this may be the main reason for so much updates. Haha~
+
 
