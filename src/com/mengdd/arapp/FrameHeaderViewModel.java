@@ -1,7 +1,5 @@
 package com.mengdd.arapp;
 
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
@@ -11,8 +9,7 @@ import android.widget.TextView;
 
 import com.mengdd.components.ViewModel;
 
-public class FrameHeaderViewModel extends ViewModel
-{
+public class FrameHeaderViewModel extends ViewModel {
 	private View mRootView;
 	private View mSettingView;
 	private TextView mTitleView;
@@ -21,28 +18,23 @@ public class FrameHeaderViewModel extends ViewModel
 	private OnBackListener mOnBackListener = null;
 	private OnSettingListener mOnSettingListener = null;
 
-	public FrameHeaderViewModel(Activity activity)
-	{
+	public FrameHeaderViewModel(Activity activity) {
 		super(activity);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		// TODO Auto-generated method stub
 		super.onCreate(intent);
 		mRootView = View.inflate(mActivity, R.layout.frame_header, null);
 		mBackView = (ImageView) mRootView.findViewById(R.id.header_back);
-		mBackView.setOnClickListener(new OnClickListener()
-		{
+		mBackView.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (mOnBackListener != null)
-				{
+				if (mOnBackListener != null) {
 					mOnBackListener.onBack();
 				}
 
@@ -50,15 +42,12 @@ public class FrameHeaderViewModel extends ViewModel
 		});
 		mSettingView = (ImageView) mRootView.findViewById(R.id.header_setting);
 
-		mSettingView.setOnClickListener(new OnClickListener()
-		{
+		mSettingView.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (mOnSettingListener != null)
-				{
+				if (mOnSettingListener != null) {
 					mOnSettingListener.onSetting();
 				}
 			}
@@ -69,53 +58,42 @@ public class FrameHeaderViewModel extends ViewModel
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		// TODO Auto-generated method stub
 		return mRootView;
 	}
 
-	public void setTitle(String title)
-	{
-		if (mTitleView != null)
-		{
+	public void setTitle(String title) {
+		if (mTitleView != null) {
 			mTitleView.setText(title);
 		}
 	}
 
-	public void setSettingVisibility(int visibility)
-	{
-		if (mSettingView != null)
-		{
+	public void setSettingVisibility(int visibility) {
+		if (mSettingView != null) {
 			mSettingView.setVisibility(visibility);
 		}
 	}
-	
-	public void setBackVisibility(int visibility)
-	{
-		if(mBackView != null)
-		{
+
+	public void setBackVisibility(int visibility) {
+		if (mBackView != null) {
 			mBackView.setVisibility(visibility);
 		}
 	}
 
-	public static interface OnBackListener
-	{
+	public static interface OnBackListener {
 		public void onBack();
 	}
 
-	public static interface OnSettingListener
-	{
+	public static interface OnSettingListener {
 		public void onSetting();
 	}
 
-	public void setOnBackListener(OnBackListener onBackListener)
-	{
+	public void setOnBackListener(OnBackListener onBackListener) {
 		mOnBackListener = onBackListener;
 	}
 
-	public void setOnSettingListener(OnSettingListener onSettingListener)
-	{
+	public void setOnSettingListener(OnSettingListener onSettingListener) {
 		mOnSettingListener = onSettingListener;
 	}
 

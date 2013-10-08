@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,6 +40,7 @@ import com.mengdd.poi.ui.RadarView;
 import com.mengdd.poi.ui.RadarZoomController;
 import com.mengdd.sensors.SensorViewModel;
 import com.mengdd.utils.AppConstants;
+import com.mengdd.utils.BitmapUtils;
 
 public class SearchRealSceneViewModel extends ViewModel implements
 		MKSearchListener {
@@ -117,7 +119,9 @@ public class SearchRealSceneViewModel extends ViewModel implements
 		// prepare for markers
 
 		Resources res = mActivity.getResources();
-		mMarkerIcon = BitmapFactory.decodeResource(res, R.drawable.baidu);
+		// mMarkerIcon = BitmapFactory.decodeResource(res, R.drawable.baidu);
+		mMarkerIcon = BitmapUtils.getBitmapFromShape(res,
+				R.drawable.shape_baidu_ar_icon, 50, 50);
 
 		GlobalARData.setCurrentBaiduLocation(GlobalARData.hardFixBD);
 

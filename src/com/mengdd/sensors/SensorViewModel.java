@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Picture;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,11 +16,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.FloatMath;
 import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.components.ViewModel;
@@ -41,17 +44,19 @@ import com.mengdd.utils.Matrix;
  * @since 2013-07-01
  */
 public class SensorViewModel extends ViewModel implements LocationListener,
-		SensorEventListener
-{
-	public SensorViewModel(Activity activity)
-	{
-		super(activity);
+		SensorEventListener {
 
+	// display
+	private Display mDisplay = null;
+	private int mScreenOrientation = 0;
+
+	public SensorViewModel(Activity activity) {
+		super(activity);
+		initDisplay();
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return null;
 	}
 
@@ -74,8 +79,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 
 	private static final Matrix worldCoord = new Matrix();
 	private static final Matrix magneticCompensatedCoord = new Matrix();
-	private static final Matrix xAxisRotation = new Matrix();
-	private static final Matrix yAxisRotation = new Matrix();
+
 	private static final Matrix mageticNorthCompensation = new Matrix();
 
 	private static GeomagneticField gmf = null;
@@ -86,41 +90,19 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	private static Sensor sensorMag = null;
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		super.onResume(intent);
 		onStart();
 	}
 
-	private void onStart()
-	{
+	private void onStart() {
 
-		float neg90rads = (float) Math.toRadians(-90);
-
-		// Counter-clockwise rotation at -90 degrees around the x-axis
-		// [ 1, 0, 0 ]
-		// [ 0, cos, -sin ]
-		// [ 0, sin, cos ]
-		xAxisRotation.set(1f, 0f, 0f, 0f, FloatMath.cos(neg90rads),
-				-FloatMath.sin(neg90rads), 0f, FloatMath.sin(neg90rads),
-				FloatMath.cos(neg90rads));
-
-		// Counter-clockwise rotation at -90 degrees around the y-axis
-		// [ cos, 0, sin ]
-		// [ 0, 1, 0 ]
-		// [ -sin, 0, cos ]
-		yAxisRotation.set(FloatMath.cos(neg90rads), 0f,
-				FloatMath.sin(neg90rads), 0f, 1f, 0f,
-				-FloatMath.sin(neg90rads), 0f, FloatMath.cos(neg90rads));
-
-		try
-		{
+		try {
 			sensorMgr = (SensorManager) mActivity
 					.getSystemService(Context.SENSOR_SERVICE);
 
@@ -137,8 +119,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 			sensorMgr.registerListener(this, sensorMag,
 					SensorManager.SENSOR_DELAY_NORMAL);
 
-			try
-			{
+			try {
 				// if no new location,use the hardfix google location at first
 				Location location = GlobalARData.getCurrentGoogleLocation();
 
@@ -149,8 +130,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 
 				float dec = (float) Math.toRadians(-gmf.getDeclination());
 
-				synchronized (mageticNorthCompensation)
-				{
+				synchronized (mageticNorthCompensation) {
 					// Identity matrix
 					// [ 1, 0, 0 ]
 					// [ 0, 1, 0 ]
@@ -169,30 +149,25 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 					// [ cos, 0, sin ]
 					// [ 0, 1, 0 ]
 					// [ -sin, 0, cos ]
-					mageticNorthCompensation.set(FloatMath.cos(dec), 0f,
-							FloatMath.sin(dec), 0f, 1f, 0f,
-							-FloatMath.sin(dec), 0f, FloatMath.cos(dec));
+					mageticNorthCompensation.set((float) Math.cos(dec), 0f,
+							(float) Math.sin(dec), 0f, 1f, 0f,
+							-(float) Math.sin(dec), 0f, (float) Math.cos(dec));
 				}
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
-		catch (Exception ex1)
-		{
-			try
-			{
-				if (sensorMgr != null)
-				{
+		catch (Exception ex1) {
+			try {
+				if (sensorMgr != null) {
 					sensorMgr.unregisterListener(this, sensorGrav);
 					sensorMgr.unregisterListener(this, sensorMag);
 					sensorMgr = null;
 				}
 
 			}
-			catch (Exception ex2)
-			{
+			catch (Exception ex2) {
 				ex2.printStackTrace();
 			}
 		}
@@ -200,54 +175,45 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		super.onStop();
-		try
-		{
-			try
-			{
+		try {
+			try {
 				sensorMgr.unregisterListener(this, sensorGrav);
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			try
-			{
+			try {
 				sensorMgr.unregisterListener(this, sensorMag);
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) {
 				ex.printStackTrace();
 			}
 			sensorMgr = null;
 
 		}
-		catch (Exception ex)
-		{
+		catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
 	@Override
-	public void onSensorChanged(SensorEvent evt)
-	{
-		// Log.i(AppConstants.LOG_TAG, "Sensor ViewModel onSensorChanged!" +
-		// evt.values);
+	public void onSensorChanged(SensorEvent evt) {
+
+		// update screen orientation
+		updateScreenOrientation();
 		if (!computing.compareAndSet(false, true))
 			return;
 
-		if (evt.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
-		{
+		if (evt.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			smooth = LowPassFilter.filter(0.5f, 1.0f, evt.values, grav);
 			grav[0] = smooth[0];
 			grav[1] = smooth[1];
 			grav[2] = smooth[2];
 
 		}
-		else if (evt.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-		{
+		else if (evt.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
 			smooth = LowPassFilter.filter(2.0f, 4.0f, evt.values, mag);
 			mag[0] = smooth[0];
 			mag[1] = smooth[1];
@@ -259,33 +225,16 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		// Get rotation matrix given the gravity and geomagnetic matrices
 		SensorManager.getRotationMatrix(temp, null, grav, mag);
 
-		// Translate the rotation matrices from Y and -Z (landscape)
-		// SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_Y,
-		// SensorManager.AXIS_MINUS_X, rotation);
-		// SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_X,
-		// SensorManager.AXIS_MINUS_Z, rotation);
-		if (GlobalARData.portrait)
-		{
-			SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_X,
-					SensorManager.AXIS_MINUS_Z, rotation);
-		}
-		else
-		{
-			SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_Y,
-					SensorManager.AXIS_MINUS_Z, rotation);
+		float devicePitch = SensorMathUtils.calDevicePitch(mScreenOrientation,
+				temp);
 
-		}
+		Log.i("pitch", "pitch 1 --> " + devicePitch);
 
-		/*
-		 * Using Matrix operations instead. This was way too inaccurate,
-		 * //Get the azimuth, pitch, roll
-		 * SensorManager.getOrientation(rotation,apr);
-		 * float floatAzimuth = (float)Math.toDegrees(apr[0]);
-		 * if (floatAzimuth<0) floatAzimuth+=360;
-		 * ARData.setAzimuth(floatAzimuth);
-		 * ARData.setPitch((float)Math.toDegrees(apr[1]));
-		 * ARData.setRoll((float)Math.toDegrees(apr[2]));
-		 */
+		// set parallel tolerance to zero to assume at all conditions device is
+		// vertical
+		 SensorMathUtils.remapCoordinates(temp, rotation, mScreenOrientation,
+		 devicePitch, 0);
+
 
 		// Convert from float[9] to Matrix
 		worldCoord
@@ -299,36 +248,21 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 		// [ 0, 1, 0 ]
 		// [ 0, 0, 1 ]
 		magneticCompensatedCoord.toIdentity();
-
-		synchronized (mageticNorthCompensation)
-		{
-			// Cross product the matrix with the magnetic north compensation
-			magneticCompensatedCoord.prod(mageticNorthCompensation);
-		}
-
-		// The compass assumes the screen is parallel to the ground with the
-		// screen pointing
-		// to the sky, rotate to compensate.
-		magneticCompensatedCoord.prod(xAxisRotation);
+		//
+		// synchronized (mageticNorthCompensation) {
+		// // Cross product the matrix with the magnetic north compensation
+		// magneticCompensatedCoord.prod(mageticNorthCompensation);
+		// }
 
 		// Cross product with the world coordinates to get a mag north
 		// compensated coords
 		magneticCompensatedCoord.prod(worldCoord);
 
-		// Y axis
-		magneticCompensatedCoord.prod(yAxisRotation);
-
-		// Invert the matrix since up-down and left-right are reversed in
-		// landscape mode
-		magneticCompensatedCoord.invert();
-
 		// Set the rotation matrix (used to translate all object from lat/lon to
 		// x/y/z)
 		GlobalARData.setRotationMatrix(magneticCompensatedCoord);
 
-		// Update the pitch and bearing using the phone's rotation matrix
-		MathUtils.calcPitchBearing(GlobalARData.getRotationMatrix());
-		GlobalARData.setAzimuth(MathUtils.getAzimuth());
+		updateOrientationAngles(rotation);
 
 		computing.set(false);
 
@@ -337,26 +271,22 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	}
 
 	@Override
-	public void onProviderDisabled(String provider)
-	{
+	public void onProviderDisabled(String provider) {
 		// Ignore
 	}
 
 	@Override
-	public void onProviderEnabled(String provider)
-	{
+	public void onProviderEnabled(String provider) {
 		// Ignore
 	}
 
 	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras)
-	{
+	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// Ignore
 	}
 
 	@Override
-	public void onLocationChanged(Location location)
-	{
+	public void onLocationChanged(Location location) {
 		Log.i(AppConstants.LOG_TAG, "SensorViewModel onLocationChanged"
 				+ location);
 
@@ -366,38 +296,31 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 
 		float dec = (float) Math.toRadians(-gmf.getDeclination());
 
-		synchronized (mageticNorthCompensation)
-		{
+		synchronized (mageticNorthCompensation) {
 			mageticNorthCompensation.toIdentity();
 
-			mageticNorthCompensation.set(FloatMath.cos(dec), 0f,
-					FloatMath.sin(dec), 0f, 1f, 0f, -FloatMath.sin(dec), 0f,
-					FloatMath.cos(dec));
+			mageticNorthCompensation.set((float) Math.cos(dec), 0f,
+					(float) Math.sin(dec), 0f, 1f, 0f, -(float) Math.sin(dec),
+					0f, (float) Math.cos(dec));
 		}
 	}
 
 	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy)
-	{
-		if (null == sensor)
-		{
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		if (null == sensor) {
 			throw new IllegalArgumentException("sensor is null!");
 		}
 
 		if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD
-				&& accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
-		{
+				&& accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
 			Log.e(TAG, "Compass data unreliable");
 		}
 	}
 
-	private void notifySensorListeners(SensorEvent event)
-	{
+	private void notifySensorListeners(SensorEvent event) {
 
-		if (null != mSensorListeners && mSensorListeners.size() > 0)
-		{
-			for (SensorEventListener listener : mSensorListeners)
-			{
+		if (null != mSensorListeners && mSensorListeners.size() > 0) {
+			for (SensorEventListener listener : mSensorListeners) {
 				listener.onSensorChanged(event);
 			}
 
@@ -415,16 +338,13 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	 * @param listener
 	 * @return
 	 */
-	public boolean addSensorEventListener(SensorEventListener listener)
-	{
+	public boolean addSensorEventListener(SensorEventListener listener) {
 		boolean result = false;
-		if (null == listener)
-		{
+		if (null == listener) {
 			throw new IllegalArgumentException("lister == null");
 		}
 
-		if (null == mSensorListeners)
-		{
+		if (null == mSensorListeners) {
 			mSensorListeners = new ArrayList<SensorEventListener>();
 		}
 
@@ -440,16 +360,13 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 	 * @param listener
 	 * @return
 	 */
-	public boolean removeSensorEventListener(SensorEventListener listener)
-	{
+	public boolean removeSensorEventListener(SensorEventListener listener) {
 		boolean result = false;
-		if (null == listener)
-		{
+		if (null == listener) {
 			throw new IllegalArgumentException("lister == null");
 		}
 
-		if (null == mSensorListeners)
-		{
+		if (null == mSensorListeners) {
 			return result;
 		}
 
@@ -457,6 +374,40 @@ public class SensorViewModel extends ViewModel implements LocationListener,
 
 		return result;
 
+	}
+
+	// watch screen orientation
+	private void initDisplay() {
+		WindowManager wManager = (WindowManager) mActivity
+				.getSystemService(Context.WINDOW_SERVICE);
+		mDisplay = wManager.getDefaultDisplay();
+	}
+
+	private void updateScreenOrientation() {
+		// get Orientation of Display
+		mScreenOrientation = mDisplay.getRotation();
+
+		GlobalARData.screenOrientation = mScreenOrientation;
+		//
+		// if (Surface.ROTATION_0 == mScreenOrientation
+		// || Surface.ROTATION_180 == mScreenOrientation) {
+		// GlobalARData.portrait = true;
+		// }
+		// else {
+		// GlobalARData.portrait = false;
+		// }
+	}
+
+	private void updateOrientationAngles(float[] rotationMatrix) {
+
+		float[] angles = SensorMathUtils.getOrientationAngles(rotationMatrix);
+		GlobalARData.setAzimuth(angles[0]);
+		GlobalARData.setPitch(angles[1]);
+		GlobalARData.setRoll(angles[2]);
+
+		Log.i("pitch", "pitch 2 --> " + angles[1]);
+
+		Log.i("azimuth", "Azimuth--> " + angles[0]);
 	}
 
 }

@@ -41,6 +41,7 @@ import android.util.Log;
  */
 public abstract class GlobalARData {
 	public static boolean portrait = true;
+	public static int screenOrientation = 0;
 	private static final Map<String, BasicMarker> markerList = new ConcurrentHashMap<String, BasicMarker>();
 	private static final List<BasicMarker> cache = new CopyOnWriteArrayList<BasicMarker>();
 	private static final AtomicBoolean dirty = new AtomicBoolean(false);
@@ -69,11 +70,14 @@ public abstract class GlobalARData {
 	private static final Object zoomProgressLock = new Object();
 	private static int zoomProgress = 0;
 
+	// rotation infomation
 	private static Matrix rotationMatrix = new Matrix();
 	private static final Object azimuthLock = new Object();
 	private static float azimuth = 0;
 	private static final Object rollLock = new Object();
 	private static float roll = 0;
+	private static final Object pitchLock = new Object();
+	private static float pitch = 0;
 
 	// we have two location fields, they are updated by different SDK
 	private static Location currentGoogleLocation = hardFix;
@@ -451,6 +455,29 @@ public abstract class GlobalARData {
 	public static float getRoll() {
 		synchronized (rollLock) {
 			return GlobalARData.roll;
+		}
+	}
+
+	/**
+	 * Set the current Pitch.
+	 * 
+	 * @param pitch
+	 *            float representing the pitch.
+	 */
+	public static void setPitch(float pitch) {
+		synchronized (pitchLock) {
+			GlobalARData.pitch = pitch;
+		}
+	}
+
+	/**
+	 * Get the current Pitch.
+	 * 
+	 * @return pitch float representing the pitch.
+	 */
+	public static float getPitch() {
+		synchronized (pitchLock) {
+			return GlobalARData.pitch;
 		}
 	}
 }

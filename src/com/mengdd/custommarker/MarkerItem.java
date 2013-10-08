@@ -1,17 +1,12 @@
 package com.mengdd.custommarker;
 
-import java.util.Date;
-
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
-import com.baidu.platform.comapi.map.l;
-import com.mengdd.arapp.R;
 
-public class MarkerItem
-{
+public class MarkerItem {
 	/*
 	 * Keys in database
 	 * MARKER_NAME = "marker_name";
@@ -30,7 +25,7 @@ public class MarkerItem
 	 */
 	private OverlayItem overlayItem = null;
 	private GeoPoint geoPoint = null;
-	
+
 	private String name = null;
 	private String description = null;
 	private int mId = 0;
@@ -47,37 +42,42 @@ public class MarkerItem
 	private Drawable moveDrawable = null;
 	private Drawable fixedDrawable = null;
 
-	public boolean isFixed()
-	{
+	// 为了在List中编辑的时候判断其选中状态
+	private boolean isSelected = false;
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+
+	public boolean isFixed() {
 		return isFixed;
 	}
 
-	public void setFixed(boolean isFixed)
-	{
+	public void setFixed(boolean isFixed) {
 		this.isFixed = isFixed;
-		if (isFixed)
-		{
+		if (isFixed) {
 			overlayItem.setMarker(fixedDrawable);
 		}
-		else
-		{
+		else {
 			overlayItem.setMarker(moveDrawable);
 		}
 	}
 
-	public MarkerItem()
-	{
+	public MarkerItem() {
 		overlayItem = new OverlayItem(new GeoPoint(0, 0), "", "");
 		this.geoPoint = new GeoPoint(0, 0);
 		name = "";
 		description = "";
 		setFixed(false);
-		
+
 	}
-	
-	
-	public MarkerItem(GeoPoint point, String title, String snippet,int moveDrawableId, int fixedDrawableId)
-	{
+
+	public MarkerItem(GeoPoint point, String title, String snippet,
+			int moveDrawableId, int fixedDrawableId) {
 		this.geoPoint = point;
 		overlayItem = new OverlayItem(point, title, snippet);
 		name = title;
@@ -86,18 +86,18 @@ public class MarkerItem
 		resourceId1 = moveDrawableId;
 		resourceId2 = fixedDrawableId;
 	}
-	
-	public void getDrawables(Resources resources)
-	{
-		
+
+	public void getDrawables(Resources resources) {
+
 		this.moveDrawable = resources.getDrawable(resourceId1);
 		this.fixedDrawable = resources.getDrawable(resourceId2);
-		
+
 		setFixed(false);
 	}
-	public MarkerItem(GeoPoint point, String title, String snippet,int moveDrawableId, int fixedDrawableId, Resources resources)
-	{
-		
+
+	public MarkerItem(GeoPoint point, String title, String snippet,
+			int moveDrawableId, int fixedDrawableId, Resources resources) {
+
 		this.geoPoint = point;
 		overlayItem = new OverlayItem(point, title, snippet);
 		name = title;
@@ -105,17 +105,16 @@ public class MarkerItem
 
 		resourceId1 = moveDrawableId;
 		resourceId2 = fixedDrawableId;
-		
-		
+
 		this.moveDrawable = resources.getDrawable(moveDrawableId);
 		this.fixedDrawable = resources.getDrawable(fixedDrawableId);
-		
+
 		setFixed(false);
-			
+
 	}
+
 	public MarkerItem(GeoPoint point, String title, String snippet,
-			Drawable moveDrawable, Drawable fixedDrawable)
-	{
+			Drawable moveDrawable, Drawable fixedDrawable) {
 		this.geoPoint = point;
 		overlayItem = new OverlayItem(point, title, snippet);
 		name = title;
@@ -127,124 +126,100 @@ public class MarkerItem
 
 	}
 
-	public OverlayItem getItem()
-	{
+	public OverlayItem getItem() {
 		return overlayItem;
 
 	}
 
-	public void setPosition(GeoPoint geoPoint)
-	{
+	public void setPosition(GeoPoint geoPoint) {
 		this.geoPoint = geoPoint;
 		overlayItem.setGeoPoint(geoPoint);
 
 	}
 
-	public GeoPoint getPosition()
-	{
+	public GeoPoint getPosition() {
 		return geoPoint;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 		overlayItem.setTitle(name);
 	}
 
-	public String getDescription()
-	{
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description)
-	{
+	public void setDescription(String description) {
 		this.description = description;
 		overlayItem.setSnippet(description);
 	}
 
-	public String getMarkerType()
-	{
+	public String getMarkerType() {
 		return markerType;
 	}
 
-	public void setMarkerType(String marker_type)
-	{
+	public void setMarkerType(String marker_type) {
 		this.markerType = marker_type;
 	}
 
-	public String getCoordinateType()
-	{
+	public String getCoordinateType() {
 		return coordinateType;
 	}
 
-	public void setCoordinateType(String coordinate_type)
-	{
+	public void setCoordinateType(String coordinate_type) {
 		this.coordinateType = coordinate_type;
 	}
 
-	public int getCheckTimes()
-	{
+	public int getCheckTimes() {
 		return checkTimes;
 	}
 
-	public void setCheckTimes(int checkTimes)
-	{
+	public void setCheckTimes(int checkTimes) {
 		this.checkTimes = checkTimes;
 	}
 
-	public String getCreateDate()
-	{
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate)
-	{
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public String getLastVisitDate()
-	{
+	public String getLastVisitDate() {
 		return lastVisitDate;
 	}
 
-	public void setLastVisitDate(String lastVisitDate)
-	{
+	public void setLastVisitDate(String lastVisitDate) {
 		this.lastVisitDate = lastVisitDate;
 	}
 
-
-	public int getId()
-	{
+	public int getId() {
 		return mId;
 	}
 
-	public void setId(int Id)
-	{
+	public void setId(int Id) {
 		this.mId = Id;
 	}
 
-	public int getResourceId1()
-	{
+	public int getResourceId1() {
 		return resourceId1;
 	}
 
-	public void setResourceId1(int resourceId1)
-	{
+	public void setResourceId1(int resourceId1) {
 		this.resourceId1 = resourceId1;
 	}
 
-	public int getResourceId2()
-	{
+	public int getResourceId2() {
 		return resourceId2;
 	}
 
-	public void setResourceId2(int resourceId2)
-	{
+	public void setResourceId2(int resourceId2) {
 		this.resourceId2 = resourceId2;
 	}
 

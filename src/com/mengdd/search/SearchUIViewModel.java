@@ -1,6 +1,7 @@
 package com.mengdd.search;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.text.Editable;
@@ -8,10 +9,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,7 +27,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.search.MKAddrInfo;
 import com.baidu.mapapi.search.MKBusLineResult;
 import com.baidu.mapapi.search.MKDrivingRouteResult;
-import com.baidu.mapapi.search.MKPoiInfo;
 import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
@@ -37,11 +39,13 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationListenerAdapter;
 import com.mengdd.location.baidu.BaiduLocationHelper;
+import com.mengdd.search.keywords.CategoryView.KeywordListener;
+import com.mengdd.search.keywords.KeywordsNaviViewModel;
 import com.mengdd.utils.AppConstants;
 
-public class SearchUIViewModel extends ViewModel implements MKSearchListener
-{
+public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 	private View mRootView = null;
 	private MKSearch mSearch = null;
 	private Resources mResources = null;
@@ -64,16 +68,22 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 	private SeekBar mRadiusSeekBar = null;
 	private TextView mRadiusTextView = null;
 	private final int MAX_RADIUS = 1000;
+	// current location
+	private TextView mCurrentLocationTextView = null;
 
-	protected SearchUIViewModel(Activity activity, MKSearch mkSearch)
-	{
+	// how to hide input keyboard
+	private InputMethodManager mInputMethodManager = null;
+
+	// keywords navigation
+	private KeywordsNaviViewModel mKeywordsViewModel = null;
+
+	protected SearchUIViewModel(Activity activity, MKSearch mkSearch) {
 		super(activity);
 		mSearch = mkSearch;
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 		mRootView = mInflater.inflate(R.layout.search_ui, null);
 
@@ -88,14 +98,24 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 
 		editCity = (EditText) mRootView.findViewById(R.id.city);
 
+		// hide input keyboard
+		mInputMethodManager = (InputMethodManager) mActivity
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+
 		Button searchBtn = (Button) mRootView.findViewById(R.id.search_btn);
-		searchBtn.setOnClickListener(new OnClickListener()
-		{
+		searchBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
-				searchButtonProcess(v);
+			public void onClick(View v) {
+				// 关闭软键盘
+				mInputMethodManager.hideSoftInputFromWindow(
+						keywordsView.getWindowToken(), 0);
+
+				// 提取keyword
+				String keyword = keywordsView.getText().toString();
+
+				// 查询关键字
+				searchForKeyword(keyword);
 
 			}
 		});
@@ -103,41 +123,76 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 		mRadiusTextView = (TextView) mRootView.findViewById(R.id.radius);
 		mRadiusSeekBar = (SeekBar) mRootView.findViewById(R.id.search_radius);
 		mRadiusSeekBar.setMax(MAX_RADIUS);
-		mRadiusSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
-		{
+		mRadiusSeekBar
+				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar)
-			{
+					@Override
+					public void onStopTrackingTouch(SeekBar seekBar) {
 
-			}
+					}
 
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar)
-			{
+					@Override
+					public void onStartTrackingTouch(SeekBar seekBar) {
 
-			}
+					}
 
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser)
-			{
-				mRadiusTextView.setText(mResources
-						.getString(R.string.search_radius)
-						+ ": "
-						+ progress
-						+ "m");
+					@Override
+					public void onProgressChanged(SeekBar seekBar,
+							int progress, boolean fromUser) {
+						mRadiusTextView.setText(mResources
+								.getString(R.string.search_radius)
+								+ ": "
+								+ progress + "m");
 
-			}
-		});
+					}
+				});
 
 		// mode choose
 		initSearchModeRadioGroup();
 
+		mCurrentLocationTextView = (TextView) mRootView
+				.findViewById(R.id.current_location);
+
+		// Keywords
+		mKeywordsViewModel = new KeywordsNaviViewModel(mActivity);
+		mKeywordsViewModel.onCreate(null);
+		LinearLayout keyLayout = (LinearLayout) mRootView
+				.findViewById(R.id.keywords_layout);
+		keyLayout.addView(mKeywordsViewModel.getView());
+		mKeywordsViewModel.setKeywordListener(mKeywordListener);
+
 	}
 
-	private void initSearchModeRadioGroup()
-	{
+	private KeywordListener mKeywordListener = new KeywordListener() {
+
+		@Override
+		public void onKeywordSelected(String keyword) {
+
+			searchForKeyword(keyword);
+		}
+	};
+
+	// when location changed, get the current location and search for the
+	// address
+	private LocationListenerAdapter mCurrentLocationListener = new LocationListenerAdapter() {
+
+		@Override
+		public void onLocationChanged(android.location.Location location) {
+
+			BDLocation currentLocation = GlobalARData.getCurrentBaiduLocation();
+			GeoPoint geoPoint = BaiduLocationHelper
+					.getGeoPointFromBDLocation(currentLocation);
+
+			Log.i(AppConstants.LOG_TAG, "reverseGeocode: " + geoPoint);
+			mSearch.reverseGeocode(geoPoint);
+
+			// reverseGeocode和geocode的返回结果在都在MKSearchListener里的onGetAddrResult方法中
+
+		};
+
+	};
+
+	private void initSearchModeRadioGroup() {
 		mCityModeView = (View) mRootView.findViewById(R.id.city_mode);
 		mNearModeView = (View) mRootView.findViewById(R.id.near_mode);
 
@@ -147,29 +202,26 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 		mRadioButtonNear = (RadioButton) mRootView
 				.findViewById(R.id.radio_mode_nearby);
 
-		mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
+		mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId)
-			{
-				switch (checkedId)
-				{
-					case R.id.radio_mode_inCity:
-						mCityModeView.setVisibility(View.VISIBLE);
-						mNearModeView.setVisibility(View.GONE);
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch (checkedId) {
+				case R.id.radio_mode_inCity:
+					mCityModeView.setVisibility(View.VISIBLE);
+					mNearModeView.setVisibility(View.GONE);
 
-						break;
+					break;
 
-					case R.id.radio_mode_nearby:
+				case R.id.radio_mode_nearby:
 
-						mCityModeView.setVisibility(View.GONE);
-						mNearModeView.setVisibility(View.VISIBLE);
+					mCityModeView.setVisibility(View.GONE);
+					mNearModeView.setVisibility(View.VISIBLE);
 
-						break;
+					break;
 
-					default:
-						break;
+				default:
+					break;
 				}
 
 			}
@@ -181,45 +233,40 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return mRootView;
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		super.onStop();
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		super.onDestroy();
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		super.onResume(intent);
+
+		GlobalARData.addLocationListener(mCurrentLocationListener);
 
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
+		GlobalARData.removeLocationListener(mCurrentLocationListener);
 	}
 
-	private TextWatcher mTextWatcher = new TextWatcher()
-	{
+	private TextWatcher mTextWatcher = new TextWatcher() {
 
 		@Override
 		public void onTextChanged(CharSequence cs, int start, int before,
-				int count)
-		{
-			if (cs.length() <= 0)
-			{
+				int count) {
+			if (cs.length() <= 0) {
 				return;
 			}
 			String city = ((EditText) mRootView.findViewById(R.id.city))
@@ -234,41 +281,26 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after)
-		{
+				int after) {
 
 		}
 
 		@Override
-		public void afterTextChanged(Editable s)
-		{
+		public void afterTextChanged(Editable s) {
 
 		}
 	};
 
-	/**
-	 * 影响搜索按钮点击事件
-	 * 
-	 * @param v
-	 */
-	public void searchButtonProcess(View v)
-	{
+	private void searchForKeyword(String keyword) {
 		int result = -1;
-		if (null != mSearch)
-		{
-
+		if (null != mSearch) {
 			// Search in the city
-			if (mRadioButtonCity.isChecked())
-			{
+			if (mRadioButtonCity.isChecked()) {
 
 				result = mSearch.poiSearchInCity(editCity.getText().toString(),
-						keywordsView.getText().toString());
+						keyword);
 			}
-			else if (mRadioButtonNear.isChecked())
-			{
-				// Search nearby
-				// keywords
-				String input = keywordsView.getText().toString();
+			else if (mRadioButtonNear.isChecked()) {
 
 				// location
 				BDLocation location = GlobalARData.getCurrentBaiduLocation();
@@ -280,63 +312,53 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 
 				// public int poiMultiSearchNearBy(String[] keys,GeoPoint pt,
 				// int radius)
-				result = mSearch.poiSearchNearBy(input, geoPoint, radius);
+				result = mSearch.poiSearchNearBy(keyword, geoPoint, radius);
 			}
 
-			if (0 == result)
-			{
+			if (0 == result) {
 				// search succefully, turn to the result page
-				if (null != mSearchSuccessListener)
-				{
+				if (null != mSearchSuccessListener) {
 					mSearchSuccessListener.onSearchCompleted();
 				}
 
 			}
-			else
-			{
+			else {
 				Toast.makeText(mActivity,
 						"Search Failed! Please Check the Network!",
 						Toast.LENGTH_LONG).show();
 			}
 		}
+
 	}
 
-	public interface OnSearchSuccessListener
-	{
+	public interface OnSearchSuccessListener {
 		public void onSearchCompleted();
 	}
 
 	private OnSearchSuccessListener mSearchSuccessListener = null;
 
-	public void setOnSearchSuccessListener(OnSearchSuccessListener listener)
-	{
+	public void setOnSearchSuccessListener(OnSearchSuccessListener listener) {
 		mSearchSuccessListener = listener;
 	}
 
 	@Override
-	public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError)
-	{
+	public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
 
 	}
 
 	@Override
-	public void onGetTransitRouteResult(MKTransitRouteResult result, int iError)
-	{
+	public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
 	}
 
 	@Override
-	public void onGetSuggestionResult(MKSuggestionResult result, int iError)
-	{
+	public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
 		Log.i(AppConstants.LOG_TAG, "onGetSuggestionResult: " + iError);
-		if (result == null || result.getAllSuggestions() == null)
-		{
+		if (result == null || result.getAllSuggestions() == null) {
 			return;
 		}
 		sugAdapter.clear();
-		for (MKSuggestionInfo info : result.getAllSuggestions())
-		{
-			if (info.key != null)
-			{
+		for (MKSuggestionInfo info : result.getAllSuggestions()) {
+			if (info.key != null) {
 				sugAdapter.add(info.key);
 			}
 		}
@@ -344,36 +366,53 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener
 	}
 
 	@Override
-	public void onGetPoiResult(MKPoiResult result, int type, int iError)
-	{
+	public void onGetPoiResult(MKPoiResult result, int type, int iError) {
 
 	}
 
 	@Override
-	public void onGetPoiDetailSearchResult(int type, int iError)
-	{
+	public void onGetPoiDetailSearchResult(int type, int iError) {
 	}
 
 	@Override
-	public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError)
-	{
+	public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
 
 	}
 
 	@Override
-	public void onGetBusDetailResult(MKBusLineResult result, int iError)
-	{
+	public void onGetBusDetailResult(MKBusLineResult result, int iError) {
 	}
 
 	@Override
-	public void onGetAddrResult(MKAddrInfo result, int iError)
-	{
+	public void onGetAddrResult(MKAddrInfo result, int iError) {
+		// get the reverseGeocode result
+		if (iError != 0) {
+			String str = String.format("错误号：%d", iError);
+			Toast.makeText(mActivity, str, Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		if (result.type == MKAddrInfo.MK_GEOCODE) {
+			// 地理编码：通过地址检索坐标点
+			String strInfo = String.format("纬度：%f 经度：%f",
+					result.geoPt.getLatitudeE6() / 1e6,
+					result.geoPt.getLongitudeE6() / 1e6);
+			Toast.makeText(mActivity, strInfo, Toast.LENGTH_LONG).show();
+		}
+		if (result.type == MKAddrInfo.MK_REVERSEGEOCODE) {
+			// 反地理编码：通过坐标点检索详细地址及周边poi
+			String strInfo = result.strAddr;
+
+			// Toast.makeText(mActivity, strInfo, Toast.LENGTH_LONG).show();
+
+			mCurrentLocationTextView.setText(strInfo);
+		}
 	}
 
 	@Override
-	public void onGetShareUrlResult(MKShareUrlResult result, int type, int iError)
-	{
-		
+	public void onGetShareUrlResult(MKShareUrlResult result, int type,
+			int iError) {
+
 	}
 
 }

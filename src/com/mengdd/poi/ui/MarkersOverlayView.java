@@ -34,51 +34,42 @@ import android.view.View;
  * @since 2013-07-01
  */
 public class MarkersOverlayView extends View implements SensorEventListener,
-		OnRadarZoomChangedListener
-{
+		OnRadarZoomChangedListener {
 
-	private static final float[] locationArray = new float[3];
+	private static final float[] tempLocationArray = new float[3];
 	private static final List<BasicMarker> cache = new ArrayList<BasicMarker>();
 	private static final TreeSet<BasicMarker> updated = new TreeSet<BasicMarker>();
 	private static final int COLLISION_ADJUSTMENT = 100;
 
-	public MarkersOverlayView(Context context, AttributeSet attrs, int defStyle)
-	{
+	public MarkersOverlayView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(context);
 	}
 
-	public MarkersOverlayView(Context context, AttributeSet attrs)
-	{
+	public MarkersOverlayView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public MarkersOverlayView(Context context)
-	{
+	public MarkersOverlayView(Context context) {
 		super(context);
 		init(context);
 	}
 
-	private void init(Context context)
-	{
-		// radar = new Radar(context);
+	private void init(Context context) {
+
 	}
 
 	private int debugRadarCount = 0;
 	private int debugViewCount = 0;
-	
 
 	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
+	public boolean onTouchEvent(MotionEvent event) {
 		float x = event.getX();
 		float y = event.getY();
 		Log.i(AppConstants.LOG_TAG, "onTouchEvent: X: " + x + ",Y: " + y);
-		for(BasicMarker marker : GlobalARData.getMarkers())
-		{
-			if(marker.handleClick(x, y))
-			{
+		for (BasicMarker marker : GlobalARData.getMarkers()) {
+			if (marker.handleClick(x, y)) {
 				marker.onTouch();
 			}
 
@@ -87,11 +78,9 @@ public class MarkersOverlayView extends View implements SensorEventListener,
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas)
-	{
+	protected void onDraw(Canvas canvas) {
 		// Log.i(AppConstants.LOG_TAG, "ARPOIView -- onDraw");
-		if (canvas == null)
-		{
+		if (canvas == null) {
 			return;
 
 		}
@@ -105,22 +94,18 @@ public class MarkersOverlayView extends View implements SensorEventListener,
 
 		debugRadarCount = 0;
 		debugViewCount = 0;
-		for (BasicMarker m : collection)
-		{
+		for (BasicMarker m : collection) {
 
 			m.update(canvas, 0, 0);
 
-			if (m.isOnRadar())
-			{
+			if (m.isOnRadar()) {
 				debugRadarCount++;
 			}
 
-			if (m.isInView())
-			{
+			if (m.isInView()) {
 				debugViewCount++;
 			}
-			if (m.isOnRadar() && m.isInView())
-			{
+			if (m.isOnRadar() && m.isInView()) {
 				cache.add(m);
 			}
 		}
@@ -130,54 +115,44 @@ public class MarkersOverlayView extends View implements SensorEventListener,
 		Log.i(AppConstants.LOG_TAG,
 				"marker count in collection: " + collection.size());
 
-		//adjustForCollisions(canvas, collection);
+		adjustForCollisions(canvas, collection);
 
 		// Draw AR markers in reverse order since the last drawn should be
 		// the closest
 		ListIterator<BasicMarker> iter = collection.listIterator(collection
 				.size());
-		while (iter.hasPrevious())
-		{
+		while (iter.hasPrevious()) {
 			BasicMarker marker = iter.previous();
 			marker.draw(canvas);
 		}
 
-
-
-		//GlobalARData.logMarkers();
+		// GlobalARData.logMarkers();
 
 	}
 
 	private static void adjustForCollisions(Canvas canvas,
-			List<BasicMarker> collection)
-	{
+			List<BasicMarker> collection) {
 		updated.clear();
 
 		// Update the AR markers for collisions
-		for (BasicMarker marker1 : collection)
-		{
-			if (updated.contains(marker1) || !marker1.isInView())
-			{
+		for (BasicMarker marker1 : collection) {
+			if (updated.contains(marker1) || !marker1.isInView()) {
 				continue;
 			}
 
 			int collisions = 1;
-			for (BasicMarker marker2 : collection)
-			{
+			for (BasicMarker marker2 : collection) {
 				if (marker1.equals(marker2) || updated.contains(marker2)
-						|| !marker2.isInView())
-				{
+						|| !marker2.isInView()) {
 					continue;
 				}
 
-				if (marker1.isMarkerOnMarker(marker2))
-				{
-					marker2.getLocationVector().get(locationArray);
-					float y = locationArray[1];
-					float h = collisions * COLLISION_ADJUSTMENT;
-					locationArray[1] = y + h;
-					marker2.getLocationVector().set(locationArray);
-					marker2.update(canvas, 0, 0);
+				if (marker1.isMarkerOnMarker(marker2)) {
+
+					// float h = collisions * COLLISION_ADJUSTMENT;
+					float h = collisions * marker2.getHeight();
+					marker2.update(canvas, 0, -h);
+
 					collisions++;
 					updated.add(marker2);
 				}
@@ -187,22 +162,18 @@ public class MarkersOverlayView extends View implements SensorEventListener,
 	}
 
 	@Override
-	public void onSensorChanged(SensorEvent event)
-	{
+	public void onSensorChanged(SensorEvent event) {
 		postInvalidate();
 	}
 
 	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy)
-	{
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
 	}
 
-
 	@Override
-	public void onZoomChanged()
-	{
-		postInvalidate();		
+	public void onZoomChanged() {
+		postInvalidate();
 	}
 
 }

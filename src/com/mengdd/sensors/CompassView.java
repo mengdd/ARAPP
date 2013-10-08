@@ -32,22 +32,18 @@ import android.view.View;
  * @since 2013-07-01
  * 
  */
-public class CompassView extends View
-{
-	private enum CompassDirection
-	{
+public class CompassView extends View {
+	private enum CompassDirection {
 		N, NNE, NE, ENE, E, ESE, SE, SSE, S, SSW, SW, WSW, W, WNW, NW, NNW
 	}
 
-	public enum CompassStatus
-	{
+	public enum CompassStatus {
 		ParallelToGround, VerticalToGround
 	}
 
 	private CompassStatus mCompassStatus = CompassStatus.VerticalToGround;
 
-	public void setCompassStatus(CompassStatus status)
-	{
+	public void setCompassStatus(CompassStatus status) {
 		mCompassStatus = status;
 	}
 
@@ -99,56 +95,46 @@ public class CompassView extends View
 	private float tiltDegree;
 	private float rollDegree;
 
-	public float getBearing()
-	{
+	public float getBearing() {
 		return azimuth;
 	}
 
-	public void setBearing(float bearing)
-	{
+	public void setBearing(float bearing) {
 		this.azimuth = bearing;
 	}
 
-	public float getPitch()
-	{
+	public float getPitch() {
 		return pitch;
 	}
 
-	public void setPitch(float pitch)
-	{
+	public void setPitch(float pitch) {
 		this.pitch = pitch;
 	}
 
-	public float getRoll()
-	{
+	public float getRoll() {
 		return roll;
 	}
 
-	public void setRoll(float roll)
-	{
+	public void setRoll(float roll) {
 		this.roll = roll;
 	}
 
-	public CompassView(Context context, AttributeSet attrs, int defStyle)
-	{
+	public CompassView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initCompassView();
 	}
 
-	public CompassView(Context context, AttributeSet attrs)
-	{
+	public CompassView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initCompassView();
 	}
 
-	public CompassView(Context context)
-	{
+	public CompassView(Context context) {
 		super(context);
 		initCompassView();
 	}
 
-	private void initCompassView()
-	{
+	private void initCompassView() {
 		setFocusable(true);
 		resources = this.getResources();
 
@@ -157,8 +143,7 @@ public class CompassView extends View
 
 	}
 
-	private void initPaints()
-	{
+	private void initPaints() {
 
 		// draw background
 		backgroudPaint = new Paint();
@@ -224,8 +209,7 @@ public class CompassView extends View
 
 	}
 
-	private void initColors()
-	{
+	private void initColors() {
 		borderGradientColors = new int[4];
 		borderGradientPositions = new float[4];
 		borderGradientColors[3] = resources.getColor(R.color.transparent_color);
@@ -262,8 +246,7 @@ public class CompassView extends View
 	 * init shaders according to size info set the shaders to some existing
 	 * Paints
 	 */
-	private void initShaders()
-	{
+	private void initShaders() {
 		borderGradient = new RadialGradient(px, py, radius,
 				borderGradientColors, borderGradientPositions, TileMode.CLAMP);
 		backgroudPaint.setShader(borderGradient);
@@ -275,8 +258,7 @@ public class CompassView extends View
 	}
 
 	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-	{
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// The compass is a circle that fills as much space as possible.
 		// Set the measured dimensions by figuring out the shortest boundary,
 		// height or width.
@@ -286,18 +268,15 @@ public class CompassView extends View
 		setMeasuredDimension(d, d);
 	}
 
-	private int measure(int measureSpec)
-	{
+	private int measure(int measureSpec) {
 		int result = 0;
 		int specMode = MeasureSpec.getMode(measureSpec);
 		int specSize = MeasureSpec.getSize(measureSpec);
-		if (specMode == MeasureSpec.UNSPECIFIED)
-		{
+		if (specMode == MeasureSpec.UNSPECIFIED) {
 			// Return a default size of 200 if no bounds are specified.
 			result = 200;
 		}
-		else
-		{
+		else {
 			// As you want to fill the available space
 			// always return the full available bounds.
 			result = specSize;
@@ -306,8 +285,7 @@ public class CompassView extends View
 	}
 
 	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh)
-	{
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		refreshSizeInfos();
 
@@ -316,8 +294,7 @@ public class CompassView extends View
 
 	}
 
-	private void refreshSizeInfos()
-	{
+	private void refreshSizeInfos() {
 		ringWidth = textHeight + 4;
 		height = getMeasuredHeight();
 		width = getMeasuredWidth();
@@ -338,20 +315,17 @@ public class CompassView extends View
 
 	}
 
-	private void updateRotationInfos()
-	{
+	private void updateRotationInfos() {
 		// angle
 		tiltDegree = pitch;
-		while (tiltDegree > 90 || tiltDegree < -90)
-		{
+		while (tiltDegree > 90 || tiltDegree < -90) {
 			if (tiltDegree > 90)
 				tiltDegree = -90 + (tiltDegree - 90);
 			if (tiltDegree < -90)
 				tiltDegree = 90 - (tiltDegree + 90);
 		}
 		rollDegree = roll;
-		while (rollDegree > 180 || rollDegree < -180)
-		{
+		while (rollDegree > 180 || rollDegree < -180) {
 			if (rollDegree > 180)
 				rollDegree = -180 + (rollDegree - 180);
 			if (rollDegree < -180)
@@ -360,22 +334,19 @@ public class CompassView extends View
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas)
-	{
+	protected void onDraw(Canvas canvas) {
 
 		updateRotationInfos();
 
 		drawBackground(canvas, backgroudPaint, borderPaint);
 		drawTickMarks(canvas, textPaint, markerPaint);
 
-		if (CompassStatus.VerticalToGround == mCompassStatus)
-		{
+		if (CompassStatus.VerticalToGround == mCompassStatus) {
 			drawDirection(canvas, false, mainDirectionPaint, subDirectionPaint,
 					arrowPaint);
 			drawArrow(canvas, arrowPaint);
 		}
-		else
-		{
+		else {
 			drawDirection(canvas, true, mainDirectionPaint, subDirectionPaint,
 					arrowPaint);
 
@@ -384,8 +355,7 @@ public class CompassView extends View
 		drawGlass(canvas, glassPaint, glassCirclePaint);
 	}
 
-	private void drawBackground(Canvas canvas, Paint bgPaint, Paint borderPaint)
-	{
+	private void drawBackground(Canvas canvas, Paint bgPaint, Paint borderPaint) {
 
 		Path outerRingPath = new Path();
 		outerRingPath.addOval(boundingBox, Direction.CW);
@@ -398,8 +368,7 @@ public class CompassView extends View
 		canvas.drawOval(innerBoundingBox, borderPaint);
 	}
 
-	private void drawArrow(Canvas canvas, Paint paint)
-	{
+	private void drawArrow(Canvas canvas, Paint paint) {
 		// draw an Arrow always point at the phone's head direction
 
 		int arrowSize = 25;
@@ -418,16 +387,13 @@ public class CompassView extends View
 		canvas.drawPath(rollArrow, paint);
 	}
 
-	private void drawTickMarks(Canvas canvas, Paint textPaint, Paint markerPaint)
-	{
+	private void drawTickMarks(Canvas canvas, Paint textPaint, Paint markerPaint) {
 
 		canvas.save();
 		// canvas.rotate(180, center.x, center.y);
 		canvas.rotate(180 - 1 * (azimuth), px, py);
-		for (int i = -180; i < 180; i += 10)
-		{
-			if (i % 30 == 0)
-			{
+		for (int i = -180; i < 180; i += 10) {
+			if (i % 30 == 0) {
 				// the degree marker Text
 				String rollString = String.valueOf(i * -1);
 				float rollStringWidth = textPaint.measureText(rollString);
@@ -440,8 +406,7 @@ public class CompassView extends View
 				canvas.drawLine(center.x, (int) innerBoundingBox.top, center.x,
 						(int) innerBoundingBox.top + 10, markerPaint);
 			}
-			else
-			{
+			else {
 				canvas.drawLine(center.x, (int) innerBoundingBox.top, center.x,
 						(int) innerBoundingBox.top + 5, markerPaint);
 			}
@@ -452,29 +417,25 @@ public class CompassView extends View
 	}
 
 	private void drawDirection(Canvas canvas, boolean showArrow,
-			Paint mainPaint, Paint subPaint, Paint arrowPaint)
-	{
+			Paint mainPaint, Paint subPaint, Paint arrowPaint) {
 
 		canvas.save();
 		canvas.rotate(-1 * (azimuth), px, py);
 
 		// 绘制指南针
-		if (showArrow)
-		{
+		if (showArrow) {
 			drawNorthArrow(canvas, arrowPaint);
 		}
 
 		double increment = 22.5;
-		for (double i = 0; i < 360; i += increment)
-		{
+		for (double i = 0; i < 360; i += increment) {
 			CompassDirection cd = CompassDirection.values()[(int) (i / 22.5)];
 			String headString = cd.toString();
 			float headStringWidth;
 			PointF headStringCenter;
 
 			// Log.i(AppConstants.LOG_TAG, "test: i: " + i);
-			if (i % (4 * increment) == 0)
-			{
+			if (i % (4 * increment) == 0) {
 				// main Direction Text
 				headStringWidth = mainPaint.measureText(headString);
 				headStringCenter = new PointF(center.x - (headStringWidth / 2),
@@ -486,8 +447,7 @@ public class CompassView extends View
 				canvas.drawText(headString, headStringCenter.x,
 						headStringCenter.y - 8, mainPaint);
 			}
-			else
-			{
+			else {
 				// Sub Direction Text
 				headStringWidth = subPaint.measureText(headString);
 				headStringCenter = new PointF(center.x - (headStringWidth / 2),
@@ -502,8 +462,7 @@ public class CompassView extends View
 		canvas.restore();
 	}
 
-	private void drawNorthArrow(Canvas canvas, Paint paint)
-	{
+	private void drawNorthArrow(Canvas canvas, Paint paint) {
 
 		int arrowSize = 25;
 		int borderOffset = 70;
@@ -524,8 +483,7 @@ public class CompassView extends View
 
 	}
 
-	private void drawGlass(Canvas canvas, Paint glassPaint, Paint circlePaint)
-	{
+	private void drawGlass(Canvas canvas, Paint glassPaint, Paint circlePaint) {
 		canvas.drawOval(innerBoundingBox, glassPaint);
 
 		// draw 2 circle

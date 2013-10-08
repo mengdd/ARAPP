@@ -10,21 +10,26 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.R;
 import com.mengdd.db.CustomMarkerTable;
 
-public class CustomMarkersOverlay
-{
+/**
+ * Custom Markers overlay, this is an outside wrapper class.
+ * See MyOverlay for more details.
+ * Here I'm considering to refract to join these two classes.
+ * 
+ * @author meng
+ * 
+ */
+public class CustomMarkersOverlay {
 	private MapView mMapView = null;
 	private MyOverlay mMyOverlay = null;
 	private Resources mResources = null;
 
-	public CustomMarkersOverlay(Activity activity, MapView mapView)
-	{
+	public CustomMarkersOverlay(Activity activity, MapView mapView) {
 		mMapView = mapView;
 
 		initOverlay(activity, mapView);
 	}
 
-	private void initOverlay(Activity activity, MapView mapView)
-	{
+	private void initOverlay(Activity activity, MapView mapView) {
 		mResources = activity.getResources();
 		Drawable defaultMarker = mResources.getDrawable(R.drawable.icon_marka);
 		mMyOverlay = new MyOverlay(activity, defaultMarker, mapView);
@@ -33,8 +38,7 @@ public class CustomMarkersOverlay
 
 	}
 
-	private void initTest()
-	{
+	private void initTest() {
 		/**
 		 * 准备overlay 数据
 		 */
@@ -77,8 +81,7 @@ public class CustomMarkersOverlay
 
 	}
 
-	public void initNewMarker()
-	{
+	public void initNewMarker() {
 		GeoPoint geoPoint = mMapView.getMapCenter();
 		String title = "New Marker";
 		String snippet = "snippet";
@@ -89,16 +92,14 @@ public class CustomMarkersOverlay
 		mMyOverlay.addNewItem(newItem);
 	}
 
-	public MarkerItem getMarkerItemInEdit()
-	{
+	public MarkerItem getMarkerItemInEdit() {
 		MarkerItem item = null;
 		item = mMyOverlay.getMovingItem();
 
 		return item;
 	}
 
-	public boolean saveMarkerItemToDb(MarkerItem markerItem)
-	{
+	public boolean saveMarkerItemToDb(MarkerItem markerItem) {
 		boolean success = false;
 
 		success = mMyOverlay.saveMarkerToDb(markerItem);
@@ -106,12 +107,15 @@ public class CustomMarkersOverlay
 
 	}
 
-	public void addDBMarkerToOverlay(MarkerItem marker)
-	{
+	public void addDBMarkerToOverlay(MarkerItem marker) {
 		marker.getDrawables(mResources);
 		marker.setFixed(true);
 		mMyOverlay.addNewItem(marker);
 
+	}
+
+	public void clearMarkers() {
+		mMyOverlay.clearItems();
 	}
 
 }

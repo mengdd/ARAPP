@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_keyword_category"
+        android:padding="2dp"
+        android:textSize="@dimen/big_text_size"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/item_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:stretchColumns="0,1,2,3,4" >
+    </TableLayout>
+
+</merge>

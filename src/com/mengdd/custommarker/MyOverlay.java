@@ -26,8 +26,7 @@ import com.mengdd.utils.DialogUtils;
 import com.mengdd.utils.DialogUtils.OnSaveCustomMarkerListener;
 import com.mengdd.utils.UIUtils;
 
-public class MyOverlay extends ItemizedOverlay<OverlayItem>
-{
+public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 	private MapView mMapView = null;
 
 	private List<MarkerItem> mItemsList = null;
@@ -43,8 +42,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 
 	private Activity mActivity = null;
 
-	public MyOverlay(Activity activity, Drawable defaultMarker, MapView mapView)
-	{
+	public MyOverlay(Activity activity, Drawable defaultMarker, MapView mapView) {
 		super(defaultMarker, mapView);
 
 		mActivity = activity;
@@ -54,8 +52,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 
 	}
 
-	private void initOverlay()
-	{
+	private void initOverlay() {
 		mMapView.getOverlays().add(this);
 		mItemsList = new ArrayList<MarkerItem>();
 
@@ -73,17 +70,14 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 
 	}
 
-	PopupClickListener popListener = new PopupClickListener()
-	{
+	PopupClickListener popListener = new PopupClickListener() {
 		@Override
-		public void onClickedPopup(int index)
-		{
+		public void onClickedPopup(int index) {
 
 		}
 	};
 
-	public void addNewItem(MarkerItem item)
-	{
+	public void addNewItem(MarkerItem item) {
 		mItemsList.add(item);
 		mCurrentMoveItemId = mItemsList.size() - 1;
 
@@ -91,9 +85,15 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 		mMapView.refresh();
 	}
 
+	public void clearItems() {
+		mItemsList.clear();
+		mCurrentMoveItemId = -1;
+		this.removeAll();
+		mMapView.refresh();
+	}
+
 	@Override
-	public boolean onTap(int index)
-	{
+	public boolean onTap(int index) {
 		Log.i(AppConstants.LOG_TAG, "onTap(int index)");
 		// OverlayItem item = getItem(index);
 
@@ -109,18 +109,15 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 	}
 
 	@Override
-	public boolean onTap(GeoPoint pt, MapView mMapView)
-	{
+	public boolean onTap(GeoPoint pt, MapView mMapView) {
 		Log.i(AppConstants.LOG_TAG, "onTap(GeoPoint pt, MapView mMapView): "
 				+ pt);
-		if (mPopupOverlay != null)
-		{
+		if (mPopupOverlay != null) {
 			mPopupOverlay.hidePop();
 
 		}
 
-		if (-1 != mCurrentMoveItemId)
-		{
+		if (-1 != mCurrentMoveItemId) {
 			MarkerItem moveItem = mItemsList.get(mCurrentMoveItemId);
 
 			moveItem.setPosition(pt);
@@ -131,39 +128,28 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem>
 		return false;
 	}
 
-
-	public boolean saveMarkerToDb(MarkerItem markerItem)
-	{
+	public boolean saveMarkerToDb(MarkerItem markerItem) {
 		boolean success = false;
 
 		long ret = CustomMarkerTable.insert(markerItem);
 
-		if (ret > 0)
-		{
-
+		if (ret > 0) {
 			mCurrentMoveItemId = -1;
-
 			markerItem.setFixed(true);
 			updateItem(markerItem.getItem());
 
 			mMapView.refresh();
-
 			success = true;
-
 		}
-
 		return success;
 
 	}
 
-	public MarkerItem getMovingItem()
-	{
-		if (mCurrentMoveItemId >= 0 && mCurrentMoveItemId < mItemsList.size())
-		{
+	public MarkerItem getMovingItem() {
+		if (mCurrentMoveItemId >= 0 && mCurrentMoveItemId < mItemsList.size()) {
 			return mItemsList.get(mCurrentMoveItemId);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}

@@ -20,69 +20,61 @@ import com.mengdd.utils.AppConstants;
  * @since 2013-07-01
  * 
  */
-public class BaiduMapHelper
-{
+public class BaiduMapHelper {
 
-	private static final String strKey = "FDa2d5111e0a3487be2e4927075d2629";
+	// 我的笔记本：E49b553f34eb77132a2ee51e656627f0
+	 private static final String strKey = "E49b553f34eb77132a2ee51e656627f0";
+	// Lab PC:
+	//private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
+
 	private static boolean mBDKeyRight = true;
 	private static BMapManager mBMapManager = null;
-	public static BMapManager getMapManager()
-	{
+
+	public static BMapManager getMapManager() {
 		return mBMapManager;
 	}
 
-
-
-	public static void initBaiduMapManager(Context context)
-	{
+	public static void initBaiduMapManager(Context context) {
 		Log.d(AppConstants.LOG_TAG, "initEngineManager");
-		if (null == mBMapManager)
-		{
+		if (null == mBMapManager) {
 			mBMapManager = new BMapManager(context);
 		}
 
 		if (null == mBMapManager
-				|| !mBMapManager.init(strKey, new MyGeneralListener(context)))
-		{
+				|| !mBMapManager.init(strKey, new MyGeneralListener(context))) {
 			Toast.makeText(context, "BMapManager Initialization failed!",
 					Toast.LENGTH_LONG).show();
 		}
 	}
 
-	public static void releaseMapManager()
-	{
-		if(null != mBMapManager)
-		{
+	public static void releaseMapManager() {
+		if (null != mBMapManager) {
 			mBMapManager.destroy();
 			mBMapManager = null;
 		}
 	}
+
 	/**
 	 * 
 	 * Class for EventListener, handle the Registration Errors
 	 * 
 	 */
-	static class MyGeneralListener implements MKGeneralListener
-	{
+	static class MyGeneralListener implements MKGeneralListener {
 
 		private Context mContext = null;
 
-		public MyGeneralListener(Context context)
-		{
+		public MyGeneralListener(Context context) {
 			mContext = context;
 		}
 
 		@Override
-		public void onGetNetworkState(int iError)
-		{
+		public void onGetNetworkState(int iError) {
 			// Return Network error
-			if (iError == MKEvent.ERROR_NETWORK_CONNECT)
-			{
+			if (iError == MKEvent.ERROR_NETWORK_CONNECT) {
 				Toast.makeText(mContext, "Network Connection Error",
 						Toast.LENGTH_LONG).show();
 			}
-			else if (iError == MKEvent.ERROR_NETWORK_DATA)
-			{
+			else if (iError == MKEvent.ERROR_NETWORK_DATA) {
 				Toast.makeText(mContext, "Network Data Error",
 						Toast.LENGTH_LONG).show();
 			}
@@ -90,11 +82,9 @@ public class BaiduMapHelper
 		}
 
 		@Override
-		public void onGetPermissionState(int iError)
-		{
+		public void onGetPermissionState(int iError) {
 			// Return Authorization validation error
-			if (iError == MKEvent.ERROR_PERMISSION_DENIED)
-			{
+			if (iError == MKEvent.ERROR_PERMISSION_DENIED) {
 
 				Toast.makeText(mContext,
 						"Please check your API Key for Baidu Map",

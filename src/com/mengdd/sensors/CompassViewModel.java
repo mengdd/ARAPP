@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.sensors.CompassView.CompassStatus;
+import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.LowPassFilter;
 
 /**
@@ -30,8 +32,7 @@ import com.mengdd.utils.LowPassFilter;
  * @since 2013-07-01
  * 
  */
-public class CompassViewModel extends ViewModel
-{
+public class CompassViewModel extends ViewModel {
 	// the RootView of the ViewModel
 	private View mRootView = null;
 
@@ -43,27 +44,18 @@ public class CompassViewModel extends ViewModel
 	// the compass view
 	private CompassView compassView;
 
-	private String oriString = "original: ";
-	private String afterString = "after: ";
-
 	// display
 	private Display mDisplay = null;
-
-	// if visible
-	private boolean isVisible = true;
 
 	// Smooth
 	private static float smooth[] = new float[3];
 
-	public void setVisibility(int visibility)
-	{
-		if (View.VISIBLE == visibility)
-		{
+	public void setVisibility(int visibility) {
+		if (View.VISIBLE == visibility) {
 			onResume(null);
 		}
 
-		if (View.GONE == visibility)
-		{
+		if (View.GONE == visibility) {
 			onPause();
 			onStop();
 		}
@@ -71,29 +63,25 @@ public class CompassViewModel extends ViewModel
 		mRootView.setVisibility(visibility);
 	}
 
-	public CompassViewModel(Activity activity)
-	{
+	public CompassViewModel(Activity activity) {
 		super(activity);
 
 		init();
 	}
 
-	private void init()
-	{
+	private void init() {
 		WindowManager wManager = (WindowManager) mActivity
 				.getSystemService(Context.WINDOW_SERVICE);
 		mDisplay = wManager.getDefaultDisplay();
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return mRootView;
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 
 		mRootView = mInflater.inflate(R.layout.compass_view_model, null);
@@ -108,8 +96,7 @@ public class CompassViewModel extends ViewModel
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		super.onResume(intent);
 
 		// register the accelerometer and magField sensors
@@ -125,22 +112,19 @@ public class CompassViewModel extends ViewModel
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		// unregister thesensors
 		sensorManager.unregisterListener(sensorEventListener);
 		super.onStop();
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		super.onDestroy();
 	}
 
@@ -149,10 +133,8 @@ public class CompassViewModel extends ViewModel
 	 * 
 	 * @param values
 	 */
-	private void updateOrientation(float[] values)
-	{
-		if (compassView != null)
-		{
+	private void updateOrientation(float[] values) {
+		if (compassView != null) {
 			compassView.setBearing(values[0]);
 			compassView.setPitch(values[1]);
 			compassView.setRoll(-values[2]);
@@ -162,13 +144,14 @@ public class CompassViewModel extends ViewModel
 
 	/**
 	 * Get Orientation values according to accelerometer and magField sensor
-	 * values compared the values of without remapCoordinatesSystem and with
-	 * remapCoordinatesSystem the compared valuse are shown in the TextViews
+	 * values.
+	 * compare the values of without remapCoordinatesSystem and with
+	 * remapCoordinatesSystem.
+	 * The compared valuse are shown in the TextViews
 	 * 
 	 * @return Orientation values with remapCoordinatesSystem
 	 */
-	private float[] calculateOrientation()
-	{
+	private float[] calculateOrientation() {
 		float[] values = new float[3];
 		float[] R = new float[9];
 		float[] outR = new float[9];
@@ -177,24 +160,9 @@ public class CompassViewModel extends ViewModel
 		// values
 		// the result is return to R
 		SensorManager.getRotationMatrix(R, null, aValues, mValues);
-
-		// get Orientation values without remapCoordinatesSystem, the
-		// coordinates are the device coordinates
-		SensorManager.getOrientation(R, values);
-		// azimuth
-		values[0] = (float) Math.toDegrees(values[0]);
-		// pitch
-		values[1] = (float) Math.toDegrees(values[1]);
-		// roll
-		values[2] = (float) Math.toDegrees(values[2]);
-
 		// get Orientation of Display
 		int screenRotation = mDisplay.getRotation();
-
-		// this value is used to see if the device
-		// is vertial or parallel to the ground
-
-		float devicePitch = calDevicePitch(screenRotation, values);
+		float devicePitch = SensorMathUtils.calDevicePitch(screenRotation, R);
 
 		float parallelTolerance = 30;
 
@@ -204,45 +172,13 @@ public class CompassViewModel extends ViewModel
 				parallelTolerance);
 
 		SensorManager.getOrientation(outR, values);
+
+		// finally we get 3 angle in degrees
 		values[0] = (float) Math.toDegrees(values[0]);
 		values[1] = (float) Math.toDegrees(values[1]);
 		values[2] = (float) Math.toDegrees(values[2]);
 
 		return values;
-	}
-
-	private float calDevicePitch(int screenRotation,
-			float[] selfOrientaionValues)
-	{
-		float pitch = 0;
-		if (null == selfOrientaionValues || selfOrientaionValues.length != 3)
-		{
-			return pitch;
-
-		}
-		switch (screenRotation)
-		{
-			case Surface.ROTATION_0:
-				pitch = selfOrientaionValues[1];
-
-				break;
-			case Surface.ROTATION_90:
-				pitch = -selfOrientaionValues[2];
-
-				break;
-			case Surface.ROTATION_180:
-				pitch = -selfOrientaionValues[1];
-
-				break;
-			case Surface.ROTATION_270:
-				pitch = selfOrientaionValues[2];
-				break;
-
-			default:
-				break;
-		}
-
-		return pitch;
 	}
 
 	/**
@@ -265,127 +201,102 @@ public class CompassViewModel extends ViewModel
 	 *            to the ground
 	 */
 	private void remapCoordinates(float[] R, float[] outR, int screenRotation,
-			float devicePitch, float parallelTolerance)
-	{
+			float devicePitch, float parallelTolerance) {
 
 		// the screen orientation decides the map from Device XY to World
 		// Coordinates
 		// the paramters in remapCoordinateSystem Method means which world axis
 		// the devcie xy want to map to
-		// at this time, we suppose the device always vertical to the ground
-		switch (screenRotation)
-		{
-			case Surface.ROTATION_0:
 
-				if (Math.abs(devicePitch) < parallelTolerance)
-				{
-					// device parallel to the ground
-					compassView
-							.setCompassStatus(CompassStatus.ParallelToGround);
+		switch (screenRotation) {
+		case Surface.ROTATION_0:
 
-					// no need to remap
-					// but we still want outR values
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_X, SensorManager.AXIS_Y, outR);
-				}
-				else
-				{
+			if (Math.abs(devicePitch) < parallelTolerance) {
+				// device parallel to the ground
+				compassView.setCompassStatus(CompassStatus.ParallelToGround);
 
-					// vertical to ground
-					compassView
-							.setCompassStatus(CompassStatus.VerticalToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_X, SensorManager.AXIS_Z, outR);
+				// no need to remap
+				// but we still want outR values
+				SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_X,
+						SensorManager.AXIS_Y, outR);
+			}
+			else {
 
-				}
+				// vertical to ground
+				compassView.setCompassStatus(CompassStatus.VerticalToGround);
+				SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_X,
+						SensorManager.AXIS_Z, outR);
 
-				break;
-			case Surface.ROTATION_90:
+			}
 
-				if (Math.abs(devicePitch) < parallelTolerance)
-				{
+			break;
+		case Surface.ROTATION_90:
 
-					// device parallel to the ground
-					compassView
-							.setCompassStatus(CompassStatus.ParallelToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X,
-							outR);
-				}
-				else
-				{
+			if (Math.abs(devicePitch) < parallelTolerance) {
 
-					// vertical to ground
-					compassView
-							.setCompassStatus(CompassStatus.VerticalToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_Z, SensorManager.AXIS_MINUS_X,
-							outR);
+				// device parallel to the ground
+				compassView.setCompassStatus(CompassStatus.ParallelToGround);
+				SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y,
+						SensorManager.AXIS_MINUS_X, outR);
+			}
+			else {
 
-				}
+				// vertical to ground
+				compassView.setCompassStatus(CompassStatus.VerticalToGround);
+				SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Z,
+						SensorManager.AXIS_MINUS_X, outR);
 
-				break;
+			}
 
-			case Surface.ROTATION_180:
+			break;
 
-				if (Math.abs(devicePitch) < parallelTolerance)
-				{
-					// device parallel to the ground
-					compassView
-							.setCompassStatus(CompassStatus.ParallelToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_MINUS_X,
-							SensorManager.AXIS_MINUS_Y, outR);
-				}
-				else
-				{
+		case Surface.ROTATION_180:
 
-					// vertical to ground
-					compassView
-							.setCompassStatus(CompassStatus.VerticalToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_MINUS_X,
-							SensorManager.AXIS_MINUS_Z, outR);
+			if (Math.abs(devicePitch) < parallelTolerance) {
+				// device parallel to the ground
+				compassView.setCompassStatus(CompassStatus.ParallelToGround);
+				SensorManager.remapCoordinateSystem(R,
+						SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Y,
+						outR);
+			}
+			else {
 
-				}
+				// vertical to ground
+				compassView.setCompassStatus(CompassStatus.VerticalToGround);
+				SensorManager.remapCoordinateSystem(R,
+						SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Z,
+						outR);
 
-				break;
+			}
 
-			case Surface.ROTATION_270:
+			break;
 
-				if (Math.abs(devicePitch) < parallelTolerance)
-				{
-					// device parallel to the ground
-					compassView
-							.setCompassStatus(CompassStatus.ParallelToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X,
-							outR);
-				}
-				else
-				{
-					// vertical to ground
-					compassView
-							.setCompassStatus(CompassStatus.VerticalToGround);
-					SensorManager.remapCoordinateSystem(R,
-							SensorManager.AXIS_MINUS_Z, SensorManager.AXIS_X,
-							outR);
-				}
-				break;
+		case Surface.ROTATION_270:
 
-			default:
-				break;
+			if (Math.abs(devicePitch) < parallelTolerance) {
+				// device parallel to the ground
+				compassView.setCompassStatus(CompassStatus.ParallelToGround);
+				SensorManager.remapCoordinateSystem(R,
+						SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X, outR);
+			}
+			else {
+				// vertical to ground
+				compassView.setCompassStatus(CompassStatus.VerticalToGround);
+				SensorManager.remapCoordinateSystem(R,
+						SensorManager.AXIS_MINUS_Z, SensorManager.AXIS_X, outR);
+			}
+			break;
+
+		default:
+			break;
 		}
 	}
 
-	private final SensorEventListener sensorEventListener = new SensorEventListener()
-	{
+	private final SensorEventListener sensorEventListener = new SensorEventListener() {
 
 		@Override
-		public void onSensorChanged(SensorEvent event)
-		{
-			if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
-			{
+		public void onSensorChanged(SensorEvent event) {
+			if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 				// without smooth
 				// aValues = event.values;
 
@@ -397,9 +308,11 @@ public class CompassViewModel extends ViewModel
 				aValues[2] = smooth[2];
 
 			}
-			if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-			{ // without smooth
-				// mValues = event.values;
+			if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) { // without
+																		// smooth
+																		// mValues
+																		// =
+																		// event.values;
 
 				// with smooth
 				smooth = LowPassFilter
@@ -415,8 +328,7 @@ public class CompassViewModel extends ViewModel
 		}
 
 		@Override
-		public void onAccuracyChanged(Sensor sensor, int accuracy)
-		{
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
 		}
 

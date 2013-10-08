@@ -1,4 +1,5 @@
 package com.mengdd.utils;
+
 /**
  * A Vector representation which adds many of the mathematical operations
  * involved in Vectors.
@@ -21,8 +22,7 @@ package com.mengdd.utils;
  * @version 1.0
  * @since 2013-07-01
  */
-public class Vector
-{
+public class Vector {
 
 	private final float[] matrixArray = new float[9];
 
@@ -30,43 +30,35 @@ public class Vector
 	private volatile float y = 0f;
 	private volatile float z = 0f;
 
-	public Vector()
-	{
+	public Vector() {
 		this(0, 0, 0);
 	}
 
-	public Vector(Vector v)
-	{
+	public Vector(Vector v) {
 		this(v.x, v.y, v.z);
 	}
 
-	public synchronized float getX()
-	{
+	public synchronized float getX() {
 		return x;
 	}
 
-	public synchronized void setX(float x)
-	{
+	public synchronized void setX(float x) {
 		this.x = x;
 	}
 
-	public synchronized float getY()
-	{
+	public synchronized float getY() {
 		return y;
 	}
 
-	public synchronized void setY(float y)
-	{
+	public synchronized void setY(float y) {
 		this.y = y;
 	}
 
-	public synchronized float getZ()
-	{
+	public synchronized float getZ() {
 		return z;
 	}
 
-	public synchronized void setZ(float z)
-	{
+	public synchronized void setZ(float z) {
 		this.z = z;
 	}
 
@@ -80,8 +72,7 @@ public class Vector
 	 * @param z
 	 *            float z value.
 	 */
-	public Vector(float x, float y, float z)
-	{
+	public Vector(float x, float y, float z) {
 		set(x, y, z);
 	}
 
@@ -93,10 +84,8 @@ public class Vector
 	 * @param array
 	 *            float array representing this vector.
 	 */
-	public synchronized void get(float[] array)
-	{
-		if (array == null || array.length != 3)
-		{
+	public synchronized void get(float[] array) {
+		if (array == null || array.length != 3) {
 			throw new IllegalArgumentException(
 					"get() array must be non-NULL and size of 3");
 		}
@@ -112,10 +101,8 @@ public class Vector
 	 * @param v
 	 *            Vector to copy values form.
 	 */
-	public void set(Vector v)
-	{
-		if (v == null)
-		{
+	public void set(Vector v) {
+		if (v == null) {
 			return;
 		}
 
@@ -130,10 +117,8 @@ public class Vector
 	 * @param array
 	 *            float array representing this vector.
 	 */
-	public void set(float[] array)
-	{
-		if (array == null || array.length != 3)
-		{
+	public void set(float[] array) {
+		if (array == null || array.length != 3) {
 			throw new IllegalArgumentException(
 					"get() array must be non-NULL and size of 3");
 		}
@@ -151,8 +136,7 @@ public class Vector
 	 * @param z
 	 *            float z value.
 	 */
-	public synchronized void set(float x, float y, float z)
-	{
+	public synchronized void set(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -162,8 +146,7 @@ public class Vector
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized boolean equals(Object obj)
-	{
+	public synchronized boolean equals(Object obj) {
 		if (obj == null)
 			return false;
 
@@ -171,79 +154,67 @@ public class Vector
 		return (v.x == this.x && v.y == this.y && v.z == this.z);
 	}
 
-	public synchronized boolean equals(float x, float y, float z)
-	{
+	public synchronized boolean equals(float x, float y, float z) {
 		return (this.x == x && this.y == y && this.z == z);
 	}
 
-	public synchronized void add(float x, float y, float z)
-	{
+	public synchronized void add(float x, float y, float z) {
 		this.x += x;
 		this.y += y;
 		this.z += z;
 	}
 
-	public void add(Vector v)
-	{
+	public void add(Vector v) {
 		if (v == null)
 			return;
 
 		add(v.x, v.y, v.z);
 	}
 
-	public void sub(float x, float y, float z)
-	{
+	public void sub(float x, float y, float z) {
 		add(-x, -y, -z);
 	}
 
-	public void sub(Vector v)
-	{
+	public void sub(Vector v) {
 		if (v == null)
 			return;
 
 		add(-v.x, -v.y, -v.z);
 	}
 
-	public synchronized void mult(float s)
-	{
+	public synchronized void mult(float s) {
 		this.x *= s;
 		this.y *= s;
 		this.z *= s;
 	}
 
-	public synchronized void divide(float s)
-	{
+	public synchronized void divide(float s) {
 		this.x /= s;
 		this.y /= s;
 		this.z /= s;
 	}
 
-	public synchronized float length()
-	{
+	public synchronized float length() {
 		return (float) Math.sqrt(this.x * this.x + this.y * this.y + this.z
 				* this.z);
 	}
 
-	public synchronized float length2D()
-	{
+	public synchronized float length2D() {
 		return (float) Math.sqrt(this.x * this.x + this.z * this.z);
 	}
 
-	public void norm()
-	{
+	public void norm() {
 		divide(length());
 	}
 
-	public synchronized float dot(Vector v)
-	{
+	public synchronized float dot(Vector v) {
 		if (v == null)
 			return 0f;
 
 		return this.x * v.x + this.y * v.y + this.z * v.z;
 	}
 
-	public synchronized void cross(Vector u, Vector v)
-	{
+	public synchronized void cross(Vector u, Vector v) {
 		if (v == null || u == null)
 			return;
 
@@ -255,8 +226,7 @@ public class Vector
 		this.z = z;
 	}
 
-	public synchronized void prod(Matrix m)
-	{
+	public synchronized void prod(Matrix m) {
 		if (m == null)
 			return;
 
@@ -277,8 +247,7 @@ public class Vector
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized String toString()
-	{
+	public synchronized String toString() {
 		return "<" + this.x + ", " + this.y + ", " + this.z + ">";
 	}
 }

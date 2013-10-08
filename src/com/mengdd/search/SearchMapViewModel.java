@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.baidu.mapapi.search.MKAddrInfo;
 import com.baidu.mapapi.search.MKBusLineResult;
 import com.baidu.mapapi.search.MKDrivingRouteResult;
+import com.baidu.mapapi.search.MKPoiInfo;
 import com.baidu.mapapi.search.MKPoiResult;
+import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
 import com.baidu.mapapi.search.MKShareUrlResult;
 import com.baidu.mapapi.search.MKSuggestionInfo;
@@ -25,6 +28,7 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.map.baidu.BaiduMapViewModel;
 import com.mengdd.map.baidu.BaiduMyLocationOverlay;
 import com.mengdd.poi.baidu.BaiduPOIOverlay;
+import com.mengdd.poi.baidu.BaiduPOIOverlay.PoiTapListener;
 import com.mengdd.utils.AppConstants;
 
 public class SearchMapViewModel extends ViewModel implements MKSearchListener {
@@ -34,8 +38,11 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
 	private BaiduMyLocationOverlay myLocationOverlay = null;
 	private BaiduPOIOverlay mPoiOverlay = null;
 
-	protected SearchMapViewModel(Activity activity) {
+	private MKSearch mSearch = null;
+
+	protected SearchMapViewModel(Activity activity, MKSearch search) {
 		super(activity);
+		mSearch = search;
 	}
 
 	@Override
@@ -57,8 +64,28 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
 
 		// poi overlay
 		mPoiOverlay = new BaiduPOIOverlay(mActivity, mMapViewModel.getMap());
+		mPoiOverlay.setPoiTabListener(mPoiTapListener);
 
 	}
+
+	private PoiTapListener mPoiTapListener = new PoiTapListener() {
+
+		@Override
+		public void onPoiTap(int index, MKPoiInfo poiInfo) {
+
+			if (poiInfo.hasCaterDetails) {
+				Log.i(AppConstants.LOG_TAG, "hasCaterDetails == true " + poiInfo.uid);
+				// 显示详情页
+				mSearch.poiDetailSearch(poiInfo.uid);
+
+			}
+			else {
+				Log.i(AppConstants.LOG_TAG, "hasCaterDetails == false " + poiInfo.uid);
+				Toast.makeText(mActivity, poiInfo.name, Toast.LENGTH_SHORT)
+						.show();
+			}
+		}
+	};
 
 	@Override
 	public View getView() {
@@ -145,6 +172,12 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
 
 	@Override
 	public void onGetPoiDetailSearchResult(int type, int iError) {
+		if (iError != 0) {
+			Toast.makeText(mActivity, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			Toast.makeText(mActivity, "成功，查看详情页面", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override

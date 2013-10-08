@@ -28,8 +28,7 @@ import com.mengdd.poi.ui.RadarView;
 import com.mengdd.poi.ui.RadarZoomController;
 import com.mengdd.sensors.SensorViewModel;
 
-public class RealSceneCMViewModel extends ViewModel
-{
+public class RealSceneCMViewModel extends ViewModel {
 	private View mRootView = null;
 
 	private List<ViewModel> mViewModels = null;
@@ -46,21 +45,17 @@ public class RealSceneCMViewModel extends ViewModel
 
 	// marker
 	private Bitmap mMarkerIcon = null;
-	
-	private boolean mCacheClean = false;
-	
-	
 
-	public RealSceneCMViewModel(Activity activity)
-	{
+	private boolean mCacheClean = false;
+
+	public RealSceneCMViewModel(Activity activity) {
 		super(activity);
 
 		mResources = mActivity.getResources();
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 
 		mRootView = mInflater.inflate(R.layout.custom_realscene, null);
@@ -74,8 +69,7 @@ public class RealSceneCMViewModel extends ViewModel
 		mViewModels.add(mCameraViewModel);
 		mViewModels.add(mSensorViewModel);
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onCreate(null);
 		}
 
@@ -113,47 +107,44 @@ public class RealSceneCMViewModel extends ViewModel
 		mSensorViewModel.addSensorEventListener(mPoiView);
 		mSensorViewModel.addSensorEventListener(mRadar);
 
-		mCameraViewModel.setCameraOrientation(90);
-
 		// prepare for markers
 
 		Resources res = mActivity.getResources();
 		mMarkerIcon = BitmapFactory.decodeResource(res, R.drawable.baidu);
 
 		GlobalARData.setCurrentBaiduLocation(GlobalARData.hardFixBD);
-		
+
 		mCacheClean = false;
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return mRootView;
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 
 		super.onResume(intent);
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onResume(null);
 		}
 
+		mCameraViewModel.setCameraOrientation(90);
+
 		GlobalARData.addLocationListener(mSensorViewModel);
-		
+
+		//TODO: now suppose every resume needs refresh, need to be fixed later
+		mCacheClean = false;
 		showCustomMarkers();
 
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onPause();
 		}
 
@@ -162,58 +153,51 @@ public class RealSceneCMViewModel extends ViewModel
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		super.onStop();
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onStop();
 		}
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		super.onDestroy();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onDestroy();
 		}
 	}
 
-	private void showCustomMarkers()
-	{
-		//Convert custom markers to Baidu Markers and add to GlobalARData
+	private void showCustomMarkers() {
+		// Convert custom markers to Baidu Markers and add to GlobalARData
 
-		if(mCacheClean)
-		{
+		if (mCacheClean) {
 			return;
 		}
 		GlobalARData.clearMarkers();
 
 		List<BasicMarker> baiduMarkerItems = loadAllCustomMarkers();
 
-		GlobalARData.addMarkers(baiduMarkerItems);
-		
+		if (null != baiduMarkerItems) {
+			GlobalARData.addMarkers(baiduMarkerItems);
+		}
+
 		mCacheClean = true;
 
 	}
 
-	private List<BasicMarker> loadAllCustomMarkers()
-	{
+	private List<BasicMarker> loadAllCustomMarkers() {
 		Collection<MarkerItem> markerItems = null;
 		List<BasicMarker> resultList = null;
 
 		markerItems = CustomMarkerTable.queryAllCustomMarkerItems();
 
-		if (null != markerItems)
-		{
+		if (null != markerItems) {
 			resultList = new ArrayList<BasicMarker>();
 			Bitmap icon = BitmapFactory.decodeResource(mResources,
 					R.drawable.baidu);
-			for (MarkerItem item : markerItems)
-			{
+			for (MarkerItem item : markerItems) {
 
 				BaiduMarker newMarker = new BaiduMarker(item.getName(),
 						Color.WHITE, icon, item);

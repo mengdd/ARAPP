@@ -13,9 +13,22 @@
         android:id="@+id/refreshBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/btn_refresh" 
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"/>
+        android:background="@drawable/selector_btn_general"
+        android:padding="10dp"
+        android:text="@string/btn_refresh"
+        android:textColor="@color/btn_text" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_btn_general"
+        android:padding="10dp"
+        android:text="@string/btn_delete"
+        android:textColor="@color/btn_text" />
 
 </RelativeLayout>

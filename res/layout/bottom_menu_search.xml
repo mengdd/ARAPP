@@ -24,7 +24,7 @@
             android:singleLine="true"
             android:text="@string/search_menu_ui"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/normal_text_size" />
 
         <Button
             android:id="@+id/search_menu_list"
@@ -38,7 +38,7 @@
             android:singleLine="true"
             android:text="@string/search_menu_list"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/normal_text_size" />
 
         <Button
             android:id="@+id/search_menu_map"
@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:text="@string/search_menu_map"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/normal_text_size" />
 
         <Button
             android:id="@+id/search_menu_real"
@@ -66,7 +66,7 @@
             android:singleLine="true"
             android:text="@string/search_menu_realscene"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/normal_text_size" />
     </LinearLayout>
 
 </HorizontalScrollView>

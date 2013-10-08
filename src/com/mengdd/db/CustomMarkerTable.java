@@ -3,7 +3,6 @@ package com.mengdd.db;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.custommarker.MarkerItem;
 import com.mengdd.utils.AppConstants;
@@ -15,8 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-public class CustomMarkerTable implements BaseColumns
-{
+public class CustomMarkerTable implements BaseColumns {
 
 	private static final String TABLE_NAME = "custom_markers";
 
@@ -36,18 +34,17 @@ public class CustomMarkerTable implements BaseColumns
 	private static final String CREATE_DATE = "create_date";
 	private static final String LAST_DATE = "last_date";
 
-	private static SQLiteDatabase getDatabase()
-	{
+	private static SQLiteDatabase getDatabase() {
 		// 获取数据库对象
 		SQLiteDatabase db = DatabaseManager.getInstance().getDatabase();
 		return db;
 	}
 
-	private static String getCreateTableString()
-	{
+	private static String getCreateTableString() {
 		StringBuffer stringBuffer = new StringBuffer();
 
-		stringBuffer.append("CREATE TABLE [" + TABLE_NAME + "] (");
+		stringBuffer
+				.append("CREATE TABLE IF NOT EXISTS [" + TABLE_NAME + "] (");
 		stringBuffer.append("[" + _ID
 				+ "] INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
 		stringBuffer.append("[" + MARKER_NAME + "] TEXT, ");
@@ -71,70 +68,56 @@ public class CustomMarkerTable implements BaseColumns
 
 	}
 
-	public static void createTable()
-	{
+	public static void createTable() {
 		SQLiteDatabase db = getDatabase();
 
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return;
 		}
 
 		String sql = CustomMarkerTable.getCreateTableString();
-		try
-		{
+		try {
 			db.execSQL(sql);
 
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 
 		}
 
 	}
 
-	public static boolean isTableExist()
-	{
+	public static boolean isTableExist() {
 		boolean isExist = false;
 
 		SQLiteDatabase db = getDatabase();
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return false;
 		}
 
 		String where = _ID + " = ?";
 		String[] whereValue = { Integer.toString(1) };
 		Cursor cursor = null;
-		try
-		{
+		try {
 			cursor = db.query(TABLE_NAME, null, where, whereValue, null, null,
 					null);
-			if (cursor != null && cursor.moveToNext())
-			{
+			if (cursor != null && cursor.moveToNext()) {
 				isExist = true;
 
 			}
 		}
-		catch (SQLException e)
-		{
+		catch (SQLException e) {
 
-			if (e.getMessage().contains("no such table"))
-			{
+			if (e.getMessage().contains("no such table")) {
 				isExist = false;
 			}
 		}
-		finally
-		{
-			if (cursor != null)
-			{
-				try
-				{
+		finally {
+			if (cursor != null) {
+				try {
 					cursor.close();
 				}
-				catch (Exception e)
-				{
+				catch (Exception e) {
 				}
 			}
 		}
@@ -142,10 +125,8 @@ public class CustomMarkerTable implements BaseColumns
 		return isExist;
 	}
 
-	public static ContentValues getContentValues(MarkerItem item)
-	{
-		if (null == item)
-		{
+	public static ContentValues getContentValues(MarkerItem item) {
+		if (null == item) {
 			throw new IllegalArgumentException("MarkerItem item is null!");
 		}
 
@@ -170,10 +151,8 @@ public class CustomMarkerTable implements BaseColumns
 
 	}
 
-	public static MarkerItem getMarkerItemFromCursor(Cursor cursor)
-	{
-		if (null == cursor)
-		{
+	public static MarkerItem getMarkerItemFromCursor(Cursor cursor) {
+		if (null == cursor) {
 			throw new IllegalArgumentException("cursor is null!");
 		}
 
@@ -215,8 +194,7 @@ public class CustomMarkerTable implements BaseColumns
 		return item;
 	}
 
-	public static long insert(MarkerItem item)
-	{
+	public static long insert(MarkerItem item) {
 		long ret = -1L;
 
 		if (null == item || item.getId() > 0)// id>0, means the item is in table
@@ -227,29 +205,24 @@ public class CustomMarkerTable implements BaseColumns
 		}
 		SQLiteDatabase db = getDatabase();
 
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return ret;
 		}
 
 		db.beginTransaction();
-		try
-		{
+		try {
 			ret = db.insert(TABLE_NAME, null, getContentValues(item));
 			db.setTransactionSuccessful();
 
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally
-		{
+		finally {
 			db.endTransaction();
 		}
 
-		if (ret > 0)
-		{
+		if (ret > 0) {
 			// insert successfully
 
 			item.setId((int) ret);
@@ -260,36 +233,29 @@ public class CustomMarkerTable implements BaseColumns
 
 	}
 
-	public static int insert(Collection<MarkerItem> markerItems)
-	{
+	public static int insert(Collection<MarkerItem> markerItems) {
 		int count = 0;
 
-		if (null == markerItems || 0 == markerItems.size())
-		{
+		if (null == markerItems || 0 == markerItems.size()) {
 			return count;
 		}
 		SQLiteDatabase db = getDatabase();
 
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return count;
 		}
 
 		db.beginTransaction();
-		try
-		{
+		try {
 
-			for (MarkerItem item : markerItems)
-			{
-				if (null == item || item.getId() > 0)
-				{
+			for (MarkerItem item : markerItems) {
+				if (null == item || item.getId() > 0) {
 					continue;
 				}
 				long ret = db.insert(TABLE_NAME, null, getContentValues(item));
 
 				// 放入数据库中之后设置Id
-				if (ret > 0)
-				{
+				if (ret > 0) {
 					item.setId((int) ret);
 					++count;
 				}
@@ -297,12 +263,10 @@ public class CustomMarkerTable implements BaseColumns
 			db.setTransactionSuccessful();
 
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		finally
-		{
+		finally {
 			db.endTransaction();
 		}
 
@@ -310,18 +274,15 @@ public class CustomMarkerTable implements BaseColumns
 
 	}
 
-	public static boolean delete(int markerItemId)
-	{
+	public static boolean delete(int markerItemId) {
 		boolean ret = false;
 
-		if (markerItemId <= 0)
-		{
+		if (markerItemId <= 0) {
 			return ret;
 		}
 
 		SQLiteDatabase db = getDatabase();
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return false;
 		}
 
@@ -329,110 +290,31 @@ public class CustomMarkerTable implements BaseColumns
 		String[] whereValue = { Integer.toString(markerItemId) };
 
 		db.beginTransaction();
-		try
-		{
+		try {
 			int rn = db.delete(TABLE_NAME, where, whereValue);
 			ret = rn == 1;
 			db.setTransactionSuccessful();
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		finally
-		{
+		finally {
 			db.endTransaction();
 		}
 
 		return ret;
 	}
 
-	public static boolean clearAll()
-	{
-		boolean ret = false;
-
-		SQLiteDatabase db = getDatabase();
-
-		if (!db.isOpen())
-		{
-			return ret;
-		}
-
-		String sql = "Delete FROM [" + TABLE_NAME + "]";
-
-		db.beginTransaction();
-		try
-		{
-			db.execSQL(sql);
-			ret = true;
-			db.setTransactionSuccessful();
-
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-
-		}
-		finally
-		{
-			db.endTransaction();
-		}
-
-		return ret;
-
-	}
-
-	public static boolean update(final MarkerItem markerItem)
-	{
-		boolean ret = false;
-
-		if (null == markerItem || markerItem.getId() <= 0)
-		{
-			return ret;
-		}
-
-		SQLiteDatabase db = getDatabase();
-		if (!db.isOpen())
-		{
-			return ret;
-		}
-
-		String where = _ID + " = ?";
-		String[] whereValue = { Integer.toString(markerItem.getId()) };
-		db.beginTransaction();
-		try
-		{
-			int rn = db.update(TABLE_NAME, getContentValues(markerItem), where,
-					whereValue);
-			ret = rn == 1;
-			db.setTransactionSuccessful();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-
-		}
-		finally
-		{
-			db.endTransaction();
-		}
-		return ret;
-
-	}
-
-	public static int update(final Collection<MarkerItem> items)
-	{
+	public static int deleteItems(final Collection<MarkerItem> items) {
 		int count = 0;
 
-		if (null == items || 0 == items.size())
-		{
+		if (null == items || 0 == items.size()) {
 			return count;
 		}
 
 		SQLiteDatabase db = getDatabase();
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return count;
 		}
 
@@ -440,10 +322,105 @@ public class CustomMarkerTable implements BaseColumns
 		String[] whereValue = new String[1];
 
 		db.beginTransaction();
-		try
-		{
-			for (MarkerItem item : items)
-			{
+		try {
+			for (MarkerItem item : items) {
+				whereValue[0] = Integer.toString(item.getId());
+				int rn = db.delete(TABLE_NAME, where, whereValue);
+				count += rn;
+			}
+			db.setTransactionSuccessful();
+
+		}
+		catch (Exception e) {
+
+		}
+		finally {
+			db.endTransaction();
+		}
+		return count;
+
+	}
+
+	public static boolean clearAll() {
+		boolean ret = false;
+
+		SQLiteDatabase db = getDatabase();
+
+		if (!db.isOpen()) {
+			return ret;
+		}
+
+		String sql = "Delete FROM [" + TABLE_NAME + "]";
+
+		db.beginTransaction();
+		try {
+			db.execSQL(sql);
+			ret = true;
+			db.setTransactionSuccessful();
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+		finally {
+			db.endTransaction();
+		}
+
+		return ret;
+
+	}
+
+	public static boolean update(final MarkerItem markerItem) {
+		boolean ret = false;
+
+		if (null == markerItem || markerItem.getId() <= 0) {
+			return ret;
+		}
+
+		SQLiteDatabase db = getDatabase();
+		if (!db.isOpen()) {
+			return ret;
+		}
+
+		String where = _ID + " = ?";
+		String[] whereValue = { Integer.toString(markerItem.getId()) };
+		db.beginTransaction();
+		try {
+			int rn = db.update(TABLE_NAME, getContentValues(markerItem), where,
+					whereValue);
+			ret = rn == 1;
+			db.setTransactionSuccessful();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		finally {
+			db.endTransaction();
+		}
+		return ret;
+
+	}
+
+	public static int update(final Collection<MarkerItem> items) {
+		int count = 0;
+
+		if (null == items || 0 == items.size()) {
+			return count;
+		}
+
+		SQLiteDatabase db = getDatabase();
+		if (!db.isOpen()) {
+			return count;
+		}
+
+		String where = _ID + " = ?";
+		String[] whereValue = new String[1];
+
+		db.beginTransaction();
+		try {
+			for (MarkerItem item : items) {
 				whereValue[0] = Integer.toString(item.getId());
 				int rn = db.update(TABLE_NAME, getContentValues(item), where,
 						whereValue);
@@ -451,67 +428,55 @@ public class CustomMarkerTable implements BaseColumns
 			}
 			db.setTransactionSuccessful();
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 
 		}
-		finally
-		{
+		finally {
 			db.endTransaction();
 		}
 		return count;
 
 	}
 
-	public static MarkerItem query(int markerId)
-	{
+	public static MarkerItem query(int markerId) {
 		MarkerItem item = null;
 
-		if (markerId <= 0)
-		{
+		if (markerId <= 0) {
 			return item;
 		}
 
 		SQLiteDatabase db = getDatabase();
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return item;
 		}
 		String where = _ID + " = ?";
 		String[] whereValue = { Integer.toString(markerId) };
 		Cursor cursor = null;
 
-		try
-		{
+		try {
 
 			cursor = db.query(TABLE_NAME, null, where, whereValue, null, null,
 					null);
 
-			if (null != cursor && cursor.moveToNext())
-			{
+			if (null != cursor && cursor.moveToNext()) {
 
 				item = getMarkerItemFromCursor(cursor);
 			}
 
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 
 			e.printStackTrace();
 
 		}
-		finally
-		{
-			if (null != cursor)
-			{
-				try
-				{
+		finally {
+			if (null != cursor) {
+				try {
 
 					cursor.close();
 
 				}
-				catch (Exception e)
-				{
+				catch (Exception e) {
 					e.printStackTrace();
 
 				}
@@ -520,49 +485,38 @@ public class CustomMarkerTable implements BaseColumns
 		return item;
 	}
 
-
-	public static Collection<MarkerItem> queryAllCustomMarkerItems()
-	{
+	public static Collection<MarkerItem> queryAllCustomMarkerItems() {
 		Collection<MarkerItem> items = null;
 
 		SQLiteDatabase db = getDatabase();
-		if (!db.isOpen())
-		{
+		if (!db.isOpen()) {
 			return items;
 		}
 
 		Cursor cursor = null;
 		String orderBy = _ID + " ASC";
 
-		try
-		{
+		try {
 			cursor = db
 					.query(TABLE_NAME, null, null, null, null, null, orderBy);
 
-			if (null != cursor && cursor.getCount() > 0)
-			{
+			if (null != cursor && cursor.getCount() > 0) {
 				items = new ArrayList<MarkerItem>();
-				while (cursor.moveToNext())
-				{
+				while (cursor.moveToNext()) {
 					MarkerItem item = getMarkerItemFromCursor(cursor);
-					if (item != null)
-					{
+					if (item != null) {
 						items.add(item);
 					}
 				}
 			}
 		}
-		finally
-		{
+		finally {
 
-			if (cursor != null)
-			{
-				try
-				{
+			if (cursor != null) {
+				try {
 					cursor.close();
 				}
-				catch (Exception e)
-				{
+				catch (Exception e) {
 				}
 			}
 		}

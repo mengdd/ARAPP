@@ -1,13 +1,17 @@
 <resources>
 
+    <!-- General sizes -->
+    <dimen name="normal_text_size">20sp</dimen>
+    <dimen name="small_text_size">16sp</dimen>
+    <dimen name="big_text_size">25sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="compass_text">16dp</dimen>
     <dimen name="compass_main_dir">20dp</dimen>
     <dimen name="compass_sub_dir">16dp</dimen>
-    
-    <!-- Radar related-->
+
+    <!-- Radar related -->
     <dimen name="radar_area">200dp</dimen>
     <dimen name="radar_radius">80dp</dimen>
     <dimen name="radar_paddingX">20dp</dimen>

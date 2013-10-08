@@ -20,14 +20,12 @@ import android.view.View;
  * @since 2013-07-01
  * 
  */
-public abstract class ViewModel
-{
+public abstract class ViewModel {
 
 	protected Activity mActivity;
 	protected LayoutInflater mInflater;
 
-	protected ViewModel(Activity activity)
-	{
+	protected ViewModel(Activity activity) {
 		this.mActivity = activity;
 		mInflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -36,76 +34,62 @@ public abstract class ViewModel
 	// 是否被创建了
 	private boolean mInited = false;
 
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		mInited = true;
 	}
 
-	public void onStop()
-	{
+	public void onStop() {
 
 	}
 
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		mInited = false;
 	}
 
-	public boolean IsInited()
-	{
+	public boolean IsInited() {
 		return mInited;
 	}
 
 	// 是否正在运行
 	protected boolean mIsRunning = true;
 
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		mIsRunning = true;
 	}
 
-	public void onPause()
-	{
+	public void onPause() {
 		mIsRunning = false;
 	}
 
-	public boolean isActived()
-	{
+	public boolean isActived() {
 		return mIsRunning;
 	}
 
 	public abstract View getView();
 
-	public void onAttachToWindow()
-	{
+	public void onAttachToWindow() {
 	}
 
-	public void onDetachWithWindow()
-	{
+	public void onDetachWithWindow() {
 	}
 
-	public void onError()
-	{
+	public void onError() {
 	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		return true;
 	}
 
-	public void onNewIntent(Intent intent)
-	{
+	public void onNewIntent(Intent intent) {
 	}
 
 	private String mTag;
 
-	public void setTag(String tag)
-	{
+	public void setTag(String tag) {
 		this.mTag = tag;
 	}
 
-	public String getTag()
-	{
+	public String getTag() {
 		return mTag;
 	}
 

@@ -25,8 +25,7 @@ import android.graphics.Canvas;
  * @version 1.0
  * @since 2013-07-01
  */
-public class PaintableRadarPoints extends PaintableObject
-{
+public class PaintableRadarPoints extends PaintableObject {
 
 	private final float[] locationArray = new float[3];
 	private PaintablePoint paintablePoint = null;
@@ -36,10 +35,8 @@ public class PaintableRadarPoints extends PaintableObject
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void paint(Canvas canvas)
-	{
-		if (null == canvas)
-		{
+	public void paint(Canvas canvas) {
+		if (null == canvas) {
 			throw new IllegalArgumentException("canvas is null!");
 
 		}
@@ -47,33 +44,29 @@ public class PaintableRadarPoints extends PaintableObject
 		// Draw the markers in the circle
 		float range = GlobalARData.getRadius() * 1000;
 		float scale = range / RadarView.RADIUS;
-		
-		for (BasicMarker marker : GlobalARData.getMarkers())
-		{
+
+		for (BasicMarker marker : GlobalARData.getMarkers()) {
 			marker.getLocationVector().get(locationArray);
 			float x = locationArray[0] / scale;
 			float y = locationArray[2] / scale;
-			if ((x * x + y * y) < (RadarView.RADIUS * RadarView.RADIUS))
-			{
-				if (paintablePoint == null)
-				{
+			if ((x * x + y * y) < (RadarView.RADIUS * RadarView.RADIUS)) {
+				if (paintablePoint == null) {
 					paintablePoint = new PaintablePoint(marker.getColor(), true);
 				}
-				else
-				{
+				else {
 					paintablePoint.set(marker.getColor(), true);
 				}
 
 				float radarPointScale = marker.getRadarPointScale();
-				//here translate the Radar point
-				if (pointContainer == null)
-				{
+				// here translate the Radar point
+				if (pointContainer == null) {
 					pointContainer = new PaintablePosition(paintablePoint, (x
-							+ RadarView.RADIUS - 1), (y + RadarView.RADIUS - 1), 0, radarPointScale);
+							+ RadarView.RADIUS - 1),
+							(y + RadarView.RADIUS - 1), 0, radarPointScale);
 				}
-				else
-				{
-					pointContainer.set(paintablePoint, (x + RadarView.RADIUS - 1),
+				else {
+					pointContainer.set(paintablePoint,
+							(x + RadarView.RADIUS - 1),
 							(y + RadarView.RADIUS - 1), 0, radarPointScale);
 				}
 
@@ -86,8 +79,7 @@ public class PaintableRadarPoints extends PaintableObject
 	 * {@inheritDoc}
 	 */
 	@Override
-	public float getWidth()
-	{
+	public float getWidth() {
 		return RadarView.RADIUS * 2;
 	}
 
@@ -95,8 +87,7 @@ public class PaintableRadarPoints extends PaintableObject
 	 * {@inheritDoc}
 	 */
 	@Override
-	public float getHeight()
-	{
+	public float getHeight() {
 		return RadarView.RADIUS * 2;
 	}
 }

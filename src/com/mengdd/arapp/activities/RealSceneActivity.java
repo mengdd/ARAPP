@@ -98,6 +98,8 @@ public class RealSceneActivity extends Activity
 		{
 			viewModel.onResume(null);
 		}
+		
+		mCameraViewModel.setCameraOrientation(0);
 	}
 
 	@Override

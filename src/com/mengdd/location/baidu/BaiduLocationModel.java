@@ -15,6 +15,10 @@ import com.mengdd.utils.AppConstants;
 
 public class BaiduLocationModel extends LocationModel
 {
+	// 我的笔记本：E49b553f34eb77132a2ee51e656627f0
+	 private static final String strKey = "E49b553f34eb77132a2ee51e656627f0";
+	// Lab PC:
+	//private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
 
 	private LocationClient mLocationClient = null;
 	private BDLocationListener mLocationListener = new MyLocationListener();
@@ -33,7 +37,11 @@ public class BaiduLocationModel extends LocationModel
 	private void initLocationClient()
 	{
 		mLocationClient = new LocationClient(mActivity);
+		
+		//定位SDK4.0加入了Key
 
+		mLocationClient.setAK(strKey);
+		
 		mLocationClient.registerLocationListener(mLocationListener);
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps

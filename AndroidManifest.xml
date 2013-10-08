@@ -92,7 +92,7 @@
         <activity
             android:name=".activities.RealSceneActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="sensor" >
         </activity>
         <activity
             android:name="com.mengdd.arapp.activities.GMapActivity"
@@ -112,13 +112,8 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.mengdd.arapp.activities.CustomMapActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="com.mengdd.tests.AugmentedPOIActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.mengdd.tests.TestGoogleMapActivity"
@@ -169,9 +164,18 @@
             android:name="com.mengdd.tests.TestMin3dActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity android:name="com.mengdd.tests.TestNaviUIActivity" >
+        </activity>
 
         <!-- Lab PC:  android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" -->
         <!-- Work PC:  android:value="AIzaSyAe3DcTEkyEF71dIdnZXOAyc9ue这里是两个杠urruo" -->
+        <!--
+          Google Map Key:：
+
+          实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+        -->
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" />
@@ -182,6 +186,13 @@
             android:enabled="true"
             android:process=":remote" >
         </service>
+
+        <!-- Baidu Place详情页必须要有的 -->
+        <activity
+            android:name="com.baidu.mapapi.search.PlaceCaterActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

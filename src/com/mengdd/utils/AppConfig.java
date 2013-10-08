@@ -8,8 +8,7 @@ package com.mengdd.utils;
  * @since 2013-07-01
  * 
  */
-public class AppConfig
-{
+public class AppConfig {
 
 	public static final String CAMERA_FILE_DIR = "ARAppCameraFile";
 }

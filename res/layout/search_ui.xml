@@ -16,45 +16,30 @@
 
         <AutoCompleteTextView
             android:id="@+id/keywords"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
+            android:hint="@string/default_hint"
+            android:inputType="textNoSuggestions"
             android:text="@string/default_keyword" />
 
         <Button
             android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/selector_btn_search"
+            android:padding="2dp"
+            android:singleLine="true"
             android:text="@string/search"
-            android:textSize="20sp" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text_size" />
     </LinearLayout>
-
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_main" 
-        android:layout_marginTop="6dp">
-
-        <RadioButton
-            android:id="@+id/radio_mode_inCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/search_in_city" />
-
-        <RadioButton
-            android:id="@+id/radio_mode_nearby"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_nearby" />
-    </RadioGroup>
 
     <FrameLayout
         android:id="@+id/search_mode"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/radioGroup1"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
         android:padding="10dp" >
 
@@ -72,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/city"
-                android:textSize="20sp" />
+                android:textSize="@dimen/normal_text_size" />
 
             <EditText
                 android:id="@+id/city"
@@ -94,18 +79,25 @@
             android:paddingTop="10dp" >
 
             <TextView
-                android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/current_location"
-                android:textSize="20sp" />
+                android:textSize="@dimen/normal_text_size" />
+
+            <TextView
+                android:id="@+id/current_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_green"
+                android:textSize="@dimen/normal_text_size" />
 
             <TextView
                 android:id="@+id/radius"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/search_radius"
-                android:textSize="20sp" />
+                android:textSize="@dimen/normal_text_size" />
 
             <SeekBar
                 android:id="@+id/search_radius"
@@ -113,5 +105,55 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/search_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/search_mode"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/light_green"
+            android:text="@string/search_region"
+            android:textSize="@dimen/normal_text_size" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_mode_inCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/search_in_city"
+                android:textSize="@dimen/normal_text_size" />
+
+            <RadioButton
+                android:id="@+id/radio_mode_nearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_nearby"
+                android:textSize="@dimen/normal_text_size" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/keywords_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/search_region"
+        android:layout_below="@id/search_main"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:padding="3dp" >
+    </LinearLayout>
 
 </RelativeLayout>

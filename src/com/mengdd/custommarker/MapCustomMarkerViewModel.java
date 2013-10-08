@@ -27,8 +27,7 @@ import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.DialogUtils;
 import com.mengdd.utils.DialogUtils.OnSaveCustomMarkerListener;
 
-public class MapCustomMarkerViewModel extends ViewModel
-{
+public class MapCustomMarkerViewModel extends ViewModel {
 
 	private View mRootView = null;
 
@@ -39,7 +38,8 @@ public class MapCustomMarkerViewModel extends ViewModel
 	private BasicMapViewModel mMapViewModel = null;
 	private MapView mapView = null;
 	private CustomMarkersOverlay mMarkersOverlay = null;
-	private BaiduLocationModel mLocationModel = null;
+
+	private BaiduLocationModel mLocationModel = null;// location model
 	private BaiduMyLocationOverlay mLocationOverlay = null;
 
 	private Button mGoButton = null;
@@ -47,15 +47,13 @@ public class MapCustomMarkerViewModel extends ViewModel
 	private Button mSaveMarkerBtn = null;
 	private Button mLoadMarkersBtn = null;
 
-	public MapCustomMarkerViewModel(Activity activity)
-	{
+	public MapCustomMarkerViewModel(Activity activity) {
 		super(activity);
 		resources = activity.getResources();
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 
 		mRootView = mInflater.inflate(R.layout.custom_map, null);
@@ -64,8 +62,7 @@ public class MapCustomMarkerViewModel extends ViewModel
 		mViewModels = new ArrayList<ViewModel>();
 		mViewModels.add(mMapViewModel);
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onCreate(null);
 		}
 
@@ -98,40 +95,33 @@ public class MapCustomMarkerViewModel extends ViewModel
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return mRootView;
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		super.onStop();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onStop();
 		}
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		super.onDestroy();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onDestroy();
 		}
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		super.onResume(intent);
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onResume(null);
 		}
 
@@ -139,24 +129,20 @@ public class MapCustomMarkerViewModel extends ViewModel
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onPause();
 		}
 
 		mLocationModel.unregisterLocationUpdates();
 	}
 
-	private OnClickListener mOnGoToClickListener = new OnClickListener()
-	{
+	private OnClickListener mOnGoToClickListener = new OnClickListener() {
 
 		@Override
-		public void onClick(View v)
-		{
+		public void onClick(View v) {
 			Log.i(AppConstants.LOG_TAG, "go to my place");
 
 			mLocationOverlay.setGoToEnabled(true);
@@ -167,12 +153,10 @@ public class MapCustomMarkerViewModel extends ViewModel
 		}
 	};
 
-	private OnClickListener mOnAddClickListener = new OnClickListener()
-	{
+	private OnClickListener mOnAddClickListener = new OnClickListener() {
 
 		@Override
-		public void onClick(View v)
-		{
+		public void onClick(View v) {
 			Log.i(AppConstants.LOG_TAG, "add new marker");
 
 			mMarkersOverlay.initNewMarker();
@@ -182,18 +166,15 @@ public class MapCustomMarkerViewModel extends ViewModel
 		}
 	};
 
-	private OnClickListener mOnSaveClickListener = new OnClickListener()
-	{
+	private OnClickListener mOnSaveClickListener = new OnClickListener() {
 
 		@Override
-		public void onClick(View v)
-		{
+		public void onClick(View v) {
 			Log.i(AppConstants.LOG_TAG, "save new marker");
 
 			MarkerItem markerItem = mMarkersOverlay.getMarkerItemInEdit();
-			
-			if (null != markerItem)
-			{
+
+			if (null != markerItem) {
 				DialogUtils.showSaveMarkerDialog(mActivity,
 						onSaveCustomMarkerListener, markerItem);
 			}
@@ -201,77 +182,67 @@ public class MapCustomMarkerViewModel extends ViewModel
 		}
 	};
 
-	private OnSaveCustomMarkerListener onSaveCustomMarkerListener = new OnSaveCustomMarkerListener()
-	{
+	private OnSaveCustomMarkerListener onSaveCustomMarkerListener = new OnSaveCustomMarkerListener() {
 
 		@Override
-		public void onSaveMarker(MarkerItem markerItem)
-		{
+		public void onSaveMarker(MarkerItem markerItem) {
 			boolean result = mMarkersOverlay.saveMarkerItemToDb(markerItem);
 
-			if (result)
-			{
+			if (result) {
 				Log.i(AppConstants.LOG_TAG, "save to db successfully");
 				Toast.makeText(mActivity,
 						resources.getString(R.string.save_success),
 						Toast.LENGTH_SHORT).show();
 
-				mNewMarkerBtn.setVisibility(View.VISIBLE);
-				mSaveMarkerBtn.setVisibility(View.GONE);
-
 			}
-			else
-			{
+			else {
 				Log.i(AppConstants.LOG_TAG, "save to db failed");
 				Toast.makeText(mActivity,
 						resources.getString(R.string.save_failed),
 						Toast.LENGTH_SHORT).show();
 			}
 
+			mNewMarkerBtn.setVisibility(View.VISIBLE);
+			mSaveMarkerBtn.setVisibility(View.GONE);
+
 		}
 	};
 
-	public OnClickListener mLoadClickListener = new OnClickListener()
-	{
+	public OnClickListener mLoadClickListener = new OnClickListener() {
 
 		@Override
-		public void onClick(View v)
-		{
+		public void onClick(View v) {
 			loadAllCustomMarkers();
 
 		}
 	};
 
-	public void setVisibility(int visibility)
-	{
-		if (View.GONE == visibility)
-		{
+	public void setVisibility(int visibility) {
+		if (View.GONE == visibility) {
 			mRootView.setVisibility(View.GONE);
 
 		}
-		else if (View.VISIBLE == visibility)
-		{
+		else if (View.VISIBLE == visibility) {
 
 			mRootView.setVisibility(View.VISIBLE);
 
 		}
 	}
 
-	public void loadAllCustomMarkers()
-	{
+	public void loadAllCustomMarkers() {
 		Collection<MarkerItem> markerItems = CustomMarkerTable
 				.queryAllCustomMarkerItems();
 
-		if (null != markerItems)
-		{
+		mMarkersOverlay.clearMarkers();
+		mNewMarkerBtn.setVisibility(View.VISIBLE);
+		mSaveMarkerBtn.setVisibility(View.GONE);
+		if (null != markerItems) {
 
-			for (MarkerItem item : markerItems)
-			{
+			for (MarkerItem item : markerItems) {
 				mMarkersOverlay.addDBMarkerToOverlay(item);
 			}
 		}
-		else
-		{
+		else {
 			Toast.makeText(mActivity, "no marker!", Toast.LENGTH_SHORT).show();
 		}
 	}

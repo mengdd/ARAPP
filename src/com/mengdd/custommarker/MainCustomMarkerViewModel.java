@@ -6,25 +6,20 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.baidu.platform.comapi.map.s;
 import com.mengdd.arapp.FrameHeaderViewModel;
 import com.mengdd.arapp.R;
 import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
-import com.mengdd.arapp.activities.CustomMapActivity;
 import com.mengdd.components.ViewModel;
 import com.mengdd.map.baidu.BaiduMapHelper;
 
-public class MainCustomMarkerViewModel extends ViewModel
-{
-	public enum CustomMarkerScene
-	{
+public class MainCustomMarkerViewModel extends ViewModel {
+	public enum CustomMarkerScene {
 		Map, List, RealScene
 	}
 
@@ -37,64 +32,61 @@ public class MainCustomMarkerViewModel extends ViewModel
 
 	private List<ViewModel> mViewModels = null;
 
+	private MapCustomMarkerViewModel mMapViewModel = null;
 	private ListCustomMarkerViewModel mListViewModel = null;
 	private RealSceneCMViewModel mRealSceneViewModel = null;
 
+	private View mMapView = null;
 	private View mListView = null;
 	private View mRealSceneView = null;
+	private RelativeLayout mContentLayout = null;
 
-	public MainCustomMarkerViewModel(Activity activity)
-	{
+	public MainCustomMarkerViewModel(Activity activity) {
 		super(activity);
 	}
 
 	@Override
-	public void onCreate(Intent intent)
-	{
+	public void onCreate(Intent intent) {
 		super.onCreate(intent);
 
-		if (null == BaiduMapHelper.getMapManager())
-		{
+		if (null == BaiduMapHelper.getMapManager()) {
 			BaiduMapHelper.initBaiduMapManager(mActivity);
 		}
 
 		mRootView = mInflater.inflate(R.layout.custom_main, null);
 
 		initHeader();
-
 		initBottom();
 
+		// map
+		mMapViewModel = new MapCustomMarkerViewModel(mActivity);
 		// list
 		mListViewModel = new ListCustomMarkerViewModel(mActivity);
-
 		// real scene
 		mRealSceneViewModel = new RealSceneCMViewModel(mActivity);
 
 		mViewModels = new ArrayList<ViewModel>();
 
+		mViewModels.add(mMapViewModel);
 		mViewModels.add(mListViewModel);
 		mViewModels.add(mRealSceneViewModel);
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onCreate(null);
 		}
 
+		mMapView = mMapViewModel.getView();
 		mListView = mListViewModel.getView();
 		mRealSceneView = mRealSceneViewModel.getView();
 
-		RelativeLayout mainLayout = (RelativeLayout) mRootView
+		mContentLayout = (RelativeLayout) mRootView
 				.findViewById(R.id.main_content);
-
-		mainLayout.addView(mListView, 0);
-		mainLayout.addView(mRealSceneView, 1);
 
 		switchScene(mCurrentScene);
 
 	}
 
-	private void initHeader()
-	{
+	private void initHeader() {
 		// Header
 		resources = mActivity.getResources();
 		mHeaderViewModel = new FrameHeaderViewModel(mActivity);
@@ -104,12 +96,10 @@ public class MainCustomMarkerViewModel extends ViewModel
 				.getString(R.string.custom_marker_title));
 		ViewGroup headerGourp = (ViewGroup) mRootView.findViewById(R.id.title);
 		headerGourp.addView(mHeaderViewModel.getView(), 0);
-		mHeaderViewModel.setOnBackListener(new OnBackListener()
-		{
+		mHeaderViewModel.setOnBackListener(new OnBackListener() {
 
 			@Override
-			public void onBack()
-			{
+			public void onBack() {
 				// mActivity.onKeyDown(KeyEvent.KEYCODE_BACK, new KeyEvent(
 				// KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
 
@@ -120,8 +110,7 @@ public class MainCustomMarkerViewModel extends ViewModel
 
 	}
 
-	private void initBottom()
-	{
+	private void initBottom() {
 
 		// Bottom Menu
 		CustomBottomViewModel bottomViewModel = new CustomBottomViewModel(
@@ -134,121 +123,117 @@ public class MainCustomMarkerViewModel extends ViewModel
 		bottomViewModel.setOnClickListener(mBottomOnClickListener);
 	}
 
-	private OnClickListener mBottomOnClickListener = new OnClickListener()
-	{
+	private OnClickListener mBottomOnClickListener = new OnClickListener() {
 
 		@Override
-		public void onClick(View v)
-		{
-			switch (v.getId())
-			{
-				case R.id.custom_map:
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.custom_map:
 
-					switchScene(CustomMarkerScene.Map);
+				switchScene(CustomMarkerScene.Map);
 
-					break;
-				case R.id.custom_list:
+				break;
+			case R.id.custom_list:
 
-					switchScene(CustomMarkerScene.List);
+				switchScene(CustomMarkerScene.List);
 
-					break;
-				case R.id.custom_realscene:
+				break;
+			case R.id.custom_realscene:
 
-					switchScene(CustomMarkerScene.RealScene);
+				switchScene(CustomMarkerScene.RealScene);
 
-					break;
+				break;
 
-				default:
-					break;
+			default:
+				break;
 			}
 
 		}
 
 	};
 
-	private void switchScene(CustomMarkerScene scene)
-	{
+	private void switchScene(CustomMarkerScene scene) {
 
-		switch (scene)
-		{
-			case Map:
+		switch (scene) {
+		case Map:
 
-				Intent intent = new Intent();
-				intent.setClass(mActivity, CustomMapActivity.class);
-				mActivity.startActivity(intent);
+			if (CustomMarkerScene.RealScene == mCurrentScene) {
+				mRealSceneViewModel.onPause();
+			}
 
-				break;
-			case List:
-				mListView.setVisibility(View.VISIBLE);
-				mRealSceneView.setVisibility(View.GONE);
+			mContentLayout.removeAllViews();
+			mMapViewModel.onResume(null);
+			mContentLayout.addView(mMapView);
 
-				break;
-			case RealScene:
-				mListView.setVisibility(View.GONE);
-				mRealSceneView.setVisibility(View.VISIBLE);
+			break;
+		case List:
+			if (CustomMarkerScene.RealScene == mCurrentScene) {
+				mRealSceneViewModel.onPause();
+			}
+			if (CustomMarkerScene.Map == mCurrentScene) {
+				mMapViewModel.onPause();
+			}
 
-				break;
+			mContentLayout.removeAllViews();
+			mContentLayout.addView(mListView);
 
-			default:
-				break;
+			break;
+		case RealScene:
+			if (CustomMarkerScene.Map == mCurrentScene) {
+				mMapViewModel.onPause();
+			}
+			mContentLayout.removeAllViews();
+			mRealSceneViewModel.onResume(null);
+			mContentLayout.addView(mRealSceneView);
+
+			break;
+
+		default:
+			break;
 		}
+
+		mCurrentScene = scene;
 
 	}
 
 	@Override
-	public View getView()
-	{
+	public View getView() {
 		return mRootView;
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		super.onStop();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onStop();
 		}
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		super.onDestroy();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onDestroy();
 		}
 	}
 
 	@Override
-	public void onResume(Intent intent)
-	{
+	public void onResume(Intent intent) {
 		super.onResume(intent);
 
-		//if back from the map activity, turn to the List scene
-		if (CustomMarkerScene.Map == mCurrentScene)
-		{
-			mCurrentScene = CustomMarkerScene.List;
-			switchScene(mCurrentScene);
-		}
-
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onResume(null);
 		}
 
 	}
 
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onPause();
 		}
 

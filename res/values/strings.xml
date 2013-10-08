@@ -105,14 +105,18 @@
     <string name="search">Search</string>
     <string name="at">Search in:</string>
     <string name="city">City:</string>
+    <string name="search_region">Select Search Region:</string>
     <string name="search_in_city">Search in City</string>
     <string name="search_nearby">Search Nearby</string>
     <string name="default_city">北京</string>
     <string name="looking_for">Looking For: </string>
+    <string name="default_hint">Input the keywords you want to search</string>
     <string name="default_keyword">餐厅</string>
     <string name="clear_before">Clear Before Search</string>
-    <string name="current_location">Current Location</string>
+    <string name="current_location">Current Location:</string>
     <string name="search_radius">Search Radius</string>
+    <!-- search navi -->
+    <string name="search_navi">Search Navigation</string>
     <!-- Search bottom menu -->
     <string name="search_menu_ui">Search</string>
     <string name="search_menu_list">Result List</string>
@@ -135,7 +139,7 @@
 
     <!-- Save Marker Dialog -->
 
-    <string name="dialog_title_save_marker">Save Marker Successfully!</string>
+    <string name="dialog_title_save_marker">Save New Marker</string>
     <string name="dialog_save_marker_name">Marker name: </string>
     <string name="dialog_save_marker_des">Marker description: </string>
     <string name="dialog_too_long">"String is too long!</string>
@@ -144,7 +148,57 @@
     <string name="custom_menu_list">List</string>
     <string name="custom_menu_map">Map</string>
     <string name="custom_menu_realscene">Real Scene</string>
-     <!-- Custom Marker List -->
+    <!-- Custom Marker List -->
     <string name="btn_refresh">Refresh Data</string>
+    <string name="btn_delete">Delete</string>
+
+    <!-- Keywords -->
+    <string-array name="keywords_categories">
+        <item>餐厅</item>
+        <item>交通</item>
+        <item>购物</item>
+        <item>生活</item>
+        <item>娱乐</item>
+    </string-array>
+    <string-array name="restaurant">
+        <item>川菜</item>
+        <item>快餐</item>
+        <item>火锅</item>
+        <item>麦当劳</item>
+        <item>肯德基</item>
+        <item>海底捞</item>
+    </string-array>
+    <string-array name="traffic">
+        <item>地铁站</item>
+        <item>公交站</item>
+        <item>火车站</item>
+        <item>加油站</item>
+        <item>火车票售票处</item>
+        <item>机场</item>
+    </string-array>
+    <string-array name="shopping">
+        <item>超市</item>
+        <item>书店</item>
+        <item>购物中心</item>
+        <item>菜市场</item>
+    </string-array>
+    <string-array name="life">
+        <item>银行</item>
+        <item>酒店</item>
+        <item>ATM</item>
+        <item>医院</item>
+        <item>药店</item>
+    </string-array>
+    <string-array name="entertainment">
+        <item>电影院</item>
+        <item>KTV</item>
+        <item>体育馆</item>
+        <item>操场</item>
+        <item>活动中心</item>
+        <item>桌游</item>
+    </string-array>
+
+    <string name="test_compass">Test Compass</string>
+    <string name="test_markers">Test Markers</string>
 
 </resources>

@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
-
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.poi.data.PhysicalLocation;
 
@@ -30,20 +29,7 @@ import com.mengdd.poi.data.PhysicalLocation;
  * @version 1.0
  * @since 2013-07-01
  */
-public class MathUtils
-{
-
-	private static final Vector looking = new Vector();
-	private static final float[] lookingArray = new float[3];
-	private static final Matrix tempMatrix = new Matrix();
-
-	private static volatile float azimuth = 0;
-	private static volatile float pitch = 0;
-	private static volatile float roll = 0;
-
-	private MathUtils()
-	{
-	}
+public class MathUtils {
 
 	/**
 	 * Get angle in degrees between two points.
@@ -59,82 +45,10 @@ public class MathUtils
 	 * @return Angle in degrees
 	 */
 	public static final float getAngle(float center_x, float center_y,
-			float post_x, float post_y)
-	{
+			float post_x, float post_y) {
 		float delta_x = post_x - center_x;
 		float delta_y = post_y - center_y;
 		return (float) (Math.atan2(delta_y, delta_x) * 180 / Math.PI);
-	}
-
-	/**
-	 * Azimuth the phone's camera is pointing. From 0 to 360 with magnetic north
-	 * compensation.
-	 * 
-	 * @return float representing the azimuth the phone's camera is pointing
-	 */
-	public static synchronized float getAzimuth()
-	{
-		return MathUtils.azimuth;
-	}
-
-	/**
-	 * Pitch of the phone's camera. From -90 to 90, where negative is pointing
-	 * down and zero is level.
-	 * 
-	 * @return float representing the pitch of the phone's camera.
-	 */
-	public static synchronized float getPitch()
-	{
-		return MathUtils.pitch;
-	}
-
-	/**
-	 * Roll of the phone's camera. From -90 to 90, where negative is rolled left
-	 * and zero is level.
-	 * 
-	 * @return float representing the roll of the phone's camera.
-	 */
-	public static synchronized float getRoll()
-	{
-		return MathUtils.roll;
-	}
-
-	/**
-	 * Calculate and populate the Azimuth, Pitch, and Roll.
-	 * 
-	 * @param rotationMatrix
-	 *            Rotation matrix used in calculations.
-	 */
-	public static synchronized void calcPitchBearing(Matrix rotationMatrix)
-	{
-		if (rotationMatrix == null)
-		{
-			return;
-		}
-
-		// Log.i(AppConstants.LOG_TAG, "calcPitchBearing");
-		tempMatrix.set(rotationMatrix);
-		tempMatrix.transpose();
-
-		if (GlobalARData.portrait)
-		{
-			looking.set(0, 1, 0);
-		}
-		else
-		{
-			looking.set(1, 0, 0);
-		}
-
-		looking.prod(tempMatrix);
-		looking.get(lookingArray);
-		MathUtils.azimuth = ((getAngle(0, 0, lookingArray[0], lookingArray[2]) + 360) % 360);
-		MathUtils.roll = -(90 - Math.abs(getAngle(0, 0, lookingArray[1],
-				lookingArray[2])));
-		looking.set(0, 0, 1);
-		looking.prod(tempMatrix);
-		looking.get(lookingArray);
-		MathUtils.pitch = -(90 - Math.abs(getAngle(0, 0, lookingArray[1],
-				lookingArray[2])));
 	}
 
 	/**
@@ -156,19 +70,18 @@ public class MathUtils
 	 *            Add Y to the projected point.
 	 */
 	public static void projectPoint(Vector orgPoint, Vector prjPoint,
-			float distance, int width, int height, float addX, float addY)
-	{
-		float[] tmp1 = new float[3];
-		float[] tmp2 = new float[3];
-		orgPoint.get(tmp1);
+			float distance, int width, int height, float addX, float addY) {
+		float[] originalV = new float[3];
+		float[] projectV = new float[3];
+		orgPoint.get(originalV);
 
-		tmp2[0] = (distance * tmp1[0] / -tmp1[2]);
-		tmp2[1] = (distance * tmp1[1] / -tmp1[2]);
-		tmp2[2] = (tmp1[2]);
-		tmp2[0] = (tmp2[0] + addX + width / 2);
-		tmp2[1] = (-tmp2[1] + addY + height / 2);
+		projectV[0] = (distance * originalV[0] / -originalV[2]);
+		projectV[1] = (distance * originalV[1] / -originalV[2]);
+		projectV[2] = (originalV[2]);
+		projectV[0] = (projectV[0] + addX + width / 2);
+		projectV[1] = (-projectV[1] + addY + height / 2);
 
-		prjPoint.set(tmp2);
+		prjPoint.set(projectV);
 	}
 
 	/**
@@ -184,10 +97,8 @@ public class MathUtils
 	 * @return
 	 */
 	public static synchronized Vector convLocationToVector(
-			Location origiLocation, PhysicalLocation destLocation)
-	{
-		if (origiLocation == null || destLocation == null)
-		{
+			Location origiLocation, PhysicalLocation destLocation) {
+		if (origiLocation == null || destLocation == null) {
 			throw new IllegalArgumentException("Location is null");
 		}
 
@@ -208,12 +119,10 @@ public class MathUtils
 
 		y = destLocation.getAltitude() - origiLocation.getAltitude();
 
-		if (origiLocation.getLatitude() < destLocation.getLatitude())
-		{
+		if (origiLocation.getLatitude() < destLocation.getLatitude()) {
 			z[0] *= -1;
 		}
-		if (origiLocation.getLongitude() > destLocation.getLongitude())
-		{
+		if (origiLocation.getLongitude() > destLocation.getLongitude()) {
 			x[0] *= -1;
 		}
 
@@ -236,10 +145,8 @@ public class MathUtils
 	 * @return
 	 */
 	public static synchronized Vector convGeoPointToVector(GeoPoint origiPoint,
-			GeoPoint destPoint)
-	{
-		if (origiPoint == null || destPoint == null)
-		{
+			GeoPoint destPoint) {
+		if (origiPoint == null || destPoint == null) {
 			throw new IllegalArgumentException("Location is null");
 		}
 
@@ -261,18 +168,98 @@ public class MathUtils
 				new GeoPoint(origiPoint.getLatitudeE6(), destPoint
 						.getLongitudeE6()));
 
-		if (origiPoint.getLatitudeE6() < destPoint.getLatitudeE6())
-		{
+		// N
+		// |
+		// W----- |----- E x+(longitude)
+		// |
+		// S
+		// z+(latitude)
+		if (origiPoint.getLatitudeE6() < destPoint.getLatitudeE6()) {
 			z *= -1;
 		}
-		if (origiPoint.getLongitudeE6() > destPoint.getLongitudeE6())
-		{
+		if (origiPoint.getLongitudeE6() > destPoint.getLongitudeE6()) {
 			x *= -1;
 		}
 
 		vector.set((float) x, (float) y, (float) z);
 
 		return vector;
+	}
+
+	/**
+	 * Get a location's Azimuth angle according to its distance in latitude and
+	 * longitude
+	 *        N(0)
+	 *        |
+	 * W----- |----- E x+(longitude)
+	 * (270)  |      (90)
+	 *        S(180)
+	 *       z+(latitude)
+	 * 
+	 * @param x
+	 *            store longitude distance in x
+	 * @param z
+	 *            store latitude distance in z
+	 * @return Azimuth angle in degrees. N--0, E--90, S--180, W--270
+	 */
+	public static float getLocationAzimuth(float x, float z) {
+
+		// 两个都是零则错了
+		if (0 == z && 0 == x) {
+			// throw new IllegalArgumentException("both arguments are zero!");
+			return 0;
+		}
+
+		float resultAngle = 0;
+		double rad = 0;
+		// 有一个是0的情况：在轴上，根据不为零的另一个参数判断具体值
+		if (0 == x) {
+			if (z < 0) {
+				resultAngle = 0;
+			}
+			else {
+				resultAngle = 180;
+			}
+
+		}
+		else if (0 == z) {
+			if (x > 0) {
+				resultAngle = 90;
+
+			}
+			else {
+				resultAngle = 270;
+			}
+
+		}
+		else {
+			// 两个参数都不为零的情况
+
+			// 0-90
+			if (z < 0 && x > 0) {
+				rad = Math.atan(x / (-z));
+				resultAngle = (float) Math.toDegrees(rad);
+			}
+			// 90 - 180
+			if (z > 0 && x > 0) {
+				rad = Math.atan(x / z);
+				resultAngle = 180 - (float) Math.toDegrees(rad);
+			}
+
+			// 180-270
+			if (z > 0 && x < 0) {
+				rad = Math.atan((-x) / z);
+				resultAngle = 180 + (float) Math.toDegrees(rad);
+			}
+
+			// 270-360
+			if (z < 0 && x < 0) {
+				rad = Math.atan(x / z);
+				resultAngle = 360 - (float) Math.toDegrees(rad);
+			}
+		}
+
+		return resultAngle;
 	}
 
 }

@@ -6,7 +6,7 @@ import com.mengdd.utils.AppConstants;
 
 public class CameraData
 {
-	private float mViewAngle = AppConstants.DEFAULT_VIEW_ANGLE;
+	private float mViewAngle = AppConstants.DEFAULT_VIEW_ANGLE_RADIANS;
 	private float mDistance = 0;
 	private int mWidth = 0;
 	private int mHeight = 0;
@@ -27,7 +27,7 @@ public class CameraData
 
 	public void setCameraData(int width, int height)
 	{
-		setCameraData(width, height, AppConstants.DEFAULT_VIEW_ANGLE);
+		setCameraData(width, height, AppConstants.DEFAULT_VIEW_ANGLE_RADIANS);
 	}
 
 	public void setCameraData(int width, int height, float viewAngle)

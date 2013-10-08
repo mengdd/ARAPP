@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General color -->
+    <color name="light_green">#FFBBFFBB</color>
+    <color name="mene_blue">#6996d3</color>
+    <color name="menu_border">#FF050505</color>
+    <color name="purple">#FF7D44D6</color>
+    <color name="btn_text">#FFFFFFFF</color>
+    <color name="btn_map_text">#FF000000</color>
+    
+    <!-- UI component -->
     <color name="text_color">#0B0974</color>
     <color name="compass_direction_text">#071672</color>
     <color name="compass_sub_direction_text">#4C8070D8</color>

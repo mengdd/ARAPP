@@ -45,8 +45,7 @@ import android.view.View;
  * @since 2013-07-01
  */
 public class RadarView extends View implements SensorEventListener,
-		OnRadarZoomChangedListener
-{
+		OnRadarZoomChangedListener {
 
 	public static float RADIUS = 48;
 
@@ -67,29 +66,24 @@ public class RadarView extends View implements SensorEventListener,
 	private static PaintableText paintableText = null;
 	private static PaintablePosition paintedContainer = null;
 
-	public RadarView(Context context, AttributeSet attrs, int defStyle)
-	{
+	public RadarView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(context);
 	}
 
-	public RadarView(Context context, AttributeSet attrs)
-	{
+	public RadarView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public RadarView(Context context)
-	{
+	public RadarView(Context context) {
 		super(context);
 		init(context);
 	}
 
-	private void init(Context context)
-	{
+	private void init(Context context) {
 		Resources res = context.getResources();
-		if (null != res)
-		{
+		if (null != res) {
 			RADIUS = res.getDimension(R.dimen.radar_radius);
 			LINE_COLOR = res.getColor(R.color.radar_line_color);
 			PAD_X = res.getDimension(R.dimen.radar_paddingX);
@@ -99,15 +93,13 @@ public class RadarView extends View implements SensorEventListener,
 			TEXT_SIZE = res.getDimension(R.dimen.radar_text);
 
 		}
-		else
-		{
+		else {
 			initUseDefaultValues();
 		}
 
 	}
 
-	private void initUseDefaultValues()
-	{
+	private void initUseDefaultValues() {
 		Log.i(AppConstants.LOG_TAG, "Radar init use default values");
 		LINE_COLOR = Color.argb(150, 0, 0, 220);
 		PAD_X = 10;
@@ -119,8 +111,7 @@ public class RadarView extends View implements SensorEventListener,
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas)
-	{
+	protected void onDraw(Canvas canvas) {
 		draw(canvas);
 	}
 
@@ -132,17 +123,13 @@ public class RadarView extends View implements SensorEventListener,
 	 * @throws IllegalArgumentException
 	 *             if Canvas is NULL.
 	 */
-	public void draw(Canvas canvas)
-	{
-		if (null == canvas)
-		{
+	public void draw(Canvas canvas) {
+		if (null == canvas) {
 			throw new IllegalArgumentException("canvas is null!");
 
 		}
 
 		// Log.i(AppConstants.LOG_TAG, "Radar -- draw");
-
-
 
 		// Update the radar graphics and text based upon the new pitch and
 		// bearing
@@ -153,16 +140,13 @@ public class RadarView extends View implements SensorEventListener,
 
 	}
 
-	private void drawRadarCircle(Canvas canvas)
-	{
-		if (null == canvas)
-		{
+	private void drawRadarCircle(Canvas canvas) {
+		if (null == canvas) {
 			throw new IllegalArgumentException("canvas is null!");
 
 		}
 
-		if (circleContainer == null)
-		{
+		if (circleContainer == null) {
 			PaintableCircle paintableCircle = new PaintableCircle(RADAR_COLOR,
 					RADIUS, true);
 			circleContainer = new PaintablePosition(paintableCircle, PAD_X
@@ -171,27 +155,20 @@ public class RadarView extends View implements SensorEventListener,
 		circleContainer.paint(canvas);
 	}
 
-	private void drawRadarPoints(Canvas canvas)
-	{
-		if (null == canvas)
-		{
+	private void drawRadarPoints(Canvas canvas) {
+		if (null == canvas) {
 			throw new IllegalArgumentException("canvas is null!");
-
 		}
-
-		if (radarPoints == null)
-		{
+		if (radarPoints == null) {
 			radarPoints = new PaintableRadarPoints();
 		}
 
 		// rotate the points and draw them
-		if (pointsContainer == null)
-		{
+		if (pointsContainer == null) {
 			pointsContainer = new PaintablePosition(radarPoints, PAD_X, PAD_Y,
 					-GlobalARData.getAzimuth(), 1);
 		}
-		else
-		{
+		else {
 			pointsContainer.set(radarPoints, PAD_X, PAD_Y,
 					-GlobalARData.getAzimuth(), 1);
 		}
@@ -199,26 +176,22 @@ public class RadarView extends View implements SensorEventListener,
 		pointsContainer.paint(canvas);
 	}
 
-	private void drawRadarLines(Canvas canvas)
-	{
-		if (null == canvas)
-		{
+	private void drawRadarLines(Canvas canvas) {
+		if (null == canvas) {
 			throw new IllegalArgumentException("canvas is null!");
 
 		}
 
 		// Left line
-		if (leftLineContainer == null)
-		{
-			leftLineContainer = generateRadarLine(-AppConstants.DEFAULT_VIEW_ANGLE / 2);
+		if (leftLineContainer == null) {
+			leftLineContainer = generateRadarLine(-AppConstants.DEFAULT_VIEW_ANGLE_RADIANS / 2);
 
 		}
 		leftLineContainer.paint(canvas);
 
 		// Right line
-		if (rightLineContainer == null)
-		{
-			rightLineContainer = generateRadarLine(AppConstants.DEFAULT_VIEW_ANGLE / 2);
+		if (rightLineContainer == null) {
+			rightLineContainer = generateRadarLine(AppConstants.DEFAULT_VIEW_ANGLE_RADIANS / 2);
 
 		}
 		rightLineContainer.paint(canvas);
@@ -231,8 +204,7 @@ public class RadarView extends View implements SensorEventListener,
 	 * @param rotateAngle
 	 * @return
 	 */
-	private PaintablePosition generateRadarLine(float rotateAngle)
-	{
+	private PaintablePosition generateRadarLine(float rotateAngle) {
 		PaintablePosition radarLine = null;
 
 		ScreenPosition endPosition = new ScreenPosition();
@@ -251,10 +223,8 @@ public class RadarView extends View implements SensorEventListener,
 		return radarLine;
 	}
 
-	private void drawRadarText(Canvas canvas)
-	{
-		if (null == canvas)
-		{
+	private void drawRadarText(Canvas canvas) {
+		if (null == canvas) {
 			throw new IllegalArgumentException("canvas is null!");
 
 		}
@@ -272,100 +242,87 @@ public class RadarView extends View implements SensorEventListener,
 				(PAD_X + RADIUS), (PAD_Y + RADIUS * 2 - 10), false);
 	}
 
-	private String generateDirectionTxt()
-	{
+	private String generateDirectionTxt() {
 		// Direction text
 		int range = (int) (GlobalARData.getAzimuth() / (360f / 16f));
 		String dirTxt = "";
-		switch (range)
-		{
-			case 15:
-			case 0:
-				dirTxt = "N";
-				break;
+		switch (range) {
+		case 15:
+		case 0:
+			dirTxt = "N";
+			break;
 
-			case 1:
-			case 2:
-				dirTxt = "NE";
-				break;
-			case 3:
-			case 4:
-				dirTxt = "E";
-				break;
-			case 5:
-			case 6:
-				dirTxt = "SE";
-				break;
-			case 7:
-			case 8:
-				dirTxt = "S";
-				break;
-			case 9:
-			case 10:
-				dirTxt = "SW";
-				break;
-			case 11:
-			case 12:
-				dirTxt = "W";
-				break;
-			case 13:
-			case 14:
-				dirTxt = "NW";
-				break;
+		case 1:
+		case 2:
+			dirTxt = "NE";
+			break;
+		case 3:
+		case 4:
+			dirTxt = "E";
+			break;
+		case 5:
+		case 6:
+			dirTxt = "SE";
+			break;
+		case 7:
+		case 8:
+			dirTxt = "S";
+			break;
+		case 9:
+		case 10:
+			dirTxt = "SW";
+			break;
+		case 11:
+		case 12:
+			dirTxt = "W";
+			break;
+		case 13:
+		case 14:
+			dirTxt = "NW";
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 		return dirTxt;
 	}
 
 	private void drawRadarText(Canvas canvas, String txt, float x, float y,
-			boolean bg)
-	{
-		if (canvas == null || txt == null)
-		{
+			boolean bg) {
+		if (canvas == null || txt == null) {
 			throw new IllegalArgumentException("canvas or txt is null!");
 		}
 
-		if (paintableText == null)
-		{
+		if (paintableText == null) {
 			paintableText = new PaintableText(txt, TEXT_COLOR, TEXT_SIZE, bg);
 		}
-		else
-		{
+		else {
 			paintableText.set(txt, TEXT_COLOR, TEXT_SIZE, bg);
 		}
 
-		if (paintedContainer == null)
-		{
+		if (paintedContainer == null) {
 			paintedContainer = new PaintablePosition(paintableText, x, y, 0, 1);
 		}
-		else
-		{
+		else {
 			paintedContainer.set(paintableText, x, y, 0, 1);
 		}
 
 		paintedContainer.paint(canvas);
 	}
 
-	private static String formatDist(float meters)
-	{
-		if (meters < 1000)
-		{
+	private static String formatDist(float meters) {
+		if (meters < 1000) {
 			return ((int) meters) + "m";
 		}
-		else if (meters < 10000)
-		{
+		else if (meters < 10000) {
 			return formatDec(meters / 1000f, 1) + "km";
 		}
-		else
-		{
+		else {
 			return ((int) (meters / 1000f)) + "km";
 		}
 	}
 
-	private static String formatDec(float val, int dec)
-	{
+	private static String formatDec(float val, int dec) {
 		int factor = (int) Math.pow(10, dec);
 
 		int front = (int) (val);
@@ -375,20 +332,17 @@ public class RadarView extends View implements SensorEventListener,
 	}
 
 	@Override
-	public void onSensorChanged(SensorEvent event)
-	{
+	public void onSensorChanged(SensorEvent event) {
 		postInvalidate();
 	}
 
 	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy)
-	{
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
 	}
 
 	@Override
-	public void onZoomChanged()
-	{
+	public void onZoomChanged() {
 		postInvalidate();
 	}
 

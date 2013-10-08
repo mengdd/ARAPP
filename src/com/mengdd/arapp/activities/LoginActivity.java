@@ -12,22 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-public class LoginActivity extends Activity
-{
+public class LoginActivity extends Activity {
 
 	private FrameHeaderViewModel mHeaderViewModel = null;
 	private Resources resources = null;
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		
-		
+	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login_activity);
 		resources = getResources();
-		
+
 		// header
 		mHeaderViewModel = new FrameHeaderViewModel(this);
 		mHeaderViewModel.onCreate(null);
@@ -36,17 +33,14 @@ public class LoginActivity extends Activity
 		mHeaderViewModel.setTitle(resources.getString(R.string.login_title));
 		ViewGroup headerGourp = (ViewGroup) findViewById(R.id.title);
 		headerGourp.addView(mHeaderViewModel.getView(), 0);
-		mHeaderViewModel.setOnBackListener(new OnBackListener()
-		{
-			
+		mHeaderViewModel.setOnBackListener(new OnBackListener() {
+
 			@Override
-			public void onBack()
-			{
+			public void onBack() {
 				finish();
-				
+
 			}
 		});
 	}
-	
-	
+
 }

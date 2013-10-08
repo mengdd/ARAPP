@@ -37,8 +37,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 
-public class AugmentedPOIActivity extends Activity
-{
+public class AugmentedPOIActivity extends Activity {
 	private List<ViewModel> mViewModels = null;
 
 	// camera
@@ -58,15 +57,13 @@ public class AugmentedPOIActivity extends Activity
 	private Location myLocation = new Location("network");
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 
 		// no title and fullscreen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		if(null == BaiduMapHelper.getMapManager())
-		{
+
+		if (null == BaiduMapHelper.getMapManager()) {
 			BaiduMapHelper.initBaiduMapManager(this);
 		}
 
@@ -85,8 +82,7 @@ public class AugmentedPOIActivity extends Activity
 		mViewModels.add(mPoiViewModel);
 		mViewModels.add(mLocationModel);
 
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onCreate(null);
 		}
 
@@ -115,37 +111,32 @@ public class AugmentedPOIActivity extends Activity
 		zoomFrame.addView(seekBar, 0);
 
 		mZoomController.addOnZoomChangedListener(mPoiViewModel);
-
-
-
+		mZoomController.addOnZoomChangedListener(mRadar);
 		// ARView需要监听传感器的姿态变化
 		mSensorViewModel.addSensorEventListener(mPoiView);
+		mSensorViewModel.addSensorEventListener(mRadar);
 
-		mCameraViewModel.setCameraOrientation(0);
-		
-	//	initTest();
-		
-		initTestForBaidu();
+		// initTest();
+
+		initTestForBaidu2();
 	}
 
-	private void initTest()
-	{
-
+	private void initTest() {
 
 		List<BasicMarker> markers = new ArrayList<BasicMarker>();
 		Resources res = getResources();
 		Bitmap icon = BitmapFactory.decodeResource(res, R.drawable.wikipedia);
 
-		//必胜客
+		// 必胜客
 		BasicMarker m1 = new GoogleMarker("N: Foreign Resturant", Color.WHITE,
 				icon, 39.97719, 116.3175, 18);
-		//民生银行
+		// 民生银行
 		BasicMarker m2 = new GoogleMarker("E: Bank", Color.RED, icon, 39.97649,
 				116.3212, 18);
-		//九头鹰
+		// 九头鹰
 		BasicMarker m3 = new GoogleMarker("W: Chinese Resturant", Color.BLUE,
 				icon, 39.97567, 116.3142, 18);
-		//海淀南站
+		// 海淀南站
 		BasicMarker m4 = new GoogleMarker("S: Bus station", Color.GREEN, icon,
 				39.97418, 116.3182, 18);
 
@@ -155,8 +146,8 @@ public class AugmentedPOIActivity extends Activity
 		markers.add(m4);
 
 		GlobalARData.addMarkers(markers);
-		
-		//地铁海淀黄庄站
+
+		// 地铁海淀黄庄站
 		myLocation.setLatitude(39.97719);
 		myLocation.setLongitude(116.3175);
 		myLocation.setAltitude(19);
@@ -164,46 +155,41 @@ public class AugmentedPOIActivity extends Activity
 		GlobalARData.setCurrentGoogleLocation(myLocation);
 	}
 
-
-	
-	private void initTestForBaidu()
-	{
-
+	private void initTestForBaidu() {
 
 		List<BasicMarker> markers = new ArrayList<BasicMarker>();
 		Resources res = getResources();
 		Bitmap icon = BitmapFactory.decodeResource(res, R.drawable.baidu);
 
-		//眉州东坡116.322986,39.983426
+		// 眉州东坡116.322986,39.983426
 		MKPoiInfo info1 = new MKPoiInfo();
 		info1.name = "Meizhou";
-		info1.pt = new GeoPoint((int)(39.983426*1e6), (int)(116.322986*1e6));	
-		BasicMarker m1 = new BaiduMarker("N: MeiZhou", Color.WHITE,
-				icon, info1);
-		
-		//豪景大厦116.328286,39.981614
+		info1.pt = new GeoPoint((int) (39.983426 * 1e6),
+				(int) (116.322986 * 1e6));
+		BasicMarker m1 = new BaiduMarker("N: MeiZhou", Color.WHITE, icon, info1);
+
+		// 豪景大厦116.328286,39.981614
 		MKPoiInfo info2 = new MKPoiInfo();
 		info2.name = "HaoJing";
-		info2.pt = new GeoPoint((int)(39.981614*1e6), (int)(116.328286*1e6));	
-		BasicMarker m2 = new BaiduMarker("E: HaoJing", Color.RED,
-				icon, info2);
-		
-		
-		//人民大学站116.328088,39.97278
+		info2.pt = new GeoPoint((int) (39.981614 * 1e6),
+				(int) (116.328286 * 1e6));
+		BasicMarker m2 = new BaiduMarker("E: HaoJing", Color.RED, icon, info2);
+
+		// 人民大学站116.328088,39.97278
 		MKPoiInfo info3 = new MKPoiInfo();
 		info3.name = "Renmin";
-		info3.pt = new GeoPoint((int)(39.97278*1e6), (int)(116.328088*1e6));	
-		BasicMarker m3 = new BaiduMarker("S: RenMin Subway", Color.BLUE,
-				icon, info3);
-		
-		
-		//苏州街站116.312772,39.981707
+		info3.pt = new GeoPoint((int) (39.97278 * 1e6),
+				(int) (116.328088 * 1e6));
+		BasicMarker m3 = new BaiduMarker("S: RenMin Subway", Color.BLUE, icon,
+				info3);
+
+		// 苏州街站116.312772,39.981707
 		MKPoiInfo info4 = new MKPoiInfo();
 		info4.name = "Suzhou";
-		info4.pt = new GeoPoint((int)(39.981707*1e6), (int)(116.312772*1e6));	
+		info4.pt = new GeoPoint((int) (39.981707 * 1e6),
+				(int) (116.312772 * 1e6));
 		BasicMarker m4 = new BaiduMarker("W: Suzhou Subway", Color.YELLOW,
 				icon, info4);
-
 
 		markers.add(m1);
 		markers.add(m2);
@@ -211,8 +197,8 @@ public class AugmentedPOIActivity extends Activity
 		markers.add(m4);
 
 		GlobalARData.addMarkers(markers);
-		
-		//地铁海淀黄庄站116.324351,39.98187
+
+		// 地铁海淀黄庄站116.324351,39.98187
 		myLocation.setLatitude(39.98187);
 		myLocation.setLongitude(116.324351);
 		myLocation.setAltitude(19);
@@ -220,48 +206,94 @@ public class AugmentedPOIActivity extends Activity
 		GlobalARData.setCurrentGoogleLocation(myLocation);
 	}
 
+	private void initTestForBaidu2() {
+
+		List<BasicMarker> markers = new ArrayList<BasicMarker>();
+		Resources res = getResources();
+		Bitmap icon = BitmapFactory.decodeResource(res, R.drawable.baidu);
+
+		// 眉州东坡116.322986,39.983426
+		MKPoiInfo info1 = new MKPoiInfo();
+		info1.name = "Meizhou";
+		info1.pt = new GeoPoint((int) (39.983426 * 1e6),
+				(int) (116.322986 * 1e6));
+		BasicMarker m1 = new BaiduMarker("N: MeiZhou", Color.WHITE, icon, info1);
+
+		// 豪景大厦116.328286,39.981614
+		MKPoiInfo info2 = new MKPoiInfo();
+		info2.name = "HaoJing";
+		info2.pt = new GeoPoint((int) (39.981614 * 1e6),
+				(int) (116.328286 * 1e6));
+		BasicMarker m2 = new BaiduMarker("E: HaoJing", Color.RED, icon, info2);
+
+		// 人民大学站116.328088,39.97278
+		MKPoiInfo info3 = new MKPoiInfo();
+		info3.name = "Renmin";
+		info3.pt = new GeoPoint((int) (39.97278 * 1e6),
+				(int) (116.328088 * 1e6));
+		BasicMarker m3 = new BaiduMarker("S: RenMin Subway", Color.BLUE, icon,
+				info3);
+
+		// 苏州街站116.312772,39.981707
+		MKPoiInfo info4 = new MKPoiInfo();
+		info4.name = "Suzhou";
+		info4.pt = new GeoPoint((int) (39.981707 * 1e6),
+				(int) (116.312772 * 1e6));
+		BasicMarker m4 = new BaiduMarker("W: Suzhou Subway", Color.YELLOW,
+				icon, info4);
+
+		markers.add(m1);
+		markers.add(m2);
+		markers.add(m3);
+		markers.add(m4);
+
+		GlobalARData.addMarkers(markers);
+
+		// 地铁海淀黄庄站116.324351,39.98187
+		myLocation.setLatitude(39.98187);
+		myLocation.setLongitude(116.324351);
+		myLocation.setAltitude(19);
+
+		GlobalARData.setCurrentGoogleLocation(myLocation);
+	}
+
+	
 	@Override
-	protected void onResume()
-	{
+	protected void onResume() {
 		super.onResume();
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onResume(null);
 		}
-		//mLocationModel.registerLocationUpdates();
+		// mLocationModel.registerLocationUpdates();
 		GlobalARData.addLocationListener(mSensorViewModel);
 		GlobalARData.addLocationListener(mPoiViewModel);
+
+		mCameraViewModel.setCameraOrientation(90);
 	}
 
 	@Override
-	protected void onPause()
-	{
+	protected void onPause() {
 		super.onPause();
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onPause();
 		}
-		//mLocationModel.unregisterLocationUpdates();
+		// mLocationModel.unregisterLocationUpdates();
 		GlobalARData.removeLocationListener(mSensorViewModel);
 		GlobalARData.removeLocationListener(mPoiViewModel);
 	}
 
 	@Override
-	protected void onStop()
-	{
+	protected void onStop() {
 		super.onStop();
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onStop();
 		}
 	}
 
 	@Override
-	protected void onDestroy()
-	{
+	protected void onDestroy() {
 		super.onDestroy();
-		for (ViewModel viewModel : mViewModels)
-		{
+		for (ViewModel viewModel : mViewModels) {
 			viewModel.onDestroy();
 		}
 	}
