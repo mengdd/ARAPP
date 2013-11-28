@@ -311,12 +311,9 @@ public final class R {
         public static final int main=0x7f0a0000;
     }
     public static final class raw {
-        public static final int cube1=0x7f040000;
-        public static final int cube1_mtl=0x7f040001;
-        public static final int sphere=0x7f040002;
-        public static final int sphere_mtl=0x7f040003;
-        public static final int teabot=0x7f040004;
-        public static final int teabot_mtl=0x7f040005;
+        public static final int cube1_mtl=0x7f040000;
+        public static final int sphere_mtl=0x7f040001;
+        public static final int teabot_mtl=0x7f040002;
     }
     public static final class string {
         public static final int accuracyLabel=0x7f07001c;
