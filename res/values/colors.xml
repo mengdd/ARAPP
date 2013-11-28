@@ -3,12 +3,17 @@
 
     <!-- General color -->
     <color name="light_green">#FFBBFFBB</color>
-    <color name="mene_blue">#6996d3</color>
-    <color name="menu_border">#FF050505</color>
+    <!-- Menu -->
+    <color name="menu_item_normal">#FF6996D3</color>
+    <color name="menu_item_pressed">#C06996DE</color>
+    <color name="menu_border_normal">#FF050505</color>
+    <color name="menu_border_pressed">#C0353535</color>
     <color name="purple">#FF7D44D6</color>
+
+    <!-- Button -->
     <color name="btn_text">#FFFFFFFF</color>
     <color name="btn_map_text">#FF000000</color>
-    
+
     <!-- UI component -->
     <color name="text_color">#0B0974</color>
     <color name="compass_direction_text">#071672</color>
@@ -38,8 +43,8 @@
 
     <!-- main UI color -->
     <color name="title_background">#6996d3</color>
-    <color name="drawer_bg">#866fd7</color>
-    <color name="drawer_text">#7c71d8</color>
+    <color name="drawer_bg_color">#866fd7</color>
+    <color name="drawer_text_color">#7c71d8</color>
 
     <!-- Radar related color -->
     <color name="radar_line_color">#960000DC</color>

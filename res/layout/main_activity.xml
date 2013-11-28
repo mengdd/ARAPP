@@ -42,19 +42,37 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/drawer_open_content"
-            android:layout_width="200dp"
+            android:id="@+id/drawer_open_content_right"
+            android:layout_width="@dimen/drawer_menu_width"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:background="@color/drawer_bg"
-            android:divider="@color/drawer_text" >
+            android:background="@color/drawer_bg_color"
+            android:divider="@color/drawer_text_color" >
 
             <ListView
-                android:id="@+id/drawer_list"
+                android:id="@+id/drawer_list_right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/drawer_bg"
-                android:cacheColorHint="@color/drawer_bg" >
+                android:background="@color/drawer_bg_color"
+                android:cacheColorHint="@color/drawer_bg_color" >
+            </ListView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/drawer_open_content_left"
+            android:layout_width="@dimen/drawer_menu_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:background="@color/drawer_bg_color"
+            android:divider="@color/drawer_text_color"
+            android:visibility="invisible" >
+
+            <ListView
+                android:id="@+id/drawer_list_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/drawer_bg_color"
+                android:cacheColorHint="@color/drawer_bg_color" >
             </ListView>
         </RelativeLayout>
     </android.support.v4.widget.DrawerLayout>

@@ -27,50 +27,52 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int background_color=0x7f05000d;
-        public static final int black=0x7f05001b;
-        public static final int blue=0x7f05001e;
-        public static final int btn_map_text=0x7f050005;
-        public static final int btn_text=0x7f050004;
-        public static final int compass_arrow=0x7f05000b;
-        public static final int compass_arrow_shadow=0x7f05000c;
-        public static final int compass_direction_text=0x7f050007;
-        public static final int compass_marker=0x7f050009;
-        public static final int compass_marker_shadow=0x7f05000a;
-        public static final int compass_sub_direction_text=0x7f050008;
-        public static final int drawer_bg=0x7f050020;
-        public static final int drawer_text=0x7f050021;
-        public static final int green=0x7f05001d;
-        public static final int horizon_ground_from=0x7f050016;
-        public static final int horizon_ground_to=0x7f050017;
-        public static final int horizon_sky_from=0x7f050014;
-        public static final int horizon_sky_to=0x7f050015;
-        public static final int inner_border=0x7f050013;
-        public static final int inner_border_one=0x7f050011;
-        public static final int inner_border_two=0x7f050012;
+        public static final int background_color=0x7f05000f;
+        public static final int black=0x7f05001d;
+        public static final int blue=0x7f050020;
+        public static final int btn_map_text=0x7f050007;
+        public static final int btn_text=0x7f050006;
+        public static final int compass_arrow=0x7f05000d;
+        public static final int compass_arrow_shadow=0x7f05000e;
+        public static final int compass_direction_text=0x7f050009;
+        public static final int compass_marker=0x7f05000b;
+        public static final int compass_marker_shadow=0x7f05000c;
+        public static final int compass_sub_direction_text=0x7f05000a;
+        public static final int drawer_bg_color=0x7f050022;
+        public static final int drawer_text_color=0x7f050023;
+        public static final int green=0x7f05001f;
+        public static final int horizon_ground_from=0x7f050018;
+        public static final int horizon_ground_to=0x7f050019;
+        public static final int horizon_sky_from=0x7f050016;
+        public static final int horizon_sky_to=0x7f050017;
+        public static final int inner_border=0x7f050015;
+        public static final int inner_border_one=0x7f050013;
+        public static final int inner_border_two=0x7f050014;
         /**  General color 
          */
         public static final int light_green=0x7f050000;
-        public static final int marker_color=0x7f05000e;
-        public static final int mene_blue=0x7f050001;
-        public static final int menu_border=0x7f050002;
-        public static final int outer_border=0x7f050010;
-        public static final int purple=0x7f050003;
-        public static final int radar_color=0x7f050023;
+        public static final int marker_color=0x7f050010;
+        public static final int menu_border_normal=0x7f050003;
+        public static final int menu_border_pressed=0x7f050004;
+        public static final int menu_item_normal=0x7f050001;
+        public static final int menu_item_pressed=0x7f050002;
+        public static final int outer_border=0x7f050012;
+        public static final int purple=0x7f050005;
+        public static final int radar_color=0x7f050025;
         /**  Radar related color 
          */
-        public static final int radar_line_color=0x7f050022;
-        public static final int red=0x7f05001c;
-        public static final int shadow_color=0x7f05000f;
+        public static final int radar_line_color=0x7f050024;
+        public static final int red=0x7f05001e;
+        public static final int shadow_color=0x7f050011;
         /**  UI component 
          */
-        public static final int text_color=0x7f050006;
-        public static final int text_color2=0x7f050018;
+        public static final int text_color=0x7f050008;
+        public static final int text_color2=0x7f05001a;
         /**  main UI color 
          */
-        public static final int title_background=0x7f05001f;
-        public static final int transparent_color=0x7f050019;
-        public static final int white=0x7f05001a;
+        public static final int title_background=0x7f050021;
+        public static final int transparent_color=0x7f05001b;
+        public static final int white=0x7f05001c;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -79,23 +81,27 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f060003;
-        public static final int activity_vertical_margin=0x7f060004;
-        public static final int big_text_size=0x7f060002;
-        public static final int compass_main_dir=0x7f060006;
-        public static final int compass_sub_dir=0x7f060007;
-        public static final int compass_text=0x7f060005;
+        public static final int activity_horizontal_margin=0x7f060005;
+        public static final int activity_vertical_margin=0x7f060006;
+        public static final int big_text_size=0x7f060004;
+        public static final int compass_main_dir=0x7f060008;
+        public static final int compass_sub_dir=0x7f060009;
+        public static final int compass_text=0x7f060007;
+        /**  Home Screen 
+         */
+        public static final int drawer_menu_width=0x7f060000;
+        public static final int drawer_text_size=0x7f060001;
         /**  General sizes 
          */
-        public static final int normal_text_size=0x7f060000;
+        public static final int normal_text_size=0x7f060002;
         /**  Radar related 
          */
-        public static final int radar_area=0x7f060008;
-        public static final int radar_paddingX=0x7f06000a;
-        public static final int radar_paddingY=0x7f06000b;
-        public static final int radar_radius=0x7f060009;
-        public static final int radar_text=0x7f06000c;
-        public static final int small_text_size=0x7f060001;
+        public static final int radar_area=0x7f06000a;
+        public static final int radar_paddingX=0x7f06000c;
+        public static final int radar_paddingY=0x7f06000d;
+        public static final int radar_radius=0x7f06000b;
+        public static final int radar_text=0x7f06000e;
+        public static final int small_text_size=0x7f060003;
     }
     public static final class drawable {
         public static final int baidu=0x7f020000;
@@ -147,26 +153,26 @@ public final class R {
         public static final int accuracyLabel=0x7f0b0021;
         public static final int accuracyUnits=0x7f0b0023;
         public static final int accuracyValue=0x7f0b0022;
-        public static final int action_baidu_map=0x7f0b006e;
-        public static final int action_google_map=0x7f0b006f;
-        public static final int action_poi=0x7f0b0070;
-        public static final int address=0x7f0b004e;
+        public static final int action_baidu_map=0x7f0b0070;
+        public static final int action_google_map=0x7f0b0071;
+        public static final int action_poi=0x7f0b0072;
+        public static final int address=0x7f0b0050;
         public static final int allProvidersLabel=0x7f0b0016;
         public static final int allProvidersValue=0x7f0b0017;
         public static final int bMapView=0x7f0b0003;
         public static final int bottom_content=0x7f0b0043;
         public static final int bottom_menu=0x7f0b002a;
-        public static final int btn_map=0x7f0b004c;
+        public static final int btn_map=0x7f0b004e;
         public static final int button_capture=0x7f0b0011;
         public static final int camera_frame=0x7f0b0000;
         public static final int camera_preview=0x7f0b0010;
         public static final int city=0x7f0b0004;
-        public static final int city_mode=0x7f0b005a;
+        public static final int city_mode=0x7f0b005c;
         public static final int compassSwitch=0x7f0b0035;
         public static final int compass_frame=0x7f0b0036;
         public static final int controlPanel=0x7f0b0018;
         public static final int createTime=0x7f0b003b;
-        public static final int current_location=0x7f0b005c;
+        public static final int current_location=0x7f0b005e;
         public static final int custom_list=0x7f0b000e;
         public static final int custom_map=0x7f0b000d;
         public static final int custom_marker_list=0x7f0b0027;
@@ -175,82 +181,84 @@ public final class R {
         public static final int description=0x7f0b003a;
         public static final int drawerLayout=0x7f0b0040;
         public static final int drawer_close_content=0x7f0b0041;
-        public static final int drawer_list=0x7f0b0045;
-        public static final int drawer_open_content=0x7f0b0044;
-        public static final int frame=0x7f0b0065;
-        public static final int frame2=0x7f0b0069;
+        public static final int drawer_list_left=0x7f0b0047;
+        public static final int drawer_list_right=0x7f0b0045;
+        public static final int drawer_open_content_left=0x7f0b0046;
+        public static final int drawer_open_content_right=0x7f0b0044;
+        public static final int frame=0x7f0b0067;
+        public static final int frame2=0x7f0b006b;
         public static final int goto_my=0x7f0b002d;
         public static final int header_back=0x7f0b0037;
         public static final int header_setting=0x7f0b0038;
         public static final int header_title=0x7f0b0039;
         public static final int horizonView=0x7f0b0015;
-        public static final int info=0x7f0b004f;
+        public static final int info=0x7f0b0051;
         public static final int item=0x7f0b0012;
         public static final int item_table=0x7f0b0014;
-        public static final int keywords=0x7f0b0057;
-        public static final int keywords_layout=0x7f0b0063;
+        public static final int keywords=0x7f0b0059;
+        public static final int keywords_layout=0x7f0b0065;
         public static final int latitudeLabel=0x7f0b001b;
         public static final int latitudeValue=0x7f0b001c;
         public static final int load_all_markers=0x7f0b0030;
         public static final int longitudeLabel=0x7f0b001d;
         public static final int longitudeValue=0x7f0b001e;
-        public static final int main=0x7f0b006c;
-        public static final int mainList=0x7f0b0064;
+        public static final int main=0x7f0b006e;
+        public static final int mainList=0x7f0b0066;
         public static final int main_content=0x7f0b002c;
-        public static final int main_frame=0x7f0b0067;
+        public static final int main_frame=0x7f0b0069;
         public static final int main_list=0x7f0b003d;
         public static final int main_title=0x7f0b0042;
-        public static final int map=0x7f0b004d;
-        public static final int mapContent=0x7f0b006b;
-        public static final int mapSwitch=0x7f0b006a;
-        public static final int map_frame=0x7f0b0046;
+        public static final int map=0x7f0b004f;
+        public static final int mapContent=0x7f0b006d;
+        public static final int mapSwitch=0x7f0b006c;
+        public static final int map_frame=0x7f0b0048;
         public static final int map_next_data=0x7f0b0007;
         public static final int marker_des=0x7f0b0032;
         public static final int marker_name=0x7f0b0031;
-        public static final int myTextView=0x7f0b006d;
+        public static final int myTextView=0x7f0b006f;
         public static final int name=0x7f0b0013;
-        public static final int near_mode=0x7f0b005b;
+        public static final int near_mode=0x7f0b005d;
         public static final int new_marker=0x7f0b002e;
-        public static final int next=0x7f0b0066;
-        public static final int next_btn=0x7f0b0053;
-        public static final int pageText=0x7f0b0052;
-        public static final int page_btns=0x7f0b0050;
+        public static final int next=0x7f0b0068;
+        public static final int next_btn=0x7f0b0055;
+        public static final int pageText=0x7f0b0054;
+        public static final int page_btns=0x7f0b0052;
         public static final int password=0x7f0b003f;
-        public static final int popdown=0x7f0b004a;
-        public static final int popinfo=0x7f0b0048;
-        public static final int popleft=0x7f0b0047;
-        public static final int popright=0x7f0b004b;
-        public static final int previous_btn=0x7f0b0051;
+        public static final int popdown=0x7f0b004c;
+        public static final int popinfo=0x7f0b004a;
+        public static final int popleft=0x7f0b0049;
+        public static final int popright=0x7f0b004d;
+        public static final int previous_btn=0x7f0b0053;
         public static final int providerLabel=0x7f0b001f;
         public static final int providerSpinner=0x7f0b0019;
         public static final int providerValue=0x7f0b0020;
         public static final int radar_frame=0x7f0b0001;
-        public static final int radioGroup1=0x7f0b0060;
-        public static final int radio_mode_inCity=0x7f0b0061;
-        public static final int radio_mode_nearby=0x7f0b0062;
-        public static final int radius=0x7f0b005d;
+        public static final int radioGroup1=0x7f0b0062;
+        public static final int radio_mode_inCity=0x7f0b0063;
+        public static final int radio_mode_nearby=0x7f0b0064;
+        public static final int radius=0x7f0b005f;
         public static final int refreshBtn=0x7f0b0028;
         public static final int resultList=0x7f0b0008;
         public static final int save_marker=0x7f0b002f;
         public static final int search=0x7f0b0006;
-        public static final int search_btn=0x7f0b0058;
-        public static final int search_list=0x7f0b0054;
-        public static final int search_main=0x7f0b0056;
+        public static final int search_btn=0x7f0b005a;
+        public static final int search_list=0x7f0b0056;
+        public static final int search_main=0x7f0b0058;
         public static final int search_menu_list=0x7f0b000a;
         public static final int search_menu_map=0x7f0b000b;
         public static final int search_menu_real=0x7f0b000c;
         public static final int search_menu_ui=0x7f0b0009;
-        public static final int search_mode=0x7f0b0059;
-        public static final int search_radius=0x7f0b005e;
-        public static final int search_region=0x7f0b005f;
-        public static final int search_ui=0x7f0b0055;
+        public static final int search_mode=0x7f0b005b;
+        public static final int search_radius=0x7f0b0060;
+        public static final int search_region=0x7f0b0061;
+        public static final int search_ui=0x7f0b0057;
         public static final int searchkey=0x7f0b0005;
         public static final int selected=0x7f0b003c;
         public static final int settingsBtn=0x7f0b001a;
         public static final int single_tip=0x7f0b0033;
         public static final int text=0x7f0b0034;
-        public static final int textView=0x7f0b0068;
-        public static final int textcache=0x7f0b0049;
+        public static final int textView=0x7f0b006a;
+        public static final int textcache=0x7f0b004b;
         public static final int timeToFixLabel=0x7f0b0024;
         public static final int timeToFixUnits=0x7f0b0026;
         public static final int timeToFixValue=0x7f0b0025;

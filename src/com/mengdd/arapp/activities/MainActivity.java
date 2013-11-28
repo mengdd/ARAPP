@@ -36,12 +36,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		// init the database
-		DatabaseManager.initInstance(this);
-		if (!CustomMarkerTable.isTableExist()) {
-			CustomMarkerTable.createTable();
-		}
 
+		initDatabase();
 		setContentView(R.layout.main_activity);
 
 		resources = getResources();
@@ -58,22 +54,18 @@ public class MainActivity extends Activity {
 
 		// header control drawer
 		mHeaderViewModel.setOnSettingListener(new OnSettingListener() {
-
 			@Override
 			public void onSetting() {
 				mDrawerLayout.openDrawer(Gravity.RIGHT);
-
 			}
 		});
-
 		// bottom
-
 		initDrawerList();
 
 	}
 
 	private void initDrawerList() {
-		mDrawerMenuList = (ListView) findViewById(R.id.drawer_list);
+		mDrawerMenuList = (ListView) findViewById(R.id.drawer_list_right);
 
 		// Instantiate the list of samples.
 		mSamples = new Sample[] {
@@ -123,6 +115,15 @@ public class MainActivity extends Activity {
 		public String toString() {
 			return title.toString();
 		}
+	}
+
+	private void initDatabase() {
+		// init the database
+		DatabaseManager.initInstance(this);
+		if (!CustomMarkerTable.isTableExist()) {
+			CustomMarkerTable.createTable();
+		}
+
 	}
 
 }
