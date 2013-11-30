@@ -15,53 +15,47 @@ import android.widget.FrameLayout;
  * @since 2013-07-01
  * 
  */
-public class TestCompassActivity extends Activity
-{
-	private CompassViewModel mCompassViewModel = null;
+public class TestCompassActivity extends Activity {
+    private CompassViewModel mCompassViewModel = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.test_compass);
+        setContentView(R.layout.test_compass);
 
-		mCompassViewModel = new CompassViewModel(this);
-		mCompassViewModel.onCreate(null);
+        mCompassViewModel = new CompassViewModel(this);
+        mCompassViewModel.onCreate(null);
 
-		FrameLayout frameLayout = (FrameLayout) findViewById(R.id.main_frame);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.main_frame);
 
-		frameLayout.addView(mCompassViewModel.getView(), 0);
+        frameLayout.addView(mCompassViewModel.getView(), 0);
 
-	}
+    }
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		mCompassViewModel.onResume(null);
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCompassViewModel.onResume(null);
+    }
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		mCompassViewModel.onPause();
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCompassViewModel.onPause();
+    }
 
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-		mCompassViewModel.onStop();
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mCompassViewModel.onStop();
+    }
 
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-		mCompassViewModel.onDestroy();
-	}
+        mCompassViewModel.onDestroy();
+    }
 
 }

@@ -10,5 +10,5 @@ package com.mengdd.utils;
  */
 public class AppConfig {
 
-	public static final String CAMERA_FILE_DIR = "ARAppCameraFile";
+    public static final String CAMERA_FILE_DIR = "ARAppCameraFile";
 }

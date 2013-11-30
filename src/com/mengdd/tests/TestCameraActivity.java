@@ -22,51 +22,45 @@ import android.widget.ToggleButton;
  * @since 2013-07-01
  * 
  */
-public class TestCameraActivity extends Activity
-{
-	private CameraViewModel mCameraViewModel = null;
+public class TestCameraActivity extends Activity {
+    private CameraViewModel mCameraViewModel = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		mCameraViewModel = new CameraViewModel(this);
-		mCameraViewModel.onCreate(null);
+        mCameraViewModel = new CameraViewModel(this);
+        mCameraViewModel.onCreate(null);
 
-		setContentView(R.layout.test_camera);
+        setContentView(R.layout.test_camera);
 
-		FrameLayout frameLayout = (FrameLayout) findViewById(R.id.camera_frame);
-		frameLayout.addView(mCameraViewModel.getView(), 0);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.camera_frame);
+        frameLayout.addView(mCameraViewModel.getView(), 0);
 
-	}
+    }
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		mCameraViewModel.onResume(null);
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCameraViewModel.onResume(null);
+    }
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		mCameraViewModel.onPause();
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCameraViewModel.onPause();
+    }
 
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-		mCameraViewModel.onStop();
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mCameraViewModel.onStop();
+    }
 
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		mCameraViewModel.onDestroy();
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCameraViewModel.onDestroy();
+    }
 
 }

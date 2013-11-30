@@ -33,209 +33,209 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.utils.AppConstants;
 
 public class SearchResultViewModel extends ViewModel implements
-		MKSearchListener {
-	private View mRootView = null;
-	private MKSearch mSearch = null;
+        MKSearchListener {
+    private View mRootView = null;
+    private MKSearch mSearch = null;
 
-	// 显示出来
-	private TextView mInfoTextView = null;
-	private TextView mPageTextView = null;
-	private ListView mListView = null;
-	private PoiInfoAdapter mListAdapter = null;
-	private List<MKPoiInfo> mListData = null;
+    // 显示出来
+    private TextView mInfoTextView = null;
+    private TextView mPageTextView = null;
+    private ListView mListView = null;
+    private PoiInfoAdapter mListAdapter = null;
+    private List<MKPoiInfo> mListData = null;
 
-	private int currentPage = 0;
-	private int pageCount = 0;
+    private int currentPage = 0;
+    private int pageCount = 0;
 
-	protected SearchResultViewModel(Activity activity, MKSearch mkSearch) {
-		super(activity);
-		mSearch = mkSearch;
-	}
+    protected SearchResultViewModel(Activity activity, MKSearch mkSearch) {
+        super(activity);
+        mSearch = mkSearch;
+    }
 
-	@Override
-	public void onCreate(Intent intent) {
-		super.onCreate(intent);
-		mRootView = mInflater.inflate(R.layout.search_result_list, null);
+    @Override
+    public void onCreate(Intent intent) {
+        super.onCreate(intent);
+        mRootView = mInflater.inflate(R.layout.search_result_list, null);
 
-		mInfoTextView = (TextView) mRootView.findViewById(R.id.info);
-		mPageTextView = (TextView) mRootView.findViewById(R.id.pageText);
+        mInfoTextView = (TextView) mRootView.findViewById(R.id.info);
+        mPageTextView = (TextView) mRootView.findViewById(R.id.pageText);
 
-		mListView = (ListView) mRootView.findViewById(R.id.search_list);
-		mListData = new ArrayList<MKPoiInfo>();
-		mListAdapter = new PoiInfoAdapter(mActivity, mListData);
-		mListView.setAdapter(mListAdapter);
-		mListView.setOnItemClickListener(mOnItemClickListener);
+        mListView = (ListView) mRootView.findViewById(R.id.search_list);
+        mListData = new ArrayList<MKPoiInfo>();
+        mListAdapter = new PoiInfoAdapter(mActivity, mListData);
+        mListView.setAdapter(mListAdapter);
+        mListView.setOnItemClickListener(mOnItemClickListener);
 
-		Button mNextButton = (Button) mRootView.findViewById(R.id.next_btn);
-		mNextButton.setOnClickListener(new OnClickListener() {
+        Button mNextButton = (Button) mRootView.findViewById(R.id.next_btn);
+        mNextButton.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				goToNextPage(v);
+            @Override
+            public void onClick(View v) {
+                goToNextPage(v);
 
-			}
-		});
+            }
+        });
 
-		Button mPreButton = (Button) mRootView.findViewById(R.id.previous_btn);
-		mPreButton.setOnClickListener(new OnClickListener() {
+        Button mPreButton = (Button) mRootView.findViewById(R.id.previous_btn);
+        mPreButton.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				goToPreviousPage(v);
+            @Override
+            public void onClick(View v) {
+                goToPreviousPage(v);
 
-			}
-		});
-	}
+            }
+        });
+    }
 
-	@Override
-	public View getView() {
-		return mRootView;
-	}
+    @Override
+    public View getView() {
+        return mRootView;
+    }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
-	@Override
-	public void onResume(Intent intent) {
-		super.onResume(intent);
-	}
+    @Override
+    public void onResume(Intent intent) {
+        super.onResume(intent);
+    }
 
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
-	public void goToPreviousPage(View v) {
-		Log.i(AppConstants.LOG_TAG, "goToPreviousPage: current" + currentPage
-				+ ", count: " + pageCount);
-		int flag = -1;
-		if (currentPage > 0) {
-			// 搜索下一组poi
-			flag = mSearch.goToPoiPage(--currentPage);
-		}
+    public void goToPreviousPage(View v) {
+        Log.i(AppConstants.LOG_TAG, "goToPreviousPage: current" + currentPage
+                + ", count: " + pageCount);
+        int flag = -1;
+        if (currentPage > 0) {
+            // 搜索下一组poi
+            flag = mSearch.goToPoiPage(--currentPage);
+        }
 
-		if (flag != 0) {
-			Toast.makeText(mActivity, "Search Failed!", Toast.LENGTH_SHORT)
-					.show();
-		}
-	}
+        if (flag != 0) {
+            Toast.makeText(mActivity, "Search Failed!", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
 
-	public void goToNextPage(View v) {
-		Log.i(AppConstants.LOG_TAG, "goToNextPage: current: " + currentPage
-				+ ", count: " + pageCount);
-		// 搜索下一组poi
-		int flag = -1;
-		if (currentPage < pageCount) {
-			flag = mSearch.goToPoiPage(++currentPage);
-		}
-		if (flag != 0) {
-			Toast.makeText(mActivity, "Search Failed!", Toast.LENGTH_SHORT)
-					.show();
-		}
-	}
+    public void goToNextPage(View v) {
+        Log.i(AppConstants.LOG_TAG, "goToNextPage: current: " + currentPage
+                + ", count: " + pageCount);
+        // 搜索下一组poi
+        int flag = -1;
+        if (currentPage < pageCount) {
+            flag = mSearch.goToPoiPage(++currentPage);
+        }
+        if (flag != 0) {
+            Toast.makeText(mActivity, "Search Failed!", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
 
-	@Override
-	public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
+    @Override
+    public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
 
-	}
+    }
 
-	@Override
-	public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
-	}
+    @Override
+    public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
+    }
 
-	@Override
-	public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
+    @Override
+    public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
 
-	}
+    }
 
-	@Override
-	public void onGetPoiResult(MKPoiResult result, int type, int iError) {
-		Log.w(AppConstants.LOG_TAG,
-				"goto SearchResultViewModel: onGetPoiResult: " + iError);
+    @Override
+    public void onGetPoiResult(MKPoiResult result, int type, int iError) {
+        Log.w(AppConstants.LOG_TAG,
+                "goto SearchResultViewModel: onGetPoiResult: " + iError);
 
-		// 错误号可参考MKEvent中的定义
-		if (iError != 0 || result == null) {
-			Toast.makeText(mActivity, "Sorry, No result!", Toast.LENGTH_LONG)
-					.show();
-			return;
-		}
+        // 错误号可参考MKEvent中的定义
+        if (iError != 0 || result == null) {
+            Toast.makeText(mActivity, "Sorry, No result!", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
 
-		// update information
-		currentPage = result.getPageIndex();
-		pageCount = result.getNumPages();
-		StringBuffer stringBuffer = new StringBuffer();
+        // update information
+        currentPage = result.getPageIndex();
+        pageCount = result.getNumPages();
+        StringBuffer stringBuffer = new StringBuffer();
 
-		stringBuffer.append("POI numbers: " + result.getNumPois() + "\n");
-		stringBuffer.append("Page Count: " + pageCount + "\n");
-		stringBuffer.append("Current Page: " + currentPage);
-		mInfoTextView.setText(stringBuffer.toString());
+        stringBuffer.append("POI numbers: " + result.getNumPois() + "\n");
+        stringBuffer.append("Page Count: " + pageCount + "\n");
+        stringBuffer.append("Current Page: " + currentPage);
+        mInfoTextView.setText(stringBuffer.toString());
 
-		// page information
+        // page information
 
-		mPageTextView.setText((currentPage + 1) + "/" + pageCount);
-		Log.i(AppConstants.LOG_TAG, "page info: " + (currentPage + 1) + "/"
-				+ pageCount);
-		// add result to the list
-		mListData.clear();
-		for (MKPoiInfo info : result.getAllPoi()) {
-			mListData.add(info);
-		}
+        mPageTextView.setText((currentPage + 1) + "/" + pageCount);
+        Log.i(AppConstants.LOG_TAG, "page info: " + (currentPage + 1) + "/"
+                + pageCount);
+        // add result to the list
+        mListData.clear();
+        for (MKPoiInfo info : result.getAllPoi()) {
+            mListData.add(info);
+        }
 
-		mListAdapter.notifyDataSetChanged();
-	}
+        mListAdapter.notifyDataSetChanged();
+    }
 
-	@Override
-	public void onGetPoiDetailSearchResult(int type, int iError) {
-		if (iError != 0) {
-			Toast.makeText(mActivity, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
-		}
-		else {
-			Toast.makeText(mActivity, "成功，查看详情页面", Toast.LENGTH_SHORT).show();
-		}
-	}
+    @Override
+    public void onGetPoiDetailSearchResult(int type, int iError) {
+        if (iError != 0) {
+            Toast.makeText(mActivity, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(mActivity, "成功，查看详情页面", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-	@Override
-	public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
+    @Override
+    public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
 
-	}
+    }
 
-	@Override
-	public void onGetBusDetailResult(MKBusLineResult result, int iError) {
-	}
+    @Override
+    public void onGetBusDetailResult(MKBusLineResult result, int iError) {
+    }
 
-	@Override
-	public void onGetAddrResult(MKAddrInfo result, int iError) {
-	}
+    @Override
+    public void onGetAddrResult(MKAddrInfo result, int iError) {
+    }
 
-	@Override
-	public void onGetShareUrlResult(MKShareUrlResult arg0, int arg1, int arg2) {
+    @Override
+    public void onGetShareUrlResult(MKShareUrlResult arg0, int arg1, int arg2) {
 
-	}
+    }
 
-	private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+    private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
 
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			Log.i(AppConstants.LOG_TAG, "onItemClick: " + position);
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                long id) {
+            Log.i(AppConstants.LOG_TAG, "onItemClick: " + position);
 
-			MKPoiInfo currentInfo = mListData.get(position);
-			if (currentInfo.hasCaterDetails) {
+            MKPoiInfo currentInfo = mListData.get(position);
+            if (currentInfo.hasCaterDetails) {
 
-				mSearch.poiDetailSearch(currentInfo.uid);
-			}
-			else {
-				Toast.makeText(mActivity, "Sorry, No Details",
-						Toast.LENGTH_LONG).show();
-			}
+                mSearch.poiDetailSearch(currentInfo.uid);
+            }
+            else {
+                Toast.makeText(mActivity, "Sorry, No Details",
+                        Toast.LENGTH_LONG).show();
+            }
 
-		}
-	};
+        }
+    };
 }

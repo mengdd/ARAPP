@@ -14,33 +14,33 @@ import android.view.Window;
 
 public class LoginActivity extends Activity {
 
-	private FrameHeaderViewModel mHeaderViewModel = null;
-	private Resources resources = null;
+    private FrameHeaderViewModel mHeaderViewModel = null;
+    private Resources resources = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.login_activity);
-		resources = getResources();
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.login_activity);
+        resources = getResources();
 
-		// header
-		mHeaderViewModel = new FrameHeaderViewModel(this);
-		mHeaderViewModel.onCreate(null);
-		mHeaderViewModel.setBackVisibility(View.VISIBLE);
-		mHeaderViewModel.setSettingVisibility(View.GONE);
-		mHeaderViewModel.setTitle(resources.getString(R.string.login_title));
-		ViewGroup headerGourp = (ViewGroup) findViewById(R.id.title);
-		headerGourp.addView(mHeaderViewModel.getView(), 0);
-		mHeaderViewModel.setOnBackListener(new OnBackListener() {
+        // header
+        mHeaderViewModel = new FrameHeaderViewModel(this);
+        mHeaderViewModel.onCreate(null);
+        mHeaderViewModel.setBackVisibility(View.VISIBLE);
+        mHeaderViewModel.setSettingVisibility(View.GONE);
+        mHeaderViewModel.setTitle(resources.getString(R.string.login_title));
+        ViewGroup headerGourp = (ViewGroup) findViewById(R.id.title);
+        headerGourp.addView(mHeaderViewModel.getView(), 0);
+        mHeaderViewModel.setOnBackListener(new OnBackListener() {
 
-			@Override
-			public void onBack() {
-				finish();
+            @Override
+            public void onBack() {
+                finish();
 
-			}
-		});
-	}
+            }
+        });
+    }
 
 }

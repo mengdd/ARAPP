@@ -13,12 +13,12 @@ import com.mengdd.utils.AppConstants;
 /**
  * Basic Module for Baidu Map SDK, keep the API Key and init the BMapManager
  * instance.
- *
- *
+ * 
+ * 
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
+ * 
  */
 public class BaiduMapHelper {
 
@@ -58,9 +58,9 @@ public class BaiduMapHelper {
     }
 
     /**
-     *
+     * 
      * Class for EventListener, handle the Registration Errors
-     *
+     * 
      */
     static class MyGeneralListener implements MKGeneralListener {
 
@@ -76,7 +76,8 @@ public class BaiduMapHelper {
             if (iError == MKEvent.ERROR_NETWORK_CONNECT) {
                 Toast.makeText(mContext, "Network Connection Error",
                         Toast.LENGTH_LONG).show();
-            } else if (iError == MKEvent.ERROR_NETWORK_DATA) {
+            }
+            else if (iError == MKEvent.ERROR_NETWORK_DATA) {
                 Toast.makeText(mContext, "Network Data Error",
                         Toast.LENGTH_LONG).show();
             }

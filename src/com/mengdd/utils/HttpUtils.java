@@ -6,74 +6,61 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class HttpUtils
-{
+public class HttpUtils {
 
-	private static final int READ_TIMEOUT = 10000;
-	private static final int CONNECT_TIMEOUT = 10000;
+    private static final int READ_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT = 10000;
 
-	public static InputStream getInputStream(String path)
-	{
-		InputStream inputStream = null;
+    public static InputStream getInputStream(String path) {
+        InputStream inputStream = null;
 
-		try
-		{
-			URL url = new URL(path);
-			inputStream = getInputStream(url);
-		}
-		catch (MalformedURLException e)
-		{
-			e.printStackTrace();
-		}
+        try {
+            URL url = new URL(path);
+            inputStream = getInputStream(url);
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-		return inputStream;
-	}
+        return inputStream;
+    }
 
-	public static InputStream getInputStream(URL url)
-	{
-		return getInputStream(url, READ_TIMEOUT, CONNECT_TIMEOUT);
-	}
-	
-	public static InputStream getInputStream(URL url, int readTimeOut, int connectTimeOut)
-	{
+    public static InputStream getInputStream(URL url) {
+        return getInputStream(url, READ_TIMEOUT, CONNECT_TIMEOUT);
+    }
 
-		InputStream inputStream = null;
-		HttpURLConnection httpURLConnection = null;
+    public static InputStream getInputStream(URL url, int readTimeOut,
+            int connectTimeOut) {
 
-		try
-		{
+        InputStream inputStream = null;
+        HttpURLConnection httpURLConnection = null;
 
-			if (null != url)
-			{
-				httpURLConnection = (HttpURLConnection) url.openConnection();
+        try {
 
-				httpURLConnection.setReadTimeout(readTimeOut);
-				httpURLConnection.setConnectTimeout(connectTimeOut);
+            if (null != url) {
+                httpURLConnection = (HttpURLConnection) url.openConnection();
 
-				httpURLConnection.setDoInput(true);
+                httpURLConnection.setReadTimeout(readTimeOut);
+                httpURLConnection.setConnectTimeout(connectTimeOut);
 
-				httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setDoInput(true);
 
-				// 200 stand for successfully connected
-				if (200 == httpURLConnection.getResponseCode())
-				{
-					inputStream = httpURLConnection.getInputStream();
-				}
+                httpURLConnection.setRequestMethod("GET");
 
-			}
-		}
-		catch (MalformedURLException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		return inputStream;
-	}
+                // 200 stand for successfully connected
+                if (200 == httpURLConnection.getResponseCode()) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
 
-
-	
+            }
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputStream;
+    }
 
 }
