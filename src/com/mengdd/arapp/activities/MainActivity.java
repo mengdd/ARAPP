@@ -1,15 +1,5 @@
 package com.mengdd.arapp.activities;
 
-import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.FrameHeaderViewModel.OnSettingListener;
-import com.mengdd.db.CustomMarkerTable;
-import com.mengdd.db.DatabaseManager;
-import com.mengdd.tests.AugmentedPOIActivity;
-import com.mengdd.tests.TestCompassActivity;
-import com.mengdd.tests.TestNaviUIActivity;
-import com.mengdd.utils.AppConstants;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -24,6 +14,19 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.mengdd.arapp.FrameHeaderViewModel;
+import com.mengdd.arapp.FrameHeaderViewModel.OnSettingListener;
+import com.mengdd.arapp.R;
+import com.mengdd.db.CustomMarkerTable;
+import com.mengdd.db.DatabaseManager;
+import com.mengdd.sina.weibo.data.WeiboAppConfig;
+import com.mengdd.tests.AugmentedPOIActivity;
+import com.mengdd.tests.TestCompassActivity;
+import com.mengdd.tests.TestNaviUIActivity;
+import com.mengdd.tests.TestSsoAuthorActivity;
+import com.mengdd.tests.TestUserAuthorizeActivity;
+import com.mengdd.utils.AppConstants;
 
 public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout = null;
@@ -62,6 +65,8 @@ public class MainActivity extends Activity {
         // bottom
         initDrawerList();
 
+        initSNSData();
+
     }
 
     private void initDrawerList() {
@@ -78,6 +83,9 @@ public class MainActivity extends Activity {
                 new Sample(R.string.search_navi, TestNaviUIActivity.class),
                 new Sample(R.string.test_compass, TestCompassActivity.class),
                 new Sample(R.string.test_markers, AugmentedPOIActivity.class),
+
+                new Sample(R.string.test_login, TestUserAuthorizeActivity.class),
+                new Sample(R.string.test_login_sso, TestSsoAuthorActivity.class)
 
         };
 
@@ -103,8 +111,8 @@ public class MainActivity extends Activity {
 
     // 私有类，List中的每一个例子
     private class Sample {
-        private CharSequence title;
-        private Class<? extends Activity> activityClass;
+        private final CharSequence title;
+        private final Class<? extends Activity> activityClass;
 
         public Sample(int titleResId, Class<? extends Activity> activityClass) {
             this.activityClass = activityClass;
@@ -124,6 +132,12 @@ public class MainActivity extends Activity {
             CustomMarkerTable.createTable();
         }
 
+    }
+
+    private void initSNSData() {
+        if (!WeiboAppConfig.isInited) {
+            WeiboAppConfig.loadConfig(this);
+        }
     }
 
 }

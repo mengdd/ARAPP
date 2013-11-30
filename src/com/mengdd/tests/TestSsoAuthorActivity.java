@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.mengdd.arapp.R;
 import com.mengdd.sina.weibo.authorize.AuthorizeSSOHelper;
 
-public class SsoAuthorActivity extends Activity {
+public class TestSsoAuthorActivity extends Activity {
 
     private AuthorizeSSOHelper mAuthSSOHelper = null;
 

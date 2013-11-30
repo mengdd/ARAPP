@@ -15,9 +15,9 @@ import android.widget.Toast;
 import com.mengdd.arapp.R;
 import com.mengdd.sina.weibo.api.SinaWeiboAPI;
 import com.mengdd.sina.weibo.api.UsersAPI;
-import com.mengdd.sina.weibo.data.AppConfig;
 import com.mengdd.sina.weibo.data.SinaConstants;
 import com.mengdd.sina.weibo.data.UserInfo;
+import com.mengdd.sina.weibo.data.WeiboAppConfig;
 import com.mengdd.sina.weibo.utils.AccessTokenKeeper;
 import com.mengdd.sina.weibo.utils.RequestListenerAdapter;
 import com.mengdd.utils.BitmapUtils;
@@ -27,7 +27,7 @@ import com.sina.weibo.sdk.auth.WeiboAuth;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;
 
-public class UserAuthorizeActivity extends Activity {
+public class TestUserAuthorizeActivity extends Activity {
 
     private static final String LOG_TAG = "user_login";
     private WeiboAuth mWeibo = null;
@@ -44,7 +44,7 @@ public class UserAuthorizeActivity extends Activity {
 
         setContentView(R.layout.test_user_authorize_activity);
 
-        mInstance = UserAuthorizeActivity.this;
+        mInstance = TestUserAuthorizeActivity.this;
         mUserInfoTextView = (TextView) findViewById(R.id.userInfo);
         // 实现TextView中文字可滚动
         mUserInfoTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -59,8 +59,11 @@ public class UserAuthorizeActivity extends Activity {
             }
         });
 
-        if (null != AppConfig.currentUserInfo.getName()) {
-            mUserInfo = AppConfig.currentUserInfo;
+        if (!WeiboAppConfig.isInited) {
+            WeiboAppConfig.loadConfig(this);
+        }
+        if (null != WeiboAppConfig.currentUserInfo.getName()) {
+            mUserInfo = WeiboAppConfig.currentUserInfo;
             try {
 
                 final Bitmap drawable = BitmapUtils.getBitmap(mUserInfo
@@ -136,7 +139,7 @@ public class UserAuthorizeActivity extends Activity {
             // 存进Preferences
             AccessTokenKeeper.keepAccessToken(mInstance, accessToken);
             // 设置进基类
-            AppConfig.accessToken = accessToken;
+            WeiboAppConfig.accessToken = accessToken;
             SinaWeiboAPI.setOAuth2accessToken(accessToken);
 
             Toast.makeText(mInstance, "认证成功!!!", Toast.LENGTH_SHORT).show();
@@ -161,7 +164,7 @@ public class UserAuthorizeActivity extends Activity {
 
                 mUserInfo = new UserInfo(json);
 
-                AppConfig.saveUserInfo(mInstance, mUserInfo);
+                WeiboAppConfig.saveUserInfo(mInstance, mUserInfo);
 
                 final Bitmap drawable = BitmapUtils.getBitmap(mUserInfo
                         .getIcon_url());

@@ -198,7 +198,10 @@
         <item>桌游</item>
     </string-array>
 
+    <!-- test activities -->
     <string name="test_compass">Test Compass</string>
     <string name="test_markers">Test Markers</string>
+    <string name="test_login">Test Login</string>
+    <string name="test_login_sso">Test Login SSO</string>
 
 </resources>

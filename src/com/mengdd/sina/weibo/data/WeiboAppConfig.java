@@ -7,8 +7,8 @@ import com.mengdd.sina.weibo.utils.AccessTokenKeeper;
 import com.mengdd.utils.SharedPrefUtil;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
-public class AppConfig {
-
+public class WeiboAppConfig {
+    public static boolean isInited = false;
     // AccessToken
     public static Oauth2AccessToken accessToken = null;
 
@@ -27,6 +27,7 @@ public class AppConfig {
         }
 
         currentUserInfo = new UserInfo(context);
+        isInited = true;
 
     }
 

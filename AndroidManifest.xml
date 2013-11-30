@@ -166,6 +166,10 @@
         </activity>
         <activity android:name="com.mengdd.tests.TestNaviUIActivity" >
         </activity>
+        <activity android:name="com.mengdd.tests.TestSsoAuthorActivity" >
+        </activity>
+        <activity android:name="com.mengdd.tests.TestUserAuthorizeActivity" >
+        </activity>
 
         <!-- Lab PC:  android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" -->
         <!-- Work PC:  android:value="AIzaSyAe3DcTEkyEF71dIdnZXOAyc9ue这里是两个杠urruo" -->
@@ -173,7 +177,7 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data
