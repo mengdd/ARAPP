@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -65,8 +66,8 @@ public class SearchRealSceneViewModel extends ViewModel implements
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mRootView = mInflater.inflate(R.layout.search_real_scene, null);
 
         mViewModels = new ArrayList<ViewModel>();

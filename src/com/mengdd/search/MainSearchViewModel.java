@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -73,8 +74,8 @@ public class MainSearchViewModel extends ViewModel {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         if (null == BaiduMapHelper.getMapManager()) {
             BaiduMapHelper.initBaiduMapManager(mActivity);

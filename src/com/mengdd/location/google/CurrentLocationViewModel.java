@@ -75,8 +75,8 @@ public class CurrentLocationViewModel extends ViewModel {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mLocationManager = (LocationManager) mActivity
                 .getSystemService(Context.LOCATION_SERVICE);

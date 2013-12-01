@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -83,8 +84,8 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mRootView = mInflater.inflate(R.layout.search_ui, null);
 
         mResources = mActivity.getResources();

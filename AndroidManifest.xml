@@ -177,7 +177,7 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data
@@ -196,6 +196,17 @@
             android:name="com.baidu.mapapi.search.PlaceCaterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+
+        <!-- 高德地图相关 -->
+
+
+        <!-- 高德地图的Key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="0c9b918dc5c4bc1a4b3e0295fdc071b6" />
+
+        <activity android:name="com.mengdd.tests.TestAutoNaviMapActivity" >
         </activity>
     </application>
 

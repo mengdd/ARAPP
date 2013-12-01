@@ -1,17 +1,17 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.GlobalARData;
-import com.mengdd.arapp.R;
-import com.mengdd.location.LocationView;
-import com.mengdd.location.google.GoogleCurrentLocation;
-import com.mengdd.location.google.GoogleLocationModel;
-
 import android.app.Activity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.mengdd.arapp.GlobalARData;
+import com.mengdd.arapp.R;
+import com.mengdd.location.LocationView;
+import com.mengdd.location.google.GoogleCurrentLocation;
+import com.mengdd.location.google.GoogleLocationModel;
 
 /**
  * Test Activity for Location ViewModel
@@ -38,7 +38,7 @@ public class TestGoogleLocationActivity extends Activity {
 
         mLocationViewModel = new GoogleCurrentLocation(this);
 
-        mLocationViewModel.onCreate(null);
+        mLocationViewModel.onCreate(savedInstanceState);
 
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.main_frame);
 
@@ -54,7 +54,7 @@ public class TestGoogleLocationActivity extends Activity {
 
         // use a LocationView to show the LocationModel data
         mLocationView = new LocationView(this);
-        mLocationView.onCreate(null);
+        mLocationView.onCreate(savedInstanceState);
 
         FrameLayout frameLayout2 = (FrameLayout) findViewById(R.id.frame2);
         frameLayout2.addView(mLocationView.getView());
@@ -97,7 +97,7 @@ public class TestGoogleLocationActivity extends Activity {
         mLocationViewModel.onDestroy();
     }
 
-    private LocationListener mLocationListener = new LocationListener() {
+    private final LocationListener mLocationListener = new LocationListener() {
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {

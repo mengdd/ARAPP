@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -51,8 +52,8 @@ public class Min3DLayerViewModel extends ViewModel implements ISceneController {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mRootView = mInflater.inflate(R.layout.min3d_viewmodel, null);
 

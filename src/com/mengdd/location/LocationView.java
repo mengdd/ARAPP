@@ -1,7 +1,6 @@
 package com.mengdd.location;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -25,8 +24,8 @@ public class LocationView extends ViewModel implements LocationListener {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mRootView = mInflater.inflate(R.layout.location_view, null);
 

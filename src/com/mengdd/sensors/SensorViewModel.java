@@ -89,8 +89,8 @@ public class SensorViewModel extends ViewModel implements LocationListener,
     private static Sensor sensorMag = null;
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class ViewModelManager {
 
     public static final int DEFAULT_MODE = 0;
     public static final int SINGLE_TOP_MODE = 1;
-    private int mLaunchMode = DEFAULT_MODE;
+    private final int mLaunchMode = DEFAULT_MODE;
 
     private ViewGroup mContentViewGroup = null;
     private ViewModel mCurrentViewModel = null;
@@ -151,7 +151,7 @@ public class ViewModelManager {
             boolean isAdd = true;
 
             if (!viewModel.IsInited()) {
-                viewModel.onCreate(intent);
+                viewModel.onCreate(intent.getExtras());
             }
 
             viewModel.onResume(intent);
@@ -305,7 +305,7 @@ public class ViewModelManager {
      */
     public void resumeCurrentViewModel(Intent intent) {
         if (mCurrentViewModel != null && !mCurrentViewModel.IsInited()) {
-            mCurrentViewModel.onCreate(intent);
+            mCurrentViewModel.onCreate(intent.getExtras());
         }
         if (mCurrentViewModel != null && !mCurrentViewModel.isActived()) {
             mCurrentViewModel.onResume(intent);

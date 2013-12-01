@@ -3,6 +3,7 @@ package com.mengdd.components;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public abstract class ViewModel {
     // 是否被创建了
     private boolean mInited = false;
 
-    public void onCreate(Intent intent) {
+    public void onCreate(Bundle savedInstanceState) {
         mInited = true;
     }
 
@@ -43,6 +44,10 @@ public abstract class ViewModel {
 
     public void onDestroy() {
         mInited = false;
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+
     }
 
     public boolean IsInited() {

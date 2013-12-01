@@ -2,6 +2,7 @@ package com.mengdd.map.google;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TableLayout.LayoutParams;
@@ -43,8 +44,8 @@ public class GoogleMapViewModel extends BasicMapViewModel {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mRootView = mInflater.inflate(R.layout.google_map_view_root, null);
 

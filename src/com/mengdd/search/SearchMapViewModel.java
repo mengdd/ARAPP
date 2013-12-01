@@ -46,8 +46,8 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mRootView = mInflater.inflate(R.layout.search_map, null);
 
         // basic map

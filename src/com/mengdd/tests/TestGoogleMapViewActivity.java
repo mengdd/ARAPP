@@ -1,16 +1,15 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-import com.mengdd.components.ViewModel;
-import com.mengdd.map.google.GoogleMapViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.mengdd.arapp.R;
+import com.mengdd.map.google.GoogleMapViewModel;
 
 /**
  * Test Activity for GoogleMapViewModel
@@ -34,7 +33,7 @@ public class TestGoogleMapViewActivity extends Activity {
         mMapContentFrameLayout = (FrameLayout) findViewById(R.id.mapContent);
 
         mMapViewModel = new GoogleMapViewModel(this);
-        mMapViewModel.onCreate(null);
+        mMapViewModel.onCreate(savedInstanceState);
 
         mMapContentFrameLayout.addView(mMapViewModel.getView());
 
@@ -46,7 +45,7 @@ public class TestGoogleMapViewActivity extends Activity {
 
     }
 
-    private OnCheckedChangeListener mMapCheckedChangeListener = new OnCheckedChangeListener() {
+    private final OnCheckedChangeListener mMapCheckedChangeListener = new OnCheckedChangeListener() {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView,

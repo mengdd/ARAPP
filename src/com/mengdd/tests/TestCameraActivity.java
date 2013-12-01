@@ -1,17 +1,11 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-import com.mengdd.camera.CameraViewModel;
-import com.mengdd.map.google.GoogleMapViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+
+import com.mengdd.arapp.R;
+import com.mengdd.camera.CameraViewModel;
 
 /**
  * Test Activity for Camera Module.
@@ -30,7 +24,7 @@ public class TestCameraActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mCameraViewModel = new CameraViewModel(this);
-        mCameraViewModel.onCreate(null);
+        mCameraViewModel.onCreate(savedInstanceState);
 
         setContentView(R.layout.test_camera);
 

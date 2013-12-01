@@ -1,11 +1,11 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-import com.mengdd.sensors.CompassViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+
+import com.mengdd.arapp.R;
+import com.mengdd.sensors.CompassViewModel;
 
 /**
  * Test Activity for CompassViewModel.
@@ -25,7 +25,7 @@ public class TestCompassActivity extends Activity {
         setContentView(R.layout.test_compass);
 
         mCompassViewModel = new CompassViewModel(this);
-        mCompassViewModel.onCreate(null);
+        mCompassViewModel.onCreate(savedInstanceState);
 
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.main_frame);
 

@@ -203,5 +203,6 @@
     <string name="test_markers">Test Markers</string>
     <string name="test_login">Test Login</string>
     <string name="test_login_sso">Test Login SSO</string>
+    <string name="test_autonavi_map">Test AutoNavi Map</string>
 
 </resources>

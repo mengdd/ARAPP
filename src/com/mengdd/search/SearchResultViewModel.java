@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,8 +54,8 @@ public class SearchResultViewModel extends ViewModel implements
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mRootView = mInflater.inflate(R.layout.search_result_list, null);
 
         mInfoTextView = (TextView) mRootView.findViewById(R.id.info);

@@ -1,7 +1,7 @@
 package com.mengdd.custommarker;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,8 +22,8 @@ public class CustomBottomViewModel extends ViewModel {
     }
 
     @Override
-    public void onCreate(Intent intent) {
-        super.onCreate(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mRootView = View.inflate(mActivity, R.layout.bottom_menu_custom, null);
 
         btn1 = (Button) mRootView.findViewById(R.id.custom_map);

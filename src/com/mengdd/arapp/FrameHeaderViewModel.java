@@ -1,7 +1,7 @@
 package com.mengdd.arapp;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -24,9 +24,9 @@ public class FrameHeaderViewModel extends ViewModel {
     }
 
     @Override
-    public void onCreate(Intent intent) {
+    public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        super.onCreate(intent);
+        super.onCreate(savedInstanceState);
         mRootView = View.inflate(mActivity, R.layout.frame_header, null);
         mBackView = (ImageView) mRootView.findViewById(R.id.header_back);
         mBackView.setOnClickListener(new OnClickListener() {
