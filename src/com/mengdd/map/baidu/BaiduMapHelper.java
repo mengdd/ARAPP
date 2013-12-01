@@ -24,7 +24,7 @@ public class BaiduMapHelper {
     // 我的笔记本：E49b553f34eb77132a2ee51e656627f0
     // private static final String strKey = "E49b553f34eb77132a2ee51e656627f0";
     // Lab PC:
-    private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
+    public static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
 
     // SG PC:
     // private static final String strKey = "FDa2d5111e0a3487be2e4927075d2629";

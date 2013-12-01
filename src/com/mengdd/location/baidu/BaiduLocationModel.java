@@ -1,8 +1,6 @@
 package com.mengdd.location.baidu;
 
 import android.app.Activity;
-import android.location.Location;
-import android.location.LocationManager;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -11,16 +9,17 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.location.LocationModel;
+import com.mengdd.map.baidu.BaiduMapHelper;
 import com.mengdd.utils.AppConstants;
 
 public class BaiduLocationModel extends LocationModel {
     // 我的笔记本：E49b553f34eb77132a2ee51e656627f0
-    private static final String strKey = "E49b553f34eb77132a2ee51e656627f0";
+    private static String strKey = "E49b553f34eb77132a2ee51e656627f0";
     // Lab PC:
     // private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
 
     private LocationClient mLocationClient = null;
-    private BDLocationListener mLocationListener = new MyLocationListener();
+    private final BDLocationListener mLocationListener = new MyLocationListener();
     private BDLocation mBDLocation = null;
 
     public BDLocation getBDLocaiton() {
@@ -36,6 +35,7 @@ public class BaiduLocationModel extends LocationModel {
 
         // 定位SDK4.0加入了Key
 
+        strKey = BaiduMapHelper.strKey;
         mLocationClient.setAK(strKey);
 
         mLocationClient.registerLocationListener(mLocationListener);
@@ -117,6 +117,7 @@ public class BaiduLocationModel extends LocationModel {
             // logMsg(sb.toString());
         }
 
+        @Override
         public void onReceivePoi(BDLocation poiLocation) {
             if (null == poiLocation) {
                 return;

@@ -10,16 +10,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.util.Log;
+
+import com.amap.api.location.AMapLocation;
 import com.baidu.location.BDLocation;
-import com.baidu.platform.comapi.map.l;
 import com.mengdd.location.baidu.BaiduLocationHelper;
 import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.Matrix;
-
-import android.location.Location;
-import android.location.LocationListener;
-import android.util.Log;
 
 /**
  * Abstract class which should be used to set global data.
@@ -80,6 +80,7 @@ public abstract class GlobalARData {
     // we have two location fields, they are updated by different SDK
     private static Location currentGoogleLocation = hardFix;
     private static BDLocation currentBaiduLocation = hardFixBD;
+    private static AMapLocation currentAutoNaviLocation = null;
 
     /**
      * Set the zoom level.
@@ -191,6 +192,21 @@ public abstract class GlobalARData {
         Location tempLocation = BaiduLocationHelper
                 .convertBD2AndroidLocation(currentLocation);
         onLocationChanged(tempLocation);
+    }
+
+    public static void setCurrentAutoNaviLocation(AMapLocation currentLocation)
+            throws IllegalArgumentException {
+        if (currentLocation == null) {
+            throw new IllegalArgumentException("currentLocaiont is null!");
+        }
+
+        synchronized (currentLocation) {
+            GlobalARData.currentAutoNaviLocation = currentLocation;
+        }
+
+        // 高德地图的AMapLocation extends Location from Android SDK
+        // 所以不需要转换
+        onLocationChanged(currentLocation);
     }
 
     // Observers
