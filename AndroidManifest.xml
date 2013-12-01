@@ -112,7 +112,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.mengdd.tests.AugmentedPOIActivity"
+            android:name="com.mengdd.tests.TestAugmentedPOIActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

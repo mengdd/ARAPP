@@ -37,7 +37,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 
-public class AugmentedPOIActivity extends Activity {
+public class TestAugmentedPOIActivity extends Activity {
     private List<ViewModel> mViewModels = null;
 
     // camera

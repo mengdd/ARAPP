@@ -11,7 +11,7 @@ import com.mengdd.camera.CameraViewModel;
 import com.mengdd.components.ViewModel;
 import com.mengdd.components.ViewModelManager;
 import com.mengdd.sensors.CompassViewModel;
-import com.mengdd.tests.AugmentedPOIActivity;
+import com.mengdd.tests.TestAugmentedPOIActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -170,7 +170,7 @@ public class RealSceneActivity extends Activity {
 
             break;
         case R.id.action_poi:
-            intent.setClass(RealSceneActivity.this, AugmentedPOIActivity.class);
+            intent.setClass(RealSceneActivity.this, TestAugmentedPOIActivity.class);
 
             startActivity(intent);
 

@@ -21,7 +21,7 @@ import com.mengdd.arapp.R;
 import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.db.DatabaseManager;
 import com.mengdd.sina.weibo.data.WeiboAppConfig;
-import com.mengdd.tests.AugmentedPOIActivity;
+import com.mengdd.tests.TestAugmentedPOIActivity;
 import com.mengdd.tests.TestCompassActivity;
 import com.mengdd.tests.TestNaviUIActivity;
 import com.mengdd.tests.TestSsoAuthorActivity;
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
                 new Sample(R.string.baidu_map, BDMapActivity.class),
                 new Sample(R.string.search_navi, TestNaviUIActivity.class),
                 new Sample(R.string.test_compass, TestCompassActivity.class),
-                new Sample(R.string.test_markers, AugmentedPOIActivity.class),
+                new Sample(R.string.test_markers, TestAugmentedPOIActivity.class),
 
                 new Sample(R.string.test_login, TestUserAuthorizeActivity.class),
                 new Sample(R.string.test_login_sso, TestSsoAuthorActivity.class)
