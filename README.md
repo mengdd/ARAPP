@@ -47,4 +47,9 @@ I also use the angle to place the AR Markers and handled the collisions of marke
 Also, I began to use a new formatter which put the left brace in the end of line.
 I think this may be the main reason for so much updates. Haha~
 
+2013-12-02 AutoNavi SDK added
+Since AutoNavi's SDK is quite similar to Baidu Map SDK, it's easy to add AutoNavi's Map and Location SDK to the framework.
+The same basic classes were used.
+
+
 

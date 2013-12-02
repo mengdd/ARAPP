@@ -17,47 +17,47 @@ import com.mengdd.utils.AppConstants;
 //but since Java only allows Single inheritance, so this class is not used yet
 public class MKSearchListenerAdapter implements MKSearchListener {
 
-	@Override
-	public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
+    @Override
+    public void onGetWalkingRouteResult(MKWalkingRouteResult result, int iError) {
 
-	}
+    }
 
-	@Override
-	public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
-	}
+    @Override
+    public void onGetTransitRouteResult(MKTransitRouteResult result, int iError) {
+    }
 
-	@Override
-	public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
-		Log.i(AppConstants.LOG_TAG, "onGetSuggestionResult: " + iError);
+    @Override
+    public void onGetSuggestionResult(MKSuggestionResult result, int iError) {
+        Log.i(AppConstants.LOG_TAG, "onGetSuggestionResult: " + iError);
 
-	}
+    }
 
-	@Override
-	public void onGetPoiResult(MKPoiResult result, int type, int iError) {
+    @Override
+    public void onGetPoiResult(MKPoiResult result, int type, int iError) {
 
-	}
+    }
 
-	@Override
-	public void onGetPoiDetailSearchResult(int type, int iError) {
-	}
+    @Override
+    public void onGetPoiDetailSearchResult(int type, int iError) {
+    }
 
-	@Override
-	public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
+    @Override
+    public void onGetDrivingRouteResult(MKDrivingRouteResult result, int iError) {
 
-	}
+    }
 
-	@Override
-	public void onGetBusDetailResult(MKBusLineResult result, int iError) {
-	}
+    @Override
+    public void onGetBusDetailResult(MKBusLineResult result, int iError) {
+    }
 
-	@Override
-	public void onGetAddrResult(MKAddrInfo result, int iError) {
-	}
+    @Override
+    public void onGetAddrResult(MKAddrInfo result, int iError) {
+    }
 
-	@Override
-	public void onGetShareUrlResult(MKShareUrlResult result, int type,
-			int iError) {
+    @Override
+    public void onGetShareUrlResult(MKShareUrlResult result, int type,
+            int iError) {
 
-	}
+    }
 
 }

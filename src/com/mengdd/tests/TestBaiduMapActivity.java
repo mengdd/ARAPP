@@ -15,100 +15,85 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 
-public class TestBaiduMapActivity extends Activity implements LocationListener
-{
+public class TestBaiduMapActivity extends Activity implements LocationListener {
 
-	private BaiduMapViewModel mMapViewModel = null;
-	private BaiduMyLocationOverlay myLocationOverlay = null;
-	private BaiduLocationModel mLocationModel = null;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.test_baidumap);
-		
-		//basic map
-		mMapViewModel = new BaiduMapViewModel(this);	
-		mMapViewModel.onCreate(null);			
-		FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frame);
-		frameLayout.addView(mMapViewModel.getView(), 0);
-		
-		//location
-		mLocationModel = new BaiduLocationModel(this);
-		GlobalARData.addLocationListener(this);
-		
-		//my location overlay
-		myLocationOverlay = new BaiduMyLocationOverlay(mMapViewModel.getMap());
-		
-		
-		
-	}
+    private BaiduMapViewModel mMapViewModel = null;
+    private BaiduMyLocationOverlay myLocationOverlay = null;
+    private BaiduLocationModel mLocationModel = null;
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		
-		mMapViewModel.onResume(null);
-		
-		mLocationModel.registerLocationUpdates();
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		mMapViewModel.onPause();
-		
-		mLocationModel.unregisterLocationUpdates();
-		GlobalARData.removeLocationListener(this);
-	}
+        setContentView(R.layout.test_baidumap);
 
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-		mMapViewModel.onStop();
-	}
+        // basic map
+        mMapViewModel = new BaiduMapViewModel(this);
+        mMapViewModel.onCreate(null);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame);
+        frameLayout.addView(mMapViewModel.getView(), 0);
 
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		mMapViewModel.onDestroy();
-	}
+        // location
+        mLocationModel = new BaiduLocationModel(this);
+        GlobalARData.addLocationListener(this);
 
-	@Override
-	public void onLocationChanged(Location location)
-	{
-		
-		BDLocation location2 = mLocationModel.getBDLocaiton();
-		Log.i(AppConstants.LOG_TAG, "baiduLocation info: " + location2 );
-		myLocationOverlay.setLocationData(location2);
-		
-		
-	}
+        // my location overlay
+        myLocationOverlay = new BaiduMyLocationOverlay(mMapViewModel.getMap());
 
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras)
-	{
-		
-	}
+    }
 
-	@Override
-	public void onProviderEnabled(String provider)
-	{
-		
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-	@Override
-	public void onProviderDisabled(String provider)
-	{
-		
-	}
-	
-	
+        mMapViewModel.onResume(null);
+
+        mLocationModel.registerLocationUpdates();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMapViewModel.onPause();
+
+        mLocationModel.unregisterLocationUpdates();
+        GlobalARData.removeLocationListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mMapViewModel.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMapViewModel.onDestroy();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        BDLocation location2 = mLocationModel.getBDLocaiton();
+        Log.i(AppConstants.LOG_TAG, "baiduLocation info: " + location2);
+        myLocationOverlay.setLocationData(location2);
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 
 }

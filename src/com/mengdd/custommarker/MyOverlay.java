@@ -27,131 +27,131 @@ import com.mengdd.utils.DialogUtils.OnSaveCustomMarkerListener;
 import com.mengdd.utils.UIUtils;
 
 public class MyOverlay extends ItemizedOverlay<OverlayItem> {
-	private MapView mMapView = null;
+    private MapView mMapView = null;
 
-	private List<MarkerItem> mItemsList = null;
-	private int mCurrentMoveItemId = -1;
-	private MarkerItem mCurItem = null;
+    private List<MarkerItem> mItemsList = null;
+    private int mCurrentMoveItemId = -1;
+    private MarkerItem mCurItem = null;
 
-	private PopupOverlay mPopupOverlay = null;
-	private View viewCache = null;
-	private View popupInfo = null;
-	private View popupLeft = null;
-	private View popupRight = null;
-	private TextView popupText = null;
+    private PopupOverlay mPopupOverlay = null;
+    private View viewCache = null;
+    private View popupInfo = null;
+    private View popupLeft = null;
+    private View popupRight = null;
+    private TextView popupText = null;
 
-	private Activity mActivity = null;
+    private Activity mActivity = null;
 
-	public MyOverlay(Activity activity, Drawable defaultMarker, MapView mapView) {
-		super(defaultMarker, mapView);
+    public MyOverlay(Activity activity, Drawable defaultMarker, MapView mapView) {
+        super(defaultMarker, mapView);
 
-		mActivity = activity;
-		mMapView = mapView;
+        mActivity = activity;
+        mMapView = mapView;
 
-		initOverlay();
+        initOverlay();
 
-	}
+    }
 
-	private void initOverlay() {
-		mMapView.getOverlays().add(this);
-		mItemsList = new ArrayList<MarkerItem>();
+    private void initOverlay() {
+        mMapView.getOverlays().add(this);
+        mItemsList = new ArrayList<MarkerItem>();
 
-		/**
-		 * 创建一个popupoverlay
-		 */
-		mPopupOverlay = new PopupOverlay(mMapView, popListener);
+        /**
+         * 创建一个popupoverlay
+         */
+        mPopupOverlay = new PopupOverlay(mMapView, popListener);
 
-		viewCache = mActivity.getLayoutInflater().inflate(R.layout.pop_view,
-				null);
-		popupInfo = (View) viewCache.findViewById(R.id.popinfo);
-		popupLeft = (View) viewCache.findViewById(R.id.popleft);
-		popupRight = (View) viewCache.findViewById(R.id.popright);
-		popupText = (TextView) viewCache.findViewById(R.id.textcache);
+        viewCache = mActivity.getLayoutInflater().inflate(R.layout.pop_view,
+                null);
+        popupInfo = (View) viewCache.findViewById(R.id.popinfo);
+        popupLeft = (View) viewCache.findViewById(R.id.popleft);
+        popupRight = (View) viewCache.findViewById(R.id.popright);
+        popupText = (TextView) viewCache.findViewById(R.id.textcache);
 
-	}
+    }
 
-	PopupClickListener popListener = new PopupClickListener() {
-		@Override
-		public void onClickedPopup(int index) {
+    PopupClickListener popListener = new PopupClickListener() {
+        @Override
+        public void onClickedPopup(int index) {
 
-		}
-	};
+        }
+    };
 
-	public void addNewItem(MarkerItem item) {
-		mItemsList.add(item);
-		mCurrentMoveItemId = mItemsList.size() - 1;
+    public void addNewItem(MarkerItem item) {
+        mItemsList.add(item);
+        mCurrentMoveItemId = mItemsList.size() - 1;
 
-		this.addItem(item.getItem());
-		mMapView.refresh();
-	}
+        this.addItem(item.getItem());
+        mMapView.refresh();
+    }
 
-	public void clearItems() {
-		mItemsList.clear();
-		mCurrentMoveItemId = -1;
-		this.removeAll();
-		mMapView.refresh();
-	}
+    public void clearItems() {
+        mItemsList.clear();
+        mCurrentMoveItemId = -1;
+        this.removeAll();
+        mMapView.refresh();
+    }
 
-	@Override
-	public boolean onTap(int index) {
-		Log.i(AppConstants.LOG_TAG, "onTap(int index)");
-		// OverlayItem item = getItem(index);
+    @Override
+    public boolean onTap(int index) {
+        Log.i(AppConstants.LOG_TAG, "onTap(int index)");
+        // OverlayItem item = getItem(index);
 
-		mCurItem = mItemsList.get(index);
+        mCurItem = mItemsList.get(index);
 
-		popupText.setText(getItem(index).getTitle());
-		Bitmap[] bitMaps = { UIUtils.getBitmapFromView(popupLeft),
-				UIUtils.getBitmapFromView(popupInfo),
-				UIUtils.getBitmapFromView(popupRight) };
-		mPopupOverlay.showPopup(bitMaps, mCurItem.getPosition(), 32);
+        popupText.setText(getItem(index).getTitle());
+        Bitmap[] bitMaps = { UIUtils.getBitmapFromView(popupLeft),
+                UIUtils.getBitmapFromView(popupInfo),
+                UIUtils.getBitmapFromView(popupRight) };
+        mPopupOverlay.showPopup(bitMaps, mCurItem.getPosition(), 32);
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean onTap(GeoPoint pt, MapView mMapView) {
-		Log.i(AppConstants.LOG_TAG, "onTap(GeoPoint pt, MapView mMapView): "
-				+ pt);
-		if (mPopupOverlay != null) {
-			mPopupOverlay.hidePop();
+    @Override
+    public boolean onTap(GeoPoint pt, MapView mMapView) {
+        Log.i(AppConstants.LOG_TAG, "onTap(GeoPoint pt, MapView mMapView): "
+                + pt);
+        if (mPopupOverlay != null) {
+            mPopupOverlay.hidePop();
 
-		}
+        }
 
-		if (-1 != mCurrentMoveItemId) {
-			MarkerItem moveItem = mItemsList.get(mCurrentMoveItemId);
+        if (-1 != mCurrentMoveItemId) {
+            MarkerItem moveItem = mItemsList.get(mCurrentMoveItemId);
 
-			moveItem.setPosition(pt);
-			updateItem(moveItem.getItem());
-			mMapView.refresh();
-		}
+            moveItem.setPosition(pt);
+            updateItem(moveItem.getItem());
+            mMapView.refresh();
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public boolean saveMarkerToDb(MarkerItem markerItem) {
-		boolean success = false;
+    public boolean saveMarkerToDb(MarkerItem markerItem) {
+        boolean success = false;
 
-		long ret = CustomMarkerTable.insert(markerItem);
+        long ret = CustomMarkerTable.insert(markerItem);
 
-		if (ret > 0) {
-			mCurrentMoveItemId = -1;
-			markerItem.setFixed(true);
-			updateItem(markerItem.getItem());
+        if (ret > 0) {
+            mCurrentMoveItemId = -1;
+            markerItem.setFixed(true);
+            updateItem(markerItem.getItem());
 
-			mMapView.refresh();
-			success = true;
-		}
-		return success;
+            mMapView.refresh();
+            success = true;
+        }
+        return success;
 
-	}
+    }
 
-	public MarkerItem getMovingItem() {
-		if (mCurrentMoveItemId >= 0 && mCurrentMoveItemId < mItemsList.size()) {
-			return mItemsList.get(mCurrentMoveItemId);
-		}
-		else {
-			return null;
-		}
-	}
+    public MarkerItem getMovingItem() {
+        if (mCurrentMoveItemId >= 0 && mCurrentMoveItemId < mItemsList.size()) {
+            return mItemsList.get(mCurrentMoveItemId);
+        }
+        else {
+            return null;
+        }
+    }
 
 }

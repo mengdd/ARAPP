@@ -1,17 +1,11 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-import com.mengdd.camera.CameraViewModel;
-import com.mengdd.map.google.GoogleMapViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+
+import com.mengdd.arapp.R;
+import com.mengdd.camera.CameraViewModel;
 
 /**
  * Test Activity for Camera Module.
@@ -22,51 +16,45 @@ import android.widget.ToggleButton;
  * @since 2013-07-01
  * 
  */
-public class TestCameraActivity extends Activity
-{
-	private CameraViewModel mCameraViewModel = null;
+public class TestCameraActivity extends Activity {
+    private CameraViewModel mCameraViewModel = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		mCameraViewModel = new CameraViewModel(this);
-		mCameraViewModel.onCreate(null);
+        mCameraViewModel = new CameraViewModel(this);
+        mCameraViewModel.onCreate(savedInstanceState);
 
-		setContentView(R.layout.test_camera);
+        setContentView(R.layout.test_camera);
 
-		FrameLayout frameLayout = (FrameLayout) findViewById(R.id.camera_frame);
-		frameLayout.addView(mCameraViewModel.getView(), 0);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.camera_frame);
+        frameLayout.addView(mCameraViewModel.getView(), 0);
 
-	}
+    }
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		mCameraViewModel.onResume(null);
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCameraViewModel.onResume(null);
+    }
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		mCameraViewModel.onPause();
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCameraViewModel.onPause();
+    }
 
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-		mCameraViewModel.onStop();
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mCameraViewModel.onStop();
+    }
 
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		mCameraViewModel.onDestroy();
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCameraViewModel.onDestroy();
+    }
 
 }

@@ -1,22 +1,22 @@
 package com.mengdd.tests;
 
-import com.mengdd.search.keywords.KeywordsNaviViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.mengdd.search.keywords.KeywordsNaviViewModel;
+
 public class TestNaviUIActivity extends Activity {
 
-	private KeywordsNaviViewModel mNaviViewModel = null;
+    private KeywordsNaviViewModel mNaviViewModel = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		mNaviViewModel = new KeywordsNaviViewModel(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mNaviViewModel = new KeywordsNaviViewModel(this);
 
-		mNaviViewModel.onCreate(null);
+        mNaviViewModel.onCreate(savedInstanceState);
 
-		setContentView(mNaviViewModel.getView());
+        setContentView(mNaviViewModel.getView());
 
-	}
+    }
 }

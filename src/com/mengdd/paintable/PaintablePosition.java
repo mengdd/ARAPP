@@ -5,142 +5,128 @@ import android.graphics.Canvas;
 /**
  * This class extends PaintableObject and adds the ability to rotate and scale.
  * 
- * The source of the codes:
- * 1."android-augment-reality-framework"
- * project link: http://code.google.com/p/android-augment-reality-framework/
+ * The source of the codes: 1."android-augment-reality-framework" project link:
+ * http://code.google.com/p/android-augment-reality-framework/
  * 
  * 
  * 2.The book: "Pro Android Augmented Reality"
- * http://www.apress.com/9781430239451
- * Official repository for Pro Android Augmented Reality:
- * https://github.com/RaghavSood/ProAndroidAugmentedReality
+ * http://www.apress.com/9781430239451 Official repository for Pro Android
+ * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
  * 
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
  */
-public class PaintablePosition extends PaintableObject
-{
+public class PaintablePosition extends PaintableObject {
 
-	private float width = 0, height = 0;
-	private float objX = 0, objY = 0, objRotation = 0, objScale = 0;
-	private PaintableObject obj = null;
+    private float width = 0, height = 0;
+    private float objX = 0, objY = 0, objRotation = 0, objScale = 0;
+    private PaintableObject obj = null;
 
-	public PaintablePosition(PaintableObject drawObj, float x, float y,
-			float rotation, float scale)
-	{
-		set(drawObj, x, y, rotation, scale);
-	}
+    public PaintablePosition(PaintableObject drawObj, float x, float y,
+            float rotation, float scale) {
+        set(drawObj, x, y, rotation, scale);
+    }
 
-	/**
-	 * Set this objects parameters. This should be used instead of creating new
-	 * objects.
-	 * 
-	 * @param drawObj
-	 *            Object to set for this Position.
-	 * @param x
-	 *            X coordinate of the Position.
-	 * @param y
-	 *            Y coordinate of the Position.
-	 * @param rotation
-	 *            Rotation of the Position.
-	 * @param scale
-	 *            Scale of the Position.
-	 * @throws IllegalArgumentException
-	 *             if PaintableObject is NULL.
-	 */
-	public void set(PaintableObject drawObj, float x, float y, float rotation,
-			float scale)
-	{
+    /**
+     * Set this objects parameters. This should be used instead of creating new
+     * objects.
+     * 
+     * @param drawObj
+     *            Object to set for this Position.
+     * @param x
+     *            X coordinate of the Position.
+     * @param y
+     *            Y coordinate of the Position.
+     * @param rotation
+     *            Rotation of the Position.
+     * @param scale
+     *            Scale of the Position.
+     * @throws IllegalArgumentException
+     *             if PaintableObject is NULL.
+     */
+    public void set(PaintableObject drawObj, float x, float y, float rotation,
+            float scale) {
 
-		if (null == drawObj)
-		{
-			throw new IllegalArgumentException("drawObj is null!");
+        if (null == drawObj) {
+            throw new IllegalArgumentException("drawObj is null!");
 
-		}
+        }
 
-		this.obj = drawObj;
-		this.objX = x;
-		this.objY = y;
-		this.objRotation = rotation;
-		this.objScale = scale;
-		this.width = obj.getWidth();
-		this.height = obj.getHeight();
-	}
+        this.obj = drawObj;
+        this.objX = x;
+        this.objY = y;
+        this.objRotation = rotation;
+        this.objScale = scale;
+        this.width = obj.getWidth();
+        this.height = obj.getHeight();
+    }
 
-	/**
-	 * Move the object.
-	 * 
-	 * @param x
-	 *            New X coordinate of the Position.
-	 * @param y
-	 *            New Y coordinate of the Position.
-	 */
-	public void move(float x, float y)
-	{
-		objX = x;
-		objY = y;
-	}
+    /**
+     * Move the object.
+     * 
+     * @param x
+     *            New X coordinate of the Position.
+     * @param y
+     *            New Y coordinate of the Position.
+     */
+    public void move(float x, float y) {
+        objX = x;
+        objY = y;
+    }
 
-	/**
-	 * X coordinate of the Object.
-	 * 
-	 * @return float X coordinate.
-	 */
-	public float getObjectsX()
-	{
-		return objX;
-	}
+    /**
+     * X coordinate of the Object.
+     * 
+     * @return float X coordinate.
+     */
+    public float getObjectsX() {
+        return objX;
+    }
 
-	/**
-	 * Y coordinate of the Object.
-	 * 
-	 * @return float Y coordinate.
-	 */
-	public float getObjectsY()
-	{
-		return objY;
-	}
+    /**
+     * Y coordinate of the Object.
+     * 
+     * @return float Y coordinate.
+     */
+    public float getObjectsY() {
+        return objY;
+    }
 
-	@Override
-	public void paint(Canvas canvas)
-	{
+    @Override
+    public void paint(Canvas canvas) {
 
-		if (null == canvas || null == obj)
-		{
-			throw new IllegalArgumentException("canvas or object is null!");
+        if (null == canvas || null == obj) {
+            throw new IllegalArgumentException("canvas or object is null!");
 
-		}
+        }
 
-		paintObj(canvas, obj, objX, objY, objRotation, objScale);
-	}
+        paintObj(canvas, obj, objX, objY, objRotation, objScale);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public float getWidth()
-	{
-		return width;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public float getWidth() {
+        return width;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public float getHeight()
-	{
-		return height;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public float getHeight() {
+        return height;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString()
-	{
-		return "< objX=" + objX + " objY=" + objY + " width=" + width
-				+ " height=" + height + " >";
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "< objX=" + objX + " objY=" + objY + " width=" + width
+                + " height=" + height + " >";
+    }
 }

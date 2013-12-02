@@ -1,8 +1,6 @@
 package com.mengdd.location.baidu;
 
 import android.app.Activity;
-import android.location.Location;
-import android.location.LocationManager;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -11,163 +9,144 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.location.LocationModel;
+import com.mengdd.map.baidu.BaiduMapHelper;
 import com.mengdd.utils.AppConstants;
 
-public class BaiduLocationModel extends LocationModel
-{
-	// 我的笔记本：E49b553f34eb77132a2ee51e656627f0
-	 private static final String strKey = "E49b553f34eb77132a2ee51e656627f0";
-	// Lab PC:
-	//private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
+public class BaiduLocationModel extends LocationModel {
+    // 我的笔记本：E49b553f34eb77132a2ee51e656627f0
+    private static String strKey = "E49b553f34eb77132a2ee51e656627f0";
+    // Lab PC:
+    // private static final String strKey = "B1e685d5d6e6cd3b6fb4db4a6f2116ba";
 
-	private LocationClient mLocationClient = null;
-	private BDLocationListener mLocationListener = new MyLocationListener();
-	private BDLocation mBDLocation = null;
-	public BDLocation getBDLocaiton()
-	{
-		return mBDLocation;
-	}
-	
+    private LocationClient mLocationClient = null;
+    private final BDLocationListener mLocationListener = new MyLocationListener();
+    private BDLocation mBDLocation = null;
 
-	public BaiduLocationModel(Activity activity)
-	{
-		super(activity);
-	}
+    public BDLocation getBDLocaiton() {
+        return mBDLocation;
+    }
 
-	private void initLocationClient()
-	{
-		mLocationClient = new LocationClient(mActivity);
-		
-		//定位SDK4.0加入了Key
+    public BaiduLocationModel(Activity activity) {
+        super(activity);
+    }
 
-		mLocationClient.setAK(strKey);
-		
-		mLocationClient.registerLocationListener(mLocationListener);
-		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);// 打开gps
-		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(5000);
-		mLocationClient.setLocOption(option);
+    private void initLocationClient() {
+        mLocationClient = new LocationClient(mActivity);
 
-		mLocationClient.start();
-		
+        // 定位SDK4.0加入了Key
 
-	}
+        strKey = BaiduMapHelper.strKey;
+        mLocationClient.setAK(strKey);
 
-	@Override
-	public void registerLocationUpdates()
-	{
-		
-		initLocationClient();
-		Log.d(AppConstants.LOG_TAG, "Register Baidu Location Model");
-		
-		if (null != mLocationClient && mLocationClient.isStarted())
-		{
-			mLocationClient.requestLocation();
-		}
-		else
-		{
-			Log.d(AppConstants.LOG_TAG, "locClient is null or not started");
-		}
+        mLocationClient.registerLocationListener(mLocationListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);// 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(5000);
+        mLocationClient.setLocOption(option);
 
-	}
+        mLocationClient.start();
 
-	@Override
-	public void unregisterLocationUpdates()
-	{
-		Log.d(AppConstants.LOG_TAG, "Unregister Baidu Location Model");
-		
-		if(null != mLocationClient)
-		{
-			mLocationClient.unRegisterLocationListener(mLocationListener);
-			mLocationClient.stop();
-			mLocationClient = null;
-		}
+    }
 
-	}
+    @Override
+    public void registerLocationUpdates() {
 
-	private class MyLocationListener implements BDLocationListener
-	{
-		@Override
-		public void onReceiveLocation(BDLocation location)
-		{
-			if (null == location)
-			{
-				return;
-			}
+        initLocationClient();
+        Log.d(AppConstants.LOG_TAG, "Register Baidu Location Model");
 
-			mBDLocation = location;
-			mCurrentLocation = BaiduLocationHelper.convertBD2AndroidLocation(location);
-			
-			//set to Global data class to keep
-			//GlobalARData.setCurrentGoogleLocation(mCurrentLocation);
-			GlobalARData.setCurrentBaiduLocation(mBDLocation);
+        if (null != mLocationClient && mLocationClient.isStarted()) {
+            mLocationClient.requestLocation();
+        }
+        else {
+            Log.d(AppConstants.LOG_TAG, "locClient is null or not started");
+        }
 
-			StringBuffer sb = new StringBuffer(256);
-			sb.append("time : ");
-			sb.append(location.getTime());
-			sb.append("\nerror code : ");
-			sb.append(location.getLocType());
-			sb.append("\nlatitude : ");
-			sb.append(location.getLatitude());
-			sb.append("\nlontitude : ");
-			sb.append(location.getLongitude());
-			sb.append("\nradius : ");
-			sb.append(location.getRadius());
-			if (location.getLocType() == BDLocation.TypeGpsLocation)
-			{
-				sb.append("\nspeed : ");
-				sb.append(location.getSpeed());
-				sb.append("\nsatellite : ");
-				sb.append(location.getSatelliteNumber());
-			}
-			else if (location.getLocType() == BDLocation.TypeNetWorkLocation)
-			{
-				sb.append("\naddr : ");
-				sb.append(location.getAddrStr());
-			}
+    }
 
-			Log.i(AppConstants.LOG_TAG, "Location info: " + sb.toString());
-			// logMsg(sb.toString());
-		}
+    @Override
+    public void unregisterLocationUpdates() {
+        Log.d(AppConstants.LOG_TAG, "Unregister Baidu Location Model");
 
-		
+        if (null != mLocationClient) {
+            mLocationClient.unRegisterLocationListener(mLocationListener);
+            mLocationClient.stop();
+            mLocationClient = null;
+        }
 
-		public void onReceivePoi(BDLocation poiLocation)
-		{
-			if (null == poiLocation)
-			{
-				return;
-			}
-			StringBuffer sb = new StringBuffer(256);
-			sb.append("Poi time : ");
-			sb.append(poiLocation.getTime());
-			sb.append("\nerror code : ");
-			sb.append(poiLocation.getLocType());
-			sb.append("\nlatitude : ");
-			sb.append(poiLocation.getLatitude());
-			sb.append("\nlontitude : ");
-			sb.append(poiLocation.getLongitude());
-			sb.append("\nradius : ");
-			sb.append(poiLocation.getRadius());
-			if (poiLocation.getLocType() == BDLocation.TypeNetWorkLocation)
-			{
-				sb.append("\naddr : ");
-				sb.append(poiLocation.getAddrStr());
-			}
-			if (poiLocation.hasPoi())
-			{
-				sb.append("\nPoi:");
-				sb.append(poiLocation.getPoi());
-			}
-			
-			
-			else
-			{
-				sb.append("noPoi information");
-			}
-			// logMsg(sb.toString());
-		}
-	}
+    }
+
+    private class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (null == location) {
+                return;
+            }
+
+            mBDLocation = location;
+            mCurrentLocation = BaiduLocationHelper
+                    .convertBD2AndroidLocation(location);
+
+            // set to Global data class to keep
+            // GlobalARData.setCurrentGoogleLocation(mCurrentLocation);
+            GlobalARData.setCurrentBaiduLocation(mBDLocation);
+
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("time : ");
+            sb.append(location.getTime());
+            sb.append("\nerror code : ");
+            sb.append(location.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(location.getRadius());
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                sb.append("\nspeed : ");
+                sb.append(location.getSpeed());
+                sb.append("\nsatellite : ");
+                sb.append(location.getSatelliteNumber());
+            }
+            else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+            }
+
+            Log.i(AppConstants.LOG_TAG, "Location info: " + sb.toString());
+            // logMsg(sb.toString());
+        }
+
+        @Override
+        public void onReceivePoi(BDLocation poiLocation) {
+            if (null == poiLocation) {
+                return;
+            }
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("Poi time : ");
+            sb.append(poiLocation.getTime());
+            sb.append("\nerror code : ");
+            sb.append(poiLocation.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(poiLocation.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(poiLocation.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(poiLocation.getRadius());
+            if (poiLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
+                sb.append("\naddr : ");
+                sb.append(poiLocation.getAddrStr());
+            }
+            if (poiLocation.hasPoi()) {
+                sb.append("\nPoi:");
+                sb.append(poiLocation.getPoi());
+            }
+
+            else {
+                sb.append("noPoi information");
+            }
+            // logMsg(sb.toString());
+        }
+    }
 
 }

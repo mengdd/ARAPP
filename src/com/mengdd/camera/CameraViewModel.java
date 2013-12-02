@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PictureCallback;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,196 +34,196 @@ import com.mengdd.utils.FileUtils.MediaType;
  * 
  */
 public class CameraViewModel extends ViewModel {
-	private Camera mCamera = null;
-	private CameraPreview mCameraPreview = null;
-	private View mRootView = null;
+    private Camera mCamera = null;
+    private CameraPreview mCameraPreview = null;
+    private View mRootView = null;
 
-	private int mNumberOfCameras;
-	private int mCameraCurrentlyLocked;
+    private int mNumberOfCameras;
+    private int mCameraCurrentlyLocked;
 
-	// The first rear facing camera
-	private int mDefaultCameraId;
-	private FrameLayout preview = null;
-	private Button captureButton = null;
+    // The first rear facing camera
+    private int mDefaultCameraId;
+    private FrameLayout preview = null;
+    private Button captureButton = null;
 
-	public void setCaptureButtonVisibility(int visibility) {
-		captureButton.setVisibility(visibility);
+    public void setCaptureButtonVisibility(int visibility) {
+        captureButton.setVisibility(visibility);
 
-	}
+    }
 
-	public CameraViewModel(Activity activity) {
-		super(activity);
+    public CameraViewModel(Activity activity) {
+        super(activity);
 
-	}
+    }
 
-	@Override
-	public View getView() {
-		return mRootView;
-	}
+    @Override
+    public View getView() {
+        return mRootView;
+    }
 
-	@Override
-	public void onCreate(Intent intent) {
-		super.onCreate(intent);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		mRootView = mInflater.inflate(R.layout.camera_view_model, null);
+        mRootView = mInflater.inflate(R.layout.camera_view_model, null);
 
-		// 使用按钮进行拍摄动作监听
-		captureButton = (Button) mRootView.findViewById(R.id.button_capture);
-		captureButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mCamera.takePicture(null, null, mPictureCallback);
-			}
-		});
+        // 使用按钮进行拍摄动作监听
+        captureButton = (Button) mRootView.findViewById(R.id.button_capture);
+        captureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCamera.takePicture(null, null, mPictureCallback);
+            }
+        });
 
-		// 获取相机id
-		mDefaultCameraId = getDefaultCameraId();
+        // 获取相机id
+        mDefaultCameraId = getDefaultCameraId();
 
-		mCameraCurrentlyLocked = mDefaultCameraId;
-	}
+        mCameraCurrentlyLocked = mDefaultCameraId;
+    }
 
-	@Override
-	public void onResume(Intent intent) {
-		super.onResume(intent);
+    @Override
+    public void onResume(Intent intent) {
+        super.onResume(intent);
 
-		// Add CameraPreview to layout
-		mCameraPreview = new CameraPreview(mActivity);
+        // Add CameraPreview to layout
+        mCameraPreview = new CameraPreview(mActivity);
 
-		preview = (FrameLayout) mRootView.findViewById(R.id.camera_preview);
-		preview.addView(mCameraPreview, 0);
+        preview = (FrameLayout) mRootView.findViewById(R.id.camera_preview);
+        preview.addView(mCameraPreview, 0);
 
-		mCamera = getCameraInstance(mCameraCurrentlyLocked);
+        mCamera = getCameraInstance(mCameraCurrentlyLocked);
 
-		mCameraPreview.setCamera(mCamera);
+        mCameraPreview.setCamera(mCamera);
 
-	}
+    }
 
-	@Override
-	public void onPause() {
-		super.onPause();
-		if (null != mCamera) {
-			mCameraPreview.setCamera(null);
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (null != mCamera) {
+            mCameraPreview.setCamera(null);
 
-			preview.removeViewAt(0);
+            preview.removeViewAt(0);
 
-			mCamera.stopPreview();
-			mCamera.setPreviewCallback(null);
-			mCamera.lock();
-			mCamera.release();
-			mCamera = null;
-		}
-	}
+            mCamera.stopPreview();
+            mCamera.setPreviewCallback(null);
+            mCamera.lock();
+            mCamera.release();
+            mCamera = null;
+        }
+    }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
-	/**
-	 * 得到默认相机的ID
-	 * 
-	 * @return
-	 */
-	private int getDefaultCameraId() {
-		Log.d(AppConstants.LOG_TAG, "getDefaultCameraId");
-		int defaultId = -1;
+    /**
+     * 得到默认相机的ID
+     * 
+     * @return
+     */
+    private int getDefaultCameraId() {
+        Log.d(AppConstants.LOG_TAG, "getDefaultCameraId");
+        int defaultId = -1;
 
-		// Find the total number of cameras available
-		mNumberOfCameras = Camera.getNumberOfCameras();
+        // Find the total number of cameras available
+        mNumberOfCameras = Camera.getNumberOfCameras();
 
-		// Find the ID of the default camera
-		CameraInfo cameraInfo = new CameraInfo();
-		for (int i = 0; i < mNumberOfCameras; i++) {
-			Camera.getCameraInfo(i, cameraInfo);
-			Log.d(AppConstants.LOG_TAG, "camera info, orientation: "
-					+ cameraInfo.orientation);
-			if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK) {
-				defaultId = i;
-			}
-		}
-		if (-1 == defaultId) {
-			if (mNumberOfCameras > 0) {
-				// 如果没有后向摄像头
-				defaultId = 0;
-			}
-			else {
-				// 没有摄像头
-				Toast.makeText(mActivity, R.string.no_camera, Toast.LENGTH_LONG)
-						.show();
-			}
-		}
-		return defaultId;
-	}
+        // Find the ID of the default camera
+        CameraInfo cameraInfo = new CameraInfo();
+        for (int i = 0; i < mNumberOfCameras; i++) {
+            Camera.getCameraInfo(i, cameraInfo);
+            Log.d(AppConstants.LOG_TAG, "camera info, orientation: "
+                    + cameraInfo.orientation);
+            if (cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK) {
+                defaultId = i;
+            }
+        }
+        if (-1 == defaultId) {
+            if (mNumberOfCameras > 0) {
+                // 如果没有后向摄像头
+                defaultId = 0;
+            }
+            else {
+                // 没有摄像头
+                Toast.makeText(mActivity, R.string.no_camera, Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
+        return defaultId;
+    }
 
-	/** A safe way to get an instance of the Camera object. */
-	public static Camera getCameraInstance(int cameraId) {
-		Log.d(AppConstants.LOG_TAG, "getCameraInstance");
-		Camera c = null;
-		try {
-			c = Camera.open(cameraId); // attempt to get a Camera instance
-		}
-		catch (Exception e) {
+    /** A safe way to get an instance of the Camera object. */
+    public static Camera getCameraInstance(int cameraId) {
+        Log.d(AppConstants.LOG_TAG, "getCameraInstance");
+        Camera c = null;
+        try {
+            c = Camera.open(cameraId); // attempt to get a Camera instance
+        }
+        catch (Exception e) {
 
-			e.printStackTrace();
-			Log.e(AppConstants.LOG_TAG, "Camera is not available");
-		}
-		return c; // returns null if camera is unavailable
-	}
+            e.printStackTrace();
+            Log.e(AppConstants.LOG_TAG, "Camera is not available");
+        }
+        return c; // returns null if camera is unavailable
+    }
 
-	private PictureCallback mPictureCallback = new PictureCallback() {
+    private PictureCallback mPictureCallback = new PictureCallback() {
 
-		@Override
-		public void onPictureTaken(byte[] data, Camera camera) {
-			Log.d(AppConstants.LOG_TAG, "onPictureTaken");
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            Log.d(AppConstants.LOG_TAG, "onPictureTaken");
 
-			File pictureFile = FileUtils.getOutputMediaFile(MediaType.Image);
-			if (null == pictureFile) {
-				Log.d(AppConstants.LOG_TAG,
-						"Error creating media file, check storage permissions: ");
-				return;
-			}
+            File pictureFile = FileUtils.getOutputMediaFile(MediaType.Image);
+            if (null == pictureFile) {
+                Log.d(AppConstants.LOG_TAG,
+                        "Error creating media file, check storage permissions: ");
+                return;
+            }
 
-			try {
-				FileOutputStream fos = new FileOutputStream(pictureFile);
-				fos.write(data);
-				fos.close();
-			}
-			catch (FileNotFoundException e) {
-				Log.d(AppConstants.LOG_TAG, "File not found: " + e.getMessage());
-			}
-			catch (IOException e) {
-				Log.d(AppConstants.LOG_TAG,
-						"Error accessing file: " + e.getMessage());
-			}
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+            }
+            catch (FileNotFoundException e) {
+                Log.d(AppConstants.LOG_TAG, "File not found: " + e.getMessage());
+            }
+            catch (IOException e) {
+                Log.d(AppConstants.LOG_TAG,
+                        "Error accessing file: " + e.getMessage());
+            }
 
-			// 拍照后重新开始预览
-			Log.d(AppConstants.LOG_TAG, "camera --> stopPreview");
-			mCamera.stopPreview();
-			Log.d(AppConstants.LOG_TAG, "camera --> startPreview");
-			mCamera.startPreview();
-		}
-	};
+            // 拍照后重新开始预览
+            Log.d(AppConstants.LOG_TAG, "camera --> stopPreview");
+            mCamera.stopPreview();
+            Log.d(AppConstants.LOG_TAG, "camera --> startPreview");
+            mCamera.startPreview();
+        }
+    };
 
-	/** Check if this device has a camera */
-	public boolean checkCameraHardware(Context context) {
-		if (context.getPackageManager().hasSystemFeature(
-				PackageManager.FEATURE_CAMERA)) {
-			// this device has a camera
-			return true;
-		}
-		else {
-			// no camera on this device
-			return false;
-		}
-	}
+    /** Check if this device has a camera */
+    public boolean checkCameraHardware(Context context) {
+        if (context.getPackageManager().hasSystemFeature(
+                PackageManager.FEATURE_CAMERA)) {
+            // this device has a camera
+            return true;
+        }
+        else {
+            // no camera on this device
+            return false;
+        }
+    }
 
-	public void setCameraOrientation(int degree) {
-		mCameraPreview.setDegree(degree);
-	}
+    public void setCameraOrientation(int degree) {
+        mCameraPreview.setDegree(degree);
+    }
 
 }

@@ -3,15 +3,15 @@ package com.mengdd.components;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 
 /**
  * ViewModel is a Module for easy control and combination of components.
- * Activity can use it as a View and add it in layouts.
- * ViewModel also has lifecycle method to invoke at corresponding Activity
- * lifecycle.
+ * Activity can use it as a View and add it in layouts. ViewModel also has
+ * lifecycle method to invoke at corresponding Activity lifecycle.
  * 
  * The codes are adapted from the codes of yangzc
  * 
@@ -22,75 +22,79 @@ import android.view.View;
  */
 public abstract class ViewModel {
 
-	protected Activity mActivity;
-	protected LayoutInflater mInflater;
+    protected Activity mActivity;
+    protected LayoutInflater mInflater;
 
-	protected ViewModel(Activity activity) {
-		this.mActivity = activity;
-		mInflater = (LayoutInflater) mActivity
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
+    protected ViewModel(Activity activity) {
+        this.mActivity = activity;
+        mInflater = (LayoutInflater) mActivity
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
-	// 是否被创建了
-	private boolean mInited = false;
+    // 是否被创建了
+    private boolean mInited = false;
 
-	public void onCreate(Intent intent) {
-		mInited = true;
-	}
+    public void onCreate(Bundle savedInstanceState) {
+        mInited = true;
+    }
 
-	public void onStop() {
+    public void onStop() {
 
-	}
+    }
 
-	public void onDestroy() {
-		mInited = false;
-	}
+    public void onDestroy() {
+        mInited = false;
+    }
 
-	public boolean IsInited() {
-		return mInited;
-	}
+    public void onSaveInstanceState(Bundle outState) {
 
-	// 是否正在运行
-	protected boolean mIsRunning = true;
+    }
 
-	public void onResume(Intent intent) {
-		mIsRunning = true;
-	}
+    public boolean IsInited() {
+        return mInited;
+    }
 
-	public void onPause() {
-		mIsRunning = false;
-	}
+    // 是否正在运行
+    protected boolean mIsRunning = true;
 
-	public boolean isActived() {
-		return mIsRunning;
-	}
+    public void onResume(Intent intent) {
+        mIsRunning = true;
+    }
 
-	public abstract View getView();
+    public void onPause() {
+        mIsRunning = false;
+    }
 
-	public void onAttachToWindow() {
-	}
+    public boolean isActived() {
+        return mIsRunning;
+    }
 
-	public void onDetachWithWindow() {
-	}
+    public abstract View getView();
 
-	public void onError() {
-	}
+    public void onAttachToWindow() {
+    }
 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		return true;
-	}
+    public void onDetachWithWindow() {
+    }
 
-	public void onNewIntent(Intent intent) {
-	}
+    public void onError() {
+    }
 
-	private String mTag;
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return true;
+    }
 
-	public void setTag(String tag) {
-		this.mTag = tag;
-	}
+    public void onNewIntent(Intent intent) {
+    }
 
-	public String getTag() {
-		return mTag;
-	}
+    private String mTag;
+
+    public void setTag(String tag) {
+        this.mTag = tag;
+    }
+
+    public String getTag() {
+        return mTag;
+    }
 
 }

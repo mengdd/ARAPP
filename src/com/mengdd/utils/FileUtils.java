@@ -21,150 +21,132 @@ import android.util.Log;
  * @since 2013-07-01
  * 
  */
-public class FileUtils
-{
+public class FileUtils {
 
-	public enum MediaType
-	{
-		Image, Video,
-	}
+    public enum MediaType {
+        Image, Video,
+    }
 
-	/** Create a File for saving an image or video */
-	public static File getOutputMediaFile(MediaType mediaType)
-	{
-		Log.d(AppConstants.LOG_TAG, "getOutputMediaFile");
-		// To be safe, you should check that the SDCard is mounted
-		// using Environment.getExternalStorageState() before doing this.
+    /** Create a File for saving an image or video */
+    public static File getOutputMediaFile(MediaType mediaType) {
+        Log.d(AppConstants.LOG_TAG, "getOutputMediaFile");
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
 
-		File mediaStorageDir = null;
-		try
-		{
-			// This location works best if you want the created images to be
-			// shared
-			// between applications and persist after your app has been
-			// uninstalled.
-			mediaStorageDir = new File(
-					Environment
-							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-					AppConfig.CAMERA_FILE_DIR);
+        File mediaStorageDir = null;
+        try {
+            // This location works best if you want the created images to be
+            // shared
+            // between applications and persist after your app has been
+            // uninstalled.
+            mediaStorageDir = new File(
+                    Environment
+                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                    AppConfig.CAMERA_FILE_DIR);
 
-			Log.d(AppConstants.LOG_TAG,
-					"Successfully created mediaStorageDir: " + mediaStorageDir);
+            Log.d(AppConstants.LOG_TAG,
+                    "Successfully created mediaStorageDir: " + mediaStorageDir);
 
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			Log.d(AppConstants.LOG_TAG, "Error in Creating mediaStorageDir: "
-					+ mediaStorageDir);
-		}
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Log.d(AppConstants.LOG_TAG, "Error in Creating mediaStorageDir: "
+                    + mediaStorageDir);
+        }
 
-		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists())
-		{
-			if (!mediaStorageDir.mkdirs())
-			{
-				// 在SD卡上创建文件夹需要权限：
-				// <uses-permission
-				// android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-				Log.d(AppConstants.LOG_TAG,
-						"failed to create directory, check if you have the WRITE_EXTERNAL_STORAGE permission");
-				return null;
-			}
-		}
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                // 在SD卡上创建文件夹需要权限：
+                // <uses-permission
+                // android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+                Log.d(AppConstants.LOG_TAG,
+                        "failed to create directory, check if you have the WRITE_EXTERNAL_STORAGE permission");
+                return null;
+            }
+        }
 
-		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
 
-		// create File
-		File mediaFile = null;
+        // create File
+        File mediaFile = null;
 
-		switch (mediaType)
-		{
-			case Image:
-				mediaFile = new File(mediaStorageDir.getPath() + File.separator
-						+ "IMG_" + timeStamp + ".jpg");
+        switch (mediaType) {
+        case Image:
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                    + "IMG_" + timeStamp + ".jpg");
 
-				break;
+            break;
 
-			case Video:
-				mediaFile = new File(mediaStorageDir.getPath() + File.separator
-						+ "VID_" + timeStamp + ".mp4");
-				break;
-			default:
-				break;
-		}
+        case Video:
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                    + "VID_" + timeStamp + ".mp4");
+            break;
+        default:
+            break;
+        }
 
-		return mediaFile;
-	}
+        return mediaFile;
+    }
 
-	/**
-	 * Get an InputScrean from a url string which points to a file path
-	 * @param urlStr
-	 * @return
-	 */
-	public static InputStream getInputStream(String urlStr)
-	{
-		FileInputStream inputStream = null;
-		
-		try
-		{
-			if (urlStr.startsWith("file://"))
-			{
-				urlStr = urlStr.replace("file://", "");
-			}
-			
-			inputStream = new FileInputStream(urlStr);
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-			Log.e(AppConstants.LOG_TAG, "file not found: " + urlStr);
-		}
-		return inputStream;
-		
-	}
-	/**
-	 * Get a String from a InputScream
-	 * 
-	 * @param inputStream
-	 * @return
-	 */
-	public static String getInputScreamString(InputStream inputStream)
-	{
-		if (inputStream == null)
-		{
-			throw new IllegalArgumentException("inputStream == null !");
-		}
+    /**
+     * Get an InputScrean from a url string which points to a file path
+     * 
+     * @param urlStr
+     * @return
+     */
+    public static InputStream getInputStream(String urlStr) {
+        FileInputStream inputStream = null;
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				inputStream), 8 * 1024);
-		StringBuilder sb = new StringBuilder();
+        try {
+            if (urlStr.startsWith("file://")) {
+                urlStr = urlStr.replace("file://", "");
+            }
 
-		try
-		{
-			String line;
-			while (null != (line = reader.readLine()))
-			{
-				sb.append(line + "\n");
-			}
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				inputStream.close();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		return sb.toString();
-	}
+            inputStream = new FileInputStream(urlStr);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.e(AppConstants.LOG_TAG, "file not found: " + urlStr);
+        }
+        return inputStream;
+
+    }
+
+    /**
+     * Get a String from a InputScream
+     * 
+     * @param inputStream
+     * @return
+     */
+    public static String getInputScreamString(InputStream inputStream) {
+        if (inputStream == null) {
+            throw new IllegalArgumentException("inputStream == null !");
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                inputStream), 8 * 1024);
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            String line;
+            while (null != (line = reader.readLine())) {
+                sb.append(line + "\n");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
 }

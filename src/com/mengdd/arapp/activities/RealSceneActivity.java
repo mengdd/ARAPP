@@ -11,7 +11,7 @@ import com.mengdd.camera.CameraViewModel;
 import com.mengdd.components.ViewModel;
 import com.mengdd.components.ViewModelManager;
 import com.mengdd.sensors.CompassViewModel;
-import com.mengdd.tests.AugmentedPOIActivity;
+import com.mengdd.tests.TestAugmentedPOIActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,174 +36,151 @@ import android.widget.ToggleButton;
  * @since 2013-07-01
  * 
  */
-public class RealSceneActivity extends Activity
-{
+public class RealSceneActivity extends Activity {
 
+    private ToggleButton mCompassSwitchBtn = null;
 
-	private ToggleButton mCompassSwitchBtn = null;
+    private List<ViewModel> mViewModels = null;
+    private CameraViewModel mCameraViewModel = null;
+    private CompassViewModel mCompassViewModel = null;
 
-	private List<ViewModel> mViewModels = null;
-	private CameraViewModel mCameraViewModel = null;
-	private CompassViewModel mCompassViewModel = null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        // no title and fullscreen
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+        setContentView(R.layout.first);
 
-		// no title and fullscreen
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        mViewModels = new ArrayList<ViewModel>();
 
-		setContentView(R.layout.first);
+        mCameraViewModel = new CameraViewModel(this);
+        mCompassViewModel = new CompassViewModel(this);
 
-		mViewModels = new ArrayList<ViewModel>();
+        mViewModels.add(mCameraViewModel);
+        mViewModels.add(mCompassViewModel);
 
-		mCameraViewModel = new CameraViewModel(this);
-		mCompassViewModel = new CompassViewModel(this);
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onCreate(null);
+        }
 
-		mViewModels.add(mCameraViewModel);
-		mViewModels.add(mCompassViewModel);
+        // add camera view
+        FrameLayout cameraLayout = (FrameLayout) findViewById(R.id.camera_frame);
+        cameraLayout.addView(mCameraViewModel.getView(), 0);
 
-		for (ViewModel viewModel : mViewModels)
-		{
-			viewModel.onCreate(null);
-		}
+        // add compass view
+        FrameLayout mCompassContent = (FrameLayout) findViewById(R.id.compass_frame);
+        mCompassContent.addView(mCompassViewModel.getView(), 0);
+        mCompassViewModel.setVisibility(View.GONE);
 
-		// add camera view
-		FrameLayout cameraLayout = (FrameLayout) findViewById(R.id.camera_frame);
-		cameraLayout.addView(mCameraViewModel.getView(), 0);
+        // Compass Switch Button
+        mCompassSwitchBtn = (ToggleButton) findViewById(R.id.compassSwitch);
+        mCompassSwitchBtn.setChecked(false);
+        mCompassSwitchBtn
+                .setOnCheckedChangeListener(mSwichCheckedChangeListener);
 
-		// add compass view
-		FrameLayout mCompassContent = (FrameLayout) findViewById(R.id.compass_frame);
-		mCompassContent.addView(mCompassViewModel.getView(), 0);
-		mCompassViewModel.setVisibility(View.GONE);
+    }
 
-		// Compass Switch Button
-		mCompassSwitchBtn = (ToggleButton) findViewById(R.id.compassSwitch);
-		mCompassSwitchBtn.setChecked(false);
-		mCompassSwitchBtn
-				.setOnCheckedChangeListener(mSwichCheckedChangeListener);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onResume(null);
+        }
 
+        mCameraViewModel.setCameraOrientation(0);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onPause();
+        }
+    }
 
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onStop();
+        }
+    }
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		for (ViewModel viewModel : mViewModels)
-		{
-			viewModel.onResume(null);
-		}
-		
-		mCameraViewModel.setCameraOrientation(0);
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onDestroy();
+        }
+    }
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		for (ViewModel viewModel : mViewModels)
-		{
-			viewModel.onPause();
-		}
-	}
+    private OnCheckedChangeListener mSwichCheckedChangeListener = new OnCheckedChangeListener() {
 
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-		for (ViewModel viewModel : mViewModels)
-		{
-			viewModel.onStop();
-		}
-	}
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked) {
+            switch (buttonView.getId()) {
 
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		for (ViewModel viewModel : mViewModels)
-		{
-			viewModel.onDestroy();
-		}
-	}
+            case R.id.compassSwitch:
+                if (isChecked) {
+                    mCompassViewModel.setVisibility(View.VISIBLE);
 
-	private OnCheckedChangeListener mSwichCheckedChangeListener = new OnCheckedChangeListener()
-	{
+                }
+                else {
+                    mCompassViewModel.setVisibility(View.GONE);
+                }
 
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked)
-		{
-			switch (buttonView.getId())
-			{
+                break;
+            default:
+                break;
+            }
 
-				case R.id.compassSwitch:
-					if (isChecked)
-					{
-						mCompassViewModel.setVisibility(View.VISIBLE);
+        }
+    };
 
-					}
-					else
-					{
-						mCompassViewModel.setVisibility(View.GONE);
-					}
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        // This method is to init the Menu
 
-					break;
-				default:
-					break;
-			}
+        super.onCreateOptionsMenu(menu);
 
-		}
-	};
+        getMenuInflater().inflate(R.menu.main, menu);
 
-	@Override
-	public boolean onCreateOptionsMenu(android.view.Menu menu)
-	{
-		// This method is to init the Menu
+        return true;
+    };
 
-		super.onCreateOptionsMenu(menu);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent();
+        switch (item.getItemId()) {
 
-		getMenuInflater().inflate(R.menu.main, menu);
+        case R.id.action_baidu_map:
 
-		return true;
-	};
+            intent.setClass(RealSceneActivity.this, BDMapActivity.class);
+            startActivity(intent);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		Intent intent = new Intent();
-		switch (item.getItemId())
-		{
+            break;
+        case R.id.action_google_map:
+            intent.setClass(RealSceneActivity.this, GMapActivity.class);
 
-			case R.id.action_baidu_map:
+            startActivity(intent);
 
-				intent.setClass(RealSceneActivity.this, BDMapActivity.class);
-				startActivity(intent);
+            break;
+        case R.id.action_poi:
+            intent.setClass(RealSceneActivity.this, TestAugmentedPOIActivity.class);
 
-				break;
-			case R.id.action_google_map:
-				intent.setClass(RealSceneActivity.this, GMapActivity.class);
+            startActivity(intent);
 
-				startActivity(intent);
+            break;
 
-				break;
-			case R.id.action_poi:
-				intent.setClass(RealSceneActivity.this, AugmentedPOIActivity.class);
+        default:
+            return super.onOptionsItemSelected(item);
 
-				startActivity(intent);
+        }
 
-				break;
-
-			default:
-				return super.onOptionsItemSelected(item);
-
-		}
-
-		return true;
-	}
+        return true;
+    }
 }

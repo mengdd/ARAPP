@@ -1,16 +1,16 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-import com.mengdd.components.ViewModel;
-import com.mengdd.map.google.GoogleMapViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.mengdd.arapp.R;
+import com.mengdd.map.google.GoogleMapViewModel;
+
 /**
  * Test Activity for GoogleMapViewModel
  * 
@@ -19,51 +19,45 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * @since 2013-07-01
  * 
  */
-public class TestGoogleMapViewActivity extends Activity
-{
-	private FrameLayout mMapContentFrameLayout = null;
-	private GoogleMapViewModel mMapViewModel = null;
+public class TestGoogleMapViewActivity extends Activity {
+    private FrameLayout mMapContentFrameLayout = null;
+    private GoogleMapViewModel mMapViewModel = null;
 
-	private ToggleButton mMapSwitchBtn = null;
+    private ToggleButton mMapSwitchBtn = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test_mapview);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.test_mapview);
 
-		mMapContentFrameLayout = (FrameLayout) findViewById(R.id.mapContent);
+        mMapContentFrameLayout = (FrameLayout) findViewById(R.id.mapContent);
 
-		mMapViewModel = new GoogleMapViewModel(this);
-		mMapViewModel.onCreate(null);
+        mMapViewModel = new GoogleMapViewModel(this);
+        mMapViewModel.onCreate(savedInstanceState);
 
-		mMapContentFrameLayout.addView(mMapViewModel.getView());
+        mMapContentFrameLayout.addView(mMapViewModel.getView());
 
-		mMapViewModel.setVisibility(View.GONE);
+        mMapViewModel.setVisibility(View.GONE);
 
-		mMapSwitchBtn = (ToggleButton) findViewById(R.id.mapSwitch);
-		mMapSwitchBtn.setChecked(false);
-		mMapSwitchBtn.setOnCheckedChangeListener(mMapCheckedChangeListener);
+        mMapSwitchBtn = (ToggleButton) findViewById(R.id.mapSwitch);
+        mMapSwitchBtn.setChecked(false);
+        mMapSwitchBtn.setOnCheckedChangeListener(mMapCheckedChangeListener);
 
-	}
+    }
 
-	private OnCheckedChangeListener mMapCheckedChangeListener = new OnCheckedChangeListener()
-	{
+    private final OnCheckedChangeListener mMapCheckedChangeListener = new OnCheckedChangeListener() {
 
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked)
-		{
-			if (isChecked)
-			{
-				mMapViewModel.setVisibility(View.VISIBLE);
-			}
-			else
-			{
-				mMapViewModel.setVisibility(View.GONE);
-			}
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked) {
+            if (isChecked) {
+                mMapViewModel.setVisibility(View.VISIBLE);
+            }
+            else {
+                mMapViewModel.setVisibility(View.GONE);
+            }
 
-		}
-	};
+        }
+    };
 
 }
