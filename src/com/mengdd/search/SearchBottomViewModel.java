@@ -44,8 +44,6 @@ public class SearchBottomViewModel extends ViewModel implements OnClickListener 
             btn.setOnClickListener(this);
         }
 
-        //默认选择第一个
-        btn1.setSelected(true);
     }
 
     public Button getButton(int index) {
@@ -63,16 +61,15 @@ public class SearchBottomViewModel extends ViewModel implements OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if (null != mOnClickListener) {
-            mOnClickListener.onClick(v);
-        }
-
         for (Button btn : mButtons) {
             if (btn == v) {
                 btn.setSelected(true);
             } else {
                 btn.setSelected(false);
             }
+        }
+        if (null != mOnClickListener) {
+            mOnClickListener.onClick(v);
         }
 
     }

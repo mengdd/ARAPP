@@ -113,7 +113,7 @@
     <string name="default_hint">Input the keywords you want to search</string>
     <string name="default_keyword">餐厅</string>
     <string name="clear_before">Clear Before Search</string>
-    <string name="current_location">Current Location:</string>
+    <string name="your_current_location">Your current location is: </string>
     <string name="search_radius">Search Radius</string>
     <!-- search navi -->
     <string name="search_navi">Search Navigation</string>

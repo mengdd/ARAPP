@@ -1,5 +1,8 @@
 package com.mengdd.custommarker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +12,11 @@ import android.widget.Button;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 
-public class CustomBottomViewModel extends ViewModel {
+public class CustomBottomViewModel extends ViewModel implements OnClickListener {
 
     private View mRootView;
 
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
+    private List<Button> mButtons = null;
 
     public CustomBottomViewModel(Activity activity) {
         super(activity);
@@ -26,26 +27,53 @@ public class CustomBottomViewModel extends ViewModel {
         super.onCreate(savedInstanceState);
         mRootView = View.inflate(mActivity, R.layout.bottom_menu_custom, null);
 
-        btn1 = (Button) mRootView.findViewById(R.id.custom_map);
-        btn2 = (Button) mRootView.findViewById(R.id.custom_list);
-        btn3 = (Button) mRootView.findViewById(R.id.custom_realscene);
+        Button btn1 = (Button) mRootView.findViewById(R.id.custom_map);
+        Button btn2 = (Button) mRootView.findViewById(R.id.custom_list);
+        Button btn3 = (Button) mRootView.findViewById(R.id.custom_realscene);
+
+        mButtons = new ArrayList<Button>();
+        mButtons.add(btn1);
+        mButtons.add(btn2);
+        mButtons.add(btn3);
+
+        for (Button button : mButtons) {
+            button.setOnClickListener(this);
+        }
 
     }
 
-    public void setOnClickListener(OnClickListener listener) {
-        if (null == listener) {
-            throw new IllegalArgumentException("listener is null!");
-        }
+    private OnClickListener mOnClickListener = null;
 
-        btn1.setOnClickListener(listener);
-        btn2.setOnClickListener(listener);
-        btn3.setOnClickListener(listener);
+    public void setOnClickListener(OnClickListener listener) {
+
+        mOnClickListener = listener;
 
     }
 
     @Override
     public View getView() {
         return mRootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        for (Button btn : mButtons) {
+            if (btn == v) {
+                btn.setSelected(true);
+            } else {
+                btn.setSelected(false);
+            }
+        }
+        if (null != mOnClickListener) {
+            mOnClickListener.onClick(v);
+        }
+
+    }
+
+    public Button getButton(int index) {
+        Button resultButton = mButtons.get(index);
+
+        return resultButton;
     }
 
 }

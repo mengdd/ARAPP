@@ -162,11 +162,15 @@ public class MainSearchViewModel extends ViewModel {
         SearchBottomViewModel bottomViewModel = new SearchBottomViewModel(
                 mActivity);
         bottomViewModel.onCreate(null);
+
         // bottom menu
         FrameLayout bottomFrameLayout = (FrameLayout) mRootView
                 .findViewById(R.id.bottom_menu);
         bottomFrameLayout.addView(bottomViewModel.getView());
         bottomViewModel.setOnClickListener(mBottomOnClickListener);
+
+        // 默认选择第一个tab
+        bottomViewModel.getButton(0).setSelected(true);
     }
 
     private OnClickListener mBottomOnClickListener = new OnClickListener() {

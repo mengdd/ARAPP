@@ -25,6 +25,9 @@
     <color name="bottom_menu_button_selected">#FF1E2357</color>
     <color name="bottom_menu_text_normal">#FFF0F0F0</color>
     <color name="bottom_menu_text_selected">#FFFFFFFF</color>
+    
+    <!-- search -->
+    <color name="search_current_location_bg_color">#A04896FF</color>
 
     <!-- Button -->
     <color name="btn_text">#FFFFFFFF</color>

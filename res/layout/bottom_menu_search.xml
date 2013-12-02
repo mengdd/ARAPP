@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:minHeight="@dimen/bottom_menu_height"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/bottom_padding_vertical"
-    android:paddingTop="@dimen/bottom_padding_vertical" >
+    android:orientation="horizontal" >
 
     <Button
         android:id="@+id/search_menu_ui"

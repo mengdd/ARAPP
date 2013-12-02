@@ -1,60 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:minHeight="@dimen/bottom_menu_height"
+    android:orientation="horizontal" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="10dp" >
+    <Button
+        android:id="@+id/custom_map"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_map"
+        android:text="@string/custom_menu_map" />
 
-        <Button
-            android:id="@+id/custom_map"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/bottom_menu_button_bg"
-            android:ellipsize="marquee"
-            android:padding="2dp"
-            android:singleLine="true"
-            android:text="@string/custom_menu_map"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+    <Button
+        android:id="@+id/custom_list"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_list"
+        android:text="@string/custom_menu_list" />
 
-        <Button
-            android:id="@+id/custom_list"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/bottom_menu_button_bg"
-            android:ellipsize="marquee"
-            android:padding="2dp"
-            android:singleLine="true"
-            android:text="@string/custom_menu_list"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+    <Button
+        android:id="@+id/custom_realscene"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_camera"
+        android:text="@string/custom_menu_realscene" />
 
-
-
-        <Button
-            android:id="@+id/custom_realscene"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bottom_menu_button_bg"
-            android:ellipsize="marquee"
-            android:padding="2dp"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:text="@string/custom_menu_realscene"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-</HorizontalScrollView>
+</LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -103,7 +104,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
         mInputMethodManager = (InputMethodManager) mActivity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        Button searchBtn = (Button) mRootView.findViewById(R.id.search_btn);
+        View searchBtn = mRootView.findViewById(R.id.search_btn);
         searchBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -162,6 +163,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
         keyLayout.addView(mKeywordsViewModel.getView());
         mKeywordsViewModel.setKeywordListener(mKeywordListener);
 
+
     }
 
     private KeywordListener mKeywordListener = new KeywordListener() {
@@ -208,21 +210,21 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                case R.id.radio_mode_inCity:
-                    mCityModeView.setVisibility(View.VISIBLE);
-                    mNearModeView.setVisibility(View.GONE);
+                    case R.id.radio_mode_inCity:
+                        mCityModeView.setVisibility(View.VISIBLE);
+                        mNearModeView.setVisibility(View.GONE);
 
-                    break;
+                        break;
 
-                case R.id.radio_mode_nearby:
+                    case R.id.radio_mode_nearby:
 
-                    mCityModeView.setVisibility(View.GONE);
-                    mNearModeView.setVisibility(View.VISIBLE);
+                        mCityModeView.setVisibility(View.GONE);
+                        mNearModeView.setVisibility(View.VISIBLE);
 
-                    break;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
                 }
 
             }
@@ -300,8 +302,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
                 result = mSearch.poiSearchInCity(editCity.getText().toString(),
                         keyword);
-            }
-            else if (mRadioButtonNear.isChecked()) {
+            } else if (mRadioButtonNear.isChecked()) {
 
                 // location
                 BDLocation location = GlobalARData.getCurrentBaiduLocation();
@@ -322,8 +323,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
                     mSearchSuccessListener.onSearchCompleted();
                 }
 
-            }
-            else {
+            } else {
                 Toast.makeText(mActivity,
                         "Search Failed! Please Check the Network!",
                         Toast.LENGTH_LONG).show();
@@ -406,7 +406,9 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
             // Toast.makeText(mActivity, strInfo, Toast.LENGTH_LONG).show();
 
-            mCurrentLocationTextView.setText(strInfo);
+            mCurrentLocationTextView.setText(mResources
+                    .getString(R.string.your_current_location) + " " + strInfo);
+            mCurrentLocationTextView.setSelected(true);
         }
     }
 

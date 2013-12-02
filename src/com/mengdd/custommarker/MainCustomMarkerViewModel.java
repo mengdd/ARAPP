@@ -122,6 +122,8 @@ public class MainCustomMarkerViewModel extends ViewModel {
                 .findViewById(R.id.bottom_menu);
         bottomFrameLayout.addView(bottomViewModel.getView());
         bottomViewModel.setOnClickListener(mBottomOnClickListener);
+
+        bottomViewModel.getButton(0).setSelected(true);
     }
 
     private OnClickListener mBottomOnClickListener = new OnClickListener() {
@@ -129,24 +131,24 @@ public class MainCustomMarkerViewModel extends ViewModel {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-            case R.id.custom_map:
+                case R.id.custom_map:
 
-                switchScene(CustomMarkerScene.Map);
+                    switchScene(CustomMarkerScene.Map);
 
-                break;
-            case R.id.custom_list:
+                    break;
+                case R.id.custom_list:
 
-                switchScene(CustomMarkerScene.List);
+                    switchScene(CustomMarkerScene.List);
 
-                break;
-            case R.id.custom_realscene:
+                    break;
+                case R.id.custom_realscene:
 
-                switchScene(CustomMarkerScene.RealScene);
+                    switchScene(CustomMarkerScene.RealScene);
 
-                break;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
 
         }
@@ -156,41 +158,41 @@ public class MainCustomMarkerViewModel extends ViewModel {
     private void switchScene(CustomMarkerScene scene) {
 
         switch (scene) {
-        case Map:
+            case Map:
 
-            if (CustomMarkerScene.RealScene == mCurrentScene) {
-                mRealSceneViewModel.onPause();
-            }
+                if (CustomMarkerScene.RealScene == mCurrentScene) {
+                    mRealSceneViewModel.onPause();
+                }
 
-            mContentLayout.removeAllViews();
-            mMapViewModel.onResume(null);
-            mContentLayout.addView(mMapView);
+                mContentLayout.removeAllViews();
+                mMapViewModel.onResume(null);
+                mContentLayout.addView(mMapView);
 
-            break;
-        case List:
-            if (CustomMarkerScene.RealScene == mCurrentScene) {
-                mRealSceneViewModel.onPause();
-            }
-            if (CustomMarkerScene.Map == mCurrentScene) {
-                mMapViewModel.onPause();
-            }
+                break;
+            case List:
+                if (CustomMarkerScene.RealScene == mCurrentScene) {
+                    mRealSceneViewModel.onPause();
+                }
+                if (CustomMarkerScene.Map == mCurrentScene) {
+                    mMapViewModel.onPause();
+                }
 
-            mContentLayout.removeAllViews();
-            mContentLayout.addView(mListView);
+                mContentLayout.removeAllViews();
+                mContentLayout.addView(mListView);
 
-            break;
-        case RealScene:
-            if (CustomMarkerScene.Map == mCurrentScene) {
-                mMapViewModel.onPause();
-            }
-            mContentLayout.removeAllViews();
-            mRealSceneViewModel.onResume(null);
-            mContentLayout.addView(mRealSceneView);
+                break;
+            case RealScene:
+                if (CustomMarkerScene.Map == mCurrentScene) {
+                    mMapViewModel.onPause();
+                }
+                mContentLayout.removeAllViews();
+                mRealSceneViewModel.onResume(null);
+                mContentLayout.addView(mRealSceneView);
 
-            break;
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
 
         mCurrentScene = scene;
