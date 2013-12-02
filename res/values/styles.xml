@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,6 +15,17 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+     <!-- BottomMenu button ie. tab -->
+     <style name="BottomMenuButton">
+        <item name="android:background">@drawable/bottom_menu_button_bg</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/bottom_menu_text_size</item>
+        <item name="android:textColor">@color/bottom_menu_text_normal</item>
+        <item name="android:singleLine">true</item>
     </style>
 
 </resources>

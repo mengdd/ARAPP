@@ -1,5 +1,8 @@
 package com.mengdd.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +14,10 @@ import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.utils.AppConstants;
 
-public class SearchBottomViewModel extends ViewModel {
+public class SearchBottomViewModel extends ViewModel implements OnClickListener {
     private View mRootView;
 
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
-    private Button btn4;
+    private List<Button> mButtons = null;
 
     public SearchBottomViewModel(Activity activity) {
         super(activity);
@@ -29,61 +29,53 @@ public class SearchBottomViewModel extends ViewModel {
 
         mRootView = View.inflate(mActivity, R.layout.bottom_menu_search, null);
 
-        btn1 = (Button) mRootView.findViewById(R.id.search_menu_ui);
-        btn2 = (Button) mRootView.findViewById(R.id.search_menu_list);
-        btn3 = (Button) mRootView.findViewById(R.id.search_menu_map);
-        btn4 = (Button) mRootView.findViewById(R.id.search_menu_real);
+        Button btn1 = (Button) mRootView.findViewById(R.id.search_menu_ui);
+        Button btn2 = (Button) mRootView.findViewById(R.id.search_menu_list);
+        Button btn3 = (Button) mRootView.findViewById(R.id.search_menu_map);
+        Button btn4 = (Button) mRootView.findViewById(R.id.search_menu_real);
 
-        setOnClickListener(mTestListener);
+        mButtons = new ArrayList<Button>();
+        mButtons.add(btn1);
+        mButtons.add(btn2);
+        mButtons.add(btn3);
+        mButtons.add(btn4);
 
+        for (Button btn : mButtons) {
+            btn.setOnClickListener(this);
+        }
+
+        //默认选择第一个
+        btn1.setSelected(true);
     }
 
     public Button getButton(int index) {
-        Button resultButton = null;
-        switch (index) {
-        case 1:
-
-            resultButton = btn1;
-            break;
-
-        case 2:
-            resultButton = btn2;
-            break;
-
-        case 3:
-            resultButton = btn3;
-            break;
-
-        case 4:
-            resultButton = btn4;
-            break;
-
-        default:
-            break;
-        }
+        Button resultButton = mButtons.get(index);
 
         return resultButton;
     }
 
-    public void setOnClickListener(OnClickListener listener) {
-        if (null == listener) {
-            throw new IllegalArgumentException("listener is null!");
-        }
+    private OnClickListener mOnClickListener = null;
 
-        btn1.setOnClickListener(listener);
-        btn2.setOnClickListener(listener);
-        btn3.setOnClickListener(listener);
-        btn4.setOnClickListener(listener);
+    public void setOnClickListener(OnClickListener listener) {
+        mOnClickListener = listener;
     }
 
-    private OnClickListener mTestListener = new OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
-        @Override
-        public void onClick(View v) {
-            Log.i(AppConstants.LOG_TAG,
-                    "bottom menu: onClickListener: " + v.getId());
+        if (null != mOnClickListener) {
+            mOnClickListener.onClick(v);
         }
-    };
+
+        for (Button btn : mButtons) {
+            if (btn == v) {
+                btn.setSelected(true);
+            } else {
+                btn.setSelected(false);
+            }
+        }
+
+    }
 
     @Override
     public View getView() {

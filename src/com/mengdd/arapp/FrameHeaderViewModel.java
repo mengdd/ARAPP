@@ -20,12 +20,10 @@ public class FrameHeaderViewModel extends ViewModel {
 
     public FrameHeaderViewModel(Activity activity) {
         super(activity);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         mRootView = View.inflate(mActivity, R.layout.frame_header, null);
         mBackView = (ImageView) mRootView.findViewById(R.id.header_back);
@@ -33,7 +31,6 @@ public class FrameHeaderViewModel extends ViewModel {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (mOnBackListener != null) {
                     mOnBackListener.onBack();
                 }
@@ -46,7 +43,6 @@ public class FrameHeaderViewModel extends ViewModel {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (mOnSettingListener != null) {
                     mOnSettingListener.onSetting();
                 }
@@ -59,7 +55,6 @@ public class FrameHeaderViewModel extends ViewModel {
 
     @Override
     public View getView() {
-        // TODO Auto-generated method stub
         return mRootView;
     }
 

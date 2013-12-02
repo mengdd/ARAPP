@@ -21,7 +21,8 @@
             android:layout_weight="1"
             android:hint="@string/default_hint"
             android:inputType="textNoSuggestions"
-            android:text="@string/default_keyword" />
+            android:text="@string/default_keyword" 
+            android:textSize="@dimen/normal_text_size"/>
 
         <Button
             android:id="@+id/search_btn"
@@ -65,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:inputType="textNoSuggestions"
-                android:text="@string/default_city" />
+                android:text="@string/default_city" 
+                android:textSize="@dimen/normal_text_size"/>
         </LinearLayout>
 
         <LinearLayout

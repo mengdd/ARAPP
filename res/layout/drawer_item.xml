@@ -5,5 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
-    android:textColor="#FFFFFF"
-    android:textSize="20sp" />
+    android:textColor="@color/drawer_list_text_color"
+    android:textSize="@dimen/drawer_text_size" />
