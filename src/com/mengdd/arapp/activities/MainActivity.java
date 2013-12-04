@@ -79,8 +79,8 @@ public class MainActivity extends Activity {
                 new Sample(R.string.search, SearchActivity.class),
                 new Sample(R.string.custom_marker_title,
                         CustomMarkerActivity.class),
-                new Sample(R.string.google_map, GMapActivity.class),
-                new Sample(R.string.baidu_map, BDMapActivity.class),
+                new Sample(R.string.google_map, GoogleMapActivity.class),
+                new Sample(R.string.baidu_map, BaiduMapActivity.class),
                 new Sample(R.string.search_navi, TestNaviUIActivity.class),
                 new Sample(R.string.test_compass, TestCompassActivity.class),
                 new Sample(R.string.test_markers,
@@ -89,7 +89,8 @@ public class MainActivity extends Activity {
                 new Sample(R.string.test_login, TestUserAuthorizeActivity.class),
                 new Sample(R.string.test_login_sso, TestSsoAuthorActivity.class),
                 new Sample(R.string.test_autonavi_map,
-                        TestAutoNaviMapActivity.class)
+                        TestAutoNaviMapActivity.class),
+                new Sample(R.string.compare_map, MapCompareActivity.class)
 
         };
 

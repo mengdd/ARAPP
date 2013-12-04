@@ -159,12 +159,12 @@ public class RealSceneActivity extends Activity {
 
         case R.id.action_baidu_map:
 
-            intent.setClass(RealSceneActivity.this, BDMapActivity.class);
+            intent.setClass(RealSceneActivity.this, BaiduMapActivity.class);
             startActivity(intent);
 
             break;
         case R.id.action_google_map:
-            intent.setClass(RealSceneActivity.this, GMapActivity.class);
+            intent.setClass(RealSceneActivity.this, GoogleMapActivity.class);
 
             startActivity(intent);
 

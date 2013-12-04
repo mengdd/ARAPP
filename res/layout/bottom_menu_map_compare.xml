@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:minHeight="@dimen/bottom_menu_height"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/tab_google"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_search"
+        android:text="@string/googlemap_bottom_tab" />
+
+    <Button
+        android:id="@+id/tab_baidu"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_list"
+        android:text="@string/baidumap_bottom_tab" />
+
+    <Button
+        android:id="@+id/tab_autonavi"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_map"
+        android:text="@string/autonavimap_bottom_tab" />
+
+
+</LinearLayout>

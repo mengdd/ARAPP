@@ -1,4 +1,4 @@
-package com.mengdd.search;
+package com.mengdd.map;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,13 @@ import android.widget.Button;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 
-public class SearchBottomViewModel extends ViewModel implements OnClickListener {
+public class CompareBottomViewModel extends ViewModel implements
+        OnClickListener {
     private View mRootView;
 
     private List<Button> mButtons = null;
 
-    public SearchBottomViewModel(Activity activity) {
+    public CompareBottomViewModel(Activity activity) {
         super(activity);
     }
 
@@ -25,18 +26,16 @@ public class SearchBottomViewModel extends ViewModel implements OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mRootView = View.inflate(mActivity, R.layout.bottom_menu_search, null);
+        mRootView = View.inflate(mActivity, R.layout.bottom_menu_map_compare, null);
 
-        Button btn1 = (Button) mRootView.findViewById(R.id.search_menu_ui);
-        Button btn2 = (Button) mRootView.findViewById(R.id.search_menu_list);
-        Button btn3 = (Button) mRootView.findViewById(R.id.search_menu_map);
-        Button btn4 = (Button) mRootView.findViewById(R.id.search_menu_real);
+        Button btn1 = (Button) mRootView.findViewById(R.id.tab_google);
+        Button btn2 = (Button) mRootView.findViewById(R.id.tab_baidu);
+        Button btn3 = (Button) mRootView.findViewById(R.id.tab_autonavi);
 
         mButtons = new ArrayList<Button>();
         mButtons.add(btn1);
         mButtons.add(btn2);
         mButtons.add(btn3);
-        mButtons.add(btn4);
 
         for (Button btn : mButtons) {
             btn.setOnClickListener(this);
@@ -76,5 +75,4 @@ public class SearchBottomViewModel extends ViewModel implements OnClickListener 
     public View getView() {
         return mRootView;
     }
-
 }

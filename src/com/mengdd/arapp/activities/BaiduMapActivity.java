@@ -31,7 +31,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-public class BDMapActivity extends Activity {
+public class BaiduMapActivity extends Activity {
 
     private BasicMapViewModel mMapViewModel = null;
     private BaiduMyLocationOverlay mLocationOverlay = null;

@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-public class GMapActivity extends Activity {
+public class GoogleMapActivity extends Activity {
 
     private FrameHeaderViewModel mHeaderViewModel = null;
     private Resources resources = null;

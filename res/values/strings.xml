@@ -89,9 +89,15 @@
 
     <!-- Google Map -->
     <string name="googlemap_title">Google Map</string>
+    <string name="googlemap_bottom_tab">Google</string>
 
     <!-- Baidu Map -->
     <string name="baidumap_title">Baidu Map</string>
+    <string name="baidumap_bottom_tab">Baidu</string>
+
+    <!-- AutoNavi Map -->
+    <string name="autonavimap_title">AutoNavi</string>
+    <string name="autonavimap_bottom_tab">AutoNavi</string>
 
     <!-- Search -->
     <string name="search_title">Search</string>
@@ -204,5 +210,6 @@
     <string name="test_login">Test Login</string>
     <string name="test_login_sso">Test Login SSO</string>
     <string name="test_autonavi_map">Test AutoNavi Map</string>
+    <string name="compare_map">Map Compare</string>
 
 </resources>

@@ -108,11 +108,11 @@
             android:screenOrientation="sensor" >
         </activity>
         <activity
-            android:name="com.mengdd.arapp.activities.GMapActivity"
+            android:name="com.mengdd.arapp.activities.GoogleMapActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.mengdd.arapp.activities.BDMapActivity"
+            android:name="com.mengdd.arapp.activities.BaiduMapActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -190,7 +190,7 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data
@@ -219,6 +219,10 @@
             android:name="com.amap.api.v2.apikey"
             android:value="0c9b918dc5c4bc1a4b3e0295fdc071b6" />
 
+        <activity android:name="com.mengdd.arapp.activities.AutoNaviMapActivity" >
+        </activity>
+        <activity android:name="com.mengdd.arapp.activities.MapCompareActivity" >
+        </activity>
         <activity android:name="com.mengdd.tests.TestAutoNaviMapActivity" >
         </activity>
     </application>
