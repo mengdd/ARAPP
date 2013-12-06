@@ -7,6 +7,11 @@ import com.mengdd.arapp.FrameHeaderViewModel;
 import com.mengdd.arapp.R;
 import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
 import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationModel;
+import com.mengdd.location.LocationView;
+import com.mengdd.location.autonavi.AutoNaviLocationModel;
+import com.mengdd.location.baidu.BaiduLocationModel;
+import com.mengdd.location.google.GoogleLocationModel;
 import com.mengdd.map.BasicMapViewModel;
 import com.mengdd.map.CompareBottomViewModel;
 import com.mengdd.map.autonavi.AutoNaviMapViewModel;
@@ -35,19 +40,22 @@ public class MapCompareActivity extends Activity {
 
     private ViewGroup mMapContainerGroup = null;
 
+    // 定位
+    private List<LocationModel> mLocationModels = null;
+    private LocationView mLocationView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_compare_activity);
-
         mActivity = this;
         initHeader();
         initBottomMenu();
-
         mViewModels = new ArrayList<ViewModel>();
         initMapModels();
-
+        initLocationModels();
+        initLocationView();
         switchMapScene(mCurrentSceneId);
     }
 
@@ -66,7 +74,6 @@ public class MapCompareActivity extends Activity {
             @Override
             public void onBack() {
                 mActivity.finish();
-
             }
         });
 
@@ -112,6 +119,33 @@ public class MapCompareActivity extends Activity {
 
     }
 
+    private void initLocationModels() {
+        mLocationModels = new ArrayList<LocationModel>();
+        GoogleLocationModel googleLocationModel = new GoogleLocationModel(
+                mActivity);
+
+        mLocationModels.add(googleLocationModel);
+        BaiduLocationModel baiduLocationModel = new BaiduLocationModel(
+                mActivity);
+        mLocationModels.add(baiduLocationModel);
+        AutoNaviLocationModel autoNaviLocationModel = new AutoNaviLocationModel(
+                mActivity);
+        mLocationModels.add(autoNaviLocationModel);
+
+        for (ViewModel viewModel : mLocationModels) {
+            mViewModels.add(viewModel);
+        }
+
+    }
+
+    private void initLocationView() {
+        mLocationView = new LocationView(mActivity);
+        mLocationView.onCreate(null);
+        ViewGroup viewGroup = (ViewGroup) mActivity
+                .findViewById(R.id.location_content);
+        viewGroup.addView(mLocationView.getView());
+    }
+
     private OnClickListener mBottomOnClickListener = new OnClickListener() {
 
         @Override
@@ -139,6 +173,16 @@ public class MapCompareActivity extends Activity {
         viewModel.onResume(null);
         mMapContainerGroup.removeAllViews();
         mMapContainerGroup.addView(viewModel.getView());
+
+        for (int i = 0; i < mLocationModels.size(); ++i) {
+            LocationModel model = mLocationModels.get(i);
+            if (i == scene) {
+                model.setLocationChangedListener(mLocationView);
+            } else {
+                model.setLocationChangedListener(null);
+            }
+        }
+        mLocationView.clearLocationInfo();
 
         // for (int i = 0; i < mMapModels.size(); ++i) {
         // View view = mMapModels.get(i).getView();
@@ -174,6 +218,20 @@ public class MapCompareActivity extends Activity {
             model.onResume(null);
         }
 
+        requestAllLocationUpdate();
+
+    }
+
+    private void requestAllLocationUpdate() {
+        for (LocationModel model : mLocationModels) {
+            model.registerLocationUpdates();
+        }
+    }
+
+    private void cancelAllLocationUpdate() {
+        for (LocationModel model : mLocationModels) {
+            model.unregisterLocationUpdates();
+        }
     }
 
     @Override
@@ -195,7 +253,7 @@ public class MapCompareActivity extends Activity {
         for (ViewModel model : mViewModels) {
             model.onPause();
         }
-
+        cancelAllLocationUpdate();
     }
 
     @Override

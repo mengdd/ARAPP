@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationModel.BasicLocationChangedListener;
 
-public class LocationView extends ViewModel implements LocationListener {
+public class LocationView extends ViewModel implements LocationListener,
+        BasicLocationChangedListener {
 
     private View mRootView = null;
 
@@ -56,19 +58,25 @@ public class LocationView extends ViewModel implements LocationListener {
 
     }
 
+    // 实现的两个接口中的抽象方法是同一个，因为签名完全一致
     @Override
     public void onLocationChanged(Location location) {
         setLocationInfo(location);
 
     }
 
+    public void clearLocationInfo() {
+        mLongitude.setText("");
+        mLatitude.setText("");
+        mProvider.setText("");
+        mAccuracy.setText("");
+    }
+
     public void setLocationInfo(Location location) {
         if (null != location) {
             mLongitude.setText(String.valueOf(location.getLongitude()));
             mLatitude.setText(String.valueOf(location.getLatitude()));
-
             mProvider.setText(location.getProvider());
-
             mAccuracy.setText(String.valueOf(location.getAccuracy()));
         }
 

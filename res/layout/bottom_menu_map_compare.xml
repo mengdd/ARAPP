@@ -10,21 +10,21 @@
         android:id="@+id/tab_google"
         style="@style/BottomMenuButton"
         android:layout_weight="1"
-        android:drawableTop="@drawable/bottom_menu_ic_search"
+        android:drawableTop="@drawable/google_logo"
         android:text="@string/googlemap_bottom_tab" />
 
     <Button
         android:id="@+id/tab_baidu"
         style="@style/BottomMenuButton"
         android:layout_weight="1"
-        android:drawableTop="@drawable/bottom_menu_ic_list"
+        android:drawableTop="@drawable/baidu_logo"
         android:text="@string/baidumap_bottom_tab" />
 
     <Button
         android:id="@+id/tab_autonavi"
         style="@style/BottomMenuButton"
         android:layout_weight="1"
-        android:drawableTop="@drawable/bottom_menu_ic_map"
+        android:drawableTop="@drawable/autonavi_logo"
         android:text="@string/autonavimap_bottom_tab" />
 
 
