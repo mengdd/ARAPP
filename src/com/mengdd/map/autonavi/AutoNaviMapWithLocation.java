@@ -139,6 +139,9 @@ public class AutoNaviMapWithLocation extends ViewModel implements
     public void onLocationChanged(AMapLocation aMapLocation) {
         mMapViewModel.changeMapCamera(aMapLocation.getLatitude(),
                 aMapLocation.getLongitude());
+        if (mMapViewModel.getZoomLevel() < 18) {
+            mMapViewModel.zoomIn();
+        }
         mMapViewModel.addMarker(aMapLocation.getLatitude(),
                 aMapLocation.getLongitude());
         mLocationView.setLocationInfo(AutoNaviLocationHelper

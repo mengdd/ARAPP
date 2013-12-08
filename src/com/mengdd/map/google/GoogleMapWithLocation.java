@@ -109,6 +109,10 @@ public class GoogleMapWithLocation extends ViewModel implements
     public void onLocationChanged(Location location) {
         mMapViewModel.changeMapCamera(location.getLatitude(),
                 location.getLongitude());
+
+        if (mMapViewModel.getZoomLevel() < 18) {
+            mMapViewModel.zoomIn();
+        }
         mMapViewModel
                 .addMarker(location.getLatitude(), location.getLongitude());
         mLocationView.setLocationInfo(GoogleLocationHelper

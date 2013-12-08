@@ -182,6 +182,14 @@ public class BaiduMapViewModel extends BasicMapViewModel {
         }
     };
 
+    public void zoomIn() {
+        mMapController.zoomIn();
+    }
+
+    public void zoomOut() {
+        mMapController.zoomOut();
+    }
+
     @Override
     public void changeMapCamera(double latitude, double longitude) {
         GeoPoint geoPoint = new GeoPoint((int) (latitude * 1E6),

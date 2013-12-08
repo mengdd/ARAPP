@@ -104,9 +104,27 @@ public class GoogleMapViewModel extends BasicMapViewModel {
 
     }
 
+    public float getZoomLevel() {
+        return mGoogleMap.getCameraPosition().zoom;
+    }
+
+    public void zoomIn() {
+        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomIn();
+        changeMapCamera(cameraUpdate);
+    }
+
+    public void zoomOut() {
+        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomOut();
+        changeMapCamera(cameraUpdate);
+    }
+
     @Override
     public void changeMapCamera(double latitude, double longitude) {
-        changeMapCamera(latitude, longitude, 0, 0, 12);
+
+        CameraPosition cameraPosition = mGoogleMap.getCameraPosition();
+        changeMapCamera(latitude, longitude, cameraPosition.bearing,
+                cameraPosition.tilt, cameraPosition.tilt);
+
     }
 
     /**
@@ -120,6 +138,7 @@ public class GoogleMapViewModel extends BasicMapViewModel {
      * @param tilt
      *            viewing angle
      * @param zoom
+     *            the desired zoom level, in the range of 2.0 to 21.0.
      */
     public void changeMapCamera(double latitude, double longitude,
             float bearing, float tilt, float zoom) {

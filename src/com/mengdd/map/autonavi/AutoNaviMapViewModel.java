@@ -105,6 +105,20 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
 
     }
 
+    public float getZoomLevel() {
+        return mAMap.getCameraPosition().zoom;
+    }
+
+    public void zoomIn() {
+        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomIn();
+        changeMapCamera(cameraUpdate);
+    }
+
+    public void zoomOut() {
+        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomOut();
+        changeMapCamera(cameraUpdate);
+    }
+
     @Override
     public void changeMapCamera(double latitude, double longitude) {
         // LatLng latLng = new LatLng(latitude, longitude);
@@ -113,7 +127,10 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
         // // CameraPosition(LatLng target, float zoom, float tilt, float
         // bearing)
         // mAMap.moveCamera(cameraUpdate);
-        changeMapCamera(latitude, longitude, 0, 0, 12);
+
+        CameraPosition position = mAMap.getCameraPosition();
+        changeMapCamera(latitude, longitude, position.bearing, position.tilt,
+                position.zoom);
     }
 
     /**
