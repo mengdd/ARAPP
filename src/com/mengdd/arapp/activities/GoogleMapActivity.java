@@ -3,17 +3,6 @@ package com.mengdd.arapp.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.GlobalARData;
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
-import com.mengdd.arapp.R.id;
-import com.mengdd.arapp.R.layout;
-import com.mengdd.components.ViewModel;
-import com.mengdd.location.LocationView;
-import com.mengdd.location.google.GoogleLocationModel;
-import com.mengdd.map.google.GoogleMapViewModel;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -24,6 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+
+import com.mengdd.arapp.FrameHeaderViewModel;
+import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
+import com.mengdd.arapp.GlobalARData;
+import com.mengdd.arapp.R;
+import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationView;
+import com.mengdd.location.google.GoogleLocationModel;
+import com.mengdd.map.google.GoogleMapViewModel;
 
 public class GoogleMapActivity extends Activity {
 
@@ -60,7 +58,6 @@ public class GoogleMapActivity extends Activity {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.map_frame);
         frameLayout.addView(mMapViewModel.getView(), 0);
         frameLayout.addView(mLocationView.getView(), 1);
-        mMapViewModel.setVisibility(View.VISIBLE);
 
         resources = getResources();
 
@@ -130,7 +127,7 @@ public class GoogleMapActivity extends Activity {
         }
     }
 
-    private LocationListener mLocationListener = new LocationListener() {
+    private final LocationListener mLocationListener = new LocationListener() {
 
         @Override
         public void onLocationChanged(Location location) {

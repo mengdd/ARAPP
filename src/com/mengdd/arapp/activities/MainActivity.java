@@ -24,6 +24,7 @@ import com.mengdd.sina.weibo.data.WeiboAppConfig;
 import com.mengdd.tests.TestAugmentedPOIActivity;
 import com.mengdd.tests.TestAutoNaviMapActivity;
 import com.mengdd.tests.TestCompassActivity;
+import com.mengdd.tests.TestGoogleMapViewActivity;
 import com.mengdd.tests.TestNaviUIActivity;
 import com.mengdd.tests.TestSsoAuthorActivity;
 import com.mengdd.tests.TestUserAuthorizeActivity;
@@ -90,7 +91,9 @@ public class MainActivity extends Activity {
                 new Sample(R.string.test_login_sso, TestSsoAuthorActivity.class),
                 new Sample(R.string.test_autonavi_map,
                         TestAutoNaviMapActivity.class),
-                new Sample(R.string.compare_map, MapCompareActivity.class)
+                new Sample(R.string.compare_map, MapCompareActivity.class),
+                new Sample(R.string.test_visible,
+                        TestGoogleMapViewActivity.class)
 
         };
 

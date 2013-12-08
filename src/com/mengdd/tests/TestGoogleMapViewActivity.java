@@ -2,7 +2,6 @@ package com.mengdd.tests;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
@@ -37,8 +36,6 @@ public class TestGoogleMapViewActivity extends Activity {
 
         mMapContentFrameLayout.addView(mMapViewModel.getView());
 
-        mMapViewModel.setVisibility(View.GONE);
-
         mMapSwitchBtn = (ToggleButton) findViewById(R.id.mapSwitch);
         mMapSwitchBtn.setChecked(false);
         mMapSwitchBtn.setOnCheckedChangeListener(mMapCheckedChangeListener);
@@ -50,11 +47,10 @@ public class TestGoogleMapViewActivity extends Activity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
                 boolean isChecked) {
+            mMapContentFrameLayout.removeAllViews();
             if (isChecked) {
-                mMapViewModel.setVisibility(View.VISIBLE);
-            }
-            else {
-                mMapViewModel.setVisibility(View.GONE);
+
+                mMapContentFrameLayout.addView(mMapViewModel.getView());
             }
 
         }

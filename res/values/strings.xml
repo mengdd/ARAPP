@@ -211,5 +211,6 @@
     <string name="test_login_sso">Test Login SSO</string>
     <string name="test_autonavi_map">Test AutoNavi Map</string>
     <string name="compare_map">Map Compare</string>
+    <string name="test_visible">Test Visible</string>
 
 </resources>

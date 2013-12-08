@@ -3,7 +3,6 @@ package com.mengdd.map.google;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TableLayout.LayoutParams;
 
@@ -11,14 +10,13 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.GoogleMap.CancelableCallback;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mengdd.arapp.R;
-import com.mengdd.components.ViewModel;
 import com.mengdd.map.BasicMapViewModel;
 
 /**
@@ -36,8 +34,6 @@ public class GoogleMapViewModel extends BasicMapViewModel {
 
     private GoogleMap mGoogleMap = null;
 
-    private boolean isVisible = false;
-
     public GoogleMapViewModel(Activity activity) {
         super(activity);
 
@@ -48,6 +44,8 @@ public class GoogleMapViewModel extends BasicMapViewModel {
         super.onCreate(savedInstanceState);
 
         mRootView = mInflater.inflate(R.layout.google_map_view_root, null);
+
+        initMapView();
 
     }
 
@@ -85,53 +83,24 @@ public class GoogleMapViewModel extends BasicMapViewModel {
     public void onDestroy() {
 
         super.onDestroy();
-        if (isVisible) {
-            mMapView.onDestroy();
-        }
+
+        mMapView.onDestroy();
+
     }
 
     @Override
     public void onResume(Intent intent) {
         super.onResume(intent);
-        if (isVisible) {
-            mMapView.onResume();
-        }
+
+        mMapView.onResume();
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (isVisible) {
-            mMapView.onPause();
-        }
-    }
 
-    /**
-     * Set the visibility of this whole ViewModel
-     * 
-     * @param visibility
-     */
-    public void setVisibility(int visibility) {
-        if (View.VISIBLE == visibility && false == isVisible) {
-
-            isVisible = true;
-
-            initMapView();
-            mMapView.onResume();
-
-        }
-        else if (View.GONE == visibility && isVisible) {
-
-            isVisible = false;
-
-            mMapView.onPause();
-            mMapView.onDestroy();
-
-            ((LinearLayout) mRootView).removeView(mMapView);
-
-        }
-
-        mRootView.setVisibility(visibility);
+        mMapView.onPause();
 
     }
 
