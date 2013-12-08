@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Picture;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -19,7 +17,6 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
-import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -27,7 +24,6 @@ import com.mengdd.arapp.GlobalARData;
 import com.mengdd.components.ViewModel;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.LowPassFilter;
-import com.mengdd.utils.MathUtils;
 import com.mengdd.utils.Matrix;
 
 /**
@@ -106,12 +102,14 @@ public class SensorViewModel extends ViewModel implements LocationListener,
                     .getSystemService(Context.SENSOR_SERVICE);
 
             sensors = sensorMgr.getSensorList(Sensor.TYPE_ACCELEROMETER);
-            if (sensors.size() > 0)
+            if (sensors.size() > 0){
                 sensorGrav = sensors.get(0);
+            }
 
             sensors = sensorMgr.getSensorList(Sensor.TYPE_MAGNETIC_FIELD);
-            if (sensors.size() > 0)
+            if (sensors.size() > 0){
                 sensorMag = sensors.get(0);
+            }
 
             sensorMgr.registerListener(this, sensorGrav,
                     SensorManager.SENSOR_DELAY_NORMAL);

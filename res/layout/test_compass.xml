@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
     </FrameLayout>
 
-</LinearLayout>
+    <ToggleButton
+        android:id="@+id/remap"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textOff="无坐标映射"
+        android:textOn="坐标映射开启" />
+
+    <ToggleButton
+        android:id="@+id/anti_alias"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/remap"
+        android:layout_alignParentRight="true"
+        android:textOff="低通过滤关闭"
+        android:textOn="低通过滤开启" />
+
+</RelativeLayout>

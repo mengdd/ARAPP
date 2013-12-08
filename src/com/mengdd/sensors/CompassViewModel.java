@@ -8,17 +8,13 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
-import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.sensors.CompassView.CompassStatus;
-import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.LowPassFilter;
 
 /**
@@ -34,303 +30,247 @@ import com.mengdd.utils.LowPassFilter;
  * 
  */
 public class CompassViewModel extends ViewModel {
-    // the RootView of the ViewModel
-    private View mRootView = null;
+	// the RootView of the ViewModel
+	private View mRootView = null;
 
-    // the Accelerometer values and Magnetometer values
-    private float[] aValues = new float[3];
-    private float[] mValues = new float[3];
-    private SensorManager sensorManager;
+	// the Accelerometer values and Magnetometer values
+	private float[] aValues = new float[3];
+	private float[] mValues = new float[3];
+	private SensorManager sensorManager;
 
-    // the compass view
-    private CompassView compassView;
+	// the compass view
+	private CompassView compassView;
 
-    // display
-    private Display mDisplay = null;
+	// display
+	private Display mDisplay = null;
 
-    // Smooth
-    private static float smooth[] = new float[3];
+	// Smooth
+	private static float smooth[] = new float[3];
 
-    public void setVisibility(int visibility) {
-        if (View.VISIBLE == visibility) {
-            onResume(null);
-        }
+	// 计算模式
+	public static final int TRADITIONAL_MODE = 0;
+	public static final int REMAP_MODE = 1;
+	private int mCurrentMode = TRADITIONAL_MODE;
 
-        if (View.GONE == visibility) {
-            onPause();
-            onStop();
-        }
+	public int getCurrentMode() {
+		return mCurrentMode;
+	}
 
-        mRootView.setVisibility(visibility);
-    }
+	public void setCurrentMode(int mode) {
+		this.mCurrentMode = mode;
 
-    public CompassViewModel(Activity activity) {
-        super(activity);
+	}
 
-        init();
-    }
+	// 是否开启防抖动
+	private boolean isAntiAlias = false;
 
-    private void init() {
-        WindowManager wManager = (WindowManager) mActivity
-                .getSystemService(Context.WINDOW_SERVICE);
-        mDisplay = wManager.getDefaultDisplay();
-    }
+	public boolean isAntiAlias() {
+		return isAntiAlias;
+	}
 
-    @Override
-    public View getView() {
-        return mRootView;
-    }
+	public void setAntiAlias(boolean isAntiAlias) {
+		this.isAntiAlias = isAntiAlias;
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	public void setVisibility(int visibility) {
+		if (View.VISIBLE == visibility) {
+			onResume(null);
+		}
+		if (View.GONE == visibility) {
+			onPause();
+			onStop();
+		}
+		mRootView.setVisibility(visibility);
+	}
 
-        mRootView = mInflater.inflate(R.layout.compass_view_model, null);
+	public CompassViewModel(Activity activity) {
+		super(activity);
 
-        compassView = (CompassView) mRootView.findViewById(R.id.horizonView);
+		init();
+	}
 
-        sensorManager = (SensorManager) mActivity
-                .getSystemService(Context.SENSOR_SERVICE);
+	private void init() {
+		WindowManager wManager = (WindowManager) mActivity
+				.getSystemService(Context.WINDOW_SERVICE);
+		mDisplay = wManager.getDefaultDisplay();
+	}
 
-        updateOrientation(new float[] { 0, 0, 0 });
+	@Override
+	public View getView() {
+		return mRootView;
+	}
 
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-    @Override
-    public void onResume(Intent intent) {
-        super.onResume(intent);
+		mRootView = mInflater.inflate(R.layout.compass_view_model, null);
 
-        // register the accelerometer and magField sensors
-        Sensor accelerometer = sensorManager
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        Sensor magField = sensorManager
-                .getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        sensorManager.registerListener(sensorEventListener, accelerometer,
-                SensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(sensorEventListener, magField,
-                SensorManager.SENSOR_DELAY_FASTEST);
+		compassView = (CompassView) mRootView.findViewById(R.id.horizonView);
 
-    }
+		sensorManager = (SensorManager) mActivity
+				.getSystemService(Context.SENSOR_SERVICE);
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
+		updateOrientation(new float[] { 0, 0, 0 });
 
-    @Override
-    public void onStop() {
-        // unregister thesensors
-        sensorManager.unregisterListener(sensorEventListener);
-        super.onStop();
-    }
+	}
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
+	@Override
+	public void onResume(Intent intent) {
+		super.onResume(intent);
 
-    /**
-     * Set 3 rotation values in the CompassView
-     * 
-     * @param values
-     */
-    private void updateOrientation(float[] values) {
-        if (compassView != null) {
-            compassView.setBearing(values[0]);
-            compassView.setPitch(values[1]);
-            compassView.setRoll(-values[2]);
-            compassView.invalidate();
-        }
-    }
+		// register the accelerometer and magField sensors
+		Sensor accelerometer = sensorManager
+				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		Sensor magField = sensorManager
+				.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		sensorManager.registerListener(sensorEventListener, accelerometer,
+				SensorManager.SENSOR_DELAY_FASTEST);
+		sensorManager.registerListener(sensorEventListener, magField,
+				SensorManager.SENSOR_DELAY_FASTEST);
 
-    /**
-     * Get Orientation values according to accelerometer and magField sensor
-     * values. compare the values of without remapCoordinatesSystem and with
-     * remapCoordinatesSystem. The compared valuse are shown in the TextViews
-     * 
-     * @return Orientation values with remapCoordinatesSystem
-     */
-    private float[] calculateOrientation() {
-        float[] values = new float[3];
-        float[] R = new float[9];
-        float[] outR = new float[9];
+	}
 
-        // get RotationMatrix according to accelerometer and magField sensor
-        // values
-        // the result is return to R
-        SensorManager.getRotationMatrix(R, null, aValues, mValues);
-        // get Orientation of Display
-        int screenRotation = mDisplay.getRotation();
-        float devicePitch = SensorMathUtils.calDevicePitch(screenRotation, R);
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
 
-        float parallelTolerance = 30;
+	@Override
+	public void onStop() {
+		// unregister thesensors
+		sensorManager.unregisterListener(sensorEventListener);
+		super.onStop();
+	}
 
-        // remap the coordinate according to the device orientation and screen
-        // orientation
-        remapCoordinates(R, outR, screenRotation, devicePitch,
-                parallelTolerance);
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
 
-        SensorManager.getOrientation(outR, values);
+	/**
+	 * Set 3 rotation values in the CompassView
+	 * 
+	 * @param values
+	 */
+	private void updateOrientation(float[] values) {
+		if (compassView != null) {
+			compassView.setBearing(values[0]);
+			compassView.setPitch(values[1]);
+			compassView.setRoll(-values[2]);
+			compassView.invalidate();
+		}
+	}
 
-        // finally we get 3 angle in degrees
-        values[0] = (float) Math.toDegrees(values[0]);
-        values[1] = (float) Math.toDegrees(values[1]);
-        values[2] = (float) Math.toDegrees(values[2]);
+	/**
+	 * Get Orientation values according to accelerometer and magField sensor
+	 * values. compare the values of without remapCoordinatesSystem and with
+	 * remapCoordinatesSystem. The compared valuse are shown in the TextViews
+	 * 
+	 * @return Orientation values with remapCoordinatesSystem
+	 */
+	private float[] calculateOrientation() {
+		float[] values = new float[3];
+		float[] R = new float[9];
+		float[] outR = new float[9];
 
-        return values;
-    }
+		// get RotationMatrix according to accelerometer and magField sensor
+		// values
+		// the result is return to R
+		SensorManager.getRotationMatrix(R, null, aValues, mValues);
+		// get Orientation of Display
+		int screenRotation = mDisplay.getRotation();
+		float devicePitch = SensorMathUtils.calDevicePitch(screenRotation, R);
 
-    /**
-     * 
-     * Map the Rotaion Mathix from the device coordinates to a world coordinates
-     * Which world axis to map are decided by the display orientation and the
-     * device pitch angle
-     * 
-     * @param R
-     *            the Rotation Mathix in device coordinates
-     * @param outR
-     *            the Roation Mathix in the remaped world coordinates
-     * @param screenRotation
-     *            the screen display orientation, including
-     *            ROTATION_0,ROTATION_90,ROTATION_180,ROTATION_270
-     * @param devicePitch
-     *            the device pitch angle according to the device self axis
-     * @param parallelTolerance
-     *            the devicePitch in this bounds should be considered parallel
-     *            to the ground
-     */
-    private void remapCoordinates(float[] R, float[] outR, int screenRotation,
-            float devicePitch, float parallelTolerance) {
+		// UI switch between parallel and vertical status
+		updateCompassStatus(devicePitch);
 
-        // the screen orientation decides the map from Device XY to World
-        // Coordinates
-        // the paramters in remapCoordinateSystem Method means which world axis
-        // the devcie xy want to map to
+		if (REMAP_MODE == mCurrentMode) {
 
-        switch (screenRotation) {
-        case Surface.ROTATION_0:
+			// remap the coordinate according to the device orientation and
+			// screen
+			// orientation
+			SensorMathUtils.remapCoordinates(R, outR, screenRotation,
+					devicePitch, 0);
+		}
 
-            if (Math.abs(devicePitch) < parallelTolerance) {
-                // device parallel to the ground
-                compassView.setCompassStatus(CompassStatus.ParallelToGround);
+		if (TRADITIONAL_MODE == mCurrentMode) {
+			outR = R;
+		}
 
-                // no need to remap
-                // but we still want outR values
-                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_X,
-                        SensorManager.AXIS_Y, outR);
-            }
-            else {
+		SensorManager.getOrientation(outR, values);
 
-                // vertical to ground
-                compassView.setCompassStatus(CompassStatus.VerticalToGround);
-                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_X,
-                        SensorManager.AXIS_Z, outR);
+		// finally we get 3 angle in degrees
+		values[0] = (float) Math.toDegrees(values[0]);
+		values[1] = (float) Math.toDegrees(values[1]);
+		values[2] = (float) Math.toDegrees(values[2]);
 
-            }
+		return values;
+	}
 
-            break;
-        case Surface.ROTATION_90:
+	private final SensorEventListener sensorEventListener = new SensorEventListener() {
 
-            if (Math.abs(devicePitch) < parallelTolerance) {
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+				// without smooth
+				// aValues = event.values;
 
-                // device parallel to the ground
-                compassView.setCompassStatus(CompassStatus.ParallelToGround);
-                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y,
-                        SensorManager.AXIS_MINUS_X, outR);
-            }
-            else {
+				// with smooth
+				if (isAntiAlias) {
+					smooth = LowPassFilter.filter(0.5f, 1.0f, event.values,
+							aValues);
+					aValues[0] = smooth[0];
+					aValues[1] = smooth[1];
+					aValues[2] = smooth[2];
+				}
+				else {
+					aValues[0] = event.values[0];
+					aValues[1] = event.values[1];
+					aValues[2] = event.values[2];
+				}
 
-                // vertical to ground
-                compassView.setCompassStatus(CompassStatus.VerticalToGround);
-                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Z,
-                        SensorManager.AXIS_MINUS_X, outR);
+			}
+			if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) { // without
+																		// smooth
+																		// mValues
+																		// =
+																		// event.values;
 
-            }
+				// with smooth
+				if (isAntiAlias) {
+					smooth = LowPassFilter.filter(2.0f, 4.0f, event.values,
+							mValues);
+					mValues[0] = smooth[0];
+					mValues[1] = smooth[1];
+					mValues[2] = smooth[2];
+				}
+				else {
+					mValues[0] = event.values[0];
+					mValues[1] = event.values[1];
+					mValues[2] = event.values[2];
+				}
+			}
 
-            break;
+			// update values here
+			updateOrientation(calculateOrientation());
 
-        case Surface.ROTATION_180:
+		}
 
-            if (Math.abs(devicePitch) < parallelTolerance) {
-                // device parallel to the ground
-                compassView.setCompassStatus(CompassStatus.ParallelToGround);
-                SensorManager.remapCoordinateSystem(R,
-                        SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Y,
-                        outR);
-            }
-            else {
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-                // vertical to ground
-                compassView.setCompassStatus(CompassStatus.VerticalToGround);
-                SensorManager.remapCoordinateSystem(R,
-                        SensorManager.AXIS_MINUS_X, SensorManager.AXIS_MINUS_Z,
-                        outR);
+		}
 
-            }
+	};
 
-            break;
-
-        case Surface.ROTATION_270:
-
-            if (Math.abs(devicePitch) < parallelTolerance) {
-                // device parallel to the ground
-                compassView.setCompassStatus(CompassStatus.ParallelToGround);
-                SensorManager.remapCoordinateSystem(R,
-                        SensorManager.AXIS_MINUS_Y, SensorManager.AXIS_X, outR);
-            }
-            else {
-                // vertical to ground
-                compassView.setCompassStatus(CompassStatus.VerticalToGround);
-                SensorManager.remapCoordinateSystem(R,
-                        SensorManager.AXIS_MINUS_Z, SensorManager.AXIS_X, outR);
-            }
-            break;
-
-        default:
-            break;
-        }
-    }
-
-    private final SensorEventListener sensorEventListener = new SensorEventListener() {
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                // without smooth
-                // aValues = event.values;
-
-                // with smooth
-                smooth = LowPassFilter
-                        .filter(0.5f, 1.0f, event.values, aValues);
-                aValues[0] = smooth[0];
-                aValues[1] = smooth[1];
-                aValues[2] = smooth[2];
-
-            }
-            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) { // without
-                                                                        // smooth
-                                                                        // mValues
-                                                                        // =
-                                                                        // event.values;
-
-                // with smooth
-                smooth = LowPassFilter
-                        .filter(2.0f, 4.0f, event.values, mValues);
-                mValues[0] = smooth[0];
-                mValues[1] = smooth[1];
-                mValues[2] = smooth[2];
-            }
-
-            // update values here
-            updateOrientation(calculateOrientation());
-
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-        }
-
-    };
+	private void updateCompassStatus(float devicePitch) {
+		if (Math.abs(devicePitch) < SensorMathUtils.PARALLEL_TOLERANCE) {
+			compassView.setCompassStatus(CompassStatus.ParallelToGround);
+		}
+		else {
+			compassView.setCompassStatus(CompassStatus.VerticalToGround);
+		}
+	}
 
 }
