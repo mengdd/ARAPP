@@ -1,36 +1,34 @@
-package com.mengdd.map.baidu;
+package com.mengdd.map.google;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.mapapi.map.MapView;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.location.SimpleLocationView;
-import com.mengdd.location.baidu.BaiduLocationHelper;
-import com.mengdd.location.baidu.BaiduLocationModel;
-import com.mengdd.map.BasicMapViewModel;
+import com.mengdd.location.google.GoogleLocationHelper;
+import com.mengdd.location.google.GoogleLocationModel;
 
-public class BaiduMapWithLocation extends ViewModel implements
-        BDLocationListener {
+public class GoogleMapWithLocation extends ViewModel implements
+        LocationListener {
 
     private View mRootView = null;
-    private BasicMapViewModel mMapViewModel = null;
-    private BaiduMyLocationOverlay mLocationOverlay = null;
-    private BaiduLocationModel mLocationModel = null;
-    private List<ViewModel> mViewModels = null;
 
+    private GoogleMapViewModel mMapViewModel = null;
+    private GoogleLocationModel mLocationModel = null;
     private SimpleLocationView mLocationView = null;
 
-    public BaiduMapWithLocation(Activity activity) {
+    private List<ViewModel> mViewModels = null;
+
+    public GoogleMapWithLocation(Activity activity) {
         super(activity);
     }
 
@@ -38,8 +36,8 @@ public class BaiduMapWithLocation extends ViewModel implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMapViewModel = new BaiduMapViewModel(mActivity);
-        mLocationModel = new BaiduLocationModel(mActivity);
+        mMapViewModel = new GoogleMapViewModel(mActivity);
+        mLocationModel = new GoogleLocationModel(mActivity);
         mLocationView = new SimpleLocationView(mActivity);
 
         mViewModels = new ArrayList<ViewModel>();
@@ -53,7 +51,6 @@ public class BaiduMapWithLocation extends ViewModel implements
 
         mRootView = mActivity.getLayoutInflater().inflate(
                 R.layout.map_with_location_view_model, null);
-
         ViewGroup mapContainerGroup = (ViewGroup) mRootView
                 .findViewById(R.id.map);
         mapContainerGroup.addView(mMapViewModel.getView());
@@ -62,8 +59,8 @@ public class BaiduMapWithLocation extends ViewModel implements
                 .findViewById(R.id.location);
         locaViewGroup.addView(mLocationView.getView());
 
-        mLocationOverlay = new BaiduMyLocationOverlay(
-                (MapView) mMapViewModel.getMap());
+        mLocationModel.setLocationListener(this);
+
     }
 
     @Override
@@ -74,7 +71,6 @@ public class BaiduMapWithLocation extends ViewModel implements
         }
 
         mLocationModel.registerLocationUpdates();
-        mLocationModel.setBDLocationListener(this);
     }
 
     @Override
@@ -89,8 +85,8 @@ public class BaiduMapWithLocation extends ViewModel implements
             model.onPause();
         }
 
-        mLocationModel.setBDLocationListener(null);
         mLocationModel.unregisterLocationUpdates();
+
     }
 
     @Override
@@ -110,26 +106,36 @@ public class BaiduMapWithLocation extends ViewModel implements
     }
 
     @Override
+    public void onLocationChanged(Location location) {
+        mMapViewModel.changeMapCamera(location.getLatitude(),
+                location.getLongitude());
+        mMapViewModel
+                .addMarker(location.getLatitude(), location.getLongitude());
+        mLocationView.setLocationInfo(GoogleLocationHelper
+                .getLocationString(location));
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
     public View getView() {
         return mRootView;
-    }
-
-    @Override
-    public void onReceiveLocation(BDLocation bdLocation) {
-        mLocationOverlay.setLocationData(bdLocation);
-
-        mLocationView.setLocationInfo(BaiduLocationHelper
-                .getLocationString(bdLocation));
-
-        mMapViewModel.changeMapCamera(bdLocation.getLatitude(),
-                bdLocation.getLongitude());
-        mMapViewModel.addMarker(bdLocation.getLatitude(),
-                bdLocation.getLongitude());
-    }
-
-    @Override
-    public void onReceivePoi(BDLocation arg0) {
-
     }
 
 }

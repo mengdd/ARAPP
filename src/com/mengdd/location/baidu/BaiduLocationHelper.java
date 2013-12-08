@@ -100,7 +100,7 @@ public class BaiduLocationHelper {
             sb.append("\nlontitude : ");
             sb.append(location.getLongitude());
             sb.append("\nradius : ");
-            sb.append(location.getRadius());
+            sb.append(location.getRadius() + " 米");
             if (location.getLocType() == BDLocation.TypeGpsLocation) {
                 sb.append("\nspeed : ");
                 sb.append(location.getSpeed());

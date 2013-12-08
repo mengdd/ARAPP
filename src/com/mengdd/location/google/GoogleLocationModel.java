@@ -1,19 +1,15 @@
 package com.mengdd.location.google;
 
 import android.app.Activity;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.View;
 
 import com.mengdd.arapp.GlobalARData;
-import com.mengdd.components.ViewModel;
 import com.mengdd.location.LocationModel;
 import com.mengdd.utils.AppConstants;
 
@@ -21,11 +17,11 @@ import com.mengdd.utils.AppConstants;
  * Location ViewModel for finding current location information. This class
  * doesn't have any UI elements and use both gps and network as its location
  * providers
- *
+ * 
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
+ * 
  */
 public class GoogleLocationModel extends LocationModel implements
         LocationListener {
@@ -80,6 +76,12 @@ public class GoogleLocationModel extends LocationModel implements
 
     }
 
+    private LocationListener mLocationListener = null;
+
+    public void setLocationListener(LocationListener listener) {
+        mLocationListener = listener;
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         mCurrentFixTime = SystemClock.uptimeMillis();
@@ -101,6 +103,11 @@ public class GoogleLocationModel extends LocationModel implements
             mBasicLocationChangedListener.onLocationChanged(location);
         }
 
+        // 本类的
+        if (null != mLocationListener) {
+            mLocationListener.onLocationChanged(location);
+        }
+
     }
 
     private static final int TWO_MINUTES = 1000 * 60 * 2;
@@ -110,7 +117,7 @@ public class GoogleLocationModel extends LocationModel implements
      * Location fix The codes are adapted from:
      * http://developer.android.com/guide/topics/location/strategies.html#
      * BestEstimate
-     *
+     * 
      * @param newLocation
      *            The new Location that you want to evaluate
      * @param currentBestLocation
@@ -141,7 +148,8 @@ public class GoogleLocationModel extends LocationModel implements
             return true;
             // If the new location is more than two minutes older, it must be
             // worse
-        } else if (isSignificantlyOlder) {
+        }
+        else if (isSignificantlyOlder) {
             return false;
         }
 
@@ -160,10 +168,11 @@ public class GoogleLocationModel extends LocationModel implements
         // accuracy
         if (isMoreAccurate) {
             return true;
-        } else if (isNewer && !isLessAccurate) {
+        }
+        else if (isNewer && !isLessAccurate) {
             return true;
-        } else if (isNewer && !isSignificantlyLessAccurate
-                && isFromSameProvider) {
+        }
+        else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
             return true;
         }
         return false;

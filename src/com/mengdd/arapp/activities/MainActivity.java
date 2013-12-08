@@ -25,6 +25,7 @@ import com.mengdd.tests.TestAugmentedPOIActivity;
 import com.mengdd.tests.TestAutoNaviMapActivity;
 import com.mengdd.tests.TestBaiduMapWithLocationModel;
 import com.mengdd.tests.TestCompassActivity;
+import com.mengdd.tests.TestGoogleMapWithLocationModel;
 import com.mengdd.tests.TestNaviUIActivity;
 import com.mengdd.tests.TestSsoAuthorActivity;
 import com.mengdd.tests.TestUserAuthorizeActivity;
@@ -92,8 +93,10 @@ public class MainActivity extends Activity {
                 new Sample(R.string.test_autonavi_map,
                         TestAutoNaviMapActivity.class),
                 new Sample(R.string.compare_map, MapCompareActivity.class),
-                new Sample(R.string.test_visible,
-                        TestBaiduMapWithLocationModel.class)
+                new Sample(R.string.baidumap_title,
+                        TestBaiduMapWithLocationModel.class),
+                new Sample(R.string.googlemap_title,
+                        TestGoogleMapWithLocationModel.class)
 
         };
 
