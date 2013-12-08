@@ -3,29 +3,23 @@ package com.mengdd.arapp.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
-import com.mengdd.components.ViewModel;
-import com.mengdd.location.LocationModel;
-import com.mengdd.location.LocationView;
-import com.mengdd.location.autonavi.AutoNaviLocationModel;
-import com.mengdd.location.baidu.BaiduLocationModel;
-import com.mengdd.location.google.GoogleLocationModel;
-import com.mengdd.map.BasicMapViewModel;
-import com.mengdd.map.CompareBottomViewModel;
-import com.mengdd.map.autonavi.AutoNaviMapViewModel;
-import com.mengdd.map.baidu.BaiduMapViewModel;
-import com.mengdd.map.google.GoogleMapViewModel;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+
+import com.mengdd.arapp.FrameHeaderViewModel;
+import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
+import com.mengdd.arapp.R;
+import com.mengdd.components.ViewModel;
+import com.mengdd.map.CompareBottomViewModel;
+import com.mengdd.map.autonavi.AutoNaviMapWithLocation;
+import com.mengdd.map.baidu.BaiduMapWithLocation;
+import com.mengdd.map.google.GoogleMapWithLocation;
 
 public class MapCompareActivity extends Activity {
 
@@ -35,14 +29,9 @@ public class MapCompareActivity extends Activity {
 
     private Activity mActivity = null;
     private int mCurrentSceneId = 0;
-    private List<BasicMapViewModel> mMapModels = null;
     private List<ViewModel> mViewModels = null;
 
     private ViewGroup mMapContainerGroup = null;
-
-    // 定位
-    private List<LocationModel> mLocationModels = null;
-    private LocationView mLocationView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +41,8 @@ public class MapCompareActivity extends Activity {
         mActivity = this;
         initHeader();
         initBottomMenu();
-        mViewModels = new ArrayList<ViewModel>();
         initMapModels();
-        initLocationModels();
-        initLocationView();
+
         switchMapScene(mCurrentSceneId);
     }
 
@@ -101,67 +88,38 @@ public class MapCompareActivity extends Activity {
     }
 
     private void initMapModels() {
-        mMapModels = new ArrayList<BasicMapViewModel>();
+        mViewModels = new ArrayList<ViewModel>();
 
-        BasicMapViewModel googleMap = new GoogleMapViewModel(mActivity);
-        mMapModels.add(googleMap);
-        BasicMapViewModel baiduMap = new BaiduMapViewModel(mActivity);
-        mMapModels.add(baiduMap);
-        BasicMapViewModel autonaviMap = new AutoNaviMapViewModel(mActivity);
-        mMapModels.add(autonaviMap);
+        ViewModel googleMap = new GoogleMapWithLocation(mActivity);
+        mViewModels.add(googleMap);
+        ViewModel baiduMap = new BaiduMapWithLocation(mActivity);
+        mViewModels.add(baiduMap);
+        ViewModel autonaviMap = new AutoNaviMapWithLocation(mActivity);
+        mViewModels.add(autonaviMap);
         mMapContainerGroup = (ViewGroup) findViewById(R.id.map_content);
 
-        for (ViewModel viewModel : mMapModels) {
+        for (ViewModel viewModel : mViewModels) {
             viewModel.onCreate(null);
-
-            mViewModels.add(viewModel);
         }
 
     }
 
-    private void initLocationModels() {
-        mLocationModels = new ArrayList<LocationModel>();
-        GoogleLocationModel googleLocationModel = new GoogleLocationModel(
-                mActivity);
-
-        mLocationModels.add(googleLocationModel);
-        BaiduLocationModel baiduLocationModel = new BaiduLocationModel(
-                mActivity);
-        mLocationModels.add(baiduLocationModel);
-        AutoNaviLocationModel autoNaviLocationModel = new AutoNaviLocationModel(
-                mActivity);
-        mLocationModels.add(autoNaviLocationModel);
-
-        for (ViewModel viewModel : mLocationModels) {
-            mViewModels.add(viewModel);
-        }
-
-    }
-
-    private void initLocationView() {
-        mLocationView = new LocationView(mActivity);
-        mLocationView.onCreate(null);
-        ViewGroup viewGroup = (ViewGroup) mActivity
-                .findViewById(R.id.location_content);
-        viewGroup.addView(mLocationView.getView());
-    }
-
-    private OnClickListener mBottomOnClickListener = new OnClickListener() {
+    private final OnClickListener mBottomOnClickListener = new OnClickListener() {
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.tab_google:
-                    switchMapScene(GOOGLE_MAP);
-                    break;
-                case R.id.tab_baidu:
-                    switchMapScene(BAIDU_MAP);
-                    break;
-                case R.id.tab_autonavi:
-                    switchMapScene(AUTO_NAVI_MAP);
-                    break;
-                default:
-                    break;
+            case R.id.tab_google:
+                switchMapScene(GOOGLE_MAP);
+                break;
+            case R.id.tab_baidu:
+                switchMapScene(BAIDU_MAP);
+                break;
+            case R.id.tab_autonavi:
+                switchMapScene(AUTO_NAVI_MAP);
+                break;
+            default:
+                break;
             }
         }
     };
@@ -169,45 +127,26 @@ public class MapCompareActivity extends Activity {
     private void switchMapScene(int scene) {
         mCurrentSceneId = scene;
         switchTitle(scene);
-        ViewModel viewModel = mMapModels.get(scene);
+        ViewModel viewModel = mViewModels.get(scene);
         viewModel.onResume(null);
         mMapContainerGroup.removeAllViews();
         mMapContainerGroup.addView(viewModel.getView());
 
-        for (int i = 0; i < mLocationModels.size(); ++i) {
-            LocationModel model = mLocationModels.get(i);
-            if (i == scene) {
-                model.setLocationChangedListener(mLocationView);
-            } else {
-                model.setLocationChangedListener(null);
-            }
-        }
-        mLocationView.clearLocationInfo();
-
-        // for (int i = 0; i < mMapModels.size(); ++i) {
-        // View view = mMapModels.get(i).getView();
-        // if (i == scene) {
-        // view.setVisibility(View.VISIBLE);
-        //
-        // } else {
-        // view.setVisibility(View.GONE);
-        // }
-        // }
     }
 
     private void switchTitle(int scene) {
         switch (scene) {
-            case GOOGLE_MAP:
-                setTitle(getResources().getString(R.string.googlemap_title));
-                break;
-            case BAIDU_MAP:
-                setTitle(getResources().getString(R.string.baidumap_title));
-                break;
-            case AUTO_NAVI_MAP:
-                setTitle(getResources().getString(R.string.autonavimap_title));
-                break;
-            default:
-                break;
+        case GOOGLE_MAP:
+            setTitle(getResources().getString(R.string.googlemap_title));
+            break;
+        case BAIDU_MAP:
+            setTitle(getResources().getString(R.string.baidumap_title));
+            break;
+        case AUTO_NAVI_MAP:
+            setTitle(getResources().getString(R.string.autonavimap_title));
+            break;
+        default:
+            break;
         }
     }
 
@@ -218,20 +157,6 @@ public class MapCompareActivity extends Activity {
             model.onResume(null);
         }
 
-        requestAllLocationUpdate();
-
-    }
-
-    private void requestAllLocationUpdate() {
-        for (LocationModel model : mLocationModels) {
-            model.registerLocationUpdates();
-        }
-    }
-
-    private void cancelAllLocationUpdate() {
-        for (LocationModel model : mLocationModels) {
-            model.unregisterLocationUpdates();
-        }
     }
 
     @Override
@@ -253,7 +178,6 @@ public class MapCompareActivity extends Activity {
         for (ViewModel model : mViewModels) {
             model.onPause();
         }
-        cancelAllLocationUpdate();
     }
 
     @Override
