@@ -22,6 +22,7 @@ import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.db.DatabaseManager;
 import com.mengdd.sina.weibo.data.WeiboAppConfig;
 import com.mengdd.tests.TestAugmentedPOIActivity;
+import com.mengdd.tests.TestAutoMapWithLocationModel;
 import com.mengdd.tests.TestAutoNaviMapActivity;
 import com.mengdd.tests.TestBaiduMapWithLocationModel;
 import com.mengdd.tests.TestCompassActivity;
@@ -96,7 +97,9 @@ public class MainActivity extends Activity {
                 new Sample(R.string.baidumap_title,
                         TestBaiduMapWithLocationModel.class),
                 new Sample(R.string.googlemap_title,
-                        TestGoogleMapWithLocationModel.class)
+                        TestGoogleMapWithLocationModel.class),
+                new Sample(R.string.autonavimap_title,
+                        TestAutoMapWithLocationModel.class)
 
         };
 

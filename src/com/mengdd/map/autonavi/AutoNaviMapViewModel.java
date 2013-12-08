@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMap.CancelableCallback;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
@@ -106,11 +107,75 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
 
     @Override
     public void changeMapCamera(double latitude, double longitude) {
-        LatLng latLng = new LatLng(latitude, longitude);
+        // LatLng latLng = new LatLng(latitude, longitude);
+        // CameraUpdate cameraUpdate = CameraUpdateFactory
+        // .newCameraPosition(new CameraPosition(latLng, 0, 0, 0));
+        // // CameraPosition(LatLng target, float zoom, float tilt, float
+        // bearing)
+        // mAMap.moveCamera(cameraUpdate);
+        changeMapCamera(latitude, longitude, 0, 0, 12);
+    }
+
+    /**
+     * Repositions the camera according to the params. These parames are used to
+     * defined the CameraUpdate object.
+     * 
+     * @param latitude
+     * @param longitude
+     * @param bearing
+     *            orientation
+     * @param tilt
+     *            viewing angle
+     * @param zoom
+     */
+    public void changeMapCamera(double latitude, double longitude,
+            float bearing, float tilt, float zoom) {
+        LatLng targetLatLng = new LatLng(latitude, longitude);
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(targetLatLng).zoom(zoom).bearing(bearing).tilt(tilt)
+                .build();
+
         CameraUpdate cameraUpdate = CameraUpdateFactory
-                .newCameraPosition(new CameraPosition(latLng, 0, 0, 0));
-        // CameraPosition(LatLng target, float zoom, float tilt, float bearing)
-        mAMap.moveCamera(cameraUpdate);
+                .newCameraPosition(cameraPosition);
+
+        changeMapCamera(cameraUpdate);
+
+    }
+
+    /**
+     * Repositions the camera according to the instructions defined in the
+     * update.
+     * 
+     * @param cameraUpdate
+     */
+    public void changeMapCamera(CameraUpdate cameraUpdate) {
+        changeMapCamera(cameraUpdate, false, 0, null);
+    }
+
+    /**
+     * Change the Map Camera Position, the point looking at the map.
+     * 
+     * @param cameraUpdate
+     * @param isAnimated
+     *            If the camera changes with animation
+     * @param animateDurationMs
+     *            The duration of the animation in milliseconds.
+     * @param animateCallback
+     *            An optional callback to be notified from the main thread when
+     *            the animation stops.
+     */
+    public void changeMapCamera(CameraUpdate cameraUpdate, boolean isAnimated,
+            int animateDurationMs, CancelableCallback animateCallback) {
+
+        if (isAnimated) {
+
+            mAMap.animateCamera(cameraUpdate, animateDurationMs,
+                    animateCallback);
+        }
+        else {
+            mAMap.moveCamera(cameraUpdate);
+        }
     }
 
     @Override

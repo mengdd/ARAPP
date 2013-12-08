@@ -229,6 +229,8 @@
         </activity>
         <activity android:name="com.mengdd.tests.TestGoogleMapWithLocationModel" >
         </activity>
+                <activity android:name="com.mengdd.tests.TestAutoMapWithLocationModel" >
+        </activity>
     </application>
 
 </manifest>

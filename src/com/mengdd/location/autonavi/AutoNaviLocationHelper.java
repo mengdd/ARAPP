@@ -16,8 +16,20 @@ public class AutoNaviLocationHelper {
     public static String getLocationString(AMapLocation location) {
         String str = null;
         if (null != location) {
-            Double geoLat = location.getLatitude();
-            Double geoLng = location.getLongitude();
+            StringBuffer sb = new StringBuffer();
+            sb.append("SDK : ");
+            sb.append("AutoNavi");
+            sb.append("\ntime : ");
+            sb.append(AMapUtil.convertToTime(location.getTime()));
+            sb.append("\nprovider : ");
+            sb.append(location.getProvider());
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            sb.append("\naccuracy : ");
+            sb.append(location.getAccuracy() + " 米");
+
             String cityCode = "";
             String desc = "";
             Bundle locBundle = location.getExtras();
@@ -25,14 +37,22 @@ public class AutoNaviLocationHelper {
                 cityCode = locBundle.getString("citycode");
                 desc = locBundle.getString("desc");
             }
-            str = ("定位成功:(" + geoLng + "," + geoLat + ")" + "\n精    度    :"
-                    + location.getAccuracy() + "米" + "\n定位方式:"
-                    + location.getProvider() + "\n定位时间:"
-                    + AMapUtil.convertToTime(location.getTime()) + "\n城市编码:"
-                    + cityCode + "\n位置描述:" + desc + "\n省:"
-                    + location.getProvince() + "\n市:" + location.getCity()
-                    + "\n区(县):" + location.getDistrict() + "\n城市编码:"
-                    + location.getCityCode() + "\n区域编码:" + location.getAdCode());
+            sb.append("\n城市编码  : ");
+            sb.append(cityCode);
+            sb.append("\n位置描述 : ");
+            sb.append(desc);
+            sb.append("\n省 : ");
+            sb.append(location.getProvince());
+            sb.append("\n市 : ");
+            sb.append(location.getCity());
+            sb.append("\n区(县) : ");
+            sb.append(location.getDistrict());
+            sb.append("\n城市编码 : ");
+            sb.append(location.getCityCode());
+            sb.append("\n区域编码 : ");
+            sb.append(location.getAdCode());
+
+            str = sb.toString();
         }
 
         return str;
