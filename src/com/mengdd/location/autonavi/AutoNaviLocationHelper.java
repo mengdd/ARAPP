@@ -13,7 +13,7 @@ public class AutoNaviLocationHelper {
      * @param location
      * @return
      */
-    public String getLocationString(AMapLocation location) {
+    public static String getLocationString(AMapLocation location) {
         String str = null;
         if (null != location) {
             Double geoLat = location.getLatitude();

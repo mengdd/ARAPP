@@ -58,7 +58,8 @@ public class BaiduLocationModel extends LocationModel implements
 
         if (null != mLocationClient && mLocationClient.isStarted()) {
             mLocationClient.requestLocation();
-        } else {
+        }
+        else {
             Log.d(AppConstants.LOG_TAG, "locClient is null or not started");
         }
 
@@ -106,7 +107,8 @@ public class BaiduLocationModel extends LocationModel implements
             sb.append(location.getSpeed());
             sb.append("\nsatellite : ");
             sb.append(location.getSatelliteNumber());
-        } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+        }
+        else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
             sb.append("\naddr : ");
             sb.append(location.getAddrStr());
         }
