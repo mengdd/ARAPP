@@ -43,7 +43,9 @@ public class BaiduLocationModel extends LocationModel implements
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);// 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(5000);
+        option.setScanSpan(1001);// 定位时间间隔
+        option.setAddrType("all");// 返回地址信息
+        option.setPriority(LocationClientOption.GpsFirst);// GPS优先
         mLocationClient.setLocOption(option);
 
         mLocationClient.start();
@@ -74,6 +76,13 @@ public class BaiduLocationModel extends LocationModel implements
             mLocationClient.stop();
             mLocationClient = null;
         }
+
+    }
+
+    private BDLocationListener mBaiduLocationListener = null;
+
+    public void setBDLocationListener(BDLocationListener listener) {
+        mBaiduLocationListener = listener;
 
     }
 
@@ -122,6 +131,11 @@ public class BaiduLocationModel extends LocationModel implements
                     .convertBD2AndroidLocation(location));
         }
 
+        // 外部的lister
+        if (null != mBaiduLocationListener) {
+            mBaiduLocationListener.onReceiveLocation(location);
+        }
+
     }
 
     @Override
@@ -153,6 +167,12 @@ public class BaiduLocationModel extends LocationModel implements
             sb.append("noPoi information");
         }
         // logMsg(sb.toString());
+
+        // 外部的lister
+        if (null != mBaiduLocationListener) {
+            mBaiduLocationListener.onReceivePoi(poiLocation);
+        }
+
     }
 
 }

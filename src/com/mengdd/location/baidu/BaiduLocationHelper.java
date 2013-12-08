@@ -89,10 +89,12 @@ public class BaiduLocationHelper {
         if (null != location) {
 
             StringBuffer sb = new StringBuffer(256);
-            sb.append("time : ");
+            sb.append("SDK : ");
+            sb.append("Baidu");
+            sb.append("\ntime : ");
             sb.append(location.getTime());
-            sb.append("\nerror code : ");
-            sb.append(location.getLocType());
+            sb.append("\nprovider : ");
+            sb.append(analyseLocType(location.getLocType()));
             sb.append("\nlatitude : ");
             sb.append(location.getLatitude());
             sb.append("\nlontitude : ");
@@ -112,5 +114,38 @@ public class BaiduLocationHelper {
             str = sb.toString();
         }
         return str;
+    }
+
+    public static String analyseLocType(int locType) {
+        // 61 ： GPS定位结果
+        // 62 ： 扫描整合定位依据失败。此时定位结果无效。
+        // 63 ： 网络异常，没有成功向服务器发起请求。此时定位结果无效。
+        // 65 ： 定位缓存的结果。
+        // 66 ： 离线定位结果。通过requestOfflineLocaiton调用时对应的返回结果
+        // 67 ： 离线定位失败。通过requestOfflineLocaiton调用时对应的返回结果
+        // 68 ： 网络连接失败时，查找本地离线定位时对应的返回结果
+        // 161： 表示网络定位结果
+        // 162~167： 服务端定位失败。
+        String result = null;
+        switch (locType) {
+        case 61:
+            result = "GPS";
+            break;
+        case 65:
+            result = "Cache";
+            break;
+        case 66:
+            result = "Offline";
+            break;
+        case 161:
+            result = "Network";
+            break;
+
+        default:
+            result = "Failed!";
+            break;
+        }
+
+        return result;
     }
 }

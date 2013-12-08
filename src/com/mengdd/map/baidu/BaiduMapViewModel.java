@@ -1,16 +1,10 @@
 package com.mengdd.map.baidu;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.baidu.mapapi.BMapManager;
@@ -20,11 +14,8 @@ import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.R;
-import com.mengdd.components.ViewModel;
-import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.map.BasicMapViewModel;
 import com.mengdd.utils.AppConstants;
-import com.mengdd.utils.UIUtils;
 
 /**
  * The ViewModel to display a Baidu Map MapView. Baidu Map SDK, Developer guide:
@@ -137,7 +128,7 @@ public class BaiduMapViewModel extends BasicMapViewModel {
     /**
      * MKMapViewListener is used to handle map events callback
      */
-    private MKMapViewListener mMapListener = new MKMapViewListener() {
+    private final MKMapViewListener mMapListener = new MKMapViewListener() {
 
         @Override
         public void onMapMoveFinish() {

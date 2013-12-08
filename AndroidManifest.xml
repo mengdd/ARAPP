@@ -190,7 +190,7 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data
@@ -224,6 +224,8 @@
         <activity android:name="com.mengdd.arapp.activities.MapCompareActivity" >
         </activity>
         <activity android:name="com.mengdd.tests.TestAutoNaviMapActivity" >
+        </activity>
+        <activity android:name="com.mengdd.tests.TestBaiduMapWithLocationModel" >
         </activity>
     </application>
 
