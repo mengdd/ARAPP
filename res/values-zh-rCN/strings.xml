@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- main project -->
+    <string name="app_name">CityExplorer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- MainProject -->
+    <string name="main_title">CityExplorer</string>
+
+    <!-- Dialogs -->
+    <string name="alert_confirm">确定</string>
+    <string name="alert_cancel">取消</string>
+    <string name="alert_yes">好</string>
+    <string name="alert_no">不</string>
+
+    <!-- Google Map -->
+    <string name="googlemap_title">谷歌地图</string>
+    <string name="googlemap_bottom_tab">Google</string>
+
+    <!-- Baidu Map -->
+    <string name="baidumap_title">百度地图</string>
+    <string name="baidumap_bottom_tab">Baidu</string>
+
+    <!-- AutoNavi Map -->
+    <string name="autonavimap_title">高德地图</string>
+    <string name="autonavimap_bottom_tab">AutoNavi</string>
+
+    <!-- Search -->
+    <string name="search_title">搜索</string>
+
+    <!-- Search UI -->
+    <string name="searchui_title">搜索</string>
+    <string name="search">搜索</string>
+    <string name="at">在:</string>
+    <string name="city">城市:</string>
+    <string name="search_region">选择搜索区域 :</string>
+    <string name="search_in_city">在城市范围搜索</string>
+    <string name="search_nearby">在附近搜索</string>
+    <string name="default_city">北京</string>
+    <string name="looking_for">寻找: </string>
+    <string name="default_hint">输入您想要搜索的关键词</string>
+    <string name="default_keyword">餐厅</string>
+    <string name="clear_before">Clear Before Search</string>
+    <string name="your_current_location">您的当前位置是　: </string>
+    <string name="search_radius">搜索半径</string>
+    <!-- search navi -->
+    <string name="search_navi">Search Navigation</string>
+    <!-- Search bottom menu -->
+    <string name="search_menu_ui">搜索</string>
+    <string name="search_menu_list">结果</string>
+    <string name="search_menu_map">地图</string>
+    <string name="search_menu_realscene">实景</string>
+
+    <!-- Search Result -->
+    <string name="previous">前一页</string>
+    <string name="next">后一页</string>
+
+    <!-- Custom Markers -->
+    <string name="custom_marker_title">自定义标记</string>
+    <string name="goto_my">定位到我</string>
+    <string name="new_marker">添加标记</string>
+    <string name="save_marker">保存标记</string>
+    <string name="load_markers">刷新</string>
+    <string name="save_success">保存成功!</string>
+    <string name="save_failed">保存失败!</string>
+
+    <!-- Save Marker Dialog -->
+
+    <string name="dialog_title_save_marker">保存新标记</string>
+    <string name="dialog_save_marker_name">标记名称: </string>
+    <string name="dialog_save_marker_des">标记描述: </string>
+    <string name="dialog_too_long">"字符串有点长!</string>
+
+    <!-- Custom Marker Bottom menu -->
+    <string name="custom_menu_list">列表</string>
+    <string name="custom_menu_map">地图</string>
+    <string name="custom_menu_realscene">实景</string>
+    <!-- Custom Marker List -->
+    <string name="btn_refresh">刷新</string>
+    <string name="btn_delete">删除</string>
+
+    <!-- test activities -->
+    <string name="test_realscene">实景测试</string>
+    <string name="test_compass">电子罗盘</string>
+    <string name="test_markers">标志物测试</string>
+    <string name="compare_map">地图比较</string>
+
+</resources>
