@@ -205,6 +205,7 @@
     </string-array>
 
     <!-- test activities -->
+    <string name="test_realscene">Test RealScene</string>
     <string name="test_compass">Test Compass</string>
     <string name="test_markers">Test Markers</string>
     <string name="test_login">Test Login</string>

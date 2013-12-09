@@ -3,28 +3,25 @@ package com.mengdd.arapp.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.R.id;
-import com.mengdd.arapp.R.layout;
-import com.mengdd.arapp.R.menu;
-import com.mengdd.camera.CameraViewModel;
-import com.mengdd.components.ViewModel;
-import com.mengdd.components.ViewModelManager;
-import com.mengdd.sensors.CompassViewModel;
-import com.mengdd.tests.TestAugmentedPOIActivity;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
+
+import com.mengdd.arapp.R;
+import com.mengdd.camera.CameraViewModel;
+import com.mengdd.components.ViewModel;
+import com.mengdd.sensors.CompassViewModel;
+import com.mengdd.tests.TestAugmentedPOIActivity;
 
 /**
  * 
@@ -90,7 +87,24 @@ public class RealSceneActivity extends Activity {
             viewModel.onResume(null);
         }
 
-        mCameraViewModel.setCameraOrientation(0);
+        // mCameraViewModel.setCameraOrientation(90);
+        Log.i("mengdd", "onResume");
+    }
+
+    // bug: 很奇怪，这里的几个log都看不到
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.i("mengdd", "onConfigChanged: " + newConfig.orientation);
+        if (Configuration.ORIENTATION_LANDSCAPE == newConfig.orientation) {
+            mCameraViewModel.setCameraOrientation(0);
+            Log.i("mengdd", "onConfigChanged: landscape");
+        }
+
+        if (Configuration.ORIENTATION_PORTRAIT == newConfig.orientation) {
+            mCameraViewModel.setCameraOrientation(90);
+            Log.i("mengdd", "onConfigChanged: portrait");
+        }
     }
 
     @Override
@@ -117,7 +131,7 @@ public class RealSceneActivity extends Activity {
         }
     }
 
-    private OnCheckedChangeListener mSwichCheckedChangeListener = new OnCheckedChangeListener() {
+    private final OnCheckedChangeListener mSwichCheckedChangeListener = new OnCheckedChangeListener() {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
@@ -170,7 +184,8 @@ public class RealSceneActivity extends Activity {
 
             break;
         case R.id.action_poi:
-            intent.setClass(RealSceneActivity.this, TestAugmentedPOIActivity.class);
+            intent.setClass(RealSceneActivity.this,
+                    TestAugmentedPOIActivity.class);
 
             startActivity(intent);
 

@@ -28,9 +28,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="compass_text">16dp</dimen>
-    <dimen name="compass_main_dir">20dp</dimen>
-    <dimen name="compass_sub_dir">16dp</dimen>
+    <dimen name="compass_text">16sp</dimen>
+    <dimen name="compass_main_dir">20sp</dimen>
+    <dimen name="compass_sub_dir">18sp</dimen>
 
     <!-- Radar related -->
     <dimen name="radar_area">200dp</dimen>

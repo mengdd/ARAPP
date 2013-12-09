@@ -165,6 +165,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopLocationUpdates();
     }
 
     /**

@@ -1,8 +1,5 @@
 package com.mengdd.sensors;
 
-import com.mengdd.arapp.R;
-import com.mengdd.utils.AppConstants;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -17,8 +14,9 @@ import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
+import com.mengdd.arapp.R;
 
 /**
  * 
@@ -152,7 +150,7 @@ public class CompassView extends View {
         borderPaint.setStyle(Paint.Style.STROKE);
 
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(resources.getColor(R.color.text_color));
+        textPaint.setColor(resources.getColor(R.color.compass_text_color));
         textPaint.setFakeBoldText(true);
         textPaint.setSubpixelText(true);
         textPaint.setTextAlign(Align.LEFT);
@@ -163,7 +161,7 @@ public class CompassView extends View {
 
         markerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         markerPaint.setColor(resources.getColor(R.color.compass_marker));
-        markerPaint.setAlpha(200);
+        markerPaint.setAlpha(220);
         markerPaint.setStyle(Paint.Style.STROKE);
         markerPaint.setShadowLayer(2, 1, 1,
                 resources.getColor(R.color.compass_marker_shadow));
@@ -192,19 +190,18 @@ public class CompassView extends View {
         // arrow Paint
         arrowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         arrowPaint.setColor(resources.getColor(R.color.compass_arrow));
-        arrowPaint.setAlpha(200);
+        arrowPaint.setAlpha(250);
         arrowPaint.setStyle(Paint.Style.STROKE);
         arrowPaint.setShadowLayer(5, 1, 1,
                 resources.getColor(R.color.compass_arrow_shadow));
-        arrowPaint.setStrokeWidth(10);
+        arrowPaint.setStrokeWidth(12);
 
         // draw glass
         glassPaint = new Paint();
 
         glassCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        glassCirclePaint
-                .setColor(resources.getColor(R.color.transparent_color));
-        glassCirclePaint.setStrokeWidth(1);
+        glassCirclePaint.setColor(resources.getColor(R.color.shadow_color));
+        glassCirclePaint.setStrokeWidth(2);
         glassCirclePaint.setStyle(Paint.Style.STROKE);
 
     }
@@ -212,10 +209,11 @@ public class CompassView extends View {
     private void initColors() {
         borderGradientColors = new int[4];
         borderGradientPositions = new float[4];
-        borderGradientColors[3] = resources.getColor(R.color.transparent_color);
-        borderGradientColors[2] = resources.getColor(R.color.transparent_color);
-        borderGradientColors[1] = resources.getColor(R.color.transparent_color);
-        borderGradientColors[0] = resources.getColor(R.color.transparent_color);
+        borderGradientColors[3] = resources.getColor(R.color.glass_shadow_3);
+        // 下面这三个颜色值好像没体现出来，我也不解为何
+        borderGradientColors[2] = resources.getColor(R.color.glass_shadow_2);
+        borderGradientColors[1] = resources.getColor(R.color.glass_shadow_1);
+        borderGradientColors[0] = resources.getColor(R.color.glass_shadow_0);
         borderGradientPositions[3] = 0.0f;
         borderGradientPositions[2] = 1 - 0.03f;
         borderGradientPositions[1] = 1 - 0.06f;
