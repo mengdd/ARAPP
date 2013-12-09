@@ -3,8 +3,8 @@ package com.mengdd.tests;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
 import android.widget.ToggleButton;
 
@@ -20,89 +20,88 @@ import com.mengdd.sensors.CompassViewModel;
  * 
  */
 public class TestCompassActivity extends Activity {
-	private CompassViewModel mCompassViewModel = null;
+    private CompassViewModel mCompassViewModel = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		setContentView(R.layout.test_compass);
+        setContentView(R.layout.test_compass);
 
-		mCompassViewModel = new CompassViewModel(this);
-		mCompassViewModel.onCreate(savedInstanceState);
+        mCompassViewModel = new CompassViewModel(this);
+        mCompassViewModel.onCreate(savedInstanceState);
 
-		FrameLayout frameLayout = (FrameLayout) findViewById(R.id.main_frame);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.main_frame);
 
-		frameLayout.addView(mCompassViewModel.getView(), 0);
+        frameLayout.addView(mCompassViewModel.getView(), 0);
 
-		ToggleButton remapBtn = (ToggleButton) findViewById(R.id.remap);
-		remapBtn.setOnCheckedChangeListener(mCheckedChangeListener);
+        ToggleButton remapBtn = (ToggleButton) findViewById(R.id.remap);
+        remapBtn.setOnCheckedChangeListener(mCheckedChangeListener);
 
-		ToggleButton antiAliasBtn = (ToggleButton) findViewById(R.id.anti_alias);
-		antiAliasBtn.setOnCheckedChangeListener(mCheckedChangeListener);
+        ToggleButton antiAliasBtn = (ToggleButton) findViewById(R.id.anti_alias);
+        antiAliasBtn.setOnCheckedChangeListener(mCheckedChangeListener);
 
-	}
+    }
 
-	private OnCheckedChangeListener mCheckedChangeListener = new OnCheckedChangeListener() {
+    private final OnCheckedChangeListener mCheckedChangeListener = new OnCheckedChangeListener() {
 
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked) {
 
-			switch (buttonView.getId()) {
-			case R.id.remap:
-				if (isChecked) {
-					mCompassViewModel
-							.setCurrentMode(CompassViewModel.REMAP_MODE);
-				}
-				else {
-					mCompassViewModel
-							.setCurrentMode(CompassViewModel.TRADITIONAL_MODE);
-				}
+            switch (buttonView.getId()) {
+            case R.id.remap:
+                if (isChecked) {
+                    mCompassViewModel
+                            .setRemapMode(CompassViewModel.REMAP_WHOLE);
+                }
+                else {
+                    mCompassViewModel.setRemapMode(CompassViewModel.REMAP_NONE);
+                }
 
-				break;
-			case R.id.anti_alias:
+                break;
+            case R.id.anti_alias:
 
-				if (isChecked) {
-					mCompassViewModel.setAntiAlias(true);
-				}
-				else {
-					mCompassViewModel.setAntiAlias(false);
-				}
+                if (isChecked) {
+                    mCompassViewModel.setAntiAlias(true);
+                }
+                else {
+                    mCompassViewModel.setAntiAlias(false);
+                }
 
-				break;
+                break;
 
-			default:
-				break;
-			}
-		}
-	};
+            default:
+                break;
+            }
+        }
+    };
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		mCompassViewModel.onResume(null);
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCompassViewModel.onResume(null);
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		mCompassViewModel.onPause();
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCompassViewModel.onPause();
+    }
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-		mCompassViewModel.onStop();
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mCompassViewModel.onStop();
+    }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-		mCompassViewModel.onDestroy();
-	}
+        mCompassViewModel.onDestroy();
+    }
 
 }
