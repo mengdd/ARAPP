@@ -3,19 +3,26 @@ package com.mengdd.sensors;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+import com.mengdd.location.google.GoogleLocationModel;
 import com.mengdd.sensors.CompassView.CompassStatus;
+import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.LowPassFilter;
+import com.mengdd.utils.Matrix;
 
 /**
  * 
@@ -29,7 +36,7 @@ import com.mengdd.utils.LowPassFilter;
  * @since 2013-07-01
  * 
  */
-public class CompassViewModel extends ViewModel {
+public class CompassViewModel extends ViewModel implements LocationListener {
     // the RootView of the ViewModel
     private View mRootView = null;
 
@@ -71,6 +78,17 @@ public class CompassViewModel extends ViewModel {
 
     public void setAntiAlias(boolean isAntiAlias) {
         this.isAntiAlias = isAntiAlias;
+    }
+
+    // 是否开启地磁场纠偏
+    private boolean isMagneticCompensatedOn = true;
+
+    public boolean isMagneticCompensatedOn() {
+        return isMagneticCompensatedOn;
+    }
+
+    public void setMagneticCompensatedOn(boolean isMagneticCompensatedOn) {
+        this.isMagneticCompensatedOn = isMagneticCompensatedOn;
     }
 
     public void setVisibility(int visibility) {
@@ -199,6 +217,20 @@ public class CompassViewModel extends ViewModel {
             outR = R;
         }
 
+        // 是否加入地磁场纠偏
+        if (isMagneticCompensatedOn) {
+            if (!isLocationUpdating) {
+                requestLocation();
+            }
+            compensateMagneticField(outR, outR);
+        }
+        else {
+            if (isLocationUpdating) {
+                stopLocationUpdates();
+            }
+        }
+
+        // 根据旋转之后的旋转矩阵，得到三个角度值
         SensorManager.getOrientation(outR, values);
 
         // finally we get 3 angle in degrees
@@ -272,6 +304,112 @@ public class CompassViewModel extends ViewModel {
         else {
             compassView.setCompassStatus(CompassStatus.VerticalToGround);
         }
+    }
+
+    private void compensateMagneticField(float[] rotation, float[] outRotation) {
+
+        // 先判断是否更新了地磁场偏移的合理的值
+        if (null == sGeomagneticField) {
+            return;
+        }
+        Matrix worldCoord = new Matrix();
+        Matrix magneticCompensatedCoord = new Matrix();
+
+        // Convert from float[9] to Matrix
+        worldCoord
+                .set(rotation[0], rotation[1], rotation[2], rotation[3],
+                        rotation[4], rotation[5], rotation[6], rotation[7],
+                        rotation[8]);
+
+        // // Find position relative to magnetic north ////
+        // Identity matrix
+        // [ 1, 0, 0 ]
+        // [ 0, 1, 0 ]
+        // [ 0, 0, 1 ]
+        magneticCompensatedCoord.toIdentity();
+        //
+        synchronized (sMagneticCompensatedValue) {
+            // Cross product the matrix with the magnetic north compensation
+            magneticCompensatedCoord.prod(sMagneticCompensatedValue);
+        }
+
+        // Cross product with the world coordinates to get a mag north
+        // compensated coords
+        magneticCompensatedCoord.prod(worldCoord);
+
+        // Set the rotation matrix (used to translate all object from lat/lon to
+        // x/y/z)
+
+        // GlobalARData.setRotationMatrix(magneticCompensatedCoord);
+        magneticCompensatedCoord.get(outRotation);
+
+    }
+
+    // 地磁场补偿相关
+    private static GeomagneticField sGeomagneticField = null;
+    private static final Matrix sMagneticCompensatedValue = new Matrix();
+    private GoogleLocationModel mLocationModel = null;
+
+    private boolean isLocationUpdating = false;
+
+    private void requestLocation() {
+        if (null == mLocationModel) {
+            mLocationModel = new GoogleLocationModel(mActivity);
+            mLocationModel.setLocationListener(this);
+        }
+
+        mLocationModel.registerLocationUpdates();
+        isLocationUpdating = true;
+
+    }
+
+    private void stopLocationUpdates() {
+
+        if (null != mLocationModel) {
+            mLocationModel.unregisterLocationUpdates();
+
+        }
+        isLocationUpdating = false;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // 地磁场纠偏，需要监听位置，更新偏移量
+        Log.i(AppConstants.LOG_TAG, "Compass onLocationChanged" + location);
+
+        sGeomagneticField = new GeomagneticField(
+                (float) location.getLatitude(),
+                (float) location.getLongitude(),
+                (float) location.getAltitude(), System.currentTimeMillis());
+
+        float dec = (float) Math.toRadians(-sGeomagneticField.getDeclination());
+
+        synchronized (sMagneticCompensatedValue) {
+            sMagneticCompensatedValue.toIdentity();
+
+            sMagneticCompensatedValue.set((float) Math.cos(dec), 0f,
+                    (float) Math.sin(dec), 0f, 1f, 0f, -(float) Math.sin(dec),
+                    0f, (float) Math.cos(dec));
+        }
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
+
     }
 
 }

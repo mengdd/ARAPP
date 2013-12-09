@@ -39,9 +39,16 @@ public class TestCompassActivity extends Activity {
 
         ToggleButton remapBtn = (ToggleButton) findViewById(R.id.remap);
         remapBtn.setOnCheckedChangeListener(mCheckedChangeListener);
+        remapBtn.setChecked(mCompassViewModel.getRemapMode() == CompassViewModel.REMAP_WHOLE);
 
         ToggleButton antiAliasBtn = (ToggleButton) findViewById(R.id.anti_alias);
         antiAliasBtn.setOnCheckedChangeListener(mCheckedChangeListener);
+        antiAliasBtn.setChecked(mCompassViewModel.isAntiAlias());
+
+        ToggleButton compensateMagBtn = (ToggleButton) findViewById(R.id.compensate_mag);
+        compensateMagBtn.setOnCheckedChangeListener(mCheckedChangeListener);
+        compensateMagBtn
+                .setChecked(mCompassViewModel.isMagneticCompensatedOn());
 
     }
 
@@ -69,6 +76,16 @@ public class TestCompassActivity extends Activity {
                 }
                 else {
                     mCompassViewModel.setAntiAlias(false);
+                }
+
+                break;
+            case R.id.compensate_mag:
+
+                if (isChecked) {
+                    mCompassViewModel.setMagneticCompensatedOn(true);
+                }
+                else {
+                    mCompassViewModel.setMagneticCompensatedOn(false);
                 }
 
                 break;
