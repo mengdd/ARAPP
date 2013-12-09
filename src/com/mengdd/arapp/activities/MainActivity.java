@@ -21,15 +21,10 @@ import com.mengdd.arapp.R;
 import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.db.DatabaseManager;
 import com.mengdd.sina.weibo.data.WeiboAppConfig;
-import com.mengdd.tests.TestAugmentedPOIActivity;
 import com.mengdd.tests.TestAutoMapWithLocationModel;
-import com.mengdd.tests.TestAutoNaviMapActivity;
 import com.mengdd.tests.TestBaiduMapWithLocationModel;
 import com.mengdd.tests.TestCompassActivity;
 import com.mengdd.tests.TestGoogleMapWithLocationModel;
-import com.mengdd.tests.TestNaviUIActivity;
-import com.mengdd.tests.TestSsoAuthorActivity;
-import com.mengdd.tests.TestUserAuthorizeActivity;
 import com.mengdd.utils.AppConstants;
 
 public class MainActivity extends Activity {
@@ -78,22 +73,24 @@ public class MainActivity extends Activity {
 
         // Instantiate the list of samples.
         mSamples = new Sample[] {
-                new Sample(R.string.login, LoginActivity.class),
+                // new Sample(R.string.login, LoginActivity.class),
                 new Sample(R.string.search, SearchActivity.class),
                 new Sample(R.string.custom_marker_title,
                         CustomMarkerActivity.class),
-                new Sample(R.string.google_map, GoogleMapActivity.class),
-                new Sample(R.string.baidu_map, BaiduMapActivity.class),
-                new Sample(R.string.search_navi, TestNaviUIActivity.class),
+                // new Sample(R.string.google_map, GoogleMapActivity.class),
+                // new Sample(R.string.baidu_map, BaiduMapActivity.class),
+                // new Sample(R.string.search_navi, TestNaviUIActivity.class),
                 new Sample(R.string.test_realscene, RealSceneActivity.class),
                 new Sample(R.string.test_compass, TestCompassActivity.class),
-                new Sample(R.string.test_markers,
-                        TestAugmentedPOIActivity.class),
+                // new Sample(R.string.test_markers,
+                // TestAugmentedPOIActivity.class),
 
-                new Sample(R.string.test_login, TestUserAuthorizeActivity.class),
-                new Sample(R.string.test_login_sso, TestSsoAuthorActivity.class),
-                new Sample(R.string.test_autonavi_map,
-                        TestAutoNaviMapActivity.class),
+                // new Sample(R.string.test_login,
+                // TestUserAuthorizeActivity.class),
+                // new Sample(R.string.test_login_sso,
+                // TestSsoAuthorActivity.class),
+                // new Sample(R.string.test_autonavi_map,
+                // TestAutoNaviMapActivity.class),
                 new Sample(R.string.compare_map, MapCompareActivity.class),
                 new Sample(R.string.baidumap_title,
                         TestBaiduMapWithLocationModel.class),
