@@ -15,11 +15,11 @@
 
     <!-- text sizes -->
     <dimen name="bottom_menu_text_size">12sp</dimen>
-    <dimen name="normal_text_size">18sp</dimen>
     <dimen name="small_text_size">16sp</dimen>
-    <dimen name="big_text_size">22sp</dimen>
+    <dimen name="normal_text_size">18sp</dimen>
+    <dimen name="big_text_size">20sp</dimen>
     <dimen name="title_text_size">22sp</dimen>
-    
+
     <!-- Search -->
     <dimen name="search_button_size">40dp</dimen>
     <dimen name="search_line_padding_side">15dp</dimen>

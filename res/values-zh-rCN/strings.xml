@@ -86,4 +86,11 @@
     <string name="test_markers">标志物测试</string>
     <string name="compare_map">地图比较</string>
 
+    <!-- 欢迎界面 -->
+    <string name="welcome_maintitle">City Explorer</string>
+    <string name="welcome_subtitle">一个有点特别的 增强现实位基服务 \nAR(Augmented Reality) \nLBS(Location-Based Service)</string>
+    <string name="welcome_author">Dandan Meng. @2013</string>
+    <string name="welcome_email">mengdandanno1@163.com</string>
+    <string name="welcome_blog">http://www.cnblogs.com/mengdd/</string>
+
 </resources>

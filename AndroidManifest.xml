@@ -86,13 +86,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.EntryActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.mengdd.arapp.activities.LoginActivity"
@@ -190,7 +194,7 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data
@@ -229,7 +233,7 @@
         </activity>
         <activity android:name="com.mengdd.tests.TestGoogleMapWithLocationModel" >
         </activity>
-                <activity android:name="com.mengdd.tests.TestAutoMapWithLocationModel" >
+        <activity android:name="com.mengdd.tests.TestAutoMapWithLocationModel" >
         </activity>
     </application>
 

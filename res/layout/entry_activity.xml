@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/welcome_background" >
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/welcome_maintitle"
+        android:textColor="@color/header_bottom_darken"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_title"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:padding="2dp"
+        android:text="@string/welcome_subtitle"
+        android:textColor="@color/header_bottom_highlight"
+        android:textSize="@dimen/big_text_size"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/welcome_blog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:ellipsize="marquee"
+        android:gravity="center_horizontal"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="@string/welcome_blog"
+        android:textColor="@color/welcome_text"
+        android:textSize="@dimen/small_text_size" />
+
+    <TextView
+        android:id="@+id/welcome_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/welcome_blog"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/welcome_email"
+        android:textColor="@color/welcome_text"
+        android:textSize="@dimen/small_text_size" />
+
+    <TextView
+        android:id="@+id/welcome_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/welcome_email"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/welcome_text"
+        android:textSize="@dimen/small_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/welcome_version"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/welcome_author"
+        android:textColor="@color/welcome_text"
+        android:textSize="@dimen/small_text_size" />
+
+</RelativeLayout>
