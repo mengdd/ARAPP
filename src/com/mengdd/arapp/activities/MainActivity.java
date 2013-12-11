@@ -8,18 +8,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.mengdd.arapp.FrameHeaderViewModel;
 import com.mengdd.arapp.FrameHeaderViewModel.OnSettingListener;
 import com.mengdd.arapp.R;
+import com.mengdd.data.analyse.AutoNaviLocationData;
+import com.mengdd.data.analyse.BaiduLocationData;
+import com.mengdd.data.analyse.GoogleLocationData;
 import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.db.DatabaseManager;
+import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.sina.weibo.data.WeiboAppConfig;
 import com.mengdd.tests.TestAugmentedPOIActivity;
 import com.mengdd.tests.TestAutoMapWithLocationModel;
@@ -70,6 +76,16 @@ public class MainActivity extends Activity {
         initDrawerList();
 
         initSNSData();
+
+
+        Button button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                doDistanceAnalyze();
+            }
+        });
 
     }
 
@@ -155,4 +171,21 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void doDistanceAnalyze() {
+        BaiduLocationData.computeData(this);
+        GoogleLocationData.computeData();
+        AutoNaviLocationData.computeData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
 }

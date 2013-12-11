@@ -33,6 +33,12 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@id/bottom_content"
                 android:layout_below="@id/main_title" >
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -49,7 +55,6 @@
                 android:background="@color/drawer_bg_color"
                 android:cacheColorHint="@color/drawer_bg_color"
                 android:divider="@drawable/drawer_list_divider"
-                
                 android:listSelector="@drawable/drawer_list_item_selector" />
         </RelativeLayout>
     </android.support.v4.widget.DrawerLayout>
