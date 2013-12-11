@@ -23,13 +23,4 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
     </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/location_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_tab"
-        android:layout_below="@id/title" >
-    </FrameLayout>
-
-</RelativeLayout>
+</RelativeLayout>

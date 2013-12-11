@@ -2,6 +2,8 @@ package com.mengdd.location.google;
 
 import android.location.Location;
 
+import com.mengdd.map.autonavi.AMapUtil;
+
 public class GoogleLocationHelper {
 
     /**
@@ -18,7 +20,10 @@ public class GoogleLocationHelper {
             sb.append("SDK : ");
             sb.append("Google");
             sb.append("\ntime : ");
-            sb.append(location.getTime());
+
+            sb.append(AMapUtil.convertToTime(location.getTime()));
+            // the location.getTime() return a long, so autonavi's helper is
+            // used here to convert it to a human readable time
             sb.append("\nprovider : ");
             sb.append(location.getProvider());
             sb.append("\nlatitude : ");
