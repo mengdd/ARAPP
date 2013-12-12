@@ -103,6 +103,9 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
 
         mAMap = mMapView.getMap();
 
+        // init the map to a better state
+        changeMapCamera(39, 116, 0, 0, 12);
+
     }
 
     public float getZoomLevel() {

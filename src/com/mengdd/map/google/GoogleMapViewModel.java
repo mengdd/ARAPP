@@ -69,6 +69,9 @@ public class GoogleMapViewModel extends BasicMapViewModel {
             e.printStackTrace();
         }
 
+        // init the map to a better state
+        changeMapCamera(39, 116, 0, 0, 12);
+
     }
 
     @Override
