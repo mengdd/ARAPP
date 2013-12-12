@@ -119,7 +119,7 @@ public class BaiduMapViewModel extends BasicMapViewModel {
 
         // enable the map click event
         mMapController.enableClick(true);
-        mMapController.setZoom(12);
+        mMapController.setZoom(15);
         // mMapView.setTraffic(true);
         // mMapView.setSatellite(true);
 
