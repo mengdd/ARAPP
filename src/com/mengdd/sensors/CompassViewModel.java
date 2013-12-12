@@ -25,16 +25,16 @@ import com.mengdd.utils.LowPassFilter;
 import com.mengdd.utils.Matrix;
 
 /**
- * 
+ *
  * CompassViewModel is the Module for the Compass. Get the sensors' data and
  * update the CompassView
- * 
+ *
  * The Compass results are compared with the Smart Compass App for insurance.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
+ *
  */
 public class CompassViewModel extends ViewModel implements LocationListener {
     // the RootView of the ViewModel
@@ -159,18 +159,19 @@ public class CompassViewModel extends ViewModel implements LocationListener {
     public void onStop() {
         // unregister thesensors
         sensorManager.unregisterListener(sensorEventListener);
+        stopLocationUpdates();
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        stopLocationUpdates();
+
     }
 
     /**
      * Set 3 rotation values in the CompassView
-     * 
+     *
      * @param values
      */
     private void updateOrientation(float[] values) {
@@ -186,7 +187,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
      * Get Orientation values according to accelerometer and magField sensor
      * values. compare the values of without remapCoordinatesSystem and with
      * remapCoordinatesSystem. The compared valuse are shown in the TextViews
-     * 
+     *
      * @return Orientation values with remapCoordinatesSystem
      */
     private float[] calculateOrientation() {
