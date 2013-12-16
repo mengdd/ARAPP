@@ -1,7 +1,5 @@
 package com.mengdd.camera;
 
-import android.R.integer;
-
 import com.mengdd.utils.AppConstants;
 
 public class CameraData {

@@ -108,6 +108,7 @@
         </activity>
         <activity
             android:name=".activities.RealSceneActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="sensor" >
         </activity>
@@ -122,7 +123,9 @@
         <activity
             android:name="com.mengdd.arapp.activities.SearchActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan" 
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="sensor">
         </activity>
         <activity
             android:name="com.mengdd.arapp.activities.CustomMarkerActivity"
@@ -146,10 +149,13 @@
         </activity>
         <activity
             android:name="com.mengdd.tests.TestCameraActivity"
-            android:label="@string/app_name" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="sensor" >
         </activity>
         <activity
             android:name="com.mengdd.tests.TestCompassActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="sensor" >
         </activity>
@@ -194,7 +200,7 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data

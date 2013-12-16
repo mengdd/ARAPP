@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -181,29 +182,29 @@ public class MainSearchViewModel extends ViewModel {
                     "bottom menu: onClickListener: " + v.getId());
 
             switch (v.getId()) {
-            case R.id.search_menu_ui:
+                case R.id.search_menu_ui:
 
-                switchScene(SearchScene.SearchUI);
+                    switchScene(SearchScene.SearchUI);
 
-                break;
-            case R.id.search_menu_list:
+                    break;
+                case R.id.search_menu_list:
 
-                switchScene(SearchScene.ResultList);
+                    switchScene(SearchScene.ResultList);
 
-                break;
-            case R.id.search_menu_map:
+                    break;
+                case R.id.search_menu_map:
 
-                switchScene(SearchScene.Map);
+                    switchScene(SearchScene.Map);
 
-                break;
-            case R.id.search_menu_real:
+                    break;
+                case R.id.search_menu_real:
 
-                switchScene(SearchScene.RealScene);
+                    switchScene(SearchScene.RealScene);
 
-                break;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
 
         }
@@ -260,54 +261,54 @@ public class MainSearchViewModel extends ViewModel {
             return;
         }
         switch (scene) {
-        case SearchUI:
+            case SearchUI:
 
-            if (SearchScene.Map == mCurrentScene) {
-                mSearchMapViewModel.onPause();
-            }
+                if (SearchScene.Map == mCurrentScene) {
+                    mSearchMapViewModel.onPause();
+                }
 
-            if (SearchScene.RealScene == mCurrentScene) {
-                mSearchRealSceneViewModel.onPause();
-            }
-            mContentFrameLayout.removeAllViews();
-            mContentFrameLayout.addView(mSearchUIView);
+                if (SearchScene.RealScene == mCurrentScene) {
+                    mSearchRealSceneViewModel.onPause();
+                }
+                mContentFrameLayout.removeAllViews();
+                mContentFrameLayout.addView(mSearchUIView);
 
-            break;
-        case Map:
+                break;
+            case Map:
 
-            if (SearchScene.RealScene == mCurrentScene) {
-                mSearchRealSceneViewModel.onPause();
-            }
-            mContentFrameLayout.removeAllViews();
-            mSearchMapViewModel.onResume(null);
-            mContentFrameLayout.addView(mSearchMapView);
+                if (SearchScene.RealScene == mCurrentScene) {
+                    mSearchRealSceneViewModel.onPause();
+                }
+                mContentFrameLayout.removeAllViews();
+                mSearchMapViewModel.onResume(null);
+                mContentFrameLayout.addView(mSearchMapView);
 
-            break;
-        case RealScene:
-            if (SearchScene.Map == mCurrentScene) {
-                mSearchMapViewModel.onPause();
-            }
+                break;
+            case RealScene:
+                if (SearchScene.Map == mCurrentScene) {
+                    mSearchMapViewModel.onPause();
+                }
 
-            mContentFrameLayout.removeAllViews();
+                mContentFrameLayout.removeAllViews();
 
-            mSearchRealSceneViewModel.onResume(null);
-            mContentFrameLayout.addView(mSearchRealSceneView);
+                mSearchRealSceneViewModel.onResume(null);
+                mContentFrameLayout.addView(mSearchRealSceneView);
 
-            break;
-        case ResultList:
-            if (SearchScene.Map == mCurrentScene) {
-                mSearchMapViewModel.onPause();
-            }
+                break;
+            case ResultList:
+                if (SearchScene.Map == mCurrentScene) {
+                    mSearchMapViewModel.onPause();
+                }
 
-            if (SearchScene.RealScene == mCurrentScene) {
-                mSearchRealSceneViewModel.onPause();
-            }
-            mContentFrameLayout.removeAllViews();
-            mContentFrameLayout.addView(mSearchResultView);
-            break;
+                if (SearchScene.RealScene == mCurrentScene) {
+                    mSearchRealSceneViewModel.onPause();
+                }
+                mContentFrameLayout.removeAllViews();
+                mContentFrameLayout.addView(mSearchResultView);
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
 
         mCurrentScene = scene;
@@ -459,6 +460,13 @@ public class MainSearchViewModel extends ViewModel {
         public void onSearchCompleted() {
             switchScene(SearchScene.ResultList);
 
+        }
+    };
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onConfigurationChanged(newConfig);
         }
     };
 

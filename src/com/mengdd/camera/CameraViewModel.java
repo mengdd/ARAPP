@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PictureCallback;
@@ -26,13 +27,13 @@ import com.mengdd.utils.FileUtils;
 import com.mengdd.utils.FileUtils.MediaType;
 
 /**
- * 
+ *
  * Camera Module including the Camera and Camera Preview.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
+ *
  */
 public class CameraViewModel extends ViewModel {
     private Camera mCamera = null;
@@ -44,11 +45,11 @@ public class CameraViewModel extends ViewModel {
 
     // The first rear facing camera
     private int mDefaultCameraId;
-    private FrameLayout preview = null;
-    private Button captureButton = null;
+    private FrameLayout mPreviewLayout = null;
+    private Button mCaptureButton = null;
 
     public void setCaptureButtonVisibility(int visibility) {
-        captureButton.setVisibility(visibility);
+        mCaptureButton.setVisibility(visibility);
 
     }
 
@@ -69,8 +70,8 @@ public class CameraViewModel extends ViewModel {
         mRootView = mInflater.inflate(R.layout.camera_view_model, null);
 
         // 使用按钮进行拍摄动作监听
-        captureButton = (Button) mRootView.findViewById(R.id.button_capture);
-        captureButton.setOnClickListener(new View.OnClickListener() {
+        mCaptureButton = (Button) mRootView.findViewById(R.id.button_capture);
+        mCaptureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCamera.takePicture(null, null, mPictureCallback);
@@ -90,8 +91,9 @@ public class CameraViewModel extends ViewModel {
         // Add CameraPreview to layout
         mCameraPreview = new CameraPreview(mActivity);
 
-        preview = (FrameLayout) mRootView.findViewById(R.id.camera_preview);
-        preview.addView(mCameraPreview, 0);
+        mPreviewLayout = (FrameLayout) mRootView
+                .findViewById(R.id.camera_preview);
+        mPreviewLayout.addView(mCameraPreview, 0);
 
         mCamera = getCameraInstance(mCameraCurrentlyLocked);
 
@@ -105,7 +107,7 @@ public class CameraViewModel extends ViewModel {
         if (null != mCamera) {
             mCameraPreview.setCamera(null);
 
-            preview.removeViewAt(0);
+            mPreviewLayout.removeViewAt(0);
 
             mCamera.stopPreview();
             mCamera.setPreviewCallback(null);
@@ -127,7 +129,7 @@ public class CameraViewModel extends ViewModel {
 
     /**
      * 得到默认相机的ID
-     * 
+     *
      * @return
      */
     private int getDefaultCameraId() {
@@ -151,8 +153,7 @@ public class CameraViewModel extends ViewModel {
             if (mNumberOfCameras > 0) {
                 // 如果没有后向摄像头
                 defaultId = 0;
-            }
-            else {
+            } else {
                 // 没有摄像头
                 Toast.makeText(mActivity, R.string.no_camera, Toast.LENGTH_LONG)
                         .show();
@@ -216,8 +217,7 @@ public class CameraViewModel extends ViewModel {
                 PackageManager.FEATURE_CAMERA)) {
             // this device has a camera
             return true;
-        }
-        else {
+        } else {
             // no camera on this device
             return false;
         }
@@ -227,4 +227,14 @@ public class CameraViewModel extends ViewModel {
         mCameraPreview.setDegree(degree);
     }
 
+    public void onConfigurationChanged(Configuration newConfig) {
+
+        if (Configuration.ORIENTATION_LANDSCAPE == newConfig.orientation) {
+            setCameraOrientation(0);
+        }
+
+        if (Configuration.ORIENTATION_PORTRAIT == newConfig.orientation) {
+            setCameraOrientation(90);
+        }
+    }
 }

@@ -132,8 +132,6 @@ public class RealSceneCMViewModel extends ViewModel {
             viewModel.onResume(null);
         }
 
-        mCameraViewModel.setCameraOrientation(90);
-
         GlobalARData.addLocationListener(mSensorViewModel);
 
         // TODO: now suppose every resume needs refresh, need to be fixed later

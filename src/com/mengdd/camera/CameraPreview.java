@@ -1,6 +1,5 @@
 package com.mengdd.camera;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.mengdd.utils.AppConstants;
@@ -15,22 +14,22 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 /**
- * 
+ *
  * The Camera Preview class extends SurfaceView, showing the real scene throungh
  * camera.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
+ *
  */
 public class CameraPreview extends SurfaceView implements
         SurfaceHolder.Callback {
 
     private SurfaceHolder mHolder;
     private Camera mCamera;
-    Size mPreviewSize;
-    List<Size> mSupportedPreviewSizes;
+    private Size mPreviewSize;
+    private List<Size> mSupportedPreviewSizes;
     private int mRotationDegree = 90;
 
     public int getDegree() {
@@ -56,6 +55,7 @@ public class CameraPreview extends SurfaceView implements
         init();
     }
 
+    @SuppressWarnings("deprecation")
     private void init() {
         Log.d(AppConstants.LOG_TAG, "CameraPreview initialize");
 

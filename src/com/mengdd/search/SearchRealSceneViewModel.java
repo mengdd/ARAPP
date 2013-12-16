@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -195,7 +196,6 @@ public class SearchRealSceneViewModel extends ViewModel implements
         for (ViewModel viewModel : mViewModels) {
             viewModel.onResume(null);
         }
-        mCameraViewModel.setCameraOrientation(90);
         GlobalARData.addLocationListener(mSensorViewModel);
 
     }
@@ -286,4 +286,9 @@ public class SearchRealSceneViewModel extends ViewModel implements
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        mCameraViewModel.onConfigurationChanged(newConfig);
+
+    }
 }

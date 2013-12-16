@@ -25,6 +25,7 @@ import com.mengdd.poi.ui.RadarZoomController;
 import com.mengdd.sensors.SensorViewModel;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -267,9 +268,13 @@ public class TestAugmentedPOIActivity extends Activity {
         GlobalARData.addLocationListener(mSensorViewModel);
         GlobalARData.addLocationListener(mPoiViewModel);
 
-        mCameraViewModel.setCameraOrientation(90);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mCameraViewModel.onConfigurationChanged(newConfig);
+    }
     @Override
     protected void onPause() {
         super.onPause();

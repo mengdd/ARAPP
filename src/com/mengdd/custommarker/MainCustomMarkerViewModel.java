@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -239,6 +240,13 @@ public class MainCustomMarkerViewModel extends ViewModel {
         for (ViewModel viewModel : mViewModels) {
             viewModel.onPause();
         }
+    }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+
+        for (ViewModel viewModel : mViewModels) {
+            viewModel.onConfigurationChanged(newConfig);
+        }
     }
 }

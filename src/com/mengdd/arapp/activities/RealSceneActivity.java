@@ -24,14 +24,14 @@ import com.mengdd.sensors.CompassViewModel;
 import com.mengdd.tests.TestAugmentedPOIActivity;
 
 /**
- * 
+ *
  * This class is the first activity for the Project as an independent and
  * functional App.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
+ *
  */
 public class RealSceneActivity extends Activity {
 
@@ -91,20 +91,11 @@ public class RealSceneActivity extends Activity {
         Log.i("mengdd", "onResume");
     }
 
-    // bug: 很奇怪，这里的几个log都看不到
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.i("mengdd", "onConfigChanged: " + newConfig.orientation);
-        if (Configuration.ORIENTATION_LANDSCAPE == newConfig.orientation) {
-            mCameraViewModel.setCameraOrientation(0);
-            Log.i("mengdd", "onConfigChanged: landscape");
-        }
-
-        if (Configuration.ORIENTATION_PORTRAIT == newConfig.orientation) {
-            mCameraViewModel.setCameraOrientation(90);
-            Log.i("mengdd", "onConfigChanged: portrait");
-        }
+        mCameraViewModel.onConfigurationChanged(newConfig);
     }
 
     @Override
