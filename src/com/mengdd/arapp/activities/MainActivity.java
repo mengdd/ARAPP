@@ -34,6 +34,7 @@ import com.mengdd.tests.TestBaiduMapWithLocationModel;
 import com.mengdd.tests.TestCameraActivity;
 import com.mengdd.tests.TestCompassActivity;
 import com.mengdd.tests.TestGoogleMapWithLocationModel;
+import com.mengdd.tests.TestMin3dActivity;
 import com.mengdd.tests.TestNaviUIActivity;
 import com.mengdd.tests.TestSsoAuthorActivity;
 import com.mengdd.tests.TestUserAuthorizeActivity;
@@ -103,9 +104,10 @@ public class MainActivity extends Activity {
                 // new Sample(R.string.search_navi, TestNaviUIActivity.class),
                 new Sample(R.string.test_realscene, RealSceneActivity.class),
                 new Sample(R.string.test_compass, TestCompassActivity.class),
-                new Sample(R.string.test_markers,
-                        TestAugmentedPOIActivity.class),
-
+//                new Sample(R.string.test_markers,
+//                        TestAugmentedPOIActivity.class),
+                        new Sample(R.string.test_markers,
+                                TestMin3dActivity.class),
                 // new Sample(R.string.test_login,
                 // TestUserAuthorizeActivity.class),
                 // new Sample(R.string.test_login_sso,

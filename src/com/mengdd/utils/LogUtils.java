@@ -11,7 +11,7 @@ public class LogUtils {
     private static boolean DEBUG = true;
     private static String LOG_TAG = "mengdd";
 
-    private final static boolean LOG_TO_FILE = true;
+    private final static boolean LOG_TO_FILE = false;
     private final static String LOG_FILE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/mengdd_debug_log.txt";
 

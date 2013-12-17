@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+import com.mengdd.utils.LogUtils;
 
 public class Min3DLayerViewModel extends ViewModel implements ISceneController {
     private View mRootView = null;
@@ -88,28 +89,38 @@ public class Min3DLayerViewModel extends ViewModel implements ISceneController {
         mScene.lights().add(new Light());
         // mScene.backgroundColor().setAll(0x00000000);//set the background
         // color to transparent
-        IParser parser = Parser.createParser(Parser.Type.OBJ,
-                mActivity.getResources(), "com.mengdd.arapp:raw/cube1", false);
+        try {
 
-        parser.parse();
+            IParser parser = Parser.createParser(Parser.Type.OBJ,
+                    mActivity.getResources(), "com.mengdd.arapp:raw/cube1",
+                    false);
 
-        object = parser.getParsedObject();
-        object.scale().x = 0.1f;
-        object.scale().y = 0.1f;
-        object.scale().z = 0.1f;
-        // object.position().x = 5;//-left +right
-        // object.position().y = 5;//-low + high
-        object.position().z = -10;// -far +near
-        mScene.addChild(object);
+            parser.parse();
 
-        mScene.backgroundColor().setAll(255, 255, 255, 0);
+            object = parser.getParsedObject();
+            object.scale().x = 0.1f;
+            object.scale().y = 0.1f;
+            object.scale().z = 0.1f;
+            // object.position().x = 5;//-left +right
+            // object.position().y = 5;//-low + high
+            object.position().z = -10;// -far +near
+            mScene.addChild(object);
+
+            mScene.backgroundColor().setAll(255, 255, 255, 0);
+        }
+        catch (Exception e) {
+            LogUtils.e("init error in min3d, maybe the model file problem");
+        }
+
     }
 
     @Override
     public void updateScene() {
 
-        object.rotation().x++;
-        object.rotation().z++;
+        if (null != object) {
+            object.rotation().x++;
+            object.rotation().z++;
+        }
 
     }
 
