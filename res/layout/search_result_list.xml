@@ -26,15 +26,11 @@
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
             android:background="@drawable/selector_btn_general"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
+            android:drawableLeft="@drawable/previous_button"
             android:singleLine="true"
             android:text="@string/previous"
-            android:textColor="@color/btn_text"
-            android:textSize="@dimen/normal_text_size" />
+            android:textColor="@color/btn_text_light"
+            android:textSize="@dimen/small_text_size" />
 
         <TextView
             android:id="@+id/pageText"
@@ -56,15 +52,11 @@
             android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:background="@drawable/selector_btn_general"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
+            android:drawableRight="@drawable/next_button"
             android:singleLine="true"
             android:text="@string/next"
-            android:textColor="@color/btn_text"
-            android:textSize="@dimen/normal_text_size" />
+            android:textColor="@color/btn_text_light"
+            android:textSize="@dimen/small_text_size" />
     </LinearLayout>
 
     <ListView

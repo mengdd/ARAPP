@@ -16,9 +16,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@drawable/selector_btn_general"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/btn_refresh"
-        android:textColor="@color/btn_text" />
+        android:textColor="@color/btn_text_light" />
 
     <Button
         android:id="@+id/deleteBtn"
@@ -27,8 +27,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/selector_btn_general"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/btn_delete"
-        android:textColor="@color/btn_text" />
+        android:textColor="@color/btn_text_light" />
 
 </RelativeLayout>
