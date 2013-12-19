@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -43,10 +42,10 @@ public class MapCustomMarkerViewModel extends ViewModel {
     private BaiduLocationModel mLocationModel = null;// location model
     private BaiduMyLocationOverlay mLocationOverlay = null;
 
-    private Button mGoButton = null;
-    private Button mNewMarkerBtn = null;
-    private Button mSaveMarkerBtn = null;
-    private Button mLoadMarkersBtn = null;
+    private View mGoButton = null;
+    private View mNewMarkerBtn = null;
+    private View mSaveMarkerBtn = null;
+    private View mLoadMarkersBtn = null;
 
     public MapCustomMarkerViewModel(Activity activity) {
         super(activity);
@@ -71,18 +70,17 @@ public class MapCustomMarkerViewModel extends ViewModel {
                 .findViewById(R.id.main_content);
         mainLayout.addView(mMapViewModel.getView(), 0);
 
-        mGoButton = (Button) mRootView.findViewById(R.id.goto_my);
+        mGoButton = mRootView.findViewById(R.id.goto_my);
         mGoButton.setOnClickListener(mOnGoToClickListener);
 
-        mNewMarkerBtn = (Button) mRootView.findViewById(R.id.new_marker);
+        mNewMarkerBtn = mRootView.findViewById(R.id.new_marker);
         mNewMarkerBtn.setOnClickListener(mOnAddClickListener);
 
-        mSaveMarkerBtn = (Button) mRootView.findViewById(R.id.save_marker);
+        mSaveMarkerBtn = mRootView.findViewById(R.id.save_marker);
         mSaveMarkerBtn.setOnClickListener(mOnSaveClickListener);
         mSaveMarkerBtn.setVisibility(View.GONE);
 
-        mLoadMarkersBtn = (Button) mRootView
-                .findViewById(R.id.load_all_markers);
+        mLoadMarkersBtn = mRootView.findViewById(R.id.load_all_markers);
         mLoadMarkersBtn.setOnClickListener(mLoadClickListener);
 
         mapView = (MapView) mMapViewModel.getMap();
@@ -195,8 +193,7 @@ public class MapCustomMarkerViewModel extends ViewModel {
                         resources.getString(R.string.save_success),
                         Toast.LENGTH_SHORT).show();
 
-            }
-            else {
+            } else {
                 Log.i(AppConstants.LOG_TAG, "save to db failed");
                 Toast.makeText(mActivity,
                         resources.getString(R.string.save_failed),
@@ -222,8 +219,7 @@ public class MapCustomMarkerViewModel extends ViewModel {
         if (View.GONE == visibility) {
             mRootView.setVisibility(View.GONE);
 
-        }
-        else if (View.VISIBLE == visibility) {
+        } else if (View.VISIBLE == visibility) {
 
             mRootView.setVisibility(View.VISIBLE);
 
@@ -242,8 +238,7 @@ public class MapCustomMarkerViewModel extends ViewModel {
             for (MarkerItem item : markerItems) {
                 mMarkersOverlay.addDBMarkerToOverlay(item);
             }
-        }
-        else {
+        } else {
             Toast.makeText(mActivity, "no marker!", Toast.LENGTH_SHORT).show();
         }
     }

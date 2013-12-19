@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
+    <ImageButton
         android:id="@+id/goto_my"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,12 +12,9 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/selector_btn_on_map"
         android:padding="5dp"
-        android:text="@string/goto_my"
-        android:textColor="@color/btn_map_text"
-        android:textSize="@dimen/small_text_size"
-        android:textStyle="bold" />
+        android:src="@drawable/ic_location_searching_dark" />
 
-    <Button
+    <ImageButton
         android:id="@+id/new_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,25 +22,19 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/selector_btn_on_map"
         android:padding="5dp"
-        android:text="@string/new_marker"
-        android:textColor="@color/btn_map_text"
-        android:textSize="@dimen/small_text_size"
-        android:textStyle="bold" />
+        android:src="@drawable/ic_content_new_dark" />
 
-    <Button
+    <ImageButton
         android:id="@+id/save_marker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/new_marker"
         android:background="@drawable/selector_btn_on_map"
-        android:padding="5dp"
-        android:text="@string/save_marker"
-        android:textColor="@color/btn_map_text"
-        android:textSize="@dimen/small_text_size"
-        android:textStyle="bold" />
+        android:src="@drawable/ic_content_save_dark"
+        android:padding="5dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/load_all_markers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,9 +42,7 @@
         android:layout_alignParentLeft="true"
         android:background="@drawable/selector_btn_on_map"
         android:padding="5dp"
-        android:text="@string/load_markers"
-        android:textColor="@color/btn_map_text"
-        android:textSize="@dimen/small_text_size"
-        android:textStyle="bold" />
+        android:src="@drawable/refresh_dark"
+        android:text="@string/load_markers" />
 
 </RelativeLayout>

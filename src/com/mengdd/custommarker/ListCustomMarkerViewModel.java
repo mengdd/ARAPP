@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.mengdd.arapp.R;
@@ -23,8 +22,8 @@ public class ListCustomMarkerViewModel extends ViewModel {
     private List<MarkerItem> mMarkerItems = null;
     private List<MarkerItem> mDeleteCache = new ArrayList<MarkerItem>();
     private MarkerItemAdapter mAdapter = null;
-    private Button mRefreshBtn = null;
-    private Button mDeleteBtn = null;
+    private View mRefreshBtn = null;
+    private View mDeleteBtn = null;
 
     public ListCustomMarkerViewModel(Activity activity) {
         super(activity);
@@ -42,7 +41,7 @@ public class ListCustomMarkerViewModel extends ViewModel {
         mAdapter = new MarkerItemAdapter(mActivity, mMarkerItems);
         mListView.setAdapter(mAdapter);
 
-        mRefreshBtn = (Button) mRootView.findViewById(R.id.refreshBtn);
+        mRefreshBtn = mRootView.findViewById(R.id.refreshBtn);
         mRefreshBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -52,7 +51,7 @@ public class ListCustomMarkerViewModel extends ViewModel {
             }
         });
 
-        mDeleteBtn = (Button) mRootView.findViewById(R.id.deleteBtn);
+        mDeleteBtn = mRootView.findViewById(R.id.deleteBtn);
         mDeleteBtn.setOnClickListener(new OnClickListener() {
 
             @Override

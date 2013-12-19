@@ -16,7 +16,6 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -46,7 +45,7 @@ public class CameraViewModel extends ViewModel {
     // The first rear facing camera
     private int mDefaultCameraId;
     private FrameLayout mPreviewLayout = null;
-    private Button mCaptureButton = null;
+    private View mCaptureButton = null;
 
     public void setCaptureButtonVisibility(int visibility) {
         mCaptureButton.setVisibility(visibility);
@@ -70,7 +69,7 @@ public class CameraViewModel extends ViewModel {
         mRootView = mInflater.inflate(R.layout.camera_view_model, null);
 
         // 使用按钮进行拍摄动作监听
-        mCaptureButton = (Button) mRootView.findViewById(R.id.button_capture);
+        mCaptureButton = mRootView.findViewById(R.id.button_capture);
         mCaptureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
