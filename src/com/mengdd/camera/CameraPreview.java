@@ -3,13 +3,13 @@ package com.mengdd.camera;
 import java.util.List;
 
 import com.mengdd.utils.AppConstants;
+import com.mengdd.utils.LogUtils;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -57,8 +57,6 @@ public class CameraPreview extends SurfaceView implements
 
     @SuppressWarnings("deprecation")
     private void init() {
-        Log.d(AppConstants.LOG_TAG, "CameraPreview initialize");
-
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
@@ -81,7 +79,6 @@ public class CameraPreview extends SurfaceView implements
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.d(AppConstants.LOG_TAG, "surfaceCreated");
         // The Surface has been created, now tell the camera where to draw the
         // preview.
 
@@ -91,13 +88,11 @@ public class CameraPreview extends SurfaceView implements
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
             int height) {
 
-        Log.d(AppConstants.LOG_TAG, "surface changed");
         // If your preview can change or rotate, take care of those events here.
         // Make sure to stop the preview before resizing or reformatting it.
 
         if (null == mHolder.getSurface()) {
             // preview surface does not exist
-            Log.w(AppConstants.LOG_TAG, "null == mHolder.getSurface()");
             return;
         }
 
@@ -115,8 +110,10 @@ public class CameraPreview extends SurfaceView implements
             mCamera.setParameters(parameters);
 
             mCamera.setDisplayOrientation(mRotationDegree);
-            Log.d(AppConstants.LOG_TAG, "camera set parameters successfully!: "
-                    + parameters.getPreviewSize());
+            LogUtils.d(
+                    AppConstants.LOG_TAG,
+                    "camera set parameters successfully!: "
+                            + parameters.getPreviewSize());
 
         }
 
@@ -126,10 +123,7 @@ public class CameraPreview extends SurfaceView implements
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.d(AppConstants.LOG_TAG, "surfaceDestroyed");
-
         if (null != mCamera) {
-            Log.i(AppConstants.LOG_TAG, "camera --> stop");
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
@@ -144,14 +138,11 @@ public class CameraPreview extends SurfaceView implements
 
                 mCamera.setPreviewDisplay(mHolder);
                 mCamera.startPreview();
-                Log.i(AppConstants.LOG_TAG, "camera --> startPreview");
+
             }
 
         }
         catch (Exception e) {
-            Log.e(AppConstants.LOG_TAG,
-                    "Error starting camera preview: " + e.getMessage());
-
             mCamera.release();
             mCamera = null;
         }
@@ -162,15 +153,14 @@ public class CameraPreview extends SurfaceView implements
 
         try {
             if (null != mCamera) {
-                Log.d(AppConstants.LOG_TAG, "camera --> stopPreview");
+
                 mCamera.stopPreview();
             }
         }
         catch (Exception e) {
             // ignore: tried to stop a non-existent preview
             e.printStackTrace();
-            Log.e(AppConstants.LOG_TAG,
-                    "tried to stop a non-existent preview in surfaceChanged");
+
         }
 
     }
