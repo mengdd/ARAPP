@@ -1,6 +1,8 @@
 ARApp
 =====
 
+This is dev branch.
+
 A project for my paper, still under development.
 
 
@@ -51,6 +53,9 @@ I think this may be the main reason for so much updates. Haha~
 Since AutoNavi's SDK is quite similar to Baidu Map SDK, it's easy to add AutoNavi's Map and Location SDK to the framework.
 The same basic classes were used.
 
+
+2014-01-12
+Different README.md for dev branch.
 
 
 
