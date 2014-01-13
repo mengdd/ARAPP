@@ -2,6 +2,7 @@ package com.mengdd.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -174,7 +175,7 @@ public class LogUtils {
         }
     }
 
-    private static synchronized void logToFile(String tag, String msg) {
+    public static synchronized void logToFile(String tag, String msg) {
         try {
             if (LOG_FILE == null) {
                 LOG_FILE = new File(LOG_FILE_PATH);

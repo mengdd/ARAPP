@@ -200,12 +200,12 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
         -->
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" />
+            android:value="AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw" />
 
         <!-- 百度定位模块要求有的service -->
         <service
