@@ -13,10 +13,16 @@ public class LogUtils {
     private static String LOG_TAG = "mengdd";
 
     private final static boolean LOG_TO_FILE = false;
-    private final static String LOG_FILE_PATH = Environment
+    private final static String LOG_FILE_DEFAULT_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/mengdd_debug_log.txt";
+    private final static String LOG_FILE_PATH_ONE = Environment
+            .getExternalStorageDirectory().getPath() + "/mengdd_time.txt";
+    private final static String LOG_FILE_PATH_TWO = Environment
+            .getExternalStorageDirectory().getPath() + "/mengdd_angle.txt";
 
-    private static File LOG_FILE;
+    private static File LOG_FILE_DEFAULT;
+    private static File LOG_FILE_ONE;
+    private static File LOG_FILE_TWO;
 
     public static void footPrint() {
         if (DEBUG) {
@@ -170,25 +176,76 @@ public class LogUtils {
         if (LOG_TO_FILE) {
             logToFile(tag, msg);
             return 0;
-        } else {
+        }
+        else {
             return Log.println(priority, tag, msg);
         }
     }
 
+    // 如果没有指定路径则存在默认的文件中
     public static synchronized void logToFile(String tag, String msg) {
         try {
-            if (LOG_FILE == null) {
-                LOG_FILE = new File(LOG_FILE_PATH);
-                if (LOG_FILE.exists()) {
-                    LOG_FILE.delete();
+            if (LOG_FILE_DEFAULT == null) {
+                LOG_FILE_DEFAULT = new File(LOG_FILE_DEFAULT_PATH);
+                if (LOG_FILE_DEFAULT.exists()) {
+                    LOG_FILE_DEFAULT.delete();
                 }
-                LOG_FILE.createNewFile();
+                LOG_FILE_DEFAULT.createNewFile();
             }
 
-            FileOutputStream outputStream = new FileOutputStream(LOG_FILE, true);
+            logToFile(LOG_FILE_DEFAULT, tag, msg);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static synchronized void logToFileOne(String msg) {
+        try {
+            if (LOG_FILE_ONE == null) {
+                LOG_FILE_ONE = new File(LOG_FILE_PATH_ONE);
+                if (LOG_FILE_ONE.exists()) {
+                    LOG_FILE_ONE.delete();
+                }
+                LOG_FILE_ONE.createNewFile();
+            }
+
+            logToFile(LOG_FILE_ONE, null, msg);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static synchronized void logToFileTwo(String msg) {
+        try {
+            if (LOG_FILE_TWO == null) {
+                LOG_FILE_TWO = new File(LOG_FILE_PATH_TWO);
+                if (LOG_FILE_TWO.exists()) {
+                    LOG_FILE_TWO.delete();
+                }
+                LOG_FILE_TWO.createNewFile();
+            }
+
+            logToFile(LOG_FILE_TWO, null, msg);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static synchronized void logToFile(File logFile, String tag,
+            String msg) {
+        try {
+            FileOutputStream outputStream = new FileOutputStream(logFile, true);
 
             StringBuilder builder = new StringBuilder();
-            builder.append(tag).append("  :  ").append(msg).append("\n");
+            if (null == tag) {
+                builder.append(msg).append("\n");
+            }
+            else {
+                builder.append(tag).append("  :  ").append(msg).append("\n");
+            }
 
             outputStream.write(builder.toString().getBytes());
             outputStream.flush();
