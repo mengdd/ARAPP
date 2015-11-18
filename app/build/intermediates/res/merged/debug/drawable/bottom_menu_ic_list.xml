@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/list_bottom_menu_normal" android:state_pressed="true"/>
-    <item android:drawable="@drawable/list_bottom_menu_normal"/>
-
-</selector><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/drawable/bottom_menu_ic_list.xml -->

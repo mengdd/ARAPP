@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/navigation_back_pressed" android:state_pressed="true"/>
-    <item android:drawable="@drawable/navigation_back_normal"/>
-
-</selector><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/drawable/back_btn_selector.xml -->

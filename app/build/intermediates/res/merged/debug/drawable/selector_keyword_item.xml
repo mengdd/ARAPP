@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/shape_keyword_item_pressed" android:state_pressed="true" android:state_selected="false"/>
-    <item android:drawable="@drawable/shape_keyword_item_normal"/>
-
-</selector><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/drawable/selector_keyword_item.xml -->

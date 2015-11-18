@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-    <solid android:color="@color/header_bottom_background"></solid>
-    
-</shape><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/drawable/title_shape_background.xml -->

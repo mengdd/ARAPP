@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/settings_btn_pressed" android:state_pressed="true"/>
-    <item android:drawable="@drawable/settings_btn_normal"/>
-
-</selector><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/drawable/setting_btn_selector.xml -->
