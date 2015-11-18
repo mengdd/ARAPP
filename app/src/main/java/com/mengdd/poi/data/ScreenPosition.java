@@ -1,7 +1,5 @@
 package com.mengdd.poi.data;
 
-import android.util.FloatMath;
-
 /**
  * This class is used mostly as a utility to calculate relative positions.
  * <p/>
@@ -79,8 +77,8 @@ public class ScreenPosition {
      * @param t Angle to rotate around.
      */
     public void rotate(float t) {
-        float xp = FloatMath.cos(t) * x - FloatMath.sin(t) * y;
-        float yp = FloatMath.sin(t) * x + FloatMath.cos(t) * y;
+        float xp = (float) (Math.cos(t) * x - Math.sin(t) * y);
+        float yp = (float) (Math.sin(t) * x + Math.cos(t) * y);
         x = xp;
         y = yp;
     }

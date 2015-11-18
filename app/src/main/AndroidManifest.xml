@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mengdd.arapp"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="16" />
+    package="com.mengdd.arapp">
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -33,6 +27,11 @@
 
     <!-- SDK离线地图和cache功能需要读写外部存储器 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!--Camera-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- 获取设置信息和详情页直接拨打电话需要以下权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -78,16 +77,14 @@
         android:resizeable="true"
         android:smallScreens="true" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activities.EntryActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,103 +93,79 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.arapp.activities.LoginActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestAllActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".activities.RealSceneActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="sensor" >
-        </activity>
+            android:screenOrientation="sensor"></activity>
         <activity
             android:name="com.mengdd.arapp.activities.GoogleMapActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.arapp.activities.BaiduMapActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.arapp.activities.SearchActivity"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan" 
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="sensor">
-        </activity>
+            android:label="@string/app_name"
+            android:screenOrientation="sensor"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name="com.mengdd.arapp.activities.CustomMarkerActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestAugmentedPOIActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestGoogleMapActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestBaiduMapActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestGoogleMapViewActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestCameraActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="sensor" >
-        </activity>
+            android:screenOrientation="sensor"></activity>
         <activity
             android:name="com.mengdd.tests.TestCompassActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="sensor" >
-        </activity>
+            android:screenOrientation="sensor"></activity>
         <activity
             android:name="com.mengdd.tests.TestGoogleLocationActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestBaiduLocationActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestPOIDataActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestRadarActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestBaiduPoiActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestBottomMenuActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name="com.mengdd.tests.TestMin3dActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestNaviUIActivity" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestSsoAuthorActivity" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestUserAuthorizeActivity" >
-        </activity>
+            android:label="@string/app_name"></activity>
+        <activity android:name="com.mengdd.tests.TestNaviUIActivity"></activity>
+        <activity android:name="com.mengdd.tests.TestSsoAuthorActivity"></activity>
+        <activity android:name="com.mengdd.tests.TestUserAuthorizeActivity"></activity>
 
         <!-- Lab PC:  android:value="AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA" -->
         <!-- Work PC:  android:value="AIzaSyAe3DcTEkyEF71dIdnZXOAyc9ue这里是两个杠urruo" -->
@@ -200,7 +173,8 @@
           Google Map Key:：
 
           实验室：AIzaSyBm6toDSpcRK21C7o0OZIF7L9ZFzJYpJsA
-          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+          笔记本：AIzaSyACJpfLWyDtexekiOTXUjDOqE4DgZ6I7aw
+
         -->
 
         <meta-data
@@ -211,15 +185,13 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
-        </service>
+            android:process=":remote"></service>
 
         <!-- Baidu Place详情页必须要有的 -->
         <activity
             android:name="com.baidu.mapapi.search.PlaceCaterActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar" >
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
 
         <!-- 高德地图相关 -->
 
@@ -229,18 +201,12 @@
             android:name="com.amap.api.v2.apikey"
             android:value="0c9b918dc5c4bc1a4b3e0295fdc071b6" />
 
-        <activity android:name="com.mengdd.arapp.activities.AutoNaviMapActivity" >
-        </activity>
-        <activity android:name="com.mengdd.arapp.activities.MapCompareActivity" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestAutoNaviMapActivity" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestBaiduMapWithLocationModel" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestGoogleMapWithLocationModel" >
-        </activity>
-        <activity android:name="com.mengdd.tests.TestAutoMapWithLocationModel" >
-        </activity>
+        <activity android:name="com.mengdd.arapp.activities.AutoNaviMapActivity"></activity>
+        <activity android:name="com.mengdd.arapp.activities.MapCompareActivity"></activity>
+        <activity android:name="com.mengdd.tests.TestAutoNaviMapActivity"></activity>
+        <activity android:name="com.mengdd.tests.TestBaiduMapWithLocationModel"></activity>
+        <activity android:name="com.mengdd.tests.TestGoogleMapWithLocationModel"></activity>
+        <activity android:name="com.mengdd.tests.TestAutoMapWithLocationModel"></activity>
     </application>
 
 </manifest>

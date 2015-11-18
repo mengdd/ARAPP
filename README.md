@@ -58,4 +58,11 @@ The same basic classes were used.
 Different README.md for dev branch.
 
 
+2015-11-18
+1. Import the old Eclipse project using Android Studio.
+2. Update the .gitignore file and rm some files which should not be tracked.
+3. Provide new Baidu SDK debug string based on my new laptop.
+4. Reformat the whole codes using Android Studio
+
+
 

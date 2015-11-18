@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="sina_weibosdk">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/sina_weibosdk.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

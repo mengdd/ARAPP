@@ -63,7 +63,7 @@ public class GoogleMapViewModel extends BasicMapViewModel {
         // Solve the problem of NullPointerException of CameraUpdateFactory
         try {
             MapsInitializer.initialize(mActivity);
-        } catch (GooglePlayServicesNotAvailableException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

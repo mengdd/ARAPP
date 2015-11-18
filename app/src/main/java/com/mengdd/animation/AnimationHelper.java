@@ -1,22 +1,19 @@
 package com.mengdd.animation;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener;
-import com.nineoldandroids.view.ViewHelper;
 
 public class AnimationHelper {
 
     public static ObjectAnimator getTranslateYAnimation(final View target,
                                                         final float startY, final float endY, final int duration,
                                                         final int startDelay, final boolean disappearLast,
-                                                        final AnimatorListener animatorListener) {
+                                                        final Animator.AnimatorListener animatorListener) {
 
         ObjectAnimator translateAnimator = ObjectAnimator.ofFloat(target,
                 "translationY", startY, endY);
@@ -26,7 +23,7 @@ public class AnimationHelper {
             @Override
             public void onAnimationStart(Animator animation) {
                 target.setVisibility(View.VISIBLE);
-                ViewHelper.setTranslationY(target, startY);
+                target.setTranslationY(startY);
             }
 
             @Override
@@ -44,18 +41,18 @@ public class AnimationHelper {
 
     public static Animator getScaleAnimation(final View target,
                                              final int duration, final boolean disappearLast,
-                                             final AnimatorListener animatorListener, final float... values) {
+                                             final Animator.AnimatorListener animatorListener, final float... values) {
 
         // 使用ValueAnimator可以把XY两个方向的动画放在一个更新里
         ValueAnimator scaleAnimator = ValueAnimator.ofFloat(values);
-        scaleAnimator.addUpdateListener(new AnimatorUpdateListener() {
+        scaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
 
                 Float currentValue = (Float) valueAnimator.getAnimatedValue();
-                ViewHelper.setScaleX(target, currentValue);
-                ViewHelper.setScaleY(target, currentValue);
+                target.setScaleX(currentValue);
+                target.setScaleY(currentValue);
             }
         });
         scaleAnimator.setDuration(duration);
@@ -64,8 +61,8 @@ public class AnimationHelper {
             public void onAnimationStart(Animator animation) {
                 target.setVisibility(View.VISIBLE);
 
-                ViewHelper.setScaleX(target, values[0]);
-                ViewHelper.setScaleY(target, values[0]);
+                target.setScaleX(values[0]);
+                target.setScaleY(values[0]);
 
             }
 
@@ -86,7 +83,7 @@ public class AnimationHelper {
     public static ObjectAnimator getAlphaAnimation(final View target,
                                                    final int duration, final int startDelay,
                                                    final boolean disappearLast,
-                                                   final AnimatorListener animatorListener, final float... values) {
+                                                   final Animator.AnimatorListener animatorListener, final float... values) {
 
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(target, "alpha",
                 values);
@@ -97,7 +94,7 @@ public class AnimationHelper {
             @Override
             public void onAnimationStart(Animator animation) {
                 target.setVisibility(View.VISIBLE);
-                ViewHelper.setAlpha(target, values[0]);
+                target.setAlpha(values[0]);
             }
 
             @Override
@@ -117,7 +114,7 @@ public class AnimationHelper {
     public static Animator getFadeInAnimator(final View target,
                                              final int scaleDuration, final int alphaDuration,
                                              final int alphaDelay, final boolean disappearLast,
-                                             final AnimatorListener animatorListener, final float... scaleValues) {
+                                             final Animator.AnimatorListener animatorListener, final float... scaleValues) {
 
         Animator scaleAnimator = getScaleAnimation(target, scaleDuration,
                 disappearLast, animatorListener, scaleValues);
@@ -134,7 +131,7 @@ public class AnimationHelper {
     public static Animator getFadeOutAnimator(final View target,
                                               final int scaleDuration, final int alphaDuration,
                                               final int alphaDelay, final boolean disappearLast,
-                                              final AnimatorListener animatorListener, final float... scaleValues) {
+                                              final Animator.AnimatorListener animatorListener, final float... scaleValues) {
 
         Animator scaleAnimator = getScaleAnimation(target, scaleDuration,
                 disappearLast, animatorListener, scaleValues);
@@ -151,7 +148,7 @@ public class AnimationHelper {
     public static ObjectAnimator getRotationZAnimator(final View target,
                                                       final int duration, final int startDelay,
                                                       final boolean disappearLast,
-                                                      final AnimatorListener animatorListener, final float... values) {
+                                                      final Animator.AnimatorListener animatorListener, final float... values) {
 
         ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(target,
                 "rotation", values);
@@ -162,7 +159,7 @@ public class AnimationHelper {
             @Override
             public void onAnimationStart(Animator animation) {
                 target.setVisibility(View.VISIBLE);
-                ViewHelper.setRotation(target, values[0]);
+                target.setRotation(values[0]);
             }
 
             @Override
