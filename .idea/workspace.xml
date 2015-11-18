@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1b7ea88e-9e16-4884-86b3-4e31fdb1bd88" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/Min3d.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/Shared.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/Utils.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/animation/AnimationObject3d.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/animation/KeyFrame.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Color4BufferList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/FacesBufferedList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/ManagedLightList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Number3dBufferList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Object3d.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Object3dContainer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/RenderCaps.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Renderer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/RendererActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Scene.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/TextureList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/TextureManager.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/UvBufferList.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/core/Vertices.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/interfaces/IDirtyManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/interfaces/IDirtyParent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/interfaces/IObject3dContainer.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/interfaces/ISceneController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/objectPrimitives/Box.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/objectPrimitives/HollowCylinder.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/objectPrimitives/Rectangle.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/objectPrimitives/SkyBox.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/objectPrimitives/Sphere.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/objectPrimitives/Torus.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/AParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/IParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/LittleEndianDataInputStream.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/MD2Parser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/Max3DSParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/ObjParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/ParseObjectData.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/ParseObjectFace.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/parser/Parser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/AbstractDirtyManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/BooleanManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/CameraVo.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Color4.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Color4Managed.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Face.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/FloatManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/FogType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/FrustumManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Light.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/LightType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Number3d.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Number3dManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/RenderType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/ShadeModel.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/ShadeModelManaged.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/TexEnvxVo.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/TextureVo.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Uv.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/min3d/min3d/vos/Vertex3d.java" afterPath="" />
+    </list>
+    <ignored path="ARAPP.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="ARAPP" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/AndroidStudioProjects/XianBicycle" value="4296890446000" />
+      </map>
+    </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1408" />
+    <option name="height" value="873" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="AndroidView" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ARAPP" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ARAPP" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.NonAndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.NonAndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b7ea88e-9e16-4884-86b3-4e31fdb1bd88" name="Default" comment="" />
+      <created>1447815793968</created>
+      <option name="number" value="Default" />
+      <updated>1447815793968</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1408" height="873" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+</project>
