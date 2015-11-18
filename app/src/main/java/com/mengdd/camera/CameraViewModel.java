@@ -44,6 +44,7 @@ public class CameraViewModel extends ViewModel {
     private int mDefaultCameraId;
     private FrameLayout mPreviewLayout = null;
     private View mCaptureButton = null;
+    private boolean isResumed = false;
 
     public void setCaptureButtonVisibility(int visibility) {
         mCaptureButton.setVisibility(visibility);
@@ -84,7 +85,10 @@ public class CameraViewModel extends ViewModel {
     @Override
     public void onResume(Intent intent) {
         super.onResume(intent);
-
+        if (isResumed) {
+            return;
+        }
+        isResumed = true;
         // Add CameraPreview to layout
         mCameraPreview = new CameraPreview(mActivity);
 
@@ -101,6 +105,7 @@ public class CameraViewModel extends ViewModel {
     @Override
     public void onPause() {
         super.onPause();
+        isResumed = false;
         if (null != mCamera) {
             mCameraPreview.setCamera(null);
 
