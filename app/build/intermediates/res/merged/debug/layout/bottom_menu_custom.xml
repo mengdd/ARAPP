@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:minHeight="@dimen/bottom_menu_height"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/custom_map"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_map"
+        android:text="@string/custom_menu_map" />
+
+    <Button
+        android:id="@+id/custom_list"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_list"
+        android:text="@string/custom_menu_list" />
+
+    <Button
+        android:id="@+id/custom_realscene"
+        style="@style/BottomMenuButton"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/bottom_menu_ic_camera"
+        android:text="@string/custom_menu_realscene" />
+
+</LinearLayout><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/layout/bottom_menu_custom.xml -->

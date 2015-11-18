@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageButton
+        android:id="@+id/goto_my"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/selector_btn_on_map"
+        android:padding="5dp"
+        android:src="@drawable/ic_location_searching_dark" />
+
+    <ImageButton
+        android:id="@+id/new_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/selector_btn_on_map"
+        android:padding="5dp"
+        android:src="@drawable/ic_content_new_dark" />
+
+    <ImageButton
+        android:id="@+id/save_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/new_marker"
+        android:background="@drawable/selector_btn_on_map"
+        android:src="@drawable/ic_content_save_dark"
+        android:padding="5dp" />
+
+    <ImageButton
+        android:id="@+id/load_all_markers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/selector_btn_on_map"
+        android:padding="5dp"
+        android:src="@drawable/refresh_dark"
+        android:text="@string/load_markers" />
+
+</RelativeLayout><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/layout/custom_map.xml -->

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Baidu_locSDK_4.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/Baidu_locSDK_4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:textColor="@color/drawer_list_text_color"
+    android:textSize="@dimen/drawer_text_size" />
+<!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/layout/drawer_item.xml -->

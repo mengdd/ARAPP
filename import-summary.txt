@@ -1,0 +1,73 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .DS_Store
+* .gitattributes
+* .gitignore
+* .idea/
+* .idea/.name
+* .idea/ARAPP.iml
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* README.md
+* ic_launcher-web.png
+* oldfiles/
+* oldfiles/Baidu_mapapi_v2_2_0.jar
+* oldfiles/libBaiduMapSDK_v2_2_0.so
+* proguard-project.txt
+* uml/
+* uml/LocationViewModels.ucls
+* uml/MapViewModels.ucls
+* uml/ViewModels.ucls
+* uml/sensors.ucls
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* libs/AutoNavi_Android_Location_V1.0.4.jar => app/libs/AutoNavi_Android_Location_V1.0.4.jar
+* libs/AutoNavi_Android_Services_V2.1.3.jar => app/libs/AutoNavi_Android_Services_V2.1.3.jar
+* libs/Auto_Navi_Android_Map_V2.1.3.jar => app/libs/Auto_Navi_Android_Map_V2.1.3.jar
+* libs/Baidu_locSDK_4.0.jar => app/libs/Baidu_locSDK_4.0.jar
+* libs/Baidu_mapapi_v2_3_1.jar => app/libs/Baidu_mapapi_v2_3_1.jar
+* libs/android-support-v4.jar => app/libs/android-support-v4.jar
+* libs/armeabi/libBaiduMapSDK_v2_3_1.so => app/src/main/jniLibs/armeabi/libBaiduMapSDK_v2_3_1.so
+* libs/armeabi/libamapv301.so => app/src/main/jniLibs/armeabi/libamapv301.so
+* libs/armeabi/libamapv301ex.so => app/src/main/jniLibs/armeabi/libamapv301ex.so
+* libs/armeabi/liblocSDK4.so => app/src/main/jniLibs/armeabi/liblocSDK4.so
+* libs/google-play-services.jar => app/libs/google-play-services.jar
+* libs/nineoldandroids-2.4.0.jar => app/libs/nineoldandroids-2.4.0.jar
+* libs/sina_weibosdk.jar => app/libs/sina_weibosdk.jar
+* libs/sina_weibosdkcore.jar => app/libs/sina_weibosdkcore.jar
+* lint.xml => app/lint.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+* src/com/mengdd/db/.gitignore => app/src/main/resources/com/mengdd/db/.gitignore
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

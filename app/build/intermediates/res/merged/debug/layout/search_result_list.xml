@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/page_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/previous_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn_general"
+            android:drawableLeft="@drawable/previous_button"
+            android:singleLine="true"
+            android:text="@string/previous"
+            android:textColor="@color/btn_text_light"
+            android:textSize="@dimen/small_text_size" />
+
+        <TextView
+            android:id="@+id/pageText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn_general"
+            android:drawableRight="@drawable/next_button"
+            android:singleLine="true"
+            android:text="@string/next"
+            android:textColor="@color/btn_text_light"
+            android:textSize="@dimen/small_text_size" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/page_btns"
+        android:layout_below="@id/info"
+        android:padding="10dp" />
+
+</RelativeLayout><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/layout/search_result_list.xml -->

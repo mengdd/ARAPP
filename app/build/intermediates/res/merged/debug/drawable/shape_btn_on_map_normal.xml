@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <solid android:color="#776996d3" />
+
+    <corners android:radius="4dp" />
+
+    <stroke
+        android:width="2dip"
+        android:color="#77050505" />
+
+</shape><!-- From: file:/Users/ddmeng/AndroidStudioProjects/ARAPP/app/src/main/res/drawable/shape_btn_on_map_normal.xml -->
