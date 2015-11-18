@@ -1,8 +1,5 @@
 package com.mengdd.search;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,13 +21,15 @@ import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
 import com.baidu.mapapi.search.MKShareUrlResult;
-import com.baidu.mapapi.search.MKSuggestionInfo;
 import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.utils.AppConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultViewModel extends ViewModel implements
         MKSearchListener {
@@ -196,8 +194,7 @@ public class SearchResultViewModel extends ViewModel implements
     public void onGetPoiDetailSearchResult(int type, int iError) {
         if (iError != 0) {
             Toast.makeText(mActivity, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(mActivity, "成功，查看详情页面", Toast.LENGTH_SHORT).show();
         }
     }
@@ -224,15 +221,14 @@ public class SearchResultViewModel extends ViewModel implements
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id) {
+                                long id) {
             Log.i(AppConstants.LOG_TAG, "onItemClick: " + position);
 
             MKPoiInfo currentInfo = mListData.get(position);
             if (currentInfo.hasCaterDetails) {
 
                 mSearch.poiDetailSearch(currentInfo.uid);
-            }
-            else {
+            } else {
                 Toast.makeText(mActivity, "Sorry, No Details",
                         Toast.LENGTH_LONG).show();
             }

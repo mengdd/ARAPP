@@ -56,7 +56,7 @@ public class MKSearchListenerAdapter implements MKSearchListener {
 
     @Override
     public void onGetShareUrlResult(MKShareUrlResult result, int type,
-            int iError) {
+                                    int iError) {
 
     }
 

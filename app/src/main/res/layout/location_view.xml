@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:collapseColumns="2"
-    android:stretchColumns="0,1" >
+    android:stretchColumns="0,1">
 
     <TableRow>
 

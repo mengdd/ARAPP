@@ -1,6 +1,11 @@
 package com.mengdd.tests;
 
-import java.util.List;
+import android.app.Activity;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
@@ -10,12 +15,7 @@ import com.mengdd.poi.data.POIViewModel;
 import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
 
-import android.app.Activity;
-import android.location.Location;
-import android.location.LocationListener;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
+import java.util.List;
 
 public class TestPOIDataActivity extends Activity implements LocationListener {
     private POIViewModel mPOIViewModel = null;

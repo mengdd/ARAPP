@@ -1,8 +1,8 @@
 package com.mengdd.sina.weibo.data;
 
-import org.json.JSONObject;
-
 import android.util.Log;
+
+import org.json.JSONObject;
 
 public class GeoInfo {
 

@@ -13,13 +13,12 @@ import android.view.View;
  * ViewModel is a Module for easy control and combination of components.
  * Activity can use it as a View and add it in layouts. ViewModel also has
  * lifecycle method to invoke at corresponding Activity lifecycle.
- *
+ * <p/>
  * The codes are adapted from the codes of yangzc
  *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public abstract class ViewModel {
 

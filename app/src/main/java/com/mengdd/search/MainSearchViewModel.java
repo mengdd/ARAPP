@@ -1,19 +1,14 @@
 package com.mengdd.search;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -21,12 +16,10 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.search.MKAddrInfo;
 import com.baidu.mapapi.search.MKBusLineResult;
 import com.baidu.mapapi.search.MKDrivingRouteResult;
-import com.baidu.mapapi.search.MKPoiInfo;
 import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
 import com.baidu.mapapi.search.MKShareUrlResult;
-import com.baidu.mapapi.search.MKSuggestionInfo;
 import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
@@ -39,7 +32,9 @@ import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.map.baidu.BaiduMapHelper;
 import com.mengdd.search.SearchUIViewModel.OnSearchSuccessListener;
 import com.mengdd.utils.AppConstants;
-import com.mengdd.utils.UIUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainSearchViewModel extends ViewModel {
     public enum SearchScene {
@@ -350,7 +345,7 @@ public class MainSearchViewModel extends ViewModel {
 
         @Override
         public void onGetWalkingRouteResult(MKWalkingRouteResult result,
-                int iError) {
+                                            int iError) {
             Log.i(AppConstants.LOG_TAG, "onGetWalkingRouteResult: " + iError);
 
             if (null != mSearchListeners) {
@@ -363,7 +358,7 @@ public class MainSearchViewModel extends ViewModel {
 
         @Override
         public void onGetTransitRouteResult(MKTransitRouteResult result,
-                int iError) {
+                                            int iError) {
             Log.i(AppConstants.LOG_TAG, "onGetTransitRouteResult: " + iError);
             if (null != mSearchListeners) {
                 for (MKSearchListener listener : mSearchListeners) {
@@ -415,7 +410,7 @@ public class MainSearchViewModel extends ViewModel {
 
         @Override
         public void onGetDrivingRouteResult(MKDrivingRouteResult result,
-                int iError) {
+                                            int iError) {
             Log.i(AppConstants.LOG_TAG, "onGetDrivingRouteResult: " + iError);
             if (null != mSearchListeners) {
                 for (MKSearchListener listener : mSearchListeners) {
@@ -449,7 +444,7 @@ public class MainSearchViewModel extends ViewModel {
 
         @Override
         public void onGetShareUrlResult(MKShareUrlResult arg0, int arg1,
-                int arg2) {
+                                        int arg2) {
 
         }
     };
@@ -468,6 +463,8 @@ public class MainSearchViewModel extends ViewModel {
         for (ViewModel viewModel : mViewModels) {
             viewModel.onConfigurationChanged(newConfig);
         }
-    };
+    }
+
+    ;
 
 }

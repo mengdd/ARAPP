@@ -1,8 +1,5 @@
 package com.mengdd.arapp.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -23,15 +20,16 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.sensors.CompassViewModel;
 import com.mengdd.tests.TestAugmentedPOIActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * This class is the first activity for the Project as an independent and
  * functional App.
  *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public class RealSceneActivity extends Activity {
 
@@ -126,21 +124,20 @@ public class RealSceneActivity extends Activity {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
-                boolean isChecked) {
+                                     boolean isChecked) {
             switch (buttonView.getId()) {
 
-            case R.id.compassSwitch:
-                if (isChecked) {
-                    mCompassViewModel.setVisibility(View.VISIBLE);
+                case R.id.compassSwitch:
+                    if (isChecked) {
+                        mCompassViewModel.setVisibility(View.VISIBLE);
 
-                }
-                else {
-                    mCompassViewModel.setVisibility(View.GONE);
-                }
+                    } else {
+                        mCompassViewModel.setVisibility(View.GONE);
+                    }
 
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
             }
 
         }
@@ -155,35 +152,37 @@ public class RealSceneActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
 
         return true;
-    };
+    }
+
+    ;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent();
         switch (item.getItemId()) {
 
-        case R.id.action_baidu_map:
+            case R.id.action_baidu_map:
 
-            intent.setClass(RealSceneActivity.this, BaiduMapActivity.class);
-            startActivity(intent);
+                intent.setClass(RealSceneActivity.this, BaiduMapActivity.class);
+                startActivity(intent);
 
-            break;
-        case R.id.action_google_map:
-            intent.setClass(RealSceneActivity.this, GoogleMapActivity.class);
+                break;
+            case R.id.action_google_map:
+                intent.setClass(RealSceneActivity.this, GoogleMapActivity.class);
 
-            startActivity(intent);
+                startActivity(intent);
 
-            break;
-        case R.id.action_poi:
-            intent.setClass(RealSceneActivity.this,
-                    TestAugmentedPOIActivity.class);
+                break;
+            case R.id.action_poi:
+                intent.setClass(RealSceneActivity.this,
+                        TestAugmentedPOIActivity.class);
 
-            startActivity(intent);
+                startActivity(intent);
 
-            break;
+                break;
 
-        default:
-            return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
 

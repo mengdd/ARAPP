@@ -1,149 +1,136 @@
 package min3d.core;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import android.util.Log;
 
 import min3d.Min3d;
 import min3d.vos.Light;
 
-public class ManagedLightList 
-{
-	// List of Light objects
-	private ArrayList<Light> _lights;
+public class ManagedLightList {
+    // List of Light objects
+    private ArrayList<Light> _lights;
 
-	// Map Light objects to GL_LIGHT indices
-	private HashMap<Light, Integer> _lightToGlIndex;
+    // Map Light objects to GL_LIGHT indices
+    private HashMap<Light, Integer> _lightToGlIndex;
 
-	// 'Pool' of available GL_LIGHT id's
-	private ArrayList<Integer> _availGlIndices;
+    // 'Pool' of available GL_LIGHT id's
+    private ArrayList<Integer> _availGlIndices;
 
-	// Array of which GL_LIGHTS are enabled, where index corresponds to
-	// GL_LIGHT[index]
-	private boolean[] _glIndexEnabled;
+    // Array of which GL_LIGHTS are enabled, where index corresponds to
+    // GL_LIGHT[index]
+    private boolean[] _glIndexEnabled;
 
-	// Array of dirty flags, where index corresponds to GL_LIGHT[index]
-	private boolean[] _glIndexEnabledDirty;
+    // Array of dirty flags, where index corresponds to GL_LIGHT[index]
+    private boolean[] _glIndexEnabledDirty;
 
-	// "GL index" here means an int from 0 to 8 that corresponds to
-	// the int constants GL10.GL_LIGHT0 to GL10.GL_LIGHT7
+    // "GL index" here means an int from 0 to 8 that corresponds to
+    // the int constants GL10.GL_LIGHT0 to GL10.GL_LIGHT7
 
-	public ManagedLightList() 
-	{
-		reset();
-	}
+    public ManagedLightList() {
+        reset();
+    }
 
-	public void reset() 
-	{
-		Log.i(Min3d.TAG, "ManagedLightList.reset()");
+    public void reset() {
+        Log.i(Min3d.TAG, "ManagedLightList.reset()");
 
-		_availGlIndices = new ArrayList<Integer>();
-		for (int i = 0; i < Renderer.NUM_GLLIGHTS; i++) {
-			_availGlIndices.add(i);
-		}
+        _availGlIndices = new ArrayList<Integer>();
+        for (int i = 0; i < Renderer.NUM_GLLIGHTS; i++) {
+            _availGlIndices.add(i);
+        }
 
-		_lightToGlIndex = new HashMap<Light, Integer>();
+        _lightToGlIndex = new HashMap<Light, Integer>();
 
-		_glIndexEnabled = new boolean[Renderer.NUM_GLLIGHTS];
-		_glIndexEnabledDirty = new boolean[Renderer.NUM_GLLIGHTS];
-		for (int i = 0; i < Renderer.NUM_GLLIGHTS; i++) {
-			_glIndexEnabled[i] = false;
-			_glIndexEnabledDirty[i] = true;
-		}
+        _glIndexEnabled = new boolean[Renderer.NUM_GLLIGHTS];
+        _glIndexEnabledDirty = new boolean[Renderer.NUM_GLLIGHTS];
+        for (int i = 0; i < Renderer.NUM_GLLIGHTS; i++) {
+            _glIndexEnabled[i] = false;
+            _glIndexEnabledDirty[i] = true;
+        }
 
-		_lights = new ArrayList<Light>();
-	}
+        _lights = new ArrayList<Light>();
+    }
 
-	public boolean add(Light $light) 
-	{
-		if (_lights.contains($light)) {
-			return false;
-		}
+    public boolean add(Light $light) {
+        if (_lights.contains($light)) {
+            return false;
+        }
 
-		if (_lights.size() > Renderer.NUM_GLLIGHTS)
-			throw new Error("Exceeded maximum number of Lights");
+        if (_lights.size() > Renderer.NUM_GLLIGHTS)
+            throw new Error("Exceeded maximum number of Lights");
 
-		boolean result = _lights.add($light);
+        boolean result = _lights.add($light);
 
-		int glIndex = _availGlIndices.remove(0);
+        int glIndex = _availGlIndices.remove(0);
 
-		_lightToGlIndex.put($light, glIndex);
+        _lightToGlIndex.put($light, glIndex);
 
-		_glIndexEnabled[glIndex] = true;
-		_glIndexEnabledDirty[glIndex] = true;
-		
-		return result;
-	}
+        _glIndexEnabled[glIndex] = true;
+        _glIndexEnabledDirty[glIndex] = true;
 
-	public void remove(Light $light) 
-	{
-		boolean result = _lights.remove($light);
+        return result;
+    }
 
-		if (!result) return;
+    public void remove(Light $light) {
+        boolean result = _lights.remove($light);
 
-		int glIndex = _lightToGlIndex.get($light);
-		
-		_availGlIndices.add(glIndex);
+        if (!result) return;
 
-		_glIndexEnabled[glIndex] = false;
-		_glIndexEnabledDirty[glIndex] = true;
-	}
+        int glIndex = _lightToGlIndex.get($light);
 
-	public void removeAll() 
-	{
-		reset();
-	}
+        _availGlIndices.add(glIndex);
 
-	public int size() 
-	{
-		return _lights.size();
-	}
+        _glIndexEnabled[glIndex] = false;
+        _glIndexEnabledDirty[glIndex] = true;
+    }
 
-	public Light get(int $index) 
-	{
-		return _lights.get($index);
-	}
+    public void removeAll() {
+        reset();
+    }
 
-	public Light[] toArray() {
-		return (Light[]) _lights.toArray(new Light[_lights.size()]);
-	}
+    public int size() {
+        return _lights.size();
+    }
 
-	/**
-	 * Used by Renderer
-	 */
-	int getGlIndexByLight(Light $light) /* package-private */
-	{
-		return _lightToGlIndex.get($light);
-	}
+    public Light get(int $index) {
+        return _lights.get($index);
+    }
 
-	/**
-	 * Used by Renderer
-	 */
-	Light getLightByGlIndex(int $glIndex) /* package-private */
-	{
-		for (int i = 0; i < _lights.size(); i++) 
-		{
-			Light light = _lights.get(i);
-			if (_lightToGlIndex.get(light) == $glIndex)
-				return light;
-		}
-		return null;
-	}
+    public Light[] toArray() {
+        return (Light[]) _lights.toArray(new Light[_lights.size()]);
+    }
 
-	/**
-	 * Used by Renderer
-	 */
-	boolean[] glIndexEnabledDirty() /* package-private */
-	{
-		return _glIndexEnabledDirty;
-	}
+    /**
+     * Used by Renderer
+     */
+    int getGlIndexByLight(Light $light) /* package-private */ {
+        return _lightToGlIndex.get($light);
+    }
 
-	/**
-	 * Used by Renderer
-	 */
-	boolean[] glIndexEnabled() /* package-private */
-	{
-		return _glIndexEnabled;
-	}
+    /**
+     * Used by Renderer
+     */
+    Light getLightByGlIndex(int $glIndex) /* package-private */ {
+        for (int i = 0; i < _lights.size(); i++) {
+            Light light = _lights.get(i);
+            if (_lightToGlIndex.get(light) == $glIndex)
+                return light;
+        }
+        return null;
+    }
+
+    /**
+     * Used by Renderer
+     */
+    boolean[] glIndexEnabledDirty() /* package-private */ {
+        return _glIndexEnabledDirty;
+    }
+
+    /**
+     * Used by Renderer
+     */
+    boolean[] glIndexEnabled() /* package-private */ {
+        return _glIndexEnabled;
+    }
 }

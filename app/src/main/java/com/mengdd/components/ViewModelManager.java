@@ -1,29 +1,26 @@
 package com.mengdd.components;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Stack;
+
 /**
- * 
  * The ViewModelManager controls several ViewModels. These ViewModels are
  * overlays. not used in this project yet.
- * 
+ * <p/>
  * The codes are adapted from the codes of yangzc
- * 
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class ViewModelManager {
     private Hashtable<String, ViewModel> mViewModels = null;
@@ -66,16 +63,15 @@ public class ViewModelManager {
 
     /**
      * ��ʾViewModel
-     * 
+     *
      * @param tag
      * @param viewModel
      * @param intent
-     * @param destoryLast
-     *            whether to destroy the last ViewModel
+     * @param destoryLast whether to destroy the last ViewModel
      * @return
      */
     public boolean showViewModel(String tag, ViewModel viewModel,
-            Intent intent, boolean destoryLast) {
+                                 Intent intent, boolean destoryLast) {
         return addViewModel(tag, viewModel, intent, destoryLast);
     }
 
@@ -94,8 +90,8 @@ public class ViewModelManager {
         try {
             if (null != mCurrentViewModel
                     && mCurrentViewModel.onKeyDown(KeyEvent.KEYCODE_BACK,
-                            new KeyEvent(KeyEvent.ACTION_DOWN,
-                                    KeyEvent.KEYCODE_BACK))) {
+                    new KeyEvent(KeyEvent.ACTION_DOWN,
+                            KeyEvent.KEYCODE_BACK))) {
                 return true;
             }
 
@@ -121,22 +117,19 @@ public class ViewModelManager {
                 viewModel.onResume(null);
                 mCurrentViewModel = viewModel;
                 return true;
-            }
-            else {
+            } else {
                 mCurrentViewModel = null;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return false;
     }
 
     private boolean addViewModel(String tag, ViewModel viewModel,
-            Intent intent, boolean destoryLast) {
+                                 Intent intent, boolean destoryLast) {
 
         if (mContentViewGroup == null) {
             throw new IllegalArgumentException(
@@ -196,11 +189,9 @@ public class ViewModelManager {
                 mCurrentViewModel = viewModel;
                 return true;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 
@@ -300,7 +291,7 @@ public class ViewModelManager {
 
     /**
      * 重新激活ViewModel
-     * 
+     *
      * @param intent
      */
     public void resumeCurrentViewModel(Intent intent) {
@@ -323,7 +314,7 @@ public class ViewModelManager {
 
     /**
      * newIntent时触发
-     * 
+     *
      * @param intent
      */
     public void onNewIntent(Intent intent) {
@@ -334,7 +325,7 @@ public class ViewModelManager {
 
     /**
      * 根据TAG获取ViewModel
-     * 
+     *
      * @param tag
      * @return
      */

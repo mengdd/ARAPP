@@ -1,11 +1,11 @@
 package com.mengdd.arapp.activities;
 
-import com.mengdd.search.MainSearchViewModel;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Window;
+
+import com.mengdd.search.MainSearchViewModel;
 
 public class SearchActivity extends Activity {
     private MainSearchViewModel mMainSearchViewModel = null;

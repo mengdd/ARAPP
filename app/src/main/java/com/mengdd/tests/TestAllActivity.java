@@ -1,39 +1,34 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.R.id;
-import com.mengdd.arapp.R.layout;
-import com.mengdd.arapp.R.string;
-import com.mengdd.arapp.activities.RealSceneActivity;
-import com.mengdd.utils.AppConstants;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.mengdd.arapp.R;
+import com.mengdd.arapp.activities.RealSceneActivity;
+import com.mengdd.utils.AppConstants;
 
 /**
- * 
  * This is the laucher Activity during development. The list show the entry of
  * Main Project and other tests activities.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class TestAllActivity extends Activity {
-    private String[] functionsNames = new String[] { AppConstants.MAIN_APP,
+    private String[] functionsNames = new String[]{AppConstants.MAIN_APP,
             AppConstants.GOOGLE_MAP, AppConstants.BAIDU_MAP,
             AppConstants.LOCALICATION_GOOGLE, AppConstants.LOCALICATION_BAIDU,
             AppConstants.COMPASS, AppConstants.CAMERA, AppConstants.AR_CAMERA,
             AppConstants.POI_DATA, AppConstants.POI_BAIDU,
-            AppConstants.MARKER_BAIDU };
+            AppConstants.MARKER_BAIDU};
 
     private ListView mListView = null;
     private ArrayAdapter<String> mAdapter = null;
@@ -55,7 +50,7 @@ public class TestAllActivity extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id) {
+                                long id) {
 
             final String itemString = (String) parent
                     .getItemAtPosition(position);
@@ -126,8 +121,7 @@ public class TestAllActivity extends Activity {
                 Toast.makeText(TestAllActivity.this, itemString,
                         Toast.LENGTH_SHORT).show();
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(TestAllActivity.this, R.string.no_activity,
                         Toast.LENGTH_SHORT).show();

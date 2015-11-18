@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.location.Location;
 
 import com.baidu.location.BDLocation;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.poi.data.PhysicalLocation;
 import com.mengdd.utils.MathUtils;
 
@@ -13,7 +12,7 @@ public class GoogleMarker extends BasicMarker {
     private final PhysicalLocation mPhysicalLocation = new PhysicalLocation();
 
     public GoogleMarker(String name, int color, Bitmap icon, double latitude,
-            double longitude, double altitude) {
+                        double longitude, double altitude) {
 
         mMarkerType = MarkerType.GoogleMarker;
         set(name, color, icon, latitude, longitude, altitude);
@@ -22,21 +21,16 @@ public class GoogleMarker extends BasicMarker {
     /**
      * Set the objects parameters. This should be used instead of creating new
      * objects. Note: this might set some values to the initial state
-     * 
-     * @param name
-     *            String representing the Marker.
-     * @param latitude
-     *            Latitude of the Marker in decimal format (example 39.931269).
-     * @param longitude
-     *            Longitude of the Marker in decimal format (example
-     *            -75.051261).
-     * @param altitude
-     *            Altitude of the Marker in meters (>0 is above sea level).
-     * @param color
-     *            Color of the Marker.
+     *
+     * @param name      String representing the Marker.
+     * @param latitude  Latitude of the Marker in decimal format (example 39.931269).
+     * @param longitude Longitude of the Marker in decimal format (example
+     *                  -75.051261).
+     * @param altitude  Altitude of the Marker in meters (>0 is above sea level).
+     * @param color     Color of the Marker.
      */
     public synchronized void set(String name, int color, Bitmap icon,
-            double latitude, double longitude, double altitude) {
+                                 double latitude, double longitude, double altitude) {
         if (null == name) {
             throw new IllegalArgumentException("name is null!");
         }
@@ -48,15 +42,14 @@ public class GoogleMarker extends BasicMarker {
 
         if (altitude == 0.0d) {
             this.noAltitude = true;
-        }
-        else {
+        } else {
             this.noAltitude = false;
         }
     }
 
     @Override
     protected synchronized void calcRelativePosition(Location origLocation,
-            BDLocation origBDLocation) {
+                                                     BDLocation origBDLocation) {
         if (null == origLocation) {
             throw new IllegalArgumentException("location is null!");
         }
@@ -77,7 +70,7 @@ public class GoogleMarker extends BasicMarker {
 
     @Override
     protected synchronized void updateDistance(Location origLocation,
-            BDLocation origBDLocation) {
+                                               BDLocation origBDLocation) {
         if (null == origLocation) {
             throw new IllegalArgumentException("location is null!");
         }

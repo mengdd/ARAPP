@@ -1,13 +1,13 @@
 package com.mengdd.tests;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.FrameLayout;
+
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.location.LocationView;
 import com.mengdd.location.baidu.BaiduLocationModel;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.FrameLayout;
 
 public class TestBaiduLocationActivity extends Activity {
     private BaiduLocationModel mLocationModel = null;

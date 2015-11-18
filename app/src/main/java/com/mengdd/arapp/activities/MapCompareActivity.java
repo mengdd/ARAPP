@@ -1,8 +1,5 @@
 package com.mengdd.arapp.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +17,9 @@ import com.mengdd.map.CompareBottomViewModel;
 import com.mengdd.map.autonavi.AutoNaviMapWithLocation;
 import com.mengdd.map.baidu.BaiduMapWithLocation;
 import com.mengdd.map.google.GoogleMapWithLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapCompareActivity extends Activity {
 
@@ -109,17 +109,17 @@ public class MapCompareActivity extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-            case R.id.tab_google:
-                switchMapScene(GOOGLE_MAP);
-                break;
-            case R.id.tab_baidu:
-                switchMapScene(BAIDU_MAP);
-                break;
-            case R.id.tab_autonavi:
-                switchMapScene(AUTO_NAVI_MAP);
-                break;
-            default:
-                break;
+                case R.id.tab_google:
+                    switchMapScene(GOOGLE_MAP);
+                    break;
+                case R.id.tab_baidu:
+                    switchMapScene(BAIDU_MAP);
+                    break;
+                case R.id.tab_autonavi:
+                    switchMapScene(AUTO_NAVI_MAP);
+                    break;
+                default:
+                    break;
             }
         }
     };
@@ -136,17 +136,17 @@ public class MapCompareActivity extends Activity {
 
     private void switchTitle(int scene) {
         switch (scene) {
-        case GOOGLE_MAP:
-            setTitle(getResources().getString(R.string.googlemap_title));
-            break;
-        case BAIDU_MAP:
-            setTitle(getResources().getString(R.string.baidumap_title));
-            break;
-        case AUTO_NAVI_MAP:
-            setTitle(getResources().getString(R.string.autonavimap_title));
-            break;
-        default:
-            break;
+            case GOOGLE_MAP:
+                setTitle(getResources().getString(R.string.googlemap_title));
+                break;
+            case BAIDU_MAP:
+                setTitle(getResources().getString(R.string.baidumap_title));
+                break;
+            case AUTO_NAVI_MAP:
+                setTitle(getResources().getString(R.string.autonavimap_title));
+                break;
+            default:
+                break;
         }
     }
 

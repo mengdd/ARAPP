@@ -1,8 +1,5 @@
 package com.mengdd.poi.baidu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.search.MKAddrInfo;
 import com.baidu.mapapi.search.MKBusLineResult;
@@ -32,6 +30,9 @@ import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.map.baidu.BaiduMapHelper;
 import com.mengdd.utils.AppConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaiduPoiSearchViewModel extends ViewModel {
     private MKSearch mSearch = null;
@@ -104,14 +105,14 @@ public class BaiduPoiSearchViewModel extends ViewModel {
 
         @Override
         public void onGetWalkingRouteResult(MKWalkingRouteResult result,
-                int iError) {
+                                            int iError) {
             Log.i(AppConstants.LOG_TAG, "onGetWalkingRouteResult: " + iError);
 
         }
 
         @Override
         public void onGetTransitRouteResult(MKTransitRouteResult result,
-                int iError) {
+                                            int iError) {
             Log.i(AppConstants.LOG_TAG, "onGetTransitRouteResult: " + iError);
         }
 
@@ -156,7 +157,7 @@ public class BaiduPoiSearchViewModel extends ViewModel {
 
         @Override
         public void onGetDrivingRouteResult(MKDrivingRouteResult result,
-                int iError) {
+                                            int iError) {
             Log.i(AppConstants.LOG_TAG, "onGetDrivingRouteResult: " + iError);
 
         }
@@ -173,7 +174,7 @@ public class BaiduPoiSearchViewModel extends ViewModel {
 
         @Override
         public void onGetShareUrlResult(MKShareUrlResult arg0, int arg1,
-                int arg2) {
+                                        int arg2) {
 
         }
     };
@@ -182,7 +183,7 @@ public class BaiduPoiSearchViewModel extends ViewModel {
 
         @Override
         public void onTextChanged(CharSequence cs, int start, int before,
-                int count) {
+                                  int count) {
             if (cs.length() <= 0) {
                 return;
             }
@@ -198,7 +199,7 @@ public class BaiduPoiSearchViewModel extends ViewModel {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count,
-                int after) {
+                                      int after) {
 
         }
 
@@ -210,7 +211,7 @@ public class BaiduPoiSearchViewModel extends ViewModel {
 
     /**
      * 影响搜索按钮点击事件
-     * 
+     *
      * @param v
      */
     public void searchButtonProcess(View v) {

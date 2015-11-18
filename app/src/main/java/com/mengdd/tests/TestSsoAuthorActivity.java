@@ -28,7 +28,7 @@ public class TestSsoAuthorActivity extends Activity {
 
     /**
      * 当 SSO 授权 Activity 退出时，该函数被调用。
-     * 
+     *
      * @see {@link Activity#onActivityResult}
      */
     @Override

@@ -8,14 +8,12 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.R;
-import com.mengdd.db.CustomMarkerTable;
 
 /**
  * Custom Markers overlay, this is an outside wrapper class. See MyOverlay for
  * more details. Here I'm considering to refract to join these two classes.
- * 
+ *
  * @author meng
- * 
  */
 public class CustomMarkersOverlay {
     private MapView mMapView = null;

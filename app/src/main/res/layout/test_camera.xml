@@ -3,7 +3,7 @@
     android:id="@+id/camera_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="2dp" >
+    android:layout_margin="2dp">
 
 
     <FrameLayout
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="bottom"
-        android:padding="10dp" >
+        android:padding="10dp">
 
     </FrameLayout>
 

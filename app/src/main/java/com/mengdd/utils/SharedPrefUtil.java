@@ -34,7 +34,7 @@ public class SharedPrefUtil {
     }
 
     public static boolean getBoolean(Context context, String key,
-            boolean defaultboolean) {
+                                     boolean defaultboolean) {
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME,
                 Context.MODE_PRIVATE);
         return pref.getBoolean(key, defaultboolean);
@@ -66,7 +66,7 @@ public class SharedPrefUtil {
     }
 
     public static String getString(Context context, String key,
-            String defaultValue) {
+                                   String defaultValue) {
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME,
                 Context.MODE_PRIVATE);
         return pref.getString(key, defaultValue);

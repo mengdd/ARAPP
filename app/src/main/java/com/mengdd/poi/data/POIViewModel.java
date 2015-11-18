@@ -1,17 +1,6 @@
 package com.mengdd.poi.data;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 import android.app.Activity;
-import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -23,6 +12,16 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.poi.ui.RadarZoomController.OnRadarZoomChangedListener;
 import com.mengdd.utils.AppConstants;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class POIViewModel extends ViewModel implements LocationListener,
         OnRadarZoomChangedListener {
@@ -48,7 +47,7 @@ public class POIViewModel extends ViewModel implements LocationListener,
 
     /**
      * Update POI data according to the location information
-     * 
+     *
      * @param lat
      * @param lon
      * @param alt
@@ -65,12 +64,10 @@ public class POIViewModel extends ViewModel implements LocationListener,
                     }
                 }
             });
-        }
-        catch (RejectedExecutionException rej) {
+        } catch (RejectedExecutionException rej) {
             Log.w(AppConstants.LOG_TAG,
                     "Not running new download Runnable, queue is full.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(AppConstants.LOG_TAG, "Exception running download Runnable.",
                     e);
         }
@@ -79,7 +76,7 @@ public class POIViewModel extends ViewModel implements LocationListener,
     /**
      * Use the NetworkDataSouce and some location info to download. Get detailed
      * location information and add Markers to GlobalARData.
-     * 
+     *
      * @param source
      * @param lat
      * @param lon
@@ -87,7 +84,7 @@ public class POIViewModel extends ViewModel implements LocationListener,
      * @return true if Markers are successfully added.
      */
     private static boolean download(NetworkDataSource source, double lat,
-            double lon, double alt) {
+                                    double lon, double alt) {
         if (null == source) {
             return false;
         }
@@ -96,8 +93,7 @@ public class POIViewModel extends ViewModel implements LocationListener,
         try {
             url = source.createRequestURL(lat, lon, alt,
                     GlobalARData.getRadius(), locale);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             Log.e(AppConstants.LOG_TAG, "NullPointerException");
             return false;
         }
@@ -105,8 +101,7 @@ public class POIViewModel extends ViewModel implements LocationListener,
         List<BasicMarker> markers = null;
         try {
             markers = source.parse(url);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             Log.e(AppConstants.LOG_TAG, "NullPointerException");
             return false;
         }

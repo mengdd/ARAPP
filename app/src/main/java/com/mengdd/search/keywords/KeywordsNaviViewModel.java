@@ -1,8 +1,5 @@
 package com.mengdd.search.keywords;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -13,6 +10,9 @@ import android.widget.LinearLayout;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.search.keywords.CategoryView.KeywordListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KeywordsNaviViewModel extends ViewModel {
 
@@ -81,26 +81,26 @@ public class KeywordsNaviViewModel extends ViewModel {
     }
 
     private void addCategoryData(int index, CategoryData categoryData,
-            Resources resources) {
+                                 Resources resources) {
         String[] contents = null;
         switch (index) {
-        case 0:
-            contents = resources.getStringArray(R.array.restaurant);
-            break;
-        case 1:
-            contents = resources.getStringArray(R.array.traffic);
-            break;
-        case 2:
-            contents = resources.getStringArray(R.array.shopping);
-            break;
-        case 3:
-            contents = resources.getStringArray(R.array.life);
-            break;
-        case 4:
-            contents = resources.getStringArray(R.array.entertainment);
-            break;
-        default:
-            break;
+            case 0:
+                contents = resources.getStringArray(R.array.restaurant);
+                break;
+            case 1:
+                contents = resources.getStringArray(R.array.traffic);
+                break;
+            case 2:
+                contents = resources.getStringArray(R.array.shopping);
+                break;
+            case 3:
+                contents = resources.getStringArray(R.array.life);
+                break;
+            case 4:
+                contents = resources.getStringArray(R.array.entertainment);
+                break;
+            default:
+                break;
         }
 
         categoryData.addItems(contents);

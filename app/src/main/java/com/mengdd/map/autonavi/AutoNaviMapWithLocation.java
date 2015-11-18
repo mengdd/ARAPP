@@ -1,8 +1,5 @@
 package com.mengdd.map.autonavi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -17,6 +14,9 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.location.SimpleLocationView;
 import com.mengdd.location.autonavi.AutoNaviLocationHelper;
 import com.mengdd.location.autonavi.AutoNaviLocationModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoNaviMapWithLocation extends ViewModel implements
         AMapLocationListener {

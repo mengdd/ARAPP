@@ -1,9 +1,5 @@
 package com.mengdd.custommarker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +11,10 @@ import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.utils.AppConstants;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class ListCustomMarkerViewModel extends ViewModel {
     private View mRootView = null;

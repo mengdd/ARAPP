@@ -1,25 +1,5 @@
 package com.mengdd.arapp.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.baidu.location.BDLocation;
-import com.baidu.mapapi.map.MapView;
-import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.GlobalARData;
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
-import com.mengdd.arapp.R.id;
-import com.mengdd.arapp.R.layout;
-import com.mengdd.components.ViewModel;
-import com.mengdd.location.LocationModel;
-import com.mengdd.location.LocationView;
-import com.mengdd.location.baidu.BaiduLocationHelper;
-import com.mengdd.location.baidu.BaiduLocationModel;
-import com.mengdd.map.BasicMapViewModel;
-import com.mengdd.map.baidu.BaiduMapViewModel;
-import com.mengdd.map.baidu.BaiduMyLocationOverlay;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -30,6 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+
+import com.baidu.location.BDLocation;
+import com.baidu.mapapi.map.MapView;
+import com.mengdd.arapp.FrameHeaderViewModel;
+import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
+import com.mengdd.arapp.GlobalARData;
+import com.mengdd.arapp.R;
+import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationModel;
+import com.mengdd.location.LocationView;
+import com.mengdd.location.baidu.BaiduLocationHelper;
+import com.mengdd.location.baidu.BaiduLocationModel;
+import com.mengdd.map.BasicMapViewModel;
+import com.mengdd.map.baidu.BaiduMapViewModel;
+import com.mengdd.map.baidu.BaiduMyLocationOverlay;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaiduMapActivity extends Activity {
 

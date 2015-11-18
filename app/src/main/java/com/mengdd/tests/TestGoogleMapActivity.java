@@ -1,23 +1,21 @@
 package com.mengdd.tests;
 
-import com.mengdd.arapp.R;
-
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.mengdd.arapp.R;
+
 /**
  * Test Activity for Google Map Fragment
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class TestGoogleMapActivity extends FragmentActivity {
     private Button mNextBtn = null;

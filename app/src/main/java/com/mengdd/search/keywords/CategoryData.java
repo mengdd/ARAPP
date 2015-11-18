@@ -31,8 +31,7 @@ public class CategoryData {
         if (mItemMap.containsKey(item)) {
             Integer count = mItemMap.get(item);
             mItemMap.put(item, count + 1);
-        }
-        else {
+        } else {
             mItemMap.put(item, 1);
         }
     }
@@ -69,7 +68,7 @@ public class CategoryData {
 
                         @Override
                         public int compare(Entry<String, Integer> lhs,
-                                Entry<String, Integer> rhs) {
+                                           Entry<String, Integer> rhs) {
                             return rhs.getValue() - lhs.getValue();
                         }
                     });

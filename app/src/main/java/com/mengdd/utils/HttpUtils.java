@@ -17,8 +17,7 @@ public class HttpUtils {
         try {
             URL url = new URL(path);
             inputStream = getInputStream(url);
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
@@ -30,7 +29,7 @@ public class HttpUtils {
     }
 
     public static InputStream getInputStream(URL url, int readTimeOut,
-            int connectTimeOut) {
+                                             int connectTimeOut) {
 
         InputStream inputStream = null;
         HttpURLConnection httpURLConnection = null;
@@ -53,11 +52,9 @@ public class HttpUtils {
                 }
 
             }
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return inputStream;

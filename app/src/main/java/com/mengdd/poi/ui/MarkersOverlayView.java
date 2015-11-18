@@ -1,18 +1,7 @@
 package com.mengdd.poi.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.TreeSet;
-
-import com.mengdd.arapp.GlobalARData;
-import com.mengdd.poi.ui.RadarZoomController.OnRadarZoomChangedListener;
-import com.mengdd.utils.AppConstants;
-
 import android.content.Context;
 import android.graphics.Canvas;
-import android.hardware.Camera;
-import android.hardware.Camera.OnZoomChangeListener;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,13 +10,22 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.mengdd.arapp.GlobalARData;
+import com.mengdd.poi.ui.RadarZoomController.OnRadarZoomChangedListener;
+import com.mengdd.utils.AppConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.TreeSet;
+
 /**
  * This class will represent POI markers and Radar Icon
- * 
+ * <p/>
  * The source is adapted from AugmentedView in :
  * "android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -131,7 +129,7 @@ public class MarkersOverlayView extends View implements SensorEventListener,
     }
 
     private static void adjustForCollisions(Canvas canvas,
-            List<BasicMarker> collection) {
+                                            List<BasicMarker> collection) {
         updated.clear();
 
         // Update the AR markers for collisions

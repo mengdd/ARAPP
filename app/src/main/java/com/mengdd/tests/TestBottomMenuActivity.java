@@ -1,9 +1,9 @@
 package com.mengdd.tests;
 
-import com.mengdd.search.SearchBottomViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.mengdd.search.SearchBottomViewModel;
 
 public class TestBottomMenuActivity extends Activity {
     private SearchBottomViewModel mBottomViewModel = null;

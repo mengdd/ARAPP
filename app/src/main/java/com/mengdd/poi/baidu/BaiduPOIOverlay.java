@@ -1,12 +1,12 @@
 package com.mengdd.poi.baidu;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.PoiOverlay;
 import com.baidu.mapapi.search.MKPoiInfo;
+
+import java.util.ArrayList;
 
 public class BaiduPOIOverlay extends PoiOverlay {
     private MapView mMapView = null;

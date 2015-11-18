@@ -1,8 +1,5 @@
 package com.mengdd.map;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.Button;
 
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompareBottomViewModel extends ViewModel implements
         OnClickListener {

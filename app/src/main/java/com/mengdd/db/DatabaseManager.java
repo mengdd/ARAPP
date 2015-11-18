@@ -1,12 +1,12 @@
 package com.mengdd.db;
 
-import java.io.File;
-
-import com.mengdd.utils.AppConstants;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.mengdd.utils.AppConstants;
+
+import java.io.File;
 
 public class DatabaseManager {
     private static DatabaseManager mInstance = null;
@@ -56,8 +56,7 @@ public class DatabaseManager {
         if (mDatabase != null && mDatabase.isOpen()) {
             try {
                 mDatabase.close();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
     }

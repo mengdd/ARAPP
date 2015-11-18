@@ -1,9 +1,5 @@
 package com.mengdd.sensors;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,13 +22,16 @@ import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.LowPassFilter;
 import com.mengdd.utils.Matrix;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * ViewModel to get data from sensors and update to global
- * 
+ * <p/>
  * The source of the codes "android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -59,13 +58,13 @@ public class SensorViewModel extends ViewModel implements LocationListener,
     private static final AtomicBoolean computing = new AtomicBoolean(false);
 
     private static final float temp[] = new float[9]; // Temporary rotation
-                                                      // matrix in Android
-                                                      // format
+    // matrix in Android
+    // format
     private static final float rotation[] = new float[9]; // Final rotation
-                                                          // matrix in Android
-                                                          // format
+    // matrix in Android
+    // format
     private static final float grav[] = new float[3]; // Gravity (a.k.a
-                                                      // accelerometer data)
+    // accelerometer data)
     private static final float mag[] = new float[3]; // Magnetic
     /*
      * Using Matrix operations instead. This was way too inaccurate, private
@@ -102,12 +101,12 @@ public class SensorViewModel extends ViewModel implements LocationListener,
                     .getSystemService(Context.SENSOR_SERVICE);
 
             sensors = sensorMgr.getSensorList(Sensor.TYPE_ACCELEROMETER);
-            if (sensors.size() > 0){
+            if (sensors.size() > 0) {
                 sensorGrav = sensors.get(0);
             }
 
             sensors = sensorMgr.getSensorList(Sensor.TYPE_MAGNETIC_FIELD);
-            if (sensors.size() > 0){
+            if (sensors.size() > 0) {
                 sensorMag = sensors.get(0);
             }
 
@@ -150,12 +149,10 @@ public class SensorViewModel extends ViewModel implements LocationListener,
                             (float) Math.sin(dec), 0f, 1f, 0f,
                             -(float) Math.sin(dec), 0f, (float) Math.cos(dec));
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        }
-        catch (Exception ex1) {
+        } catch (Exception ex1) {
             try {
                 if (sensorMgr != null) {
                     sensorMgr.unregisterListener(this, sensorGrav);
@@ -163,8 +160,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
                     sensorMgr = null;
                 }
 
-            }
-            catch (Exception ex2) {
+            } catch (Exception ex2) {
                 ex2.printStackTrace();
             }
         }
@@ -177,20 +173,17 @@ public class SensorViewModel extends ViewModel implements LocationListener,
         try {
             try {
                 sensorMgr.unregisterListener(this, sensorGrav);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
             try {
                 sensorMgr.unregisterListener(this, sensorMag);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
             sensorMgr = null;
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -209,8 +202,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
             grav[1] = smooth[1];
             grav[2] = smooth[2];
 
-        }
-        else if (evt.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+        } else if (evt.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             smooth = LowPassFilter.filter(2.0f, 4.0f, evt.values, mag);
             mag[0] = smooth[0];
             mag[1] = smooth[1];
@@ -330,7 +322,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
      * Add Sensor Event changed listener to this Observable object. The lister's
      * onLocationChanged() will be called every time when current location data
      * changed.
-     * 
+     *
      * @param listener
      * @return
      */
@@ -352,7 +344,7 @@ public class SensorViewModel extends ViewModel implements LocationListener,
     /**
      * Remove the listener from the list of listeners. The listener will not be
      * notified any more if location data changed.
-     * 
+     *
      * @param listener
      * @return
      */

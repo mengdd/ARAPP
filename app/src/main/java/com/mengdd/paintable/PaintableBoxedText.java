@@ -1,21 +1,22 @@
 package com.mengdd.paintable;
 
-import java.text.BreakIterator;
-import java.util.ArrayList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
+import java.text.BreakIterator;
+import java.util.ArrayList;
+
 /**
  * This class extends PaintableObject to draw text with a box surrounding it.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -44,31 +45,24 @@ public class PaintableBoxedText extends PaintableObject {
     }
 
     public PaintableBoxedText(String txtInit, float fontSizeInit,
-            float maxWidth, int borderColor, int bgColor, int textColor) {
+                              float maxWidth, int borderColor, int bgColor, int textColor) {
         set(txtInit, fontSizeInit, maxWidth, borderColor, bgColor, textColor);
     }
 
     /**
      * Set this objects parameters. This should be used instead of creating new
      * objects.
-     * 
-     * @param txtInit
-     *            String to paint.
-     * @param fontSizeInit
-     *            Font size to use.
-     * @param maxWidth
-     *            max width of the text.
-     * @param borderColor
-     *            Color of the border.
-     * @param bgColor
-     *            Background color of the surrounding box.
-     * @param textColor
-     *            Color of the text.
-     * @throws IllegalArgumentException
-     *             if String param is NULL.
+     *
+     * @param txtInit      String to paint.
+     * @param fontSizeInit Font size to use.
+     * @param maxWidth     max width of the text.
+     * @param borderColor  Color of the border.
+     * @param bgColor      Background color of the surrounding box.
+     * @param textColor    Color of the text.
+     * @throws IllegalArgumentException if String param is NULL.
      */
     public void set(String txtInit, float fontSizeInit, float maxWidth,
-            int borderColor, int bgColor, int textColor) {
+                    int borderColor, int bgColor, int textColor) {
         if (null == txtInit) {
             throw new IllegalArgumentException("String txtInit is null!");
         }
@@ -85,15 +79,11 @@ public class PaintableBoxedText extends PaintableObject {
      * Set this objects parameters. This should be used instead of creating new
      * objects. Note: This uses previously set or default values for border
      * color, background color, and text color.
-     * 
-     * @param txtInit
-     *            String to paint.
-     * @param fontSizeInit
-     *            Font size to use.
-     * @param maxWidth
-     *            max width of the text.
-     * @throws NullPointerException
-     *             if String param is NULL.
+     *
+     * @param txtInit      String to paint.
+     * @param fontSizeInit Font size to use.
+     * @param maxWidth     max width of the text.
+     * @throws NullPointerException if String param is NULL.
      */
     public void set(String txtInit, float fontSizeInit, float maxWidth) {
         if (null == txtInit) {
@@ -101,8 +91,7 @@ public class PaintableBoxedText extends PaintableObject {
         }
         try {
             prepTxt(txtInit, fontSizeInit, maxWidth);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             prepTxt("TEXT PARSE ERROR", 12, 200);
         }

@@ -1,6 +1,11 @@
 package com.mengdd.poi.ui;
 
-import java.text.DecimalFormat;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.location.Location;
+import android.os.Handler;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.mengdd.arapp.GlobalARData;
@@ -17,28 +22,21 @@ import com.mengdd.utils.MathUtils;
 import com.mengdd.utils.Matrix;
 import com.mengdd.utils.Vector;
 
-import android.R.integer;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.location.Location;
-import android.os.Handler;
-import android.util.FloatMath;
-import android.util.Log;
+import java.text.DecimalFormat;
 
 /**
  * This class will represent a physical location and will calculate it's
  * visibility and draw it's text and visual representation accordingly. This
  * should be extended if you want to change the way a Marker is viewed.
- * 
+ * <p/>
  * The source is adapted from: 1."android-augment-reality-framework" project
  * link: http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -159,10 +157,9 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Calculate the relative position of this Marker from the given Location.
-     * 
      */
     public void updateRelativePosition(Location origLocation,
-            BDLocation origBDLocation) {
+                                       BDLocation origBDLocation) {
         calcRelativePosition(origLocation, origBDLocation);
         // Update the markers distance based on the new location.
         updateDistance(origLocation, origBDLocation);
@@ -173,10 +170,10 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
     }
 
     protected abstract void calcRelativePosition(Location origLocation,
-            BDLocation origBDLocation);
+                                                 BDLocation origBDLocation);
 
     protected abstract void updateDistance(Location origLocation,
-            BDLocation origBDLocation);
+                                           BDLocation origBDLocation);
 
     private void updateDirection() {
         mDirectionVector.set(mLocationVector);
@@ -188,13 +185,11 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
             iconSize = ICON_SIZE_MAX;
             textSize = TEXT_SIZE_MAX;
 
-        }
-        else if (mDistance >= ICON_DISTANCE_MAX) {
+        } else if (mDistance >= ICON_DISTANCE_MAX) {
             iconSize = ICON_SIZE_MIN;
             textSize = TEXT_SIZE_MIN;
 
-        }
-        else {
+        } else {
             float ratio = 1 - (float) (mDistance - ICON_DISTANCE_MIN)
                     / (ICON_DISTANCE_MAX - ICON_DISTANCE_MIN);
 
@@ -221,11 +216,9 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Draw this Marker on the Canvas
-     * 
-     * @param canvas
-     *            Canvas to draw on.
-     * @throws NullPointerException
-     *             if the Canvas is NULL.
+     *
+     * @param canvas Canvas to draw on.
+     * @throws NullPointerException if the Canvas is NULL.
      */
     public synchronized void draw(Canvas canvas) {
         if (null == canvas) {
@@ -266,7 +259,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Get the color of this Marker.
-     * 
+     *
      * @return int representing the Color of this Marker.
      */
     public synchronized int getColor() {
@@ -289,9 +282,9 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Get the distance of this Marker from the current GPS position.
-     * 
+     *
      * @return double representing the distance of this Marker from the current
-     *         GPS position.
+     * GPS position.
      */
     public synchronized double getDistance() {
         return this.mDistance;
@@ -307,7 +300,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
     /**
      * Get the initial Y coordinate of this Marker. Used to reset after
      * collision detection.
-     * 
+     *
      * @return float representing the initial Y coordinate of this Marker.
      */
     public synchronized float getInitialY() {
@@ -316,7 +309,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Get the the location of the Marker in XYZ.
-     * 
+     *
      * @return Vector representing the location of the Marker.
      */
     public Vector getLocationVector() {
@@ -329,7 +322,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Get the name of the Marker.
-     * 
+     *
      * @return String representing the new of the Marker.
      */
     public synchronized String getName() {
@@ -351,11 +344,9 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Tell if the x/y position is on this marker (if the marker is visible)
-     * 
-     * @param x
-     *            float x value.
-     * @param y
-     *            float y value.
+     *
+     * @param x float x value.
+     * @param y float y value.
      * @return True if Marker is visible and x/y is on the marker.
      */
     public synchronized boolean handleClick(float x, float y) {
@@ -404,7 +395,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Get the whether the Marker is inside the camera's view
-     * 
+     *
      * @return True if Marker is inside the camera's view.
      */
     public synchronized boolean isInView() {
@@ -413,9 +404,8 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Determines if the marker is on this Marker.
-     * 
-     * @param marker
-     *            Marker to test for overlap.
+     *
+     * @param marker Marker to test for overlap.
      * @return True if the marker is on Marker.
      */
     public synchronized boolean isMarkerOnMarker(BasicMarker marker) {
@@ -425,7 +415,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
     /**
      * Get the whether the Marker is inside the range (relative to slider on
      * view)
-     * 
+     *
      * @return True if Marker is inside the range.
      */
     public synchronized boolean isOnRadar() {
@@ -443,13 +433,10 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Update the matrices and visibility of the Marker.
-     * 
-     * @param canvas
-     *            Canvas to use in the CameraModel.
-     * @param addX
-     *            Adder to the X position.
-     * @param addY
-     *            Adder to the Y position.
+     *
+     * @param canvas Canvas to use in the CameraModel.
+     * @param addX   Adder to the X position.
+     * @param addY   Adder to the Y position.
      */
     public synchronized void update(Canvas canvas, float addX, float addY) {
         if (null == canvas) {
@@ -484,8 +471,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
         if (Math.abs(diffAngle) > AppConstants.DEFAULT_VIEW_ANGLE_DEGREES / 2) {
             isInView = false;
-        }
-        else {
+        } else {
             isInView = true;
             // TODO set an screen position to draw the icon
 
@@ -524,8 +510,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (gpsSymbol == null) {
             if (null == iconBitmap) {
                 gpsSymbol = new PaintableGps(36, 8, true, getColor());
-            }
-            else {
+            } else {
                 gpsSymbol = new PaintableIcon(iconBitmap, iconSize, iconSize);
             }
         }
@@ -544,8 +529,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (null == symbolContainer) {
             symbolContainer = new PaintablePosition(gpsSymbol, x, y,
                     currentAngle, 1);
-        }
-        else {
+        } else {
             symbolContainer.set(gpsSymbol, x, y, currentAngle, 1);
 
         }
@@ -569,8 +553,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
             positionContainer = new PaintablePosition(positionPoint,
                     mTempLocationArray[0], mTempLocationArray[1], currentAngle,
                     1);
-        }
-        else {
+        } else {
             positionContainer.set(positionPoint, mTempLocationArray[0],
                     mTempLocationArray[1], currentAngle, 1);
         }
@@ -586,8 +569,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         String textStr = null;
         if (mDistance < 1000.0) {
             textStr = mName + " (" + DECIMAL_FORMAT.format(mDistance) + "m)";
-        }
-        else {
+        } else {
             double d = mDistance / 1000.0;
             textStr = mName + " (" + DECIMAL_FORMAT.format(d) + "km)";
         }
@@ -601,8 +583,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (textBox == null) {
             textBox = new PaintableBoxedText(textStr,
                     Math.round(maxHeight / 2f) + 1, 300);
-        }
-        else {
+        } else {
             textBox.set(textStr, Math.round(maxHeight / 2f) + 1, 300);
         }
 
@@ -617,8 +598,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (textContainer == null) {
             textContainer = new PaintablePosition(textBox, x, y, currentAngle,
                     1);
-        }
-        else {
+        } else {
             textContainer.set(textBox, x, y, currentAngle, 1);
         }
 
@@ -637,8 +617,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (positionTextBox == null) {
             positionTextBox = new PaintableBoxedText(textStr,
                     Math.round(maxHeight / 2f) + 1, 300);
-        }
-        else {
+        } else {
             positionTextBox.set(textStr, Math.round(maxHeight / 2f) + 1, 300);
         }
 
@@ -653,8 +632,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (positionTextContainer == null) {
             positionTextContainer = new PaintablePosition(positionTextBox, x,
                     y, currentAngle, 1);
-        }
-        else {
+        } else {
             positionTextContainer.set(positionTextBox, x, y, currentAngle, 1);
         }
 
@@ -673,8 +651,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (touchBox == null) {
             touchBox = new PaintableBox(getWidth(), getHeight(), Color.WHITE,
                     Color.GREEN);
-        }
-        else {
+        } else {
             touchBox.set(getWidth(), getHeight());
         }
 
@@ -690,8 +667,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (touchPosition == null) {
             touchPosition = new PaintablePosition(touchBox, x, y, currentAngle,
                     1);
-        }
-        else {
+        } else {
             touchPosition.set(touchBox, x, y, currentAngle, 1);
         }
         touchPosition.paint(canvas);
@@ -699,16 +675,14 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Determines if the marker is on this Marker.
-     * 
-     * @param marker
-     *            Marker to test for overlap.
-     * @param reflect
-     *            if True the Marker will call it's self recursively with the
-     *            opposite arguments.
+     *
+     * @param marker  Marker to test for overlap.
+     * @param reflect if True the Marker will call it's self recursively with the
+     *                opposite arguments.
      * @return True if the marker is on Marker.
      */
     protected synchronized boolean isMarkerOnMarker(BasicMarker marker,
-            boolean reflect) {
+                                                    boolean reflect) {
         if (marker == null)
             return false;
 
@@ -781,17 +755,14 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
 
     /**
      * Determines if the point is on this Marker.
-     * 
-     * @param xPoint
-     *            X point.
-     * @param yPoint
-     *            Y point.
-     * @param marker
-     *            Marker to determine if the point is on.
+     *
+     * @param xPoint X point.
+     * @param yPoint Y point.
+     * @param marker Marker to determine if the point is on.
      * @return True if the point is on Marker.
      */
     protected synchronized boolean isPointOnMarker(float xPoint, float yPoint,
-            BasicMarker marker) {
+                                                   BasicMarker marker) {
         if (marker == null)
             return false;
 
@@ -885,8 +856,7 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (GlobalARData.portrait) {
             x -= height / 2;
             y += width / 2;
-        }
-        else {
+        } else {
             x -= width / 2;
             y -= height / 2;
         }
@@ -899,18 +869,16 @@ public abstract class BasicMarker implements Comparable<BasicMarker> {
         if (GlobalARData.portrait) {
             lrX += height;
             lrY -= width;
-        }
-        else {
+        } else {
             lrX += width;
             lrY += height;
         }
 
         if (GlobalARData.portrait
                 && (lrX >= -1 && ulX <= mCameraData.getWidth() && ulY >= -1 && lrY <= mCameraData
-                        .getHeight())) {
+                .getHeight())) {
             isInView = true;
-        }
-        else if (lrX >= -1 && ulX <= mCameraData.getWidth() && lrY >= -1
+        } else if (lrX >= -1 && ulX <= mCameraData.getWidth() && lrY >= -1
                 && ulY <= mCameraData.getHeight()) {
             isInView = true;
         }

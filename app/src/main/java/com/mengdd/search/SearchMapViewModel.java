@@ -18,7 +18,6 @@ import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
 import com.baidu.mapapi.search.MKShareUrlResult;
-import com.baidu.mapapi.search.MKSuggestionInfo;
 import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
@@ -79,8 +78,7 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
                 // 显示详情页
                 mSearch.poiDetailSearch(poiInfo.uid);
 
-            }
-            else {
+            } else {
                 Log.i(AppConstants.LOG_TAG, "hasCaterDetails == false "
                         + poiInfo.uid);
                 Toast.makeText(mActivity, poiInfo.name, Toast.LENGTH_SHORT)
@@ -176,8 +174,7 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
     public void onGetPoiDetailSearchResult(int type, int iError) {
         if (iError != 0) {
             Toast.makeText(mActivity, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(mActivity, "成功，查看详情页面", Toast.LENGTH_SHORT).show();
         }
     }
@@ -197,7 +194,7 @@ public class SearchMapViewModel extends ViewModel implements MKSearchListener {
 
     @Override
     public void onGetShareUrlResult(MKShareUrlResult result, int type,
-            int iError) {
+                                    int iError) {
 
     }
 

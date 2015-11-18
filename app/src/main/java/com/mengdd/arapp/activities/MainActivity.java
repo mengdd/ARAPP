@@ -25,19 +25,10 @@ import com.mengdd.data.analyse.BaiduLocationData;
 import com.mengdd.data.analyse.GoogleLocationData;
 import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.db.DatabaseManager;
-import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.sina.weibo.data.WeiboAppConfig;
-import com.mengdd.tests.TestAugmentedPOIActivity;
-import com.mengdd.tests.TestAutoMapWithLocationModel;
-import com.mengdd.tests.TestAutoNaviMapActivity;
-import com.mengdd.tests.TestBaiduMapWithLocationModel;
 import com.mengdd.tests.TestCameraActivity;
 import com.mengdd.tests.TestCompassActivity;
-import com.mengdd.tests.TestGoogleMapWithLocationModel;
 import com.mengdd.tests.TestMin3dActivity;
-import com.mengdd.tests.TestNaviUIActivity;
-import com.mengdd.tests.TestSsoAuthorActivity;
-import com.mengdd.tests.TestUserAuthorizeActivity;
 import com.mengdd.utils.AppConstants;
 
 public class MainActivity extends Activity {
@@ -94,7 +85,7 @@ public class MainActivity extends Activity {
         mDrawerMenuList = (ListView) findViewById(R.id.drawer_list_right);
 
         // Instantiate the list of samples.
-        mSamples = new Sample[] {
+        mSamples = new Sample[]{
                 // new Sample(R.string.login, LoginActivity.class),
                 new Sample(R.string.search, SearchActivity.class),
                 new Sample(R.string.custom_marker_title,
@@ -106,8 +97,8 @@ public class MainActivity extends Activity {
                 new Sample(R.string.test_compass, TestCompassActivity.class),
 //                new Sample(R.string.test_markers,
 //                        TestAugmentedPOIActivity.class),
-                        new Sample(R.string.test_markers,
-                                TestMin3dActivity.class),
+                new Sample(R.string.test_markers,
+                        TestMin3dActivity.class),
                 // new Sample(R.string.test_login,
                 // TestUserAuthorizeActivity.class),
                 // new Sample(R.string.test_login_sso,
@@ -132,7 +123,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                    int position, long id) {
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
                 Log.i(AppConstants.LOG_TAG, "onItemClick: " + view
                         + ",position: " + position + ",id: " + id);

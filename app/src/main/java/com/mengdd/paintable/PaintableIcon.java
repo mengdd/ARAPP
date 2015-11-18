@@ -5,15 +5,15 @@ import android.graphics.Canvas;
 
 /**
  * This class extends PaintableObject to draw an icon.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -29,11 +29,9 @@ public class PaintableIcon extends PaintableObject {
 
     /**
      * Set the bitmap. This should be used instead of creating new objects.
-     * 
-     * @param bitmap
-     *            Bitmap that should be rendered.
-     * @throws IllegalArgumentException
-     *             if Bitmap is NULL.
+     *
+     * @param bitmap Bitmap that should be rendered.
+     * @throws IllegalArgumentException if Bitmap is NULL.
      */
     public void set(Bitmap bitmap, int width, int height) {
         if (null == bitmap) {

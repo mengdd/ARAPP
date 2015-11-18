@@ -17,11 +17,10 @@ import com.mengdd.utils.AppConstants;
  * Location ViewModel for finding current location information. This class
  * doesn't have any UI elements and use both gps and network as its location
  * providers
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class GoogleLocationModel extends LocationModel implements
         LocationListener {
@@ -117,15 +116,13 @@ public class GoogleLocationModel extends LocationModel implements
      * Location fix The codes are adapted from:
      * http://developer.android.com/guide/topics/location/strategies.html#
      * BestEstimate
-     * 
-     * @param newLocation
-     *            The new Location that you want to evaluate
-     * @param currentBestLocation
-     *            The current Location fix, to which you want to compare the new
-     *            one
+     *
+     * @param newLocation         The new Location that you want to evaluate
+     * @param currentBestLocation The current Location fix, to which you want to compare the new
+     *                            one
      */
     protected boolean isBetterLocation(Location newLocation,
-            Location currentBestLocation) {
+                                       Location currentBestLocation) {
         if (null == newLocation) {
             // a null location is not better than any one
             return false;
@@ -148,8 +145,7 @@ public class GoogleLocationModel extends LocationModel implements
             return true;
             // If the new location is more than two minutes older, it must be
             // worse
-        }
-        else if (isSignificantlyOlder) {
+        } else if (isSignificantlyOlder) {
             return false;
         }
 
@@ -168,17 +164,17 @@ public class GoogleLocationModel extends LocationModel implements
         // accuracy
         if (isMoreAccurate) {
             return true;
-        }
-        else if (isNewer && !isLessAccurate) {
+        } else if (isNewer && !isLessAccurate) {
             return true;
-        }
-        else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
             return true;
         }
         return false;
     }
 
-    /** Checks whether two location providers are the same */
+    /**
+     * Checks whether two location providers are the same
+     */
     private boolean isSameProvider(String provider, String provider2) {
         if (null != provider && provider.equals(provider2)) {
             return true;

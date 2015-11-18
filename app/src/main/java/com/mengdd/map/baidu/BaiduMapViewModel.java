@@ -20,11 +20,10 @@ import com.mengdd.utils.AppConstants;
 /**
  * The ViewModel to display a Baidu Map MapView. Baidu Map SDK, Developer guide:
  * http://developer.baidu.com/map/sdk-android.htm
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class BaiduMapViewModel extends BasicMapViewModel {
 

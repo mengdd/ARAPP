@@ -1,9 +1,5 @@
 package com.mengdd.custommarker;
 
-import java.util.List;
-
-import com.mengdd.arapp.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +9,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.mengdd.arapp.R;
+
+import java.util.List;
 
 public class MarkerItemAdapter extends BaseAdapter {
     private Context mContext = null;
@@ -75,8 +75,7 @@ public class MarkerItemAdapter extends BaseAdapter {
                     .setOnCheckedChangeListener(mOnCheckedChangeListener);
 
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
@@ -108,7 +107,7 @@ public class MarkerItemAdapter extends BaseAdapter {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
-                boolean isChecked) {
+                                     boolean isChecked) {
 
             MarkerItem item = (MarkerItem) buttonView.getTag();
             if (null != item) {

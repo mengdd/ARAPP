@@ -1,29 +1,5 @@
 package com.mengdd.tests;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.baidu.mapapi.search.MKPoiInfo;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
-import com.mengdd.arapp.GlobalARData;
-import com.mengdd.arapp.R;
-import com.mengdd.arapp.R.drawable;
-import com.mengdd.arapp.R.id;
-import com.mengdd.arapp.R.layout;
-import com.mengdd.camera.CameraViewModel;
-import com.mengdd.components.ViewModel;
-import com.mengdd.location.LocationModel;
-import com.mengdd.location.google.GoogleLocationModel;
-import com.mengdd.map.baidu.BaiduMapHelper;
-import com.mengdd.poi.data.POIViewModel;
-import com.mengdd.poi.ui.MarkersOverlayView;
-import com.mengdd.poi.ui.BaiduMarker;
-import com.mengdd.poi.ui.GoogleMarker;
-import com.mengdd.poi.ui.BasicMarker;
-import com.mengdd.poi.ui.RadarView;
-import com.mengdd.poi.ui.RadarZoomController;
-import com.mengdd.sensors.SensorViewModel;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -37,6 +13,27 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
+
+import com.baidu.mapapi.search.MKPoiInfo;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.mengdd.arapp.GlobalARData;
+import com.mengdd.arapp.R;
+import com.mengdd.camera.CameraViewModel;
+import com.mengdd.components.ViewModel;
+import com.mengdd.location.LocationModel;
+import com.mengdd.location.google.GoogleLocationModel;
+import com.mengdd.map.baidu.BaiduMapHelper;
+import com.mengdd.poi.data.POIViewModel;
+import com.mengdd.poi.ui.BaiduMarker;
+import com.mengdd.poi.ui.BasicMarker;
+import com.mengdd.poi.ui.GoogleMarker;
+import com.mengdd.poi.ui.MarkersOverlayView;
+import com.mengdd.poi.ui.RadarView;
+import com.mengdd.poi.ui.RadarZoomController;
+import com.mengdd.sensors.SensorViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestAugmentedPOIActivity extends Activity {
     private List<ViewModel> mViewModels = null;
@@ -275,6 +272,7 @@ public class TestAugmentedPOIActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         mCameraViewModel.onConfigurationChanged(newConfig);
     }
+
     @Override
     protected void onPause() {
         super.onPause();

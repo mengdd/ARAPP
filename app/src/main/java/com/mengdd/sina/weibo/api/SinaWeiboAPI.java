@@ -32,8 +32,8 @@ public class SinaWeiboAPI {
     }
 
     protected static void request(final String url,
-            final WeiboParameters params, final String httpMethod,
-            RequestListener listener) {
+                                  final WeiboParameters params, final String httpMethod,
+                                  RequestListener listener) {
         params.add("access_token", accessToken);
         AsyncWeiboRunner.request(url, params, httpMethod, listener);
     }

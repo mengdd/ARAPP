@@ -1,14 +1,14 @@
 package com.mengdd.poi.ui;
 
+import android.content.Context;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+
+import com.mengdd.arapp.GlobalARData;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mengdd.arapp.GlobalARData;
-import android.content.Context;
-import android.view.View;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class RadarZoomController {
     private SeekBar mSeekBar = null;
@@ -48,7 +48,7 @@ public class RadarZoomController {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,
-                boolean fromUser) {
+                                      boolean fromUser) {
 
             updateDataOnZoom();
         }
@@ -111,16 +111,13 @@ public class RadarZoomController {
         if (myZoomLevel <= 25) {
             percent = myZoomLevel / 25f;
             myout = ONE_PERCENT * percent;
-        }
-        else if (myZoomLevel > 25 && myZoomLevel <= 50) {
+        } else if (myZoomLevel > 25 && myZoomLevel <= 50) {
             percent = (myZoomLevel - 25f) / 25f;
             myout = ONE_PERCENT + (TEN_PERCENT * percent);
-        }
-        else if (myZoomLevel > 50 && myZoomLevel <= 75) {
+        } else if (myZoomLevel > 50 && myZoomLevel <= 75) {
             percent = (myZoomLevel - 50f) / 25f;
             myout = TEN_PERCENT + (TWENTY_PERCENT * percent);
-        }
-        else {
+        } else {
             percent = (myZoomLevel - 75f) / 25f;
             myout = TWENTY_PERCENT + (EIGHTY_PERCENTY * percent);
         }

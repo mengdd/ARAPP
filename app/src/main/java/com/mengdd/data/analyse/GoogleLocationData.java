@@ -1,10 +1,10 @@
 package com.mengdd.data.analyse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.location.Location;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoogleLocationData {
 
@@ -24,7 +24,7 @@ public class GoogleLocationData {
     }
 
     public static float compareLocation(Location locationStart,
-            Location locationEnd) {
+                                        Location locationEnd) {
         float results[] = new float[1];
         Location.distanceBetween(locationStart.getLatitude(),
                 locationStart.getLongitude(), locationEnd.getLatitude(),

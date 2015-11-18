@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:minHeight="@dimen/bottom_menu_height"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/custom_map"

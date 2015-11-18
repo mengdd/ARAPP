@@ -1,11 +1,11 @@
 package com.mengdd.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class LogUtils {
 
@@ -176,8 +176,7 @@ public class LogUtils {
         if (LOG_TO_FILE) {
             logToFile(tag, msg);
             return 0;
-        }
-        else {
+        } else {
             return Log.println(priority, tag, msg);
         }
     }
@@ -194,8 +193,7 @@ public class LogUtils {
             }
 
             logToFile(LOG_FILE_DEFAULT, tag, msg);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -211,8 +209,7 @@ public class LogUtils {
             }
 
             logToFile(LOG_FILE_ONE, null, msg);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -228,30 +225,27 @@ public class LogUtils {
             }
 
             logToFile(LOG_FILE_TWO, null, msg);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private static synchronized void logToFile(File logFile, String tag,
-            String msg) {
+                                               String msg) {
         try {
             FileOutputStream outputStream = new FileOutputStream(logFile, true);
 
             StringBuilder builder = new StringBuilder();
             if (null == tag) {
                 builder.append(msg).append("\n");
-            }
-            else {
+            } else {
                 builder.append(tag).append("  :  ").append(msg).append("\n");
             }
 
             outputStream.write(builder.toString().getBytes());
             outputStream.flush();
             outputStream.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

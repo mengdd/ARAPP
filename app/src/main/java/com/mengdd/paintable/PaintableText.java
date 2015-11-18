@@ -5,15 +5,15 @@ import android.graphics.Color;
 
 /**
  * This class extends PaintableObject to draw text.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -32,24 +32,19 @@ public class PaintableText extends PaintableObject {
     private boolean bg = false;
 
     public PaintableText(String text, int color, float size,
-            boolean paintBackground) {
+                         boolean paintBackground) {
         set(text, color, size, paintBackground);
     }
 
     /**
      * Set this objects parameters. This should be used instead of creating new
      * objects.
-     * 
-     * @param text
-     *            String representing this object.
-     * @param color
-     *            Color of the object.
-     * @param size
-     *            Size of the object.
-     * @param paintBackground
-     *            Should the background get rendered.
-     * @throws NullPointerException
-     *             if String param is NULL.
+     *
+     * @param text            String representing this object.
+     * @param color           Color of the object.
+     * @param size            Size of the object.
+     * @param paintBackground Should the background get rendered.
+     * @throws NullPointerException if String param is NULL.
      */
     public void set(String text, int color, float size, boolean paintBackground) {
         if (text == null)

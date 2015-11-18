@@ -13,11 +13,10 @@ import com.mengdd.sensors.CompassViewModel;
 
 /**
  * Test Activity for CompassViewModel.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class TestCompassActivity extends Activity {
     private CompassViewModel mCompassViewModel = null;
@@ -56,42 +55,39 @@ public class TestCompassActivity extends Activity {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
-                boolean isChecked) {
+                                     boolean isChecked) {
 
             switch (buttonView.getId()) {
-            case R.id.remap:
-                if (isChecked) {
-                    mCompassViewModel
-                            .setRemapMode(CompassViewModel.REMAP_WHOLE);
-                }
-                else {
-                    mCompassViewModel.setRemapMode(CompassViewModel.REMAP_NONE);
-                }
+                case R.id.remap:
+                    if (isChecked) {
+                        mCompassViewModel
+                                .setRemapMode(CompassViewModel.REMAP_WHOLE);
+                    } else {
+                        mCompassViewModel.setRemapMode(CompassViewModel.REMAP_NONE);
+                    }
 
-                break;
-            case R.id.anti_alias:
+                    break;
+                case R.id.anti_alias:
 
-                if (isChecked) {
-                    mCompassViewModel.setAntiAlias(true);
-                }
-                else {
-                    mCompassViewModel.setAntiAlias(false);
-                }
+                    if (isChecked) {
+                        mCompassViewModel.setAntiAlias(true);
+                    } else {
+                        mCompassViewModel.setAntiAlias(false);
+                    }
 
-                break;
-            case R.id.compensate_mag:
+                    break;
+                case R.id.compensate_mag:
 
-                if (isChecked) {
-                    mCompassViewModel.setMagneticCompensatedOn(true);
-                }
-                else {
-                    mCompassViewModel.setMagneticCompensatedOn(false);
-                }
+                    if (isChecked) {
+                        mCompassViewModel.setMagneticCompensatedOn(true);
+                    } else {
+                        mCompassViewModel.setMagneticCompensatedOn(false);
+                    }
 
-                break;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
         }
     };

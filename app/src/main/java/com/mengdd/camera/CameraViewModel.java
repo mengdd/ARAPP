@@ -1,10 +1,5 @@
 package com.mengdd.camera;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,14 +20,17 @@ import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.FileUtils;
 import com.mengdd.utils.FileUtils.MediaType;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
- *
  * Camera Module including the Camera and Camera Preview.
  *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public class CameraViewModel extends ViewModel {
     private Camera mCamera = null;
@@ -161,14 +159,15 @@ public class CameraViewModel extends ViewModel {
         return defaultId;
     }
 
-    /** A safe way to get an instance of the Camera object. */
+    /**
+     * A safe way to get an instance of the Camera object.
+     */
     public static Camera getCameraInstance(int cameraId) {
         Log.d(AppConstants.LOG_TAG, "getCameraInstance");
         Camera c = null;
         try {
             c = Camera.open(cameraId); // attempt to get a Camera instance
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
             Log.e(AppConstants.LOG_TAG, "Camera is not available");
@@ -193,11 +192,9 @@ public class CameraViewModel extends ViewModel {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
-            }
-            catch (FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 Log.d(AppConstants.LOG_TAG, "File not found: " + e.getMessage());
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Log.d(AppConstants.LOG_TAG,
                         "Error accessing file: " + e.getMessage());
             }
@@ -210,7 +207,9 @@ public class CameraViewModel extends ViewModel {
         }
     };
 
-    /** Check if this device has a camera */
+    /**
+     * Check if this device has a camera
+     */
     public boolean checkCameraHardware(Context context) {
         if (context.getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_CAMERA)) {

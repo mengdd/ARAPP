@@ -1,13 +1,5 @@
 package com.mengdd.min3d;
 
-import min3d.Shared;
-import min3d.core.Object3dContainer;
-import min3d.core.Renderer;
-import min3d.core.Scene;
-import min3d.interfaces.ISceneController;
-import min3d.parser.IParser;
-import min3d.parser.Parser;
-import min3d.vos.Light;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -20,6 +12,15 @@ import android.widget.FrameLayout;
 import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.utils.LogUtils;
+
+import min3d.Shared;
+import min3d.core.Object3dContainer;
+import min3d.core.Renderer;
+import min3d.core.Scene;
+import min3d.interfaces.ISceneController;
+import min3d.parser.IParser;
+import min3d.parser.Parser;
+import min3d.vos.Light;
 
 public class Min3DLayerViewModel extends ViewModel implements ISceneController {
     private View mRootView = null;
@@ -107,8 +108,7 @@ public class Min3DLayerViewModel extends ViewModel implements ISceneController {
             mScene.addChild(object);
 
             mScene.backgroundColor().setAll(255, 255, 255, 0);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LogUtils.e("init error in min3d, maybe the model file problem");
         }
 

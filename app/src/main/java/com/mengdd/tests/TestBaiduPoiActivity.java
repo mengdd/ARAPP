@@ -1,9 +1,9 @@
 package com.mengdd.tests;
 
-import com.mengdd.poi.baidu.BaiduPoiSearchViewModel;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.mengdd.poi.baidu.BaiduPoiSearchViewModel;
 
 public class TestBaiduPoiActivity extends Activity {
     private BaiduPoiSearchViewModel mBaiduPoiSearchViewModel = null;

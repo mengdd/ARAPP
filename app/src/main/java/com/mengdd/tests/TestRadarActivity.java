@@ -1,7 +1,8 @@
 package com.mengdd.tests;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
@@ -9,9 +10,8 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.poi.ui.MarkersOverlayView;
 import com.mengdd.sensors.SensorViewModel;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.FrameLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestRadarActivity extends Activity {
     private MarkersOverlayView mPoiView = null;

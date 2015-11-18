@@ -1,12 +1,5 @@
 package com.mengdd.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -15,10 +8,17 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class BitmapUtils {
     /**
      * 从view 得到图片: ps: method from Baidu Map SDK
-     * 
+     *
      * @param view
      * @return
      */
@@ -34,7 +34,7 @@ public class BitmapUtils {
     }
 
     public static Bitmap getBitmapFromShape(Resources resources, int id,
-            int width, int height) {
+                                            int width, int height) {
 
         Drawable drawable = resources.getDrawable(id);
         Bitmap bitmap = Bitmap.createBitmap(width, height,
@@ -61,11 +61,9 @@ public class BitmapUtils {
                 bitmap = BitmapFactory.decodeStream(conn.getInputStream());
                 saveBitmap(path, bitmap);
                 conn.disconnect();
-            }
-            catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -81,11 +79,9 @@ public class BitmapUtils {
             conn.connect();
             bitmap = Drawable.createFromStream(conn.getInputStream(), null);
             conn.disconnect();
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return bitmap;
@@ -97,7 +93,7 @@ public class BitmapUtils {
 
     /**
      * 保存图片
-     * 
+     *
      * @param url
      * @param bitmap
      */
@@ -108,8 +104,7 @@ public class BitmapUtils {
             file.getParentFile().mkdirs();
             try {
                 file.createNewFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -118,8 +113,7 @@ public class BitmapUtils {
             os = new FileOutputStream(file);
             bitmap.compress(CompressFormat.PNG, 100, os);
             os.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

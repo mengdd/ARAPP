@@ -1,16 +1,15 @@
 package com.mengdd.arapp.activities;
 
-import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
-import com.mengdd.arapp.R;
-
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+
+import com.mengdd.arapp.FrameHeaderViewModel;
+import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
+import com.mengdd.arapp.R;
 
 public class LoginActivity extends Activity {
 

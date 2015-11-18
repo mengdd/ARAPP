@@ -1,11 +1,5 @@
 package com.mengdd.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-
-import com.mengdd.arapp.R;
-import com.mengdd.custommarker.MarkerItem;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,12 +11,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mengdd.arapp.R;
+import com.mengdd.custommarker.MarkerItem;
+
+import java.io.UnsupportedEncodingException;
+
 public class DialogUtils {
     /**
-     * 
      * interface for the real action the dialog do after confirmation That is,
      * when the user choose Yes, execute this interface's method to do the work
-     * 
      */
     public interface OnShowLocationSetttingsListener {
         public void onShowLocationSettings();
@@ -34,7 +31,7 @@ public class DialogUtils {
     private static AlertDialog mLocationSetDialog = null;
 
     public static void showIfLocationSettingDialog(Context context,
-            OnShowLocationSetttingsListener onShowListener, String providerName) {
+                                                   OnShowLocationSetttingsListener onShowListener, String providerName) {
         // get the layout view
         View view = View.inflate(context, R.layout.dialog_single_tip, null);
         // new the dialog listener
@@ -53,11 +50,8 @@ public class DialogUtils {
     }
 
     /**
-     * 
      * The listener for the Location Settings Dialog It handles the user's
      * choice and do the responding work
-     * 
-     * 
      */
     private static class ShowLocationSettingDialogListener implements
             DialogInterface.OnClickListener {
@@ -66,8 +60,8 @@ public class DialogUtils {
         OnShowLocationSetttingsListener mOnShowLocationSetttingsListener = null;
 
         public ShowLocationSettingDialogListener(Context context,
-                OnShowLocationSetttingsListener listener, View view,
-                String providerName) {
+                                                 OnShowLocationSetttingsListener listener, View view,
+                                                 String providerName) {
             mContext = context;
 
             mOnShowLocationSetttingsListener = listener;
@@ -105,10 +99,8 @@ public class DialogUtils {
     }
 
     /**
-     * 
      * interface for the real action the dialog do after confirmation That is,
      * when the user choose Yes, execute this interface's method to do the work
-     * 
      */
     public interface OnSaveCustomMarkerListener {
         public void onSaveMarker(MarkerItem markerItem);
@@ -120,7 +112,7 @@ public class DialogUtils {
     private static AlertDialog mSaveMarkerDialog = null;
 
     public static void showSaveMarkerDialog(Context context,
-            OnSaveCustomMarkerListener onSaveListener, MarkerItem markerItem) {
+                                            OnSaveCustomMarkerListener onSaveListener, MarkerItem markerItem) {
         // get the layout view
         View view = View.inflate(context, R.layout.dialog_save_marker, null);
         // new the dialog listener
@@ -151,8 +143,8 @@ public class DialogUtils {
         private String mNewDescripton = null;
 
         public ShowSaveMarkerDialogListener(Context context,
-                OnSaveCustomMarkerListener onSaveCustomMarkerListener,
-                View view, MarkerItem markerItem) {
+                                            OnSaveCustomMarkerListener onSaveCustomMarkerListener,
+                                            View view, MarkerItem markerItem) {
 
             mContext = context;
             mSaveListener = onSaveCustomMarkerListener;
@@ -207,11 +199,10 @@ public class DialogUtils {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
+                                      int count) {
                 if (!TextUtils.isEmpty(s)) {
                     mNewName = s.toString().trim();
-                }
-                else {
+                } else {
                     mNewName = null;
                 }
 
@@ -219,7 +210,7 @@ public class DialogUtils {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
+                                          int after) {
 
             }
 
@@ -234,18 +225,17 @@ public class DialogUtils {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
+                                      int count) {
                 if (!TextUtils.isEmpty(s)) {
                     mNewDescripton = s.toString().trim();
-                }
-                else {
+                } else {
                     mNewDescripton = null;
                 }
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
+                                          int after) {
 
             }
 
@@ -263,7 +253,7 @@ public class DialogUtils {
     private static final int MAX_MARKER_DES_LEN = 100;
 
     private static void validateStringLength(Context context,
-            EditText editText, String inputString, int maxLength) {
+                                             EditText editText, String inputString, int maxLength) {
         if (null == inputString) {
             return;
         }
@@ -271,8 +261,7 @@ public class DialogUtils {
         int len = 0;
         try {
             len = inputString.getBytes("gbk").length;
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         if (len > maxLength) {

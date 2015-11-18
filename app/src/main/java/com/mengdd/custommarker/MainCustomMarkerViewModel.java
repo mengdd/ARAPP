@@ -1,24 +1,24 @@
 package com.mengdd.custommarker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.mengdd.arapp.FrameHeaderViewModel;
-import com.mengdd.arapp.R;
 import com.mengdd.arapp.FrameHeaderViewModel.OnBackListener;
+import com.mengdd.arapp.R;
 import com.mengdd.components.ViewModel;
 import com.mengdd.map.baidu.BaiduMapHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainCustomMarkerViewModel extends ViewModel {
     public enum CustomMarkerScene {

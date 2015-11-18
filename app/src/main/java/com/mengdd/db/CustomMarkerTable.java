@@ -1,18 +1,18 @@
 package com.mengdd.db;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.baidu.platform.comapi.basestruct.GeoPoint;
-import com.mengdd.custommarker.MarkerItem;
-import com.mengdd.utils.AppConstants;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.util.Log;
+
+import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.mengdd.custommarker.MarkerItem;
+import com.mengdd.utils.AppConstants;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class CustomMarkerTable implements BaseColumns {
 
@@ -79,8 +79,7 @@ public class CustomMarkerTable implements BaseColumns {
         try {
             db.execSQL(sql);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
@@ -96,7 +95,7 @@ public class CustomMarkerTable implements BaseColumns {
         }
 
         String where = _ID + " = ?";
-        String[] whereValue = { Integer.toString(1) };
+        String[] whereValue = {Integer.toString(1)};
         Cursor cursor = null;
         try {
             cursor = db.query(TABLE_NAME, null, where, whereValue, null, null,
@@ -105,19 +104,16 @@ public class CustomMarkerTable implements BaseColumns {
                 isExist = true;
 
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             if (e.getMessage().contains("no such table")) {
                 isExist = false;
             }
-        }
-        finally {
+        } finally {
             if (cursor != null) {
                 try {
                     cursor.close();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                 }
             }
         }
@@ -198,7 +194,7 @@ public class CustomMarkerTable implements BaseColumns {
         long ret = -1L;
 
         if (null == item || item.getId() > 0)// id>0, means the item is in table
-                                             // already.
+        // already.
         {
             return ret;
 
@@ -214,11 +210,9 @@ public class CustomMarkerTable implements BaseColumns {
             ret = db.insert(TABLE_NAME, null, getContentValues(item));
             db.setTransactionSuccessful();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
 
@@ -262,11 +256,9 @@ public class CustomMarkerTable implements BaseColumns {
             }
             db.setTransactionSuccessful();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
 
@@ -287,19 +279,17 @@ public class CustomMarkerTable implements BaseColumns {
         }
 
         String where = _ID + " = ?";
-        String[] whereValue = { Integer.toString(markerItemId) };
+        String[] whereValue = {Integer.toString(markerItemId)};
 
         db.beginTransaction();
         try {
             int rn = db.delete(TABLE_NAME, where, whereValue);
             ret = rn == 1;
             db.setTransactionSuccessful();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
 
@@ -330,11 +320,9 @@ public class CustomMarkerTable implements BaseColumns {
             }
             db.setTransactionSuccessful();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         return count;
@@ -358,12 +346,10 @@ public class CustomMarkerTable implements BaseColumns {
             ret = true;
             db.setTransactionSuccessful();
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
 
@@ -384,19 +370,17 @@ public class CustomMarkerTable implements BaseColumns {
         }
 
         String where = _ID + " = ?";
-        String[] whereValue = { Integer.toString(markerItem.getId()) };
+        String[] whereValue = {Integer.toString(markerItem.getId())};
         db.beginTransaction();
         try {
             int rn = db.update(TABLE_NAME, getContentValues(markerItem), where,
                     whereValue);
             ret = rn == 1;
             db.setTransactionSuccessful();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         return ret;
@@ -427,11 +411,9 @@ public class CustomMarkerTable implements BaseColumns {
                 count += rn;
             }
             db.setTransactionSuccessful();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         return count;
@@ -450,7 +432,7 @@ public class CustomMarkerTable implements BaseColumns {
             return item;
         }
         String where = _ID + " = ?";
-        String[] whereValue = { Integer.toString(markerId) };
+        String[] whereValue = {Integer.toString(markerId)};
         Cursor cursor = null;
 
         try {
@@ -463,20 +445,17 @@ public class CustomMarkerTable implements BaseColumns {
                 item = getMarkerItemFromCursor(cursor);
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
 
-        }
-        finally {
+        } finally {
             if (null != cursor) {
                 try {
 
                     cursor.close();
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
 
                 }
@@ -509,14 +488,12 @@ public class CustomMarkerTable implements BaseColumns {
                     }
                 }
             }
-        }
-        finally {
+        } finally {
 
             if (cursor != null) {
                 try {
                     cursor.close();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                 }
             }
         }

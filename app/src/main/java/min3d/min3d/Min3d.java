@@ -1,9 +1,8 @@
 package min3d;
 
-public class Min3d 
-{
-	public static final String TAG = "Min3D";
-	
+public class Min3d {
+    public static final String TAG = "Min3D";
+
 	/*
 	 * Project homepage: 	http://code.google.com/p/min3d
 	 * License:				MIT

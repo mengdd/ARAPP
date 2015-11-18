@@ -1,8 +1,5 @@
 package com.mengdd.sensors;
 
-import java.util.Calendar;
-
-import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,17 +25,17 @@ import com.mengdd.utils.LogUtils;
 import com.mengdd.utils.LowPassFilter;
 import com.mengdd.utils.Matrix;
 
+import java.util.Calendar;
+
 /**
- *
  * CompassViewModel is the Module for the Compass. Get the sensors' data and
  * update the CompassView
- *
+ * <p/>
  * The Compass results are compared with the Smart Compass App for insurance.
  *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public class CompassViewModel extends ViewModel implements LocationListener {
     // the RootView of the ViewModel
@@ -135,7 +132,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
         sensorManager = (SensorManager) mActivity
                 .getSystemService(Context.SENSOR_SERVICE);
 
-        updateOrientation(new float[] { 0, 0, 0 });
+        updateOrientation(new float[]{0, 0, 0});
 
     }
 
@@ -253,8 +250,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
                 requestLocation();
             }
             compensateMagneticField(outR, outR);
-        }
-        else {
+        } else {
             if (isLocationUpdating) {
                 stopLocationUpdates();
             }
@@ -286,8 +282,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
                     aValues[0] = smooth[0];
                     aValues[1] = smooth[1];
                     aValues[2] = smooth[2];
-                }
-                else {
+                } else {
                     aValues[0] = event.values[0];
                     aValues[1] = event.values[1];
                     aValues[2] = event.values[2];
@@ -305,8 +300,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
                     mValues[0] = smooth[0];
                     mValues[1] = smooth[1];
                     mValues[2] = smooth[2];
-                }
-                else {
+                } else {
                     mValues[0] = event.values[0];
                     mValues[1] = event.values[1];
                     mValues[2] = event.values[2];
@@ -328,8 +322,7 @@ public class CompassViewModel extends ViewModel implements LocationListener {
     private void updateCompassStatus(float devicePitch) {
         if (Math.abs(devicePitch) < SensorMathUtils.PARALLEL_TOLERANCE) {
             compassView.setCompassStatus(CompassStatus.ParallelToGround);
-        }
-        else {
+        } else {
             compassView.setCompassStatus(CompassStatus.VerticalToGround);
         }
     }

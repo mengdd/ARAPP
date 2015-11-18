@@ -1,10 +1,5 @@
 package com.mengdd.search.keywords;
 
-import java.util.List;
-
-import com.mengdd.arapp.R;
-import com.mengdd.utils.AppConstants;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +8,11 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.mengdd.arapp.R;
+import com.mengdd.utils.AppConstants;
+
+import java.util.List;
 
 public class CategoryView extends LinearLayout {
 

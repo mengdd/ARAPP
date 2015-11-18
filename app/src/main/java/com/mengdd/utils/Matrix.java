@@ -3,16 +3,16 @@ package com.mengdd.utils;
 /**
  * A Matrix representation which adds many of the mathematical operations
  * involved in Matrices.
- * 
+ * <p/>
  * This file was adapted from Mixare <http://www.mixare.org/>
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Daniele Gobbetti <info@mixare.org>
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
@@ -119,12 +119,11 @@ public class Matrix {
 
     /**
      * Get the Matrix values.
-     * 
+     * <p/>
      * array[0] = a1 array[1] = a2 array[2] = a3 array[3] = b1 array[4] = b2
      * array[5] = b3 array[6] = c1 array[7] = c2 array[8] = c3
-     * 
-     * @param array
-     *            float[] array of size containing the matrix data.
+     *
+     * @param array float[] array of size containing the matrix data.
      */
     public synchronized void get(float[] array) {
         if (array == null || array.length != 9)
@@ -146,9 +145,8 @@ public class Matrix {
 
     /**
      * Set the Matrix from a given Matrix.
-     * 
-     * @param m
-     *            Matrix to use values from.
+     *
+     * @param m Matrix to use values from.
      */
     public void set(Matrix m) {
         if (m == null)
@@ -159,12 +157,11 @@ public class Matrix {
 
     /**
      * Set the Matrix values.
-     * 
+     * <p/>
      * array[0] = a1 array[1] = a2 array[2] = a3 array[3] = b1 array[4] = b2
      * array[5] = b3 array[6] = c1 array[7] = c2 array[8] = c3
-     * 
-     * @param array
-     *            float[] array of size containing the matrix data.
+     *
+     * @param array float[] array of size containing the matrix data.
      */
     public void set(float[] array) {
         if (array == null || array.length != 9)
@@ -177,28 +174,19 @@ public class Matrix {
 
     /**
      * Set the Matrix values.
-     * 
-     * @param a1
-     *            float representing the top row left value.
-     * @param a2
-     *            float representing the top row middle value.
-     * @param a3
-     *            float representing the top row right value.
-     * @param b1
-     *            float representing the middle row left value.
-     * @param b2
-     *            float representing the middle row left value.
-     * @param b3
-     *            float representing the middle row left value.
-     * @param c1
-     *            float representing the bottom row left value.
-     * @param c2
-     *            float representing the bottom row left value.
-     * @param c3
-     *            float representing the bottom row left value.
+     *
+     * @param a1 float representing the top row left value.
+     * @param a2 float representing the top row middle value.
+     * @param a3 float representing the top row right value.
+     * @param b1 float representing the middle row left value.
+     * @param b2 float representing the middle row left value.
+     * @param b3 float representing the middle row left value.
+     * @param c1 float representing the bottom row left value.
+     * @param c2 float representing the bottom row left value.
+     * @param c3 float representing the bottom row left value.
      */
     public synchronized void set(float a1, float a2, float a3, float b1,
-            float b2, float b3, float c1, float c2, float c3) {
+                                 float b2, float b3, float c1, float c2, float c3) {
         this.a1 = a1;
         this.a2 = a2;
         this.a3 = a3;

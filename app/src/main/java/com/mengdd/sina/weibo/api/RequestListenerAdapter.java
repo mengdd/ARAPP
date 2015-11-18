@@ -1,12 +1,12 @@
 package com.mengdd.sina.weibo.api;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import android.util.Log;
 
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class RequestListenerAdapter implements RequestListener {
 

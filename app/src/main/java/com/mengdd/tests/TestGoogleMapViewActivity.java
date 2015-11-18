@@ -12,11 +12,10 @@ import com.mengdd.map.google.GoogleMapViewModel;
 
 /**
  * Test Activity for GoogleMapViewModel
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class TestGoogleMapViewActivity extends Activity {
     private FrameLayout mMapContentFrameLayout = null;
@@ -46,7 +45,7 @@ public class TestGoogleMapViewActivity extends Activity {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
-                boolean isChecked) {
+                                     boolean isChecked) {
             mMapContentFrameLayout.removeAllViews();
             if (isChecked) {
 

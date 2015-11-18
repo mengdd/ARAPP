@@ -38,7 +38,7 @@
     <color name="btn_background_normal">#FF3B44A8</color>
     <color name="btn_background_light">#FF0483FF</color>
     <color name="btn_background_darken">#FF1E2357</color>
-    
+
     <!-- UI component -->
     <color name="compass_text_color">#0B0974</color>
     <color name="compass_direction_text">#071672</color>
@@ -73,7 +73,7 @@
     <!-- Radar related color -->
     <color name="radar_line_color">#960000DC</color>
     <color name="radar_color">#640000C8</color>
-    
+
     <!-- welcome -->
     <color name="welcome_background">#5F96A9FF</color>
     <color name="welcome_text">#FF5768B2</color>

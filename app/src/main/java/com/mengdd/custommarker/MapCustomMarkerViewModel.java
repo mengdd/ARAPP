@@ -1,9 +1,5 @@
 package com.mengdd.custommarker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -26,6 +22,10 @@ import com.mengdd.map.baidu.BaiduMyLocationOverlay;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.DialogUtils;
 import com.mengdd.utils.DialogUtils.OnSaveCustomMarkerListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MapCustomMarkerViewModel extends ViewModel {
 

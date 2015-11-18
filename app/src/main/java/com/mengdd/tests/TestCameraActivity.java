@@ -3,7 +3,6 @@ package com.mengdd.tests;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.mengdd.arapp.R;
@@ -13,11 +12,9 @@ import com.mengdd.utils.LogUtils;
 /**
  * Test Activity for Camera Module.
  *
- *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public class TestCameraActivity extends Activity {
     private CameraViewModel mCameraViewModel = null;

@@ -8,8 +8,6 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 /**
  * 该类用于保存Oauth2AccessToken到sharedPreference，并提供读取功能
- * 
- * 
  */
 public class AccessTokenKeeper {
     private static final String PREFERENCES_NAME = "pref_com_weibo_sdk_android";
@@ -18,11 +16,9 @@ public class AccessTokenKeeper {
 
     /**
      * 保存accesstoken到SharedPreferences
-     * 
-     * @param context
-     *            Activity 上下文环境
-     * @param token
-     *            Oauth2AccessToken
+     *
+     * @param context Activity 上下文环境
+     * @param token   Oauth2AccessToken
      */
     public static void keepAccessToken(Context context, Oauth2AccessToken token) {
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME,
@@ -35,7 +31,7 @@ public class AccessTokenKeeper {
 
     /**
      * 清空sharepreference
-     * 
+     *
      * @param context
      */
     public static void clear(Context context) {
@@ -48,7 +44,7 @@ public class AccessTokenKeeper {
 
     /**
      * 从SharedPreferences读取accessstoken
-     * 
+     *
      * @param context
      * @return Oauth2AccessToken
      */

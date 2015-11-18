@@ -19,16 +19,13 @@ import android.view.View;
 import com.mengdd.arapp.R;
 
 /**
- * 
  * CompassView show a Compass UI
- * 
+ * <p/>
  * The codes are adapted from the book: Pro Android Augmented Reality
- * 
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class CompassView extends View {
     private enum CompassDirection {
@@ -273,8 +270,7 @@ public class CompassView extends View {
         if (specMode == MeasureSpec.UNSPECIFIED) {
             // Return a default size of 200 if no bounds are specified.
             result = 200;
-        }
-        else {
+        } else {
             // As you want to fill the available space
             // always return the full available bounds.
             result = specSize;
@@ -343,8 +339,7 @@ public class CompassView extends View {
             drawDirection(canvas, false, mainDirectionPaint, subDirectionPaint,
                     arrowPaint);
             drawArrow(canvas, arrowPaint);
-        }
-        else {
+        } else {
             drawDirection(canvas, true, mainDirectionPaint, subDirectionPaint,
                     arrowPaint);
 
@@ -403,8 +398,7 @@ public class CompassView extends View {
                 // the degree of i % 30 == 0 has longer marker
                 canvas.drawLine(center.x, (int) innerBoundingBox.top, center.x,
                         (int) innerBoundingBox.top + 10, markerPaint);
-            }
-            else {
+            } else {
                 canvas.drawLine(center.x, (int) innerBoundingBox.top, center.x,
                         (int) innerBoundingBox.top + 5, markerPaint);
             }
@@ -415,7 +409,7 @@ public class CompassView extends View {
     }
 
     private void drawDirection(Canvas canvas, boolean showArrow,
-            Paint mainPaint, Paint subPaint, Paint arrowPaint) {
+                               Paint mainPaint, Paint subPaint, Paint arrowPaint) {
 
         canvas.save();
         canvas.rotate(-1 * (azimuth), px, py);
@@ -444,8 +438,7 @@ public class CompassView extends View {
                 // +"centerX: "+ headStringCenter.x);
                 canvas.drawText(headString, headStringCenter.x,
                         headStringCenter.y - 8, mainPaint);
-            }
-            else {
+            } else {
                 // Sub Direction Text
                 headStringWidth = subPaint.measureText(headString);
                 headStringCenter = new PointF(center.x - (headStringWidth / 2),

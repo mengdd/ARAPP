@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="在" >
-        </TextView>
+            android:text="在"></TextView>
 
         <EditText
             android:id="@+id/city"
@@ -24,8 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="市内找" >
-        </TextView>
+            android:text="市内找"></TextView>
 
         <AutoCompleteTextView
             android:id="@+id/searchkey"
@@ -38,7 +36,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/search"

@@ -1,5 +1,8 @@
 package com.mengdd.utils;
 
+import android.os.Environment;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,16 +13,12 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.os.Environment;
-import android.util.Log;
-
 /**
  * Utility Class for some IO/File related work
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class FileUtils {
 
@@ -27,7 +26,9 @@ public class FileUtils {
         Image, Video,
     }
 
-    /** Create a File for saving an image or video */
+    /**
+     * Create a File for saving an image or video
+     */
     public static File getOutputMediaFile(MediaType mediaType) {
         Log.d(AppConstants.LOG_TAG, "getOutputMediaFile");
         // To be safe, you should check that the SDCard is mounted
@@ -47,8 +48,7 @@ public class FileUtils {
             Log.d(AppConstants.LOG_TAG,
                     "Successfully created mediaStorageDir: " + mediaStorageDir);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Log.d(AppConstants.LOG_TAG, "Error in Creating mediaStorageDir: "
                     + mediaStorageDir);
@@ -74,18 +74,18 @@ public class FileUtils {
         File mediaFile = null;
 
         switch (mediaType) {
-        case Image:
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "IMG_" + timeStamp + ".jpg");
+            case Image:
+                mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                        + "IMG_" + timeStamp + ".jpg");
 
-            break;
+                break;
 
-        case Video:
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "VID_" + timeStamp + ".mp4");
-            break;
-        default:
-            break;
+            case Video:
+                mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                        + "VID_" + timeStamp + ".mp4");
+                break;
+            default:
+                break;
         }
 
         return mediaFile;
@@ -93,7 +93,7 @@ public class FileUtils {
 
     /**
      * Get an InputScrean from a url string which points to a file path
-     * 
+     *
      * @param urlStr
      * @return
      */
@@ -106,8 +106,7 @@ public class FileUtils {
             }
 
             inputStream = new FileInputStream(urlStr);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.e(AppConstants.LOG_TAG, "file not found: " + urlStr);
         }
@@ -117,7 +116,7 @@ public class FileUtils {
 
     /**
      * Get a String from a InputScream
-     * 
+     *
      * @param inputStream
      * @return
      */
@@ -135,15 +134,12 @@ public class FileUtils {
             while (null != (line = reader.readLine())) {
                 sb.append(line + "\n");
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 inputStream.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

@@ -4,15 +4,15 @@ import android.graphics.Canvas;
 
 /**
  * This class extends PaintableObject to draw a line.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -31,13 +31,10 @@ public class PaintableLine extends PaintableObject {
     /**
      * Set this objects parameters. This should be used instead of creating new
      * objects.
-     * 
-     * @param color
-     *            Color of the line.
-     * @param x
-     *            X coordinate of the line.
-     * @param y
-     *            Y coordinate of the line.
+     *
+     * @param color Color of the line.
+     * @param x     X coordinate of the line.
+     * @param y     Y coordinate of the line.
      */
     public void set(int color, float x, float y) {
         this.color = color;

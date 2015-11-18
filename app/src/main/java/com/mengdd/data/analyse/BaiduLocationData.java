@@ -1,7 +1,7 @@
 package com.mengdd.data.analyse;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.Activity;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -9,12 +9,13 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.location.baidu.BaiduLocationHelper;
 import com.mengdd.map.baidu.BaiduMapHelper;
 
-import android.app.Activity;
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaiduLocationData {
 
     private static final String TAG = "Baidu Location";
+
     public static void computeData(Activity activity) {
 
         if (null == BaiduMapHelper.getMapManager()) {
@@ -34,7 +35,7 @@ public class BaiduLocationData {
     }
 
     public static double compareLocation(BDLocation locationStart,
-            BDLocation locationEnd) {
+                                         BDLocation locationEnd) {
 
         GeoPoint startGeoPoint = BaiduLocationHelper
                 .getGeoPointFromBDLocation(locationStart);

@@ -1,8 +1,5 @@
 package com.mengdd.search;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,11 +7,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -35,14 +30,17 @@ import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.camera.CameraViewModel;
 import com.mengdd.components.ViewModel;
-import com.mengdd.poi.ui.MarkersOverlayView;
 import com.mengdd.poi.ui.BaiduMarker;
 import com.mengdd.poi.ui.BasicMarker;
+import com.mengdd.poi.ui.MarkersOverlayView;
 import com.mengdd.poi.ui.RadarView;
 import com.mengdd.poi.ui.RadarZoomController;
 import com.mengdd.sensors.SensorViewModel;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.BitmapUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchRealSceneViewModel extends ViewModel implements
         MKSearchListener {
@@ -282,7 +280,7 @@ public class SearchRealSceneViewModel extends ViewModel implements
 
     @Override
     public void onGetShareUrlResult(MKShareUrlResult result, int type,
-            int iError) {
+                                    int iError) {
 
     }
 

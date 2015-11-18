@@ -1,15 +1,15 @@
 package com.mengdd.utils;
 
-import java.io.UnsupportedEncodingException;
-
 import android.content.Context;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+
 public class StringUtils {
 
     public static void validateChineseStringLength(Context context,
-            EditText input, String str, int maxCount) {
+                                                   EditText input, String str, int maxCount) {
         if (null == str) {
             return;
         }
@@ -17,8 +17,7 @@ public class StringUtils {
         int len = 0;
         try {
             len = str.getBytes("gbk").length;
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         if (len > maxCount * 2) {

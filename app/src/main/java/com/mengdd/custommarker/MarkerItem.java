@@ -57,8 +57,7 @@ public class MarkerItem {
         this.isFixed = isFixed;
         if (isFixed) {
             overlayItem.setMarker(fixedDrawable);
-        }
-        else {
+        } else {
             overlayItem.setMarker(moveDrawable);
         }
     }
@@ -73,7 +72,7 @@ public class MarkerItem {
     }
 
     public MarkerItem(GeoPoint point, String title, String snippet,
-            int moveDrawableId, int fixedDrawableId) {
+                      int moveDrawableId, int fixedDrawableId) {
         this.geoPoint = point;
         overlayItem = new OverlayItem(point, title, snippet);
         name = title;
@@ -92,7 +91,7 @@ public class MarkerItem {
     }
 
     public MarkerItem(GeoPoint point, String title, String snippet,
-            int moveDrawableId, int fixedDrawableId, Resources resources) {
+                      int moveDrawableId, int fixedDrawableId, Resources resources) {
 
         this.geoPoint = point;
         overlayItem = new OverlayItem(point, title, snippet);
@@ -110,7 +109,7 @@ public class MarkerItem {
     }
 
     public MarkerItem(GeoPoint point, String title, String snippet,
-            Drawable moveDrawable, Drawable fixedDrawable) {
+                      Drawable moveDrawable, Drawable fixedDrawable) {
         this.geoPoint = point;
         overlayItem = new OverlayItem(point, title, snippet);
         name = title;

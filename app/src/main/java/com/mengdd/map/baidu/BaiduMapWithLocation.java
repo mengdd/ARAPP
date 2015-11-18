@@ -1,8 +1,5 @@
 package com.mengdd.map.baidu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +15,9 @@ import com.mengdd.location.SimpleLocationView;
 import com.mengdd.location.baidu.BaiduLocationHelper;
 import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.map.BasicMapViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaiduMapWithLocation extends ViewModel implements
         BDLocationListener {

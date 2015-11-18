@@ -1,15 +1,13 @@
 package com.mengdd.data.analyse;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 
-import android.location.Location;
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoNaviLocationData {
 
@@ -28,7 +26,7 @@ public class AutoNaviLocationData {
     }
 
     public static float compareLocation(AMapLocation locationStart,
-            AMapLocation locationEnd) {
+                                        AMapLocation locationEnd) {
 
         float distance = 0;
         LatLng latLngStart = new LatLng(locationStart.getLatitude(),

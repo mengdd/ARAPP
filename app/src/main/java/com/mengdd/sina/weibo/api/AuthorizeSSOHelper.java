@@ -20,10 +20,14 @@ public class AuthorizeSSOHelper {
     private Activity mActivity = null;
     private final WeiboAuth mWeiboAuth;
 
-    /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
+    /**
+     * 注意：SsoHandler 仅当 SDK 支持 SSO 时有效
+     */
     private final SsoHandler mSsoHandler;
 
-    /** 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能 */
+    /**
+     * 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能
+     */
     private Oauth2AccessToken mAccessToken;
 
     public AuthorizeSSOHelper(Activity activity) {
@@ -64,8 +68,7 @@ public class AuthorizeSSOHelper {
 
                 Toast.makeText(mActivity, "success", Toast.LENGTH_SHORT).show();
                 LogUtils.i("success");
-            }
-            else {
+            } else {
                 // 当您注册的应用程序签名不正确时，就会收到 Code，请确保签名正确
                 String code = values.getString("code");
                 String message = "failed";

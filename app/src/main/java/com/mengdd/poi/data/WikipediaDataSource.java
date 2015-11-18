@@ -1,32 +1,33 @@
 package com.mengdd.poi.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.mengdd.arapp.R;
-import com.mengdd.poi.ui.GoogleMarker;
-import com.mengdd.poi.ui.BasicMarker;
-import com.mengdd.utils.AppConstants;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.mengdd.arapp.R;
+import com.mengdd.poi.ui.BasicMarker;
+import com.mengdd.poi.ui.GoogleMarker;
+import com.mengdd.utils.AppConstants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class extends DataSource to fetch data from Wikipedia.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -52,7 +53,7 @@ public class WikipediaDataSource extends NetworkDataSource {
 
     @Override
     public String createRequestURL(double lat, double lon, double alt,
-            float radius, String locale) {
+                                   float radius, String locale) {
         Log.i(AppConstants.LOG_TAG, BASE_URL + "?lat=" + lat + "&lng=" + lon
                 + "&radius=" + radius + "&maxRows=40" + "&lang=" + locale);
         return BASE_URL + "?lat=" + lat + "&lng=" + lon + "&radius=" + radius
@@ -84,8 +85,7 @@ public class WikipediaDataSource extends NetworkDataSource {
                     markers.add(ma);
                 }
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return markers;
@@ -93,7 +93,7 @@ public class WikipediaDataSource extends NetworkDataSource {
 
     /**
      * Process a single JSONObject and use its information to create a marker.
-     * 
+     *
      * @param jsonObject
      * @return Marker
      */
@@ -113,8 +113,7 @@ public class WikipediaDataSource extends NetworkDataSource {
                         jsonObject.getDouble("lng"),
                         jsonObject.getDouble("elevation"));
 
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }

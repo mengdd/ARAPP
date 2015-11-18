@@ -1,28 +1,28 @@
 package com.mengdd.poi.data;
 
-import java.io.InputStream;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.FileUtils;
 import com.mengdd.utils.HttpUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.List;
+
 /**
  * This abstract class should be extended for new data sources. It has many
  * methods to get and parse data from numerous web sources.
- * 
+ * <p/>
  * The source of the codes are adapted from:
  * 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -39,13 +39,13 @@ public abstract class NetworkDataSource extends DataSource {
     // the two methods have to be abstract, let the subclass to implement them
     // with details info.
     public abstract String createRequestURL(double lat, double lon, double alt,
-            float radius, String locale);
+                                            float radius, String locale);
 
     public abstract List<BasicMarker> parse(JSONObject root);
 
     /**
      * This method get the Markers if they have already been downloaded once.
-     * 
+     *
      * @return List of Marker objects or NULL if not downloaded yet.
      */
     public List<BasicMarker> getMarkers() {
@@ -54,9 +54,8 @@ public abstract class NetworkDataSource extends DataSource {
 
     /**
      * Parse the given URL for JSON Objects.
-     * 
-     * @param url
-     *            URL to parse.
+     *
+     * @param url URL to parse.
      * @return List of Marker's from the URL.
      */
     public List<BasicMarker> parse(String url) {
@@ -81,8 +80,7 @@ public abstract class NetworkDataSource extends DataSource {
         JSONObject json = null;
         try {
             json = new JSONObject(string);
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         if (null == json) {

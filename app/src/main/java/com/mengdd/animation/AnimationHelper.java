@@ -14,9 +14,9 @@ import com.nineoldandroids.view.ViewHelper;
 public class AnimationHelper {
 
     public static ObjectAnimator getTranslateYAnimation(final View target,
-            final float startY, final float endY, final int duration,
-            final int startDelay, final boolean disappearLast,
-            final AnimatorListener animatorListener) {
+                                                        final float startY, final float endY, final int duration,
+                                                        final int startDelay, final boolean disappearLast,
+                                                        final AnimatorListener animatorListener) {
 
         ObjectAnimator translateAnimator = ObjectAnimator.ofFloat(target,
                 "translationY", startY, endY);
@@ -43,8 +43,8 @@ public class AnimationHelper {
     }
 
     public static Animator getScaleAnimation(final View target,
-            final int duration, final boolean disappearLast,
-            final AnimatorListener animatorListener, final float... values) {
+                                             final int duration, final boolean disappearLast,
+                                             final AnimatorListener animatorListener, final float... values) {
 
         // 使用ValueAnimator可以把XY两个方向的动画放在一个更新里
         ValueAnimator scaleAnimator = ValueAnimator.ofFloat(values);
@@ -84,9 +84,9 @@ public class AnimationHelper {
     }
 
     public static ObjectAnimator getAlphaAnimation(final View target,
-            final int duration, final int startDelay,
-            final boolean disappearLast,
-            final AnimatorListener animatorListener, final float... values) {
+                                                   final int duration, final int startDelay,
+                                                   final boolean disappearLast,
+                                                   final AnimatorListener animatorListener, final float... values) {
 
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(target, "alpha",
                 values);
@@ -115,9 +115,9 @@ public class AnimationHelper {
     }
 
     public static Animator getFadeInAnimator(final View target,
-            final int scaleDuration, final int alphaDuration,
-            final int alphaDelay, final boolean disappearLast,
-            final AnimatorListener animatorListener, final float... scaleValues) {
+                                             final int scaleDuration, final int alphaDuration,
+                                             final int alphaDelay, final boolean disappearLast,
+                                             final AnimatorListener animatorListener, final float... scaleValues) {
 
         Animator scaleAnimator = getScaleAnimation(target, scaleDuration,
                 disappearLast, animatorListener, scaleValues);
@@ -132,9 +132,9 @@ public class AnimationHelper {
     }
 
     public static Animator getFadeOutAnimator(final View target,
-            final int scaleDuration, final int alphaDuration,
-            final int alphaDelay, final boolean disappearLast,
-            final AnimatorListener animatorListener, final float... scaleValues) {
+                                              final int scaleDuration, final int alphaDuration,
+                                              final int alphaDelay, final boolean disappearLast,
+                                              final AnimatorListener animatorListener, final float... scaleValues) {
 
         Animator scaleAnimator = getScaleAnimation(target, scaleDuration,
                 disappearLast, animatorListener, scaleValues);
@@ -149,9 +149,9 @@ public class AnimationHelper {
     }
 
     public static ObjectAnimator getRotationZAnimator(final View target,
-            final int duration, final int startDelay,
-            final boolean disappearLast,
-            final AnimatorListener animatorListener, final float... values) {
+                                                      final int duration, final int startDelay,
+                                                      final boolean disappearLast,
+                                                      final AnimatorListener animatorListener, final float... values) {
 
         ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(target,
                 "rotation", values);

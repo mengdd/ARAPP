@@ -1,23 +1,23 @@
 package com.mengdd.paintable;
 
+import android.graphics.Canvas;
+
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.poi.ui.RadarView;
 
-import android.graphics.Canvas;
-
 /**
  * This class extends PaintableObject to draw all the Markers at their
  * appropriate locations.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -50,8 +50,7 @@ public class PaintableRadarPoints extends PaintableObject {
             if ((x * x + y * y) < (RadarView.RADIUS * RadarView.RADIUS)) {
                 if (paintablePoint == null) {
                     paintablePoint = new PaintablePoint(marker.getColor(), true);
-                }
-                else {
+                } else {
                     paintablePoint.set(marker.getColor(), true);
                 }
 
@@ -61,8 +60,7 @@ public class PaintableRadarPoints extends PaintableObject {
                     pointContainer = new PaintablePosition(paintablePoint, (x
                             + RadarView.RADIUS - 1),
                             (y + RadarView.RADIUS - 1), 0, radarPointScale);
-                }
-                else {
+                } else {
                     pointContainer.set(paintablePoint,
                             (x + RadarView.RADIUS - 1),
                             (y + RadarView.RADIUS - 1), 0, radarPointScale);

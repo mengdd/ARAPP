@@ -3,17 +3,17 @@ package com.mengdd.utils;
 /**
  * A Vector representation which adds many of the mathematical operations
  * involved in Vectors.
- * 
+ * <p/>
  * This file was adapted from Mixare <http://www.mixare.org/>
- * 
- * 
+ * <p/>
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Daniele Gobbetti <info@mixare.org>
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
@@ -62,13 +62,10 @@ public class Vector {
 
     /**
      * Set the vector's values.
-     * 
-     * @param x
-     *            float x value.
-     * @param y
-     *            float y value.
-     * @param z
-     *            float z value.
+     *
+     * @param x float x value.
+     * @param y float y value.
+     * @param z float z value.
      */
     public Vector(float x, float y, float z) {
         set(x, y, z);
@@ -76,11 +73,10 @@ public class Vector {
 
     /**
      * Get the vector's values.
-     * 
+     * <p/>
      * array[0] = x; array[1] = y; array[2] = z;
-     * 
-     * @param array
-     *            float array representing this vector.
+     *
+     * @param array float array representing this vector.
      */
     public synchronized void get(float[] array) {
         if (array == null || array.length != 3) {
@@ -95,9 +91,8 @@ public class Vector {
 
     /**
      * Set the vector from a given vector.
-     * 
-     * @param v
-     *            Vector to copy values form.
+     *
+     * @param v Vector to copy values form.
      */
     public void set(Vector v) {
         if (v == null) {
@@ -109,11 +104,10 @@ public class Vector {
 
     /**
      * Set the vector's values.
-     * 
+     * <p/>
      * array[0] = x; array[1] = y; array[2] = z;
-     * 
-     * @param array
-     *            float array representing this vector.
+     *
+     * @param array float array representing this vector.
      */
     public void set(float[] array) {
         if (array == null || array.length != 3) {
@@ -126,13 +120,10 @@ public class Vector {
 
     /**
      * Set the Vector to the given values.
-     * 
-     * @param x
-     *            float x value.
-     * @param y
-     *            float y value.
-     * @param z
-     *            float z value.
+     *
+     * @param x float x value.
+     * @param y float y value.
+     * @param z float z value.
      */
     public synchronized void set(float x, float y, float z) {
         this.x = x;

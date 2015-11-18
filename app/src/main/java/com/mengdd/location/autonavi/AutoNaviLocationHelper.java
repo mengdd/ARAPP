@@ -9,7 +9,7 @@ public class AutoNaviLocationHelper {
 
     /**
      * 从AMapLocation类型的对象中得到必要的信息，并组成一个字符串返回
-     * 
+     *
      * @param location
      * @return
      */

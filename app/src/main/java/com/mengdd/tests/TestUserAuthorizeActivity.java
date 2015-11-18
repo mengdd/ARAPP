@@ -70,12 +70,10 @@ public class TestUserAuthorizeActivity extends Activity {
                         .getIcon_url());
                 updateViews(drawable);
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             doAuthorize();
         }
 
@@ -115,8 +113,7 @@ public class TestUserAuthorizeActivity extends Activity {
             if (null != uid) {
                 LogUtils.i("authorize successful! uid: " + uid);
                 getUserInfo(Long.parseLong(uid));
-            }
-            else {
+            } else {
                 String code = values.getString("code");
                 LogUtils.e("authorize failed! code : " + code);
             }
@@ -144,8 +141,7 @@ public class TestUserAuthorizeActivity extends Activity {
 
             Toast.makeText(mInstance, "认证成功!!!", Toast.LENGTH_SHORT).show();
 
-        }
-        else {
+        } else {
             Toast.makeText(mInstance, "accessToken is not valid!",
                     Toast.LENGTH_LONG).show();
         }

@@ -13,16 +13,14 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -140,7 +138,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
                     @Override
                     public void onProgressChanged(SeekBar seekBar,
-                            int progress, boolean fromUser) {
+                                                  int progress, boolean fromUser) {
                         mRadiusTextView.setText(mResources
                                 .getString(R.string.search_radius)
                                 + ": "
@@ -191,7 +189,9 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
             // reverseGeocode和geocode的返回结果在都在MKSearchListener里的onGetAddrResult方法中
 
-        };
+        }
+
+        ;
 
     };
 
@@ -268,7 +268,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
         @Override
         public void onTextChanged(CharSequence cs, int start, int before,
-                int count) {
+                                  int count) {
             if (cs.length() <= 0) {
                 return;
             }
@@ -284,7 +284,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count,
-                int after) {
+                                      int after) {
 
         }
 
@@ -414,7 +414,7 @@ public class SearchUIViewModel extends ViewModel implements MKSearchListener {
 
     @Override
     public void onGetShareUrlResult(MKShareUrlResult result, int type,
-            int iError) {
+                                    int iError) {
 
     }
 

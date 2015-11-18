@@ -1,5 +1,12 @@
 package com.mengdd.tests;
 
+import android.app.Activity;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.FrameLayout;
+
 import com.baidu.location.BDLocation;
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
@@ -7,13 +14,6 @@ import com.mengdd.location.baidu.BaiduLocationModel;
 import com.mengdd.map.baidu.BaiduMapViewModel;
 import com.mengdd.map.baidu.BaiduMyLocationOverlay;
 import com.mengdd.utils.AppConstants;
-
-import android.app.Activity;
-import android.location.Location;
-import android.location.LocationListener;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.FrameLayout;
 
 public class TestBaiduMapActivity extends Activity implements LocationListener {
 

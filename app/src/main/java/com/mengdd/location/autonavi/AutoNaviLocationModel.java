@@ -16,13 +16,12 @@ import com.mengdd.utils.LogUtils;
 
 /**
  * Location Model using AutoNavi location SDK
- * 
+ * <p/>
  * Introduction: http://code.autonavi.com/location/index
- * 
+ * <p/>
  * Reference : http://code.autonavi.com/Public/reference/LocSDK/
- * 
+ *
  * @author Dandan Meng
- * 
  */
 public class AutoNaviLocationModel extends LocationModel implements
         AMapLocationListener {
@@ -43,9 +42,8 @@ public class AutoNaviLocationModel extends LocationModel implements
 
     /**
      * 设定定位模式
-     * 
-     * @param provider
-     *            0代表高德LBS网络定位， 1代表GPS定位， 2代表混合定位
+     *
+     * @param provider 0代表高德LBS网络定位， 1代表GPS定位， 2代表混合定位
      */
     public void setLocationProvider(int provider) {
 
@@ -64,21 +62,21 @@ public class AutoNaviLocationModel extends LocationModel implements
 
         String provider = null;
         switch (mLocationMode) {
-        case 0:
-            provider = LocationProviderProxy.AMapNetwork;
-            mAMapLocationManager.setGpsEnable(false);// 此值默认是true
+            case 0:
+                provider = LocationProviderProxy.AMapNetwork;
+                mAMapLocationManager.setGpsEnable(false);// 此值默认是true
 
-            break;
-        case 1:
-            provider = LocationManagerProxy.GPS_PROVIDER;
-            break;
-        case 2:
-            provider = LocationProviderProxy.AMapNetwork;
-            mAMapLocationManager.setGpsEnable(true);
-            break;
+                break;
+            case 1:
+                provider = LocationManagerProxy.GPS_PROVIDER;
+                break;
+            case 2:
+                provider = LocationProviderProxy.AMapNetwork;
+                mAMapLocationManager.setGpsEnable(true);
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
         mAMapLocationManager.requestLocationUpdates(provider, 500, 0, this);
 

@@ -1,7 +1,5 @@
 package com.mengdd.location.google;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,13 +27,14 @@ import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.DialogUtils;
 import com.mengdd.utils.DialogUtils.OnShowLocationSetttingsListener;
 
+import java.util.List;
+
 /**
  * Location ViewModel for finding current location information.
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class CurrentLocationViewModel extends ViewModel {
     private LocationManager mLocationManager;
@@ -126,43 +125,43 @@ public class CurrentLocationViewModel extends ViewModel {
 
                     @Override
                     public void onItemSelected(AdapterView<?> parent,
-                            View view, int position, long id) {
+                                               View view, int position, long id) {
                         Toast.makeText(
                                 mActivity,
                                 "position: " + position + ", "
                                         + parent.getSelectedItem(),
                                 Toast.LENGTH_LONG).show();
                         switch (position) {
-                        case 0:
+                            case 0:
 
-                            mCurrentLocationProvider = openProvider(
-                                    mLocationManager,
-                                    LocationManager.GPS_PROVIDER);
+                                mCurrentLocationProvider = openProvider(
+                                        mLocationManager,
+                                        LocationManager.GPS_PROVIDER);
 
-                            break;
-                        case 1:
+                                break;
+                            case 1:
 
-                            mCurrentLocationProvider = openProvider(
-                                    mLocationManager,
-                                    LocationManager.NETWORK_PROVIDER);
+                                mCurrentLocationProvider = openProvider(
+                                        mLocationManager,
+                                        LocationManager.NETWORK_PROVIDER);
 
-                            break;
-                        case 2:
+                                break;
+                            case 2:
 
-                            mCurrentLocationProvider = openProvider(
-                                    mLocationManager,
-                                    LocationManager.PASSIVE_PROVIDER);
+                                mCurrentLocationProvider = openProvider(
+                                        mLocationManager,
+                                        LocationManager.PASSIVE_PROVIDER);
 
-                            break;
+                                break;
 
-                        case 3:
+                            case 3:
 
-                            mCurrentLocationProvider = findBestProvider(mLocationManager);
+                                mCurrentLocationProvider = findBestProvider(mLocationManager);
 
-                            break;
+                                break;
 
-                        default:
-                            break;
+                            default:
+                                break;
                         }
 
                         // requestion location updates
@@ -253,7 +252,7 @@ public class CurrentLocationViewModel extends ViewModel {
 
     /**
      * Get All locaiton Providers
-     * 
+     *
      * @return A List contains all location providers' name
      */
     private List<String> findAllProviders() {
@@ -270,8 +269,7 @@ public class CurrentLocationViewModel extends ViewModel {
             if (providersList.isEmpty()) {
                 Toast.makeText(mActivity, "no providers available!",
                         Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 for (String enabledProvider : providersList) {
                     stringBuffer.append(enabledProvider).append(",");
                 }
@@ -292,7 +290,7 @@ public class CurrentLocationViewModel extends ViewModel {
     /**
      * Try to find the best provider now can use. First, try GPS, next, network
      * provider and then passive provider.
-     * 
+     *
      * @param locationManager
      * @return the best provider now can use or return null if none exists
      */
@@ -306,27 +304,25 @@ public class CurrentLocationViewModel extends ViewModel {
 
             if (null != gpsProvider
                     && locationManager
-                            .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 bestProvider = gpsProvider;
-            }
-            else {
+            } else {
                 // 2.try network provider
                 LocationProvider networkProvider = openProvider(
                         locationManager, LocationManager.NETWORK_PROVIDER);
 
                 if (null != networkProvider
                         && locationManager
-                                .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                        .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     bestProvider = networkProvider;
-                }
-                else {
+                } else {
                     // 3.try passive provider
                     LocationProvider passiveProvider = openProvider(
                             locationManager, LocationManager.PASSIVE_PROVIDER);
 
                     if (null != passiveProvider
                             && locationManager
-                                    .isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
+                            .isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
                         bestProvider = passiveProvider;
                     }
 
@@ -346,14 +342,14 @@ public class CurrentLocationViewModel extends ViewModel {
     /**
      * Try to get the Location Provider by the specific name. If the provider is
      * not enabled, show a dialog to lead user to settings activity
-     * 
+     *
      * @param locationManager
      * @param providerName
      * @return the provider of the specific provider name, or null if the
-     *         provider doesn't exist
+     * provider doesn't exist
      */
     private LocationProvider openProvider(LocationManager locationManager,
-            String providerName) {
+                                          String providerName) {
 
         LocationProvider locationProvider = null;
 
@@ -361,7 +357,7 @@ public class CurrentLocationViewModel extends ViewModel {
             locationProvider = locationManager.getProvider(providerName);
 
             if (null != locationProvider) {// there is a provider called this
-                                           // name
+                // name
 
                 boolean providerEnabled = locationManager
                         .isProviderEnabled(providerName);
@@ -400,7 +396,7 @@ public class CurrentLocationViewModel extends ViewModel {
     }
 
     private void registerNewLocationUpdates(LocationManager locationManager,
-            LocationProvider newLocationProvider, boolean removeOthers) {
+                                            LocationProvider newLocationProvider, boolean removeOthers) {
         if (null == newLocationProvider || null == locationManager) {
             return;
         }

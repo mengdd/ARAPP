@@ -1,16 +1,16 @@
 package com.mengdd.search;
 
-import java.util.List;
-
-import com.baidu.mapapi.search.MKPoiInfo;
-import com.mengdd.arapp.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.baidu.mapapi.search.MKPoiInfo;
+import com.mengdd.arapp.R;
+
+import java.util.List;
 
 public class PoiInfoAdapter extends BaseAdapter {
     private List<MKPoiInfo> mPoiInfoList = null;
@@ -67,8 +67,7 @@ public class PoiInfoAdapter extends BaseAdapter {
                     .findViewById(R.id.address);
 
             convertView.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
 
         }

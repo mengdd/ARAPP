@@ -1,15 +1,5 @@
 package com.mengdd.arapp;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.util.Log;
@@ -21,17 +11,27 @@ import com.mengdd.poi.ui.BasicMarker;
 import com.mengdd.utils.AppConstants;
 import com.mengdd.utils.Matrix;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Abstract class which should be used to set global data.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -47,6 +47,7 @@ public abstract class GlobalARData {
 
     /* defaulting to our place */
     public static final Location hardFix = new Location("ATL");
+
     static {
         hardFix.setLatitude(39.97603);
         hardFix.setLongitude(116.31757);
@@ -55,6 +56,7 @@ public abstract class GlobalARData {
 
     /* defaulting to our place */
     public static final BDLocation hardFixBD = new BDLocation();
+
     static {
         // 海淀黄庄百度地图坐标116.324338,39.981877
         hardFixBD.setLatitude(39.981877);
@@ -84,9 +86,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the zoom level.
-     * 
-     * @param zoomLevel
-     *            String representing the zoom level.
+     *
+     * @param zoomLevel String representing the zoom level.
      */
     public static void setZoomLevel(String zoomLevel) {
         if (zoomLevel == null) {
@@ -100,7 +101,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the zoom level.
-     * 
+     *
      * @return String representing the zoom level.
      */
     public static String getZoomLevel() {
@@ -111,9 +112,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the zoom progress.
-     * 
-     * @param zoomProgress
-     *            int representing the zoom progress.
+     *
+     * @param zoomProgress int representing the zoom progress.
      */
     public static void setZoomProgress(int zoomProgress) {
         synchronized (GlobalARData.zoomProgressLock) {
@@ -129,7 +129,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the zoom progress.
-     * 
+     *
      * @return int representing the zoom progress.
      */
     public static int getZoomProgress() {
@@ -140,9 +140,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the radius of the radar screen.
-     * 
-     * @param radius
-     *            float representing the radar screen.
+     *
+     * @param radius float representing the radar screen.
      */
     public static void setRadius(float radius) {
         synchronized (GlobalARData.radiusLock) {
@@ -152,7 +151,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the radius (in KM) of the radar screen.
-     * 
+     *
      * @return float representing the radar screen.
      */
     public static float getRadius() {
@@ -163,9 +162,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the current location.
-     * 
-     * @param currentLocation
-     *            Location to set.
+     *
+     * @param currentLocation Location to set.
      * @throws IllegalArgumentException
      */
     public static void setCurrentGoogleLocation(Location currentLocation)
@@ -216,7 +214,7 @@ public abstract class GlobalARData {
      * Add Location changed listener to this Observable object. The lister's
      * onLocationChanged() will be called every time when current location data
      * changed.
-     * 
+     *
      * @param listener
      * @return
      */
@@ -240,7 +238,7 @@ public abstract class GlobalARData {
     /**
      * Remove the listener from the list of listeners. The listener will not be
      * notified any more if location data changed.
-     * 
+     *
      * @param listener
      * @return
      */
@@ -290,7 +288,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the current Google Location.
-     * 
+     *
      * @return Location representing the current location.
      */
     public static Location getCurrentGoogleLocation() {
@@ -301,7 +299,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the current Baidu Location.
-     * 
+     *
      * @return Location representing the current location.
      */
     public static BDLocation getCurrentBaiduLocation() {
@@ -312,9 +310,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the rotation matrix.
-     * 
-     * @param rotationMatrix
-     *            Matrix to use for rotation.
+     *
+     * @param rotationMatrix Matrix to use for rotation.
      */
     public static void setRotationMatrix(Matrix rotationMatrix) {
         synchronized (GlobalARData.rotationMatrix) {
@@ -324,7 +321,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the rotation matrix.
-     * 
+     *
      * @return Matrix representing the rotation matrix.
      */
     public static Matrix getRotationMatrix() {
@@ -341,9 +338,8 @@ public abstract class GlobalARData {
 
     /**
      * Add a List of Markers to our Collection.
-     * 
-     * @param markers
-     *            List of Markers to add.
+     *
+     * @param markers List of Markers to add.
      */
     public static void addMarkers(Collection<BasicMarker> markers) {
         if (null == markers) {
@@ -389,7 +385,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the Markers collection.
-     * 
+     *
      * @return Collection of Markers.
      */
     public static List<BasicMarker> getMarkers() {
@@ -428,9 +424,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the current Azimuth.
-     * 
-     * @param azimuth
-     *            float representing the azimuth.
+     *
+     * @param azimuth float representing the azimuth.
      */
     public static void setAzimuth(float azimuth) {
         synchronized (azimuthLock) {
@@ -440,7 +435,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the current Azimuth.
-     * 
+     *
      * @return azimuth float representing the azimuth.
      */
     public static float getAzimuth() {
@@ -451,9 +446,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the current Roll.
-     * 
-     * @param roll
-     *            float representing the roll.
+     *
+     * @param roll float representing the roll.
      */
     public static void setRoll(float roll) {
         synchronized (rollLock) {
@@ -463,7 +457,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the current Roll.
-     * 
+     *
      * @return roll float representing the roll.
      */
     public static float getRoll() {
@@ -474,9 +468,8 @@ public abstract class GlobalARData {
 
     /**
      * Set the current Pitch.
-     * 
-     * @param pitch
-     *            float representing the pitch.
+     *
+     * @param pitch float representing the pitch.
      */
     public static void setPitch(float pitch) {
         synchronized (pitchLock) {
@@ -486,7 +479,7 @@ public abstract class GlobalARData {
 
     /**
      * Get the current Pitch.
-     * 
+     *
      * @return pitch float representing the pitch.
      */
     public static float getPitch() {

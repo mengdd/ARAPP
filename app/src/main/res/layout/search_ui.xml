@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/current_location"
@@ -22,7 +22,7 @@
         android:paddingBottom="@dimen/search_line_padding_vertical"
         android:paddingLeft="@dimen/search_line_padding_side"
         android:paddingRight="@dimen/search_line_padding_side"
-        android:paddingTop="@dimen/search_line_padding_vertical" >
+        android:paddingTop="@dimen/search_line_padding_vertical">
 
         <RelativeLayout
             android:id="@+id/search_main"
@@ -31,7 +31,7 @@
             android:paddingBottom="@dimen/search_line_padding_vertical"
             android:paddingLeft="@dimen/search_line_padding_side"
             android:paddingRight="@dimen/search_line_padding_side"
-            android:paddingTop="@dimen/search_line_padding_vertical" >
+            android:paddingTop="@dimen/search_line_padding_vertical">
 
             <Button
                 android:id="@+id/search_btn"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/search_main"
             android:layout_marginTop="10dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
                 android:id="@+id/radioGroup1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/radio_mode_inCity"
@@ -101,13 +101,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/search_region"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:id="@+id/city_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 android:id="@+id/near_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/radius"
@@ -155,8 +155,7 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@id/search_mode"
             android:orientation="vertical"
-            android:visibility="gone" >
-        </LinearLayout>
+            android:visibility="gone"></LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>

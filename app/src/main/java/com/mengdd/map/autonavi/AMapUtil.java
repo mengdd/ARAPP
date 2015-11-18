@@ -1,13 +1,7 @@
 /**
- * 
+ *
  */
 package com.mengdd.map.autonavi;
-
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.text.Html;
@@ -17,6 +11,12 @@ import android.widget.EditText;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class AMapUtil {
     /**
      * 判断edittext是否null
@@ -25,8 +25,7 @@ public class AMapUtil {
         if (editText != null && editText.getText() != null
                 && !(editText.getText().toString().trim().equals(""))) {
             return editText.getText().toString().trim();
-        }
-        else {
+        } else {
             return "";
         }
     }

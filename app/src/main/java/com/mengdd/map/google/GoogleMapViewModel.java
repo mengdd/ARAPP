@@ -22,11 +22,10 @@ import com.mengdd.map.BasicMapViewModel;
 /**
  * The ViewModel to display a Google Map MapView. Developer guide:
  * https://developers.google.com/maps/documentation/android/
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class GoogleMapViewModel extends BasicMapViewModel {
 
@@ -64,8 +63,7 @@ public class GoogleMapViewModel extends BasicMapViewModel {
         // Solve the problem of NullPointerException of CameraUpdateFactory
         try {
             MapsInitializer.initialize(mActivity);
-        }
-        catch (GooglePlayServicesNotAvailableException e) {
+        } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
 
@@ -133,18 +131,15 @@ public class GoogleMapViewModel extends BasicMapViewModel {
     /**
      * Repositions the camera according to the params. These parames are used to
      * defined the CameraUpdate object.
-     * 
+     *
      * @param latitude
      * @param longitude
-     * @param bearing
-     *            orientation
-     * @param tilt
-     *            viewing angle
-     * @param zoom
-     *            the desired zoom level, in the range of 2.0 to 21.0.
+     * @param bearing   orientation
+     * @param tilt      viewing angle
+     * @param zoom      the desired zoom level, in the range of 2.0 to 21.0.
      */
     public void changeMapCamera(double latitude, double longitude,
-            float bearing, float tilt, float zoom) {
+                                float bearing, float tilt, float zoom) {
         LatLng targetLatLng = new LatLng(latitude, longitude);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -161,7 +156,7 @@ public class GoogleMapViewModel extends BasicMapViewModel {
     /**
      * Repositions the camera according to the instructions defined in the
      * update.
-     * 
+     *
      * @param cameraUpdate
      */
     public void changeMapCamera(CameraUpdate cameraUpdate) {
@@ -170,18 +165,15 @@ public class GoogleMapViewModel extends BasicMapViewModel {
 
     /**
      * Change the Map Camera Position, the point looking at the map.
-     * 
+     *
      * @param cameraUpdate
-     * @param isAnimated
-     *            If the camera changes with animation
-     * @param animateDurationMs
-     *            The duration of the animation in milliseconds.
-     * @param animateCallback
-     *            An optional callback to be notified from the main thread when
-     *            the animation stops.
+     * @param isAnimated        If the camera changes with animation
+     * @param animateDurationMs The duration of the animation in milliseconds.
+     * @param animateCallback   An optional callback to be notified from the main thread when
+     *                          the animation stops.
      */
     public void changeMapCamera(CameraUpdate cameraUpdate, boolean isAnimated,
-            int animateDurationMs, CancelableCallback animateCallback) {
+                                int animateDurationMs, CancelableCallback animateCallback) {
 
         if (isAnimated) {
             // references page:
@@ -189,8 +181,7 @@ public class GoogleMapViewModel extends BasicMapViewModel {
 
             mGoogleMap.animateCamera(cameraUpdate, animateDurationMs,
                     animateCallback);
-        }
-        else {
+        } else {
             mGoogleMap.moveCamera(cameraUpdate);
         }
     }

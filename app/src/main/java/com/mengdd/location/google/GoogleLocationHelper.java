@@ -8,7 +8,7 @@ public class GoogleLocationHelper {
 
     /**
      * 定位结果分析成一个字符串输出返回
-     * 
+     *
      * @param location
      * @return
      */

@@ -21,16 +21,15 @@ import com.mengdd.map.BasicMapViewModel;
 
 /**
  * The basic ViewModel for AutoNavi Map (高德地图)
- * 
+ * <p/>
  * The MapView's callback methods must be called.
- * 
+ * <p/>
  * See： http://code.autonavi.com/android/index for more information and guide.
- * 
+ * <p/>
  * Reference: http://code.autonavi.com/Public/reference/Android%20API%20v2/
- * 
+ *
  * @author Dandan Meng
  * @Date 2013-12-01
- * 
  */
 public class AutoNaviMapViewModel extends BasicMapViewModel {
 
@@ -139,17 +138,15 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
     /**
      * Repositions the camera according to the params. These parames are used to
      * defined the CameraUpdate object.
-     * 
+     *
      * @param latitude
      * @param longitude
-     * @param bearing
-     *            orientation
-     * @param tilt
-     *            viewing angle
+     * @param bearing   orientation
+     * @param tilt      viewing angle
      * @param zoom
      */
     public void changeMapCamera(double latitude, double longitude,
-            float bearing, float tilt, float zoom) {
+                                float bearing, float tilt, float zoom) {
         LatLng targetLatLng = new LatLng(latitude, longitude);
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -166,7 +163,7 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
     /**
      * Repositions the camera according to the instructions defined in the
      * update.
-     * 
+     *
      * @param cameraUpdate
      */
     public void changeMapCamera(CameraUpdate cameraUpdate) {
@@ -175,25 +172,21 @@ public class AutoNaviMapViewModel extends BasicMapViewModel {
 
     /**
      * Change the Map Camera Position, the point looking at the map.
-     * 
+     *
      * @param cameraUpdate
-     * @param isAnimated
-     *            If the camera changes with animation
-     * @param animateDurationMs
-     *            The duration of the animation in milliseconds.
-     * @param animateCallback
-     *            An optional callback to be notified from the main thread when
-     *            the animation stops.
+     * @param isAnimated        If the camera changes with animation
+     * @param animateDurationMs The duration of the animation in milliseconds.
+     * @param animateCallback   An optional callback to be notified from the main thread when
+     *                          the animation stops.
      */
     public void changeMapCamera(CameraUpdate cameraUpdate, boolean isAnimated,
-            int animateDurationMs, CancelableCallback animateCallback) {
+                                int animateDurationMs, CancelableCallback animateCallback) {
 
         if (isAnimated) {
 
             mAMap.animateCamera(cameraUpdate, animateDurationMs,
                     animateCallback);
-        }
-        else {
+        } else {
             mAMap.moveCamera(cameraUpdate);
         }
     }

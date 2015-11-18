@@ -53,8 +53,7 @@ public class EntryActivity extends Activity {
             PackageInfo info = pm.getPackageInfo(this.getPackageName(), 0);
             name = info.versionName;
             name = "Version: " + name;
-        }
-        catch (NameNotFoundException e) {
+        } catch (NameNotFoundException e) {
             e.printStackTrace();
             return null;
         }

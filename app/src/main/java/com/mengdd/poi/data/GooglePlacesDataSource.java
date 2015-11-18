@@ -1,37 +1,37 @@
 package com.mengdd.poi.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.mengdd.arapp.R;
-import com.mengdd.poi.ui.GoogleMarker;
-import com.mengdd.poi.ui.BasicMarker;
-import com.mengdd.utils.AppConstants;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.mengdd.arapp.R;
+import com.mengdd.poi.ui.BasicMarker;
+import com.mengdd.poi.ui.GoogleMarker;
+import com.mengdd.utils.AppConstants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class extends DataSource to fetch data from Google Places.
- * 
+ * <p/>
  * Google Place API: https://developers.google.com/places/documentation/
- * 
+ * <p/>
  * The source of the codes:
- * 
+ * <p/>
  * 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -63,7 +63,7 @@ public class GooglePlacesDataSource extends NetworkDataSource {
 
     @Override
     public String createRequestURL(double lat, double lon, double alt,
-            float radius, String locale) {
+                                   float radius, String locale) {
         try {
             Log.i(AppConstants.LOG_TAG, "Google createRequestURL: " + URL
                     + "location=" + lat + "," + lon + "&radius="
@@ -73,8 +73,7 @@ public class GooglePlacesDataSource extends NetworkDataSource {
             return URL + "location=" + lat + "," + lon + "&radius="
                     + (radius * 1000.0f) + "&types=" + TYPES
                     + "&sensor=true&key=" + key;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -105,8 +104,7 @@ public class GooglePlacesDataSource extends NetworkDataSource {
                 if (ma != null)
                     markers.add(ma);
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return markers;
@@ -138,8 +136,7 @@ public class GooglePlacesDataSource extends NetworkDataSource {
                 ma = new GoogleMarker("Google " + user + ": "
                         + jo.getString("name"), Color.RED, icon, lat, lon, 0);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(AppConstants.LOG_TAG, "catch block in Google parse object");
             e.printStackTrace();
         }

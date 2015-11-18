@@ -1,11 +1,11 @@
 package com.mengdd.arapp.activities;
 
-import com.mengdd.custommarker.MainCustomMarkerViewModel;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Window;
+
+import com.mengdd.custommarker.MainCustomMarkerViewModel;
 
 public class CustomMarkerActivity extends Activity {
     private MainCustomMarkerViewModel mMainCustomMarkerViewModel = null;

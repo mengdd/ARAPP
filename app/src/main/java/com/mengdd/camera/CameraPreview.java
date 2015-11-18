@@ -1,10 +1,5 @@
 package com.mengdd.camera;
 
-import java.util.List;
-
-import com.mengdd.utils.AppConstants;
-import com.mengdd.utils.LogUtils;
-
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
@@ -13,15 +8,18 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.mengdd.utils.AppConstants;
+import com.mengdd.utils.LogUtils;
+
+import java.util.List;
+
 /**
- *
  * The Camera Preview class extends SurfaceView, showing the real scene throungh
  * camera.
  *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public class CameraPreview extends SurfaceView implements
         SurfaceHolder.Callback {
@@ -86,7 +84,7 @@ public class CameraPreview extends SurfaceView implements
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
-            int height) {
+                               int height) {
 
         // If your preview can change or rotate, take care of those events here.
         // Make sure to stop the preview before resizing or reformatting it.
@@ -141,8 +139,7 @@ public class CameraPreview extends SurfaceView implements
 
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             mCamera.release();
             mCamera = null;
         }
@@ -156,8 +153,7 @@ public class CameraPreview extends SurfaceView implements
 
                 mCamera.stopPreview();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // ignore: tried to stop a non-existent preview
             e.printStackTrace();
 

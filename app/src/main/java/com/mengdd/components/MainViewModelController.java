@@ -6,17 +6,14 @@ import android.util.SparseArray;
 import android.view.KeyEvent;
 
 /**
- * 
  * The MainControll contains a ViewModelManager and some Main View Models for
  * scene management. not used in this project yet.
- * 
+ * <p/>
  * The codes are adapted from the codes of yangzc
- * 
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class MainViewModelController {
     private ViewModelManager mViewModelManager;
@@ -40,7 +37,7 @@ public class MainViewModelController {
 
     /**
      * 切换场景
-     * 
+     *
      * @param sceneId
      * @return
      */
@@ -50,7 +47,7 @@ public class MainViewModelController {
 
     /**
      * 切换场景
-     * 
+     *
      * @param sceneId
      * @param intent
      * @return
@@ -72,7 +69,7 @@ public class MainViewModelController {
 
     /**
      * 分发键盘点击事件
-     * 
+     *
      * @param keyCode
      * @param event
      * @return
@@ -108,7 +105,7 @@ public class MainViewModelController {
 
     /**
      * 分发newIntent
-     * 
+     *
      * @param intent
      */
     public void dispatchNewIntent(Intent intent) {
@@ -120,7 +117,7 @@ public class MainViewModelController {
 
     /**
      * 各个场景控制部分 修改相应代码
-     * 
+     *
      * @param intent
      * @return
      */

@@ -9,7 +9,7 @@ import android.util.FloatMath;
  * actual amount of attenuation for each frequency varies from filter to filter.
  * It is sometimes called a high-cut filter, or treble cut filter when used in
  * audio applications.
- * 
+ *
  * @author Justin Wetherell (phishman3579@gmail.com)
  */
 public class LowPassFilter {
@@ -30,19 +30,15 @@ public class LowPassFilter {
     /**
      * Filter the given input against the previous values and return a low-pass
      * filtered result.
-     * 
-     * @param low
-     *            lowest alpha threshold
-     * @param high
-     *            highest alpha threshold
-     * @param current
-     *            float array to smooth.
-     * @param previous
-     *            float array representing the previous values.
+     *
+     * @param low      lowest alpha threshold
+     * @param high     highest alpha threshold
+     * @param current  float array to smooth.
+     * @param previous float array representing the previous values.
      * @return float array smoothed with a low-pass filter.
      */
     public static float[] filter(float low, float high, float[] current,
-            float[] previous) {
+                                 float[] previous) {
         if (current == null || previous == null)
             throw new NullPointerException(
                     "input and prev float arrays must be non-NULL");
@@ -59,7 +55,7 @@ public class LowPassFilter {
     }
 
     private static final float computeAlpha(float low, float high,
-            float[] current, float[] previous) {
+                                            float[] current, float[] previous) {
         if (previous.length != 3 || current.length != 3)
             return ALPHA_DEFAULT;
 
@@ -71,8 +67,7 @@ public class LowPassFilter {
 
         if (distance < low) {
             return ALPHA_STEADY;
-        }
-        else if (distance >= low || distance < high) {
+        } else if (distance >= low || distance < high) {
             return ALPHA_START_MOVING;
         }
         return ALPHA_MOVING;

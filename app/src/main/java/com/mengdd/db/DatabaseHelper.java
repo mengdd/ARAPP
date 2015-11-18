@@ -1,7 +1,5 @@
 package com.mengdd.db;
 
-import com.mengdd.utils.AppConstants;
-
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,18 +7,20 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.mengdd.utils.AppConstants;
+
 public class DatabaseHelper extends SQLiteOpenHelper// 继承SQLiteOpenHelper类
 {
 
     // 构造函数，调用父类SQLiteOpenHelper的构造函数
     public DatabaseHelper(Context context, String name, CursorFactory factory,
-            int version, DatabaseErrorHandler errorHandler) {
+                          int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
 
     }
 
     public DatabaseHelper(Context context, String name, CursorFactory factory,
-            int version) {
+                          int version) {
         super(context, name, factory, version);
         // SQLiteOpenHelper的构造函数参数：
         // context：上下文环境

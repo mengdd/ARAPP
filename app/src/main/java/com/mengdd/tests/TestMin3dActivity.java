@@ -1,16 +1,16 @@
 package com.mengdd.tests;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import com.mengdd.arapp.R;
 import com.mengdd.camera.CameraViewModel;
 import com.mengdd.components.ViewModel;
 import com.mengdd.min3d.Min3DLayerViewModel;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.FrameLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestMin3dActivity extends Activity {
     private CameraViewModel mCameraViewModel = null;

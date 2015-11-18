@@ -1,12 +1,12 @@
 package com.mengdd.sina.weibo.data;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
 
 import com.mengdd.utils.SharedPrefUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class UserInfo {
 
@@ -32,8 +32,7 @@ public class UserInfo {
             JSONObject object = new JSONObject(json);
             initFromJSONObject(object);
 
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

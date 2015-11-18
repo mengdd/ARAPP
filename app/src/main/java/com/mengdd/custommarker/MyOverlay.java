@@ -1,14 +1,8 @@
 package com.mengdd.custommarker;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.R.integer;
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.text.method.MovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -22,9 +16,10 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.arapp.R;
 import com.mengdd.db.CustomMarkerTable;
 import com.mengdd.utils.AppConstants;
-import com.mengdd.utils.DialogUtils;
-import com.mengdd.utils.DialogUtils.OnSaveCustomMarkerListener;
 import com.mengdd.utils.UIUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyOverlay extends ItemizedOverlay<OverlayItem> {
     private MapView mMapView = null;
@@ -100,9 +95,9 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
         mCurItem = mItemsList.get(index);
 
         popupText.setText(getItem(index).getTitle());
-        Bitmap[] bitMaps = { UIUtils.getBitmapFromView(popupLeft),
+        Bitmap[] bitMaps = {UIUtils.getBitmapFromView(popupLeft),
                 UIUtils.getBitmapFromView(popupInfo),
-                UIUtils.getBitmapFromView(popupRight) };
+                UIUtils.getBitmapFromView(popupRight)};
         mPopupOverlay.showPopup(bitMaps, mCurItem.getPosition(), 32);
 
         return true;
@@ -148,8 +143,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
     public MarkerItem getMovingItem() {
         if (mCurrentMoveItemId >= 0 && mCurrentMoveItemId < mItemsList.size()) {
             return mItemsList.get(mCurrentMoveItemId);
-        }
-        else {
+        } else {
             return null;
         }
     }

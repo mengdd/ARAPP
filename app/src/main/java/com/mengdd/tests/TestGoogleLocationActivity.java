@@ -15,11 +15,10 @@ import com.mengdd.location.google.GoogleLocationModel;
 
 /**
  * Test Activity for Location ViewModel
- * 
+ *
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- * 
  */
 public class TestGoogleLocationActivity extends Activity {
 

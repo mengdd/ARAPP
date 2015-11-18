@@ -1,5 +1,8 @@
 package com.mengdd.poi.ui;
 
+import android.graphics.Bitmap;
+import android.location.Location;
+
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.search.MKPoiInfo;
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -7,9 +10,6 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.mengdd.custommarker.MarkerItem;
 import com.mengdd.location.baidu.BaiduLocationHelper;
 import com.mengdd.utils.MathUtils;
-
-import android.graphics.Bitmap;
-import android.location.Location;
 
 public class BaiduMarker extends BasicMarker {
     // 百度的POI信息：
@@ -36,7 +36,7 @@ public class BaiduMarker extends BasicMarker {
     }
 
     public BaiduMarker(String name, int color, Bitmap icon,
-            MarkerItem markerItem) {
+                       MarkerItem markerItem) {
         super();
         mMarkerType = MarkerType.BaiduMarker;
 
@@ -45,7 +45,7 @@ public class BaiduMarker extends BasicMarker {
     }
 
     public synchronized void set(String name, int color, Bitmap icon,
-            MKPoiInfo poiInfo) {
+                                 MKPoiInfo poiInfo) {
         super.set(name, color, icon);
 
         this.mGeoPoint = poiInfo.pt;
@@ -55,7 +55,7 @@ public class BaiduMarker extends BasicMarker {
     }
 
     public synchronized void set(String name, int color, Bitmap icon,
-            MarkerItem markerItem) {
+                                 MarkerItem markerItem) {
         super.set(name, color, icon);
 
         this.mGeoPoint = markerItem.getPosition();
@@ -66,7 +66,7 @@ public class BaiduMarker extends BasicMarker {
 
     @Override
     protected void calcRelativePosition(Location origLocation,
-            BDLocation origBDLocation) {
+                                        BDLocation origBDLocation) {
         if (null == origBDLocation) {
             throw new IllegalArgumentException("origBDLocation is null!");
         }
@@ -84,7 +84,7 @@ public class BaiduMarker extends BasicMarker {
 
     @Override
     protected void updateDistance(Location origLocation,
-            BDLocation origBDLocation) {
+                                  BDLocation origBDLocation) {
         if (null == origBDLocation) {
             throw new IllegalArgumentException("origBDLocation is null!");
         }

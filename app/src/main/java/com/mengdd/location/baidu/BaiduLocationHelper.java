@@ -9,9 +9,8 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 public class BaiduLocationHelper {
     /**
      * Convert the Baidu Location Object to a Android Location object.
-     * 
-     * @param bdLocation
-     *            Baidu API Location, ie BDLocation
+     *
+     * @param bdLocation Baidu API Location, ie BDLocation
      * @return Android API Location
      */
     public static Location convertBD2AndroidLocation(BDLocation bdLocation) {
@@ -22,11 +21,9 @@ public class BaiduLocationHelper {
 
         if (bdLocation.getLocType() == BDLocation.TypeGpsLocation) {
             androidLocation.setProvider(LocationManager.GPS_PROVIDER);
-        }
-        else if (bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
+        } else if (bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
             androidLocation.setProvider(LocationManager.NETWORK_PROVIDER);
-        }
-        else {
+        } else {
             androidLocation.setProvider("unknown type");
         }
 
@@ -41,7 +38,7 @@ public class BaiduLocationHelper {
 
     /**
      * Convert Baidu Locaiton to Android Location
-     * 
+     *
      * @param androidLocation
      * @return Baidu Location object
      */
@@ -61,11 +58,9 @@ public class BaiduLocationHelper {
 
         if (provider.equals(LocationManager.GPS_PROVIDER)) {
             bdLocation.setLocType(BDLocation.TypeGpsLocation);
-        }
-        else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+        } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
             bdLocation.setLocType(BDLocation.TypeNetWorkLocation);
-        }
-        else {
+        } else {
             bdLocation.setLocType(-1);
         }
 
@@ -106,8 +101,7 @@ public class BaiduLocationHelper {
                 sb.append(location.getSpeed());
                 sb.append("\nsatellite : ");
                 sb.append(location.getSatelliteNumber());
-            }
-            else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
                 sb.append("\naddr : ");
                 sb.append(location.getAddrStr());
             }
@@ -128,22 +122,22 @@ public class BaiduLocationHelper {
         // 162~167： 服务端定位失败。
         String result = null;
         switch (locType) {
-        case 61:
-            result = "GPS";
-            break;
-        case 65:
-            result = "Cache";
-            break;
-        case 66:
-            result = "Offline";
-            break;
-        case 161:
-            result = "Network";
-            break;
+            case 61:
+                result = "GPS";
+                break;
+            case 65:
+                result = "Cache";
+                break;
+            case 66:
+                result = "Offline";
+                break;
+            case 161:
+                result = "Network";
+                break;
 
-        default:
-            result = "Failed!";
-            break;
+            default:
+                result = "Failed!";
+                break;
         }
 
         return result;

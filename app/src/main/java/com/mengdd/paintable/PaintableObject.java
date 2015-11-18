@@ -10,16 +10,16 @@ import android.graphics.RectF;
 
 /**
  * This abstract class provides many methods paint objects on a given Canvas.
- * 
+ * <p/>
  * These codes are adapted from these source:
  * 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -50,14 +50,14 @@ public abstract class PaintableObject {
 
     /**
      * Get the width of the paintable object.
-     * 
+     *
      * @return float width
      */
     public abstract float getWidth();
 
     /**
      * Get the height of the paintable object.
-     * 
+     *
      * @return float height
      */
     public abstract float getHeight();
@@ -73,8 +73,7 @@ public abstract class PaintableObject {
     public void setFill(boolean fill) {
         if (fill) {
             mPaint.setStyle(Paint.Style.FILL);
-        }
-        else {
+        } else {
             mPaint.setStyle(Paint.Style.STROKE);
         }
     }
@@ -95,12 +94,10 @@ public abstract class PaintableObject {
 
     /**
      * Get the width of the text String.
-     * 
-     * @param txt
-     *            String to get the width of.
+     *
+     * @param txt String to get the width of.
      * @return float width of the text String.
-     * @throws NullPointerException
-     *             if the String param is NULL.
+     * @throws NullPointerException if the String param is NULL.
      */
     public float getTextWidth(String txt) {
         if (null == txt) {
@@ -111,7 +108,7 @@ public abstract class PaintableObject {
 
     /**
      * Get the ascent of the paint element.
-     * 
+     *
      * @return float ascent of the text.
      */
     public float getTextAsc() {
@@ -120,7 +117,7 @@ public abstract class PaintableObject {
 
     /**
      * Get the decent of the paint element.
-     * 
+     *
      * @return float decent of the text.
      */
     public float getTextDesc() {
@@ -129,9 +126,8 @@ public abstract class PaintableObject {
 
     /**
      * Set the font size of the paint object.
-     * 
-     * @param size
-     *            to set the font.
+     *
+     * @param size to set the font.
      */
     public void setFontSize(float size) {
         mPaint.setTextSize(size);
@@ -139,19 +135,13 @@ public abstract class PaintableObject {
 
     /**
      * Paint a line on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param x1
-     *            Beginning X to draw line.
-     * @param y1
-     *            Beginning Y to draw line.
-     * @param x2
-     *            Ending X to draw line.
-     * @param y2
-     *            Ending Y to draw line.
-     * @throws IllegalArgumentException
-     *             if Canvas is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param x1     Beginning X to draw line.
+     * @param y1     Beginning Y to draw line.
+     * @param x2     Ending X to draw line.
+     * @param y2     Ending Y to draw line.
+     * @throws IllegalArgumentException if Canvas is NULL.
      */
     public void paintLine(Canvas canvas, float x1, float y1, float x2, float y2) {
         if (null == canvas) {
@@ -164,22 +154,16 @@ public abstract class PaintableObject {
 
     /**
      * Paint a rectangle on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param x
-     *            X location of the rectangle.
-     * @param y
-     *            Y location of the rectangle.
-     * @param width
-     *            Width of the rectangle.
-     * @param height
-     *            Height of the rectangle.
-     * @throws IllegalArgumentException
-     *             if Canvas is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param x      X location of the rectangle.
+     * @param y      Y location of the rectangle.
+     * @param width  Width of the rectangle.
+     * @param height Height of the rectangle.
+     * @throws IllegalArgumentException if Canvas is NULL.
      */
     public void paintRect(Canvas canvas, float x, float y, float width,
-            float height) {
+                          float height) {
         if (null == canvas) {
             throw new IllegalArgumentException("canvas is null!");
 
@@ -190,28 +174,22 @@ public abstract class PaintableObject {
 
     /**
      * Paint a rectangle with round corners on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param x
-     *            X location of the rectangle.
-     * @param y
-     *            Y location of the rectangle.
-     * @param width
-     *            Width of the rectangle.
-     * @param height
-     *            Height of the rectangle.
-     * @throws IllegalArgumentException
-     *             if Canvas is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param x      X location of the rectangle.
+     * @param y      Y location of the rectangle.
+     * @param width  Width of the rectangle.
+     * @param height Height of the rectangle.
+     * @throws IllegalArgumentException if Canvas is NULL.
      */
     public void paintRoundedRect(Canvas canvas, float x, float y, float width,
-            float height) {
+                                 float height) {
         paintRoundedRect(canvas, x, y, width, height, 15f, 15f);
 
     }
 
     public void paintRoundedRect(Canvas canvas, float x, float y, float width,
-            float height, float roundX, float roundY) {
+                                 float height, float roundX, float roundY) {
         if (null == canvas) {
             throw new IllegalArgumentException("canvas is null!");
 
@@ -223,17 +201,12 @@ public abstract class PaintableObject {
 
     /**
      * Paint a bitmap on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param bitmap
-     *            Bitmap to paint.
-     * @param src
-     *            Source rectangle.
-     * @param dst
-     *            Destination rectangle.
-     * @throws IllegalArgumentException
-     *             if Canvas or Bitmap is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param bitmap Bitmap to paint.
+     * @param src    Source rectangle.
+     * @param dst    Destination rectangle.
+     * @throws IllegalArgumentException if Canvas or Bitmap is NULL.
      */
     public void paintBitmap(Canvas canvas, Bitmap bitmap, Rect src, Rect dst) {
         if (null == canvas || null == bitmap) {
@@ -246,17 +219,12 @@ public abstract class PaintableObject {
 
     /**
      * Paint a bitmap on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param bitmap
-     *            Bitmap to paint.
-     * @param left
-     *            Left location to draw the bitmap.
-     * @param top
-     *            Top location to draw the bitmap.
-     * @throws IllegalArgumentException
-     *             if Canvas or Bitmap is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param bitmap Bitmap to paint.
+     * @param left   Left location to draw the bitmap.
+     * @param top    Top location to draw the bitmap.
+     * @throws IllegalArgumentException if Canvas or Bitmap is NULL.
      */
     public void paintBitmap(Canvas canvas, Bitmap bitmap, float left, float top) {
         if (null == canvas || null == bitmap) {
@@ -269,17 +237,12 @@ public abstract class PaintableObject {
 
     /**
      * Paint a circle on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param x
-     *            Center X coordinate of the circle.
-     * @param y
-     *            Center Y coordinate of the circle.
-     * @param radius
-     *            Radius of the circle.
-     * @throws IllegalArgumentException
-     *             if Canvas is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param x      Center X coordinate of the circle.
+     * @param y      Center Y coordinate of the circle.
+     * @param radius Radius of the circle.
+     * @throws IllegalArgumentException if Canvas is NULL.
      */
     public void paintCircle(Canvas canvas, float x, float y, float radius) {
         if (null == canvas) {
@@ -292,17 +255,12 @@ public abstract class PaintableObject {
 
     /**
      * Paint text on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param x
-     *            X Coordinate of the text.
-     * @param y
-     *            Y coordinate of the text.
-     * @param text
-     *            String to paint on the Canvas.
-     * @throws IllegalArgumentException
-     *             if Canvas or String param is NULL.
+     *
+     * @param canvas Canvas to paint on.
+     * @param x      X Coordinate of the text.
+     * @param y      Y coordinate of the text.
+     * @param text   String to paint on the Canvas.
+     * @throws IllegalArgumentException if Canvas or String param is NULL.
      */
     public void paintText(Canvas canvas, float x, float y, String text) {
         if (null == canvas || null == text) {
@@ -315,24 +273,17 @@ public abstract class PaintableObject {
 
     /**
      * Paint generic object on the Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param obj
-     *            Object to paint on the Canvas.
-     * @param x
-     *            X coordinate of the object.
-     * @param y
-     *            Y coordinate of the object.
-     * @param rotation
-     *            Rotation of the object.
-     * @param scale
-     *            Scale of the object.
-     * @throws IllegalArgumentException
-     *             if Canvas or Object is NULL.
+     *
+     * @param canvas   Canvas to paint on.
+     * @param obj      Object to paint on the Canvas.
+     * @param x        X coordinate of the object.
+     * @param y        Y coordinate of the object.
+     * @param rotation Rotation of the object.
+     * @param scale    Scale of the object.
+     * @throws IllegalArgumentException if Canvas or Object is NULL.
      */
     public void paintObj(Canvas canvas, PaintableObject obj, float x, float y,
-            float rotation, float scale) {
+                         float rotation, float scale) {
         if (canvas == null || obj == null) {
             throw new IllegalArgumentException("canvas==null or obj == null");
         }
@@ -348,28 +299,19 @@ public abstract class PaintableObject {
 
     /**
      * Paint path on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to paint on.
-     * @param path
-     *            Path to paint on the Canvas.
-     * @param x
-     *            X coordinate of the path.
-     * @param y
-     *            Y coordinate of the path.
-     * @param width
-     *            Width of the path.
-     * @param height
-     *            Height of the path.
-     * @param rotation
-     *            Rotation of the path.
-     * @param scale
-     *            Scale of the path.
-     * @throws IllegalArgumentException
-     *             if Canvas or Path is NULL.
+     *
+     * @param canvas   Canvas to paint on.
+     * @param path     Path to paint on the Canvas.
+     * @param x        X coordinate of the path.
+     * @param y        Y coordinate of the path.
+     * @param width    Width of the path.
+     * @param height   Height of the path.
+     * @param rotation Rotation of the path.
+     * @param scale    Scale of the path.
+     * @throws IllegalArgumentException if Canvas or Path is NULL.
      */
     public void paintPath(Canvas canvas, Path path, float x, float y,
-            float width, float height, float rotation, float scale) {
+                          float width, float height, float rotation, float scale) {
 
         if (null == canvas || null == path) {
             throw new IllegalArgumentException("canvas or path is null!");

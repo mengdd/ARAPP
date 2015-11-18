@@ -27,7 +27,7 @@ public class AuthorizeAPI extends SinaWeiboAPI {
      * 根据code获取AccessToken
      */
     public static void getAccessTokenByCode(String code,
-            RequestListener listener) {
+                                            RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
         params.add(SINA_CLIENT_ID, SinaConstants.APP_KEY);
         params.add(SINA_CLIENT_SECRET, SinaConstants.APP_SECRET);

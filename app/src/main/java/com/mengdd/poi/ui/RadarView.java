@@ -1,5 +1,16 @@
 package com.mengdd.poi.ui;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+
 import com.mengdd.arapp.GlobalARData;
 import com.mengdd.arapp.R;
 import com.mengdd.paintable.PaintableCircle;
@@ -10,33 +21,19 @@ import com.mengdd.paintable.PaintableText;
 import com.mengdd.poi.data.ScreenPosition;
 import com.mengdd.poi.ui.RadarZoomController.OnRadarZoomChangedListener;
 import com.mengdd.utils.AppConstants;
-import com.mengdd.utils.MathUtils;
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.hardware.Camera;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.Camera.OnZoomChangeListener;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 
 /**
  * This class will visually represent a radar screen with a radar radius and
  * blips on the screen in their appropriate locations.
- * 
+ * <p/>
  * This class is adapted from: 1."android-augment-reality-framework" project
  * link: http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -90,8 +87,7 @@ public class RadarView extends View implements SensorEventListener,
             TEXT_COLOR = res.getColor(R.color.white);
             TEXT_SIZE = res.getDimension(R.dimen.radar_text);
 
-        }
-        else {
+        } else {
             initUseDefaultValues();
         }
 
@@ -115,11 +111,9 @@ public class RadarView extends View implements SensorEventListener,
 
     /**
      * Draw the radar on the given Canvas.
-     * 
-     * @param canvas
-     *            Canvas to draw on.
-     * @throws IllegalArgumentException
-     *             if Canvas is NULL.
+     *
+     * @param canvas Canvas to draw on.
+     * @throws IllegalArgumentException if Canvas is NULL.
      */
     public void draw(Canvas canvas) {
         if (null == canvas) {
@@ -165,8 +159,7 @@ public class RadarView extends View implements SensorEventListener,
         if (pointsContainer == null) {
             pointsContainer = new PaintablePosition(radarPoints, PAD_X, PAD_Y,
                     -GlobalARData.getAzimuth(), 1);
-        }
-        else {
+        } else {
             pointsContainer.set(radarPoints, PAD_X, PAD_Y,
                     -GlobalARData.getAzimuth(), 1);
         }
@@ -198,7 +191,7 @@ public class RadarView extends View implements SensorEventListener,
     /**
      * Use to generate the Radar angle line, the left and right line, just use
      * different angle.
-     * 
+     *
      * @param rotateAngle
      * @return
      */
@@ -245,63 +238,61 @@ public class RadarView extends View implements SensorEventListener,
         int range = (int) (GlobalARData.getAzimuth() / (360f / 16f));
         String dirTxt = "";
         switch (range) {
-        case 15:
-        case 0:
-            dirTxt = "N";
-            break;
+            case 15:
+            case 0:
+                dirTxt = "N";
+                break;
 
-        case 1:
-        case 2:
-            dirTxt = "NE";
-            break;
-        case 3:
-        case 4:
-            dirTxt = "E";
-            break;
-        case 5:
-        case 6:
-            dirTxt = "SE";
-            break;
-        case 7:
-        case 8:
-            dirTxt = "S";
-            break;
-        case 9:
-        case 10:
-            dirTxt = "SW";
-            break;
-        case 11:
-        case 12:
-            dirTxt = "W";
-            break;
-        case 13:
-        case 14:
-            dirTxt = "NW";
-            break;
+            case 1:
+            case 2:
+                dirTxt = "NE";
+                break;
+            case 3:
+            case 4:
+                dirTxt = "E";
+                break;
+            case 5:
+            case 6:
+                dirTxt = "SE";
+                break;
+            case 7:
+            case 8:
+                dirTxt = "S";
+                break;
+            case 9:
+            case 10:
+                dirTxt = "SW";
+                break;
+            case 11:
+            case 12:
+                dirTxt = "W";
+                break;
+            case 13:
+            case 14:
+                dirTxt = "NW";
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
         return dirTxt;
     }
 
     private void drawRadarText(Canvas canvas, String txt, float x, float y,
-            boolean bg) {
+                               boolean bg) {
         if (canvas == null || txt == null) {
             throw new IllegalArgumentException("canvas or txt is null!");
         }
 
         if (paintableText == null) {
             paintableText = new PaintableText(txt, TEXT_COLOR, TEXT_SIZE, bg);
-        }
-        else {
+        } else {
             paintableText.set(txt, TEXT_COLOR, TEXT_SIZE, bg);
         }
 
         if (paintedContainer == null) {
             paintedContainer = new PaintablePosition(paintableText, x, y, 0, 1);
-        }
-        else {
+        } else {
             paintedContainer.set(paintableText, x, y, 0, 1);
         }
 
@@ -311,11 +302,9 @@ public class RadarView extends View implements SensorEventListener,
     private static String formatDist(float meters) {
         if (meters < 1000) {
             return ((int) meters) + "m";
-        }
-        else if (meters < 10000) {
+        } else if (meters < 10000) {
             return formatDec(meters / 1000f, 1) + "km";
-        }
-        else {
+        } else {
             return ((int) (meters / 1000f)) + "km";
         }
     }

@@ -14,7 +14,6 @@ import com.mengdd.components.ViewModel;
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
  * @since 2013-07-01
- *
  */
 public abstract class LocationModel extends ViewModel {
     protected Location mCurrentLocation = null;

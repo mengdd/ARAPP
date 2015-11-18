@@ -1,16 +1,11 @@
 package com.mengdd.custommarker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +23,10 @@ import com.mengdd.poi.ui.MarkersOverlayView;
 import com.mengdd.poi.ui.RadarView;
 import com.mengdd.poi.ui.RadarZoomController;
 import com.mengdd.sensors.SensorViewModel;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class RealSceneCMViewModel extends ViewModel {
     private View mRootView = null;

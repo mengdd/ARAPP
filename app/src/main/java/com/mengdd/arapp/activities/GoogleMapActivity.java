@@ -1,8 +1,5 @@
 package com.mengdd.arapp.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -22,6 +19,9 @@ import com.mengdd.components.ViewModel;
 import com.mengdd.location.LocationView;
 import com.mengdd.location.google.GoogleLocationModel;
 import com.mengdd.map.google.GoogleMapViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoogleMapActivity extends Activity {
 

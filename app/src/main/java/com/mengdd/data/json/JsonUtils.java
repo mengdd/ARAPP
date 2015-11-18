@@ -1,10 +1,6 @@
 package com.mengdd.data.json;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import android.content.Context;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,7 +11,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class JsonUtils {
     public static String createJsonString(String key, Object value) {
@@ -24,8 +24,7 @@ public class JsonUtils {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(key, value);
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         jsonString = jsonObject.toString();
@@ -92,8 +91,7 @@ public class JsonUtils {
         FileWriter out = new FileWriter(filename);
         try {
             out.write(string);
-        }
-        finally {
+        } finally {
             out.close();
         }
     }

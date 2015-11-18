@@ -5,15 +5,15 @@ import android.graphics.Canvas;
 /**
  * This class extends PaintableObject to draw a circle with a given radius and a
  * stroke width.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -35,15 +35,11 @@ public class PaintableGps extends PaintableObject {
     /**
      * Set this objects parameters. This should be used instead of creating new
      * objects.
-     * 
-     * @param radius
-     *            Radius of the circle representing the GPS position.
-     * @param strokeWidth
-     *            Stroke width of the text representing the GPS position.
-     * @param fill
-     *            Fill color of the circle representing the GPS position.
-     * @param color
-     *            Color of the circle representing the GPS position.
+     *
+     * @param radius      Radius of the circle representing the GPS position.
+     * @param strokeWidth Stroke width of the text representing the GPS position.
+     * @param fill        Fill color of the circle representing the GPS position.
+     * @param color       Color of the circle representing the GPS position.
      */
     public void set(float radius, float strokeWidth, boolean fill, int color) {
         this.radius = radius;

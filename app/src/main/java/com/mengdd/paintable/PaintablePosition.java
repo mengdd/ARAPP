@@ -4,15 +4,15 @@ import android.graphics.Canvas;
 
 /**
  * This class extends PaintableObject and adds the ability to rotate and scale.
- * 
+ * <p/>
  * The source of the codes: 1."android-augment-reality-framework" project link:
  * http://code.google.com/p/android-augment-reality-framework/
- * 
- * 
+ * <p/>
+ * <p/>
  * 2.The book: "Pro Android Augmented Reality"
  * http://www.apress.com/9781430239451 Official repository for Pro Android
  * Augmented Reality: https://github.com/RaghavSood/ProAndroidAugmentedReality
- * 
+ *
  * @author Justin Wetherell <phishman3579@gmail.com>
  * @author Dandan Meng <mengdandanno1@163.com>
  * @version 1.0
@@ -25,29 +25,23 @@ public class PaintablePosition extends PaintableObject {
     private PaintableObject obj = null;
 
     public PaintablePosition(PaintableObject drawObj, float x, float y,
-            float rotation, float scale) {
+                             float rotation, float scale) {
         set(drawObj, x, y, rotation, scale);
     }
 
     /**
      * Set this objects parameters. This should be used instead of creating new
      * objects.
-     * 
-     * @param drawObj
-     *            Object to set for this Position.
-     * @param x
-     *            X coordinate of the Position.
-     * @param y
-     *            Y coordinate of the Position.
-     * @param rotation
-     *            Rotation of the Position.
-     * @param scale
-     *            Scale of the Position.
-     * @throws IllegalArgumentException
-     *             if PaintableObject is NULL.
+     *
+     * @param drawObj  Object to set for this Position.
+     * @param x        X coordinate of the Position.
+     * @param y        Y coordinate of the Position.
+     * @param rotation Rotation of the Position.
+     * @param scale    Scale of the Position.
+     * @throws IllegalArgumentException if PaintableObject is NULL.
      */
     public void set(PaintableObject drawObj, float x, float y, float rotation,
-            float scale) {
+                    float scale) {
 
         if (null == drawObj) {
             throw new IllegalArgumentException("drawObj is null!");
@@ -65,11 +59,9 @@ public class PaintablePosition extends PaintableObject {
 
     /**
      * Move the object.
-     * 
-     * @param x
-     *            New X coordinate of the Position.
-     * @param y
-     *            New Y coordinate of the Position.
+     *
+     * @param x New X coordinate of the Position.
+     * @param y New Y coordinate of the Position.
      */
     public void move(float x, float y) {
         objX = x;
@@ -78,7 +70,7 @@ public class PaintablePosition extends PaintableObject {
 
     /**
      * X coordinate of the Object.
-     * 
+     *
      * @return float X coordinate.
      */
     public float getObjectsX() {
@@ -87,7 +79,7 @@ public class PaintablePosition extends PaintableObject {
 
     /**
      * Y coordinate of the Object.
-     * 
+     *
      * @return float Y coordinate.
      */
     public float getObjectsY() {
